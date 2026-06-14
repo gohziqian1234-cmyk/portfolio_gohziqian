@@ -78,6 +78,22 @@ const PROJECTS = {
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
+function setNavHeightVar() {
+  const nav = $(".navbar");
+  if (!nav) return;
+
+  const computed = getComputedStyle(nav);
+  const navTop = Number.parseFloat(computed.top);
+  const rect = nav.getBoundingClientRect();
+  const topOffset = Number.isFinite(navTop) ? navTop : Math.max(0, rect.top);
+  const totalOffset = Math.ceil(nav.offsetHeight + topOffset + 32);
+  document.documentElement.style.setProperty("--nav-height", `${totalOffset}px`);
+
+  if (window.ScrollTrigger) {
+    window.ScrollTrigger.refresh();
+  }
+}
+
 function getNavOffset() {
   const value = getComputedStyle(document.documentElement).getPropertyValue("--nav-height").trim();
   const parsed = Number.parseFloat(value);
@@ -143,11 +159,21 @@ function initSmoothAnchors() {
 
       event.preventDefault();
       closeMobileMenu();
+      setNavHeightVar();
       const targetTop = target.getBoundingClientRect().top + window.pageYOffset - getNavOffset();
       window.scrollTo({ top: Math.max(0, targetTop), behavior: prefersReducedMotion ? "auto" : "smooth" });
       history.pushState(null, "", targetUrl.hash);
     });
   });
+}
+
+function correctInitialHashOffset() {
+  if (!window.location.hash) return;
+  const target = $(window.location.hash);
+  if (!target) return;
+  setNavHeightVar();
+  const targetTop = target.getBoundingClientRect().top + window.pageYOffset - getNavOffset();
+  window.scrollTo({ top: Math.max(0, targetTop), behavior: "auto" });
 }
 
 function initMobileMenu() {
@@ -200,7 +226,7 @@ function initAutoHideNav() {
   };
 
   const hide = () => {
-    if (window.scrollY <= 50 || document.body.classList.contains("menu-open")) return;
+    if (window.scrollY <= 50 || document.body.classList.contains("menu-open") || document.body.classList.contains("modal-open")) return;
     navbar.classList.add("nav-hidden");
     navbar.classList.remove("nav-revealed-by-mouse");
     revealedByMouse = false;
@@ -209,7 +235,7 @@ function initAutoHideNav() {
   const update = () => {
     const currentScrollY = window.scrollY;
 
-    if (document.body.classList.contains("menu-open") || currentScrollY <= 50) {
+    if (document.body.classList.contains("menu-open") || document.body.classList.contains("modal-open") || currentScrollY <= 50) {
       forceShow();
     } else if (currentScrollY > lastScrollY && currentScrollY > 80) {
       hide();
@@ -234,7 +260,7 @@ function initAutoHideNav() {
   document.addEventListener(
     "mousemove",
     (event) => {
-      if (document.body.classList.contains("menu-open") || window.scrollY <= 50) {
+      if (document.body.classList.contains("menu-open") || document.body.classList.contains("modal-open") || window.scrollY <= 50) {
         forceShow();
         return;
       }
@@ -336,6 +362,7 @@ function initRevealAnimations() {
 
   if (window.gsap && window.ScrollTrigger && !prefersReducedMotion) {
     gsap.registerPlugin(ScrollTrigger);
+    gsap.defaults({ ease: "power3.out", duration: 0.8 });
 
     if ($(".hero-word")) {
       gsap.from(".hero-word", {
@@ -475,113 +502,190 @@ function initProjectTabs() {
 
 function initProjectModal() {
   const modal = $("#project-modal");
-  const panel = $(".modal-panel");
-  const closeButtons = $$("[data-close-modal]");
-  let previousFocus = null;
+  if (!modal) return;
 
-  if (!modal || !panel) return;
+  const content = $(".modal-content", modal);
+  const scrollArea = $(".modal-scroll-area", modal);
+  let previousFocus = null;
+  let closeFallback = null;
+
+  if (!content || !scrollArea) return;
+
+  const finishClose = () => {
+    window.clearTimeout(closeFallback);
+    modal.classList.remove("is-closing");
+    modal.setAttribute("aria-hidden", "true");
+    scrollArea.innerHTML = "";
+    document.body.classList.remove("modal-open");
+    previousFocus?.focus?.();
+  };
+
+  const closeModal = () => {
+    if (!modal.classList.contains("active")) return;
+    modal.classList.remove("active");
+    modal.classList.add("is-closing");
+
+    if (prefersReducedMotion) {
+      finishClose();
+      return;
+    }
+
+    const onTransitionEnd = (event) => {
+      if (event.target !== content) return;
+      content.removeEventListener("transitionend", onTransitionEnd);
+      finishClose();
+    };
+
+    content.addEventListener("transitionend", onTransitionEnd);
+    closeFallback = window.setTimeout(() => {
+      content.removeEventListener("transitionend", onTransitionEnd);
+      finishClose();
+    }, 380);
+  };
+
+  const openModal = (project) => {
+    previousFocus = document.activeElement;
+    clearProjectCardMotion();
+    scrollArea.innerHTML = createModalMarkup(project);
+    wireModalGallery(scrollArea);
+    wireModalActionRipples(scrollArea);
+    modal.classList.remove("is-closing");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+    requestAnimationFrame(() => {
+      modal.classList.add("active");
+      $(".modal-close", modal)?.focus();
+    });
+  };
 
   $$("[data-open-project]").forEach((button) => {
     button.addEventListener("click", () => {
       const project = PROJECTS[button.dataset.openProject];
-      if (!project) return;
-      previousFocus = document.activeElement;
-      fillModal(project);
-      modal.hidden = false;
-      document.body.classList.add("modal-open");
-      requestAnimationFrame(() => {
-        modal.classList.add("is-open");
-        $(".modal-close")?.focus();
-      });
+      if (project) openModal(project);
     });
   });
 
-  const closeModal = () => {
-    if (modal.hidden) return;
-    modal.classList.remove("is-open");
-    document.body.classList.remove("modal-open");
-    window.setTimeout(() => {
-      modal.hidden = true;
-      previousFocus?.focus();
-    }, prefersReducedMotion ? 0 : 220);
-  };
-
-  closeButtons.forEach((button) => button.addEventListener("click", closeModal));
+  modal.addEventListener("click", (event) => {
+    if (event.target.closest("[data-close-modal]")) closeModal();
+  });
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeModal();
   });
 }
 
-function fillModal(project) {
-  const modalImage = $("#modal-image");
-  const tags = $("#modal-tags");
-  if (!modalImage || !tags) return;
-  const githubButton = $("#modal-github");
-  const playButton = $("#modal-play");
-  const actions = $("#modal-actions");
-  const helper = $("#modal-link-helper");
+function createModalMarkup(project) {
+  const images = project.gallery?.length ? project.gallery : [project.image];
+  const tags = project.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
+  const approach = project.approachHtml || escapeHtml(project.approach || "");
+  const actions = createModalActions(project);
+  const thumbs = images
+    .map(
+      (src, index) => `
+        <button class="${index === 0 ? "is-active" : ""}" type="button" data-modal-thumb="${escapeHtml(src)}" aria-label="Show project image ${index + 1}">
+          <img src="${escapeHtml(src)}" alt="" loading="lazy" />
+        </button>
+      `
+    )
+    .join("");
 
-  modalImage.src = project.image;
-  modalImage.alt = project.imageAlt;
-  $("#modal-title").textContent = project.title;
-  $("#modal-description").textContent = project.description;
-  $("#modal-problem").textContent = project.problem;
-  if (project.approachHtml) {
-    $("#modal-approach").innerHTML = project.approachHtml;
-  } else {
-    $("#modal-approach").textContent = project.approach || "";
-  }
-  $("#modal-results").textContent = project.results;
-  if (githubButton) {
-    const hasGithub = Boolean(project.github);
-    githubButton.hidden = !hasGithub;
-    githubButton.href = hasGithub ? project.github : "#";
-  }
-  if (playButton) {
-    const hasPlayUrl = Boolean(project.playUrl);
-    playButton.hidden = !hasPlayUrl;
-    playButton.href = hasPlayUrl ? project.playUrl : "#";
-  }
-  const hasAnyAction = Boolean(project.github || project.playUrl);
-  if (actions) actions.hidden = !hasAnyAction;
-  if (helper) helper.hidden = !hasAnyAction;
-  fillModalGallery(project);
+  return `
+    <article class="modal-project-layout">
+      <header class="modal-project-hero">
+        <p class="section-kicker dark">Project</p>
+        <h2 id="modal-title">${escapeHtml(project.title)}</h2>
+        <p>${escapeHtml(project.description)}</p>
+      </header>
 
-  tags.innerHTML = "";
-  project.tags.forEach((tag) => {
-    const span = document.createElement("span");
-    span.textContent = tag;
-    tags.appendChild(span);
+      <section class="modal-detail-grid" aria-label="Project details">
+        <div class="modal-section"><h3>Problem</h3><p>${escapeHtml(project.problem)}</p></div>
+        <div class="modal-section"><h3>Solution</h3><p>${approach}</p></div>
+        <div class="modal-section"><h3>Results</h3><p>${escapeHtml(project.results)}</p></div>
+      </section>
+
+      <div class="tag-list" aria-label="Project tech stack">${tags}</div>
+
+      <section class="modal-gallery" aria-label="Project image gallery">
+        <div class="modal-main-image">
+          <img src="${escapeHtml(images[0])}" alt="${escapeHtml(project.imageAlt || project.title)}" loading="lazy" data-modal-main-image />
+        </div>
+        <div class="modal-thumbs" aria-label="Project image thumbnails">${thumbs}</div>
+      </section>
+
+      ${actions}
+    </article>
+  `;
+}
+
+function createModalActions(project) {
+  const buttons = [];
+
+  if (project.github) {
+    buttons.push(`
+      <a class="modal-action-button modal-github-button" href="${escapeHtml(project.github)}" target="_blank" rel="noopener noreferrer" data-modal-action>
+        <span aria-hidden="true">&lt;/&gt;</span>
+        View on GitHub
+      </a>
+    `);
+  }
+
+  if (project.playUrl) {
+    buttons.push(`
+      <a class="modal-action-button modal-play-button" href="${escapeHtml(project.playUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
+        <span aria-hidden="true">&#9654;</span>
+        Try The Game
+      </a>
+    `);
+  }
+
+  if (!buttons.length) return "";
+
+  const repoName = project.github ? `<p class="repo-tag">${escapeHtml(project.github.replace("https://github.com/", ""))}</p>` : "";
+  return `
+    <section class="modal-action-block" aria-label="Project links">
+      ${repoName}
+      <div class="modal-actions">${buttons.join("")}</div>
+      <p class="modal-link-helper">Opens in a new tab - this portfolio stays open here, so you can switch back anytime.</p>
+    </section>
+  `;
+}
+
+function wireModalGallery(root) {
+  const mainImage = $("[data-modal-main-image]", root);
+  const thumbs = $$("[data-modal-thumb]", root);
+  if (!mainImage || !thumbs.length) return;
+
+  thumbs.forEach((thumb) => {
+    thumb.addEventListener("click", () => {
+      mainImage.src = thumb.dataset.modalThumb;
+      thumbs.forEach((item) => item.classList.toggle("is-active", item === thumb));
+    });
   });
 }
 
-function fillModalGallery(project) {
-  const modalImage = $("#modal-image");
-  const thumbs = $("#modal-thumbs");
-  if (!modalImage || !thumbs) return;
-
-  const images = project.gallery?.length ? project.gallery : [project.image];
-  thumbs.innerHTML = "";
-
-  images.forEach((src, index) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = index === 0 ? "is-active" : "";
-    button.setAttribute("aria-label", `Show project image ${index + 1}`);
-
-    const img = document.createElement("img");
-    img.src = src;
-    img.alt = "";
-    button.appendChild(img);
-
-    button.addEventListener("click", () => {
-      modalImage.src = src;
-      $$("button", thumbs).forEach((thumb) => thumb.classList.toggle("is-active", thumb === button));
-    });
-
-    thumbs.appendChild(button);
+function wireModalActionRipples(root) {
+  if (prefersReducedMotion) return;
+  $$("[data-modal-action]", root).forEach((target) => {
+    target.addEventListener("pointerenter", (event) => createEnergyRipple(target, event));
+    target.addEventListener("pointerdown", (event) => createEnergyRipple(target, event));
   });
+}
+
+function clearProjectCardMotion() {
+  $$("[data-project-card]").forEach((card) => {
+    card.style.removeProperty("transform");
+    card.style.removeProperty("--glow-x");
+    card.style.removeProperty("--glow-y");
+  });
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
 function initContactForm() {
@@ -698,17 +802,40 @@ function initPhotoTilt() {
 
 function initCustomCursor() {
   const cursor = $(".cursor-follower");
-  if (!cursor || window.matchMedia("(pointer: coarse)").matches) return;
+  if (!cursor || prefersReducedMotion || window.matchMedia("(pointer: coarse)").matches) return;
 
-  document.addEventListener("pointermove", (event) => {
-    cursor.style.opacity = "1";
-    cursor.style.transform = `translate(${event.clientX}px, ${event.clientY}px) translate(-50%, -50%)`;
+  const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+  const current = { x: pointer.x, y: pointer.y };
+  let visible = false;
+
+  const render = () => {
+    current.x += (pointer.x - current.x) * 0.15;
+    current.y += (pointer.y - current.y) * 0.15;
+    cursor.style.opacity = visible ? "1" : "0";
+    cursor.style.transform = `translate(${current.x}px, ${current.y}px) translate(-50%, -50%)`;
+    requestAnimationFrame(render);
+  };
+
+  document.addEventListener(
+    "pointermove",
+    (event) => {
+      pointer.x = event.clientX;
+      pointer.y = event.clientY;
+      visible = true;
+    },
+    { passive: true }
+  );
+
+  document.addEventListener("pointerleave", () => {
+    visible = false;
   });
 
   $$("a, button, .project-card, .category-card, .quote-card, .info-card, input, textarea").forEach((item) => {
     item.addEventListener("pointerenter", () => cursor.classList.add("is-active"));
     item.addEventListener("pointerleave", () => cursor.classList.remove("is-active"));
   });
+
+  requestAnimationFrame(render);
 }
 
 function initNeuralCanvas() {
@@ -1229,7 +1356,7 @@ function initCinematicInteractions() {
     let frame = null;
 
     const move = (event) => {
-      if (document.body.classList.contains("low-performance")) return;
+      if (document.body.classList.contains("low-performance") || document.body.classList.contains("modal-open")) return;
       const rect = card.getBoundingClientRect();
       const x = (event.clientX - rect.left) / rect.width;
       const y = (event.clientY - rect.top) / rect.height;
@@ -1255,7 +1382,7 @@ function initCinematicInteractions() {
 function initButtonRipples() {
   if (prefersReducedMotion) return;
 
-  const targets = $$("a.button, button.button, .mini-button, .nav-action, .nav-cta, .tab-button, .back-link, .back-top, .submit-button");
+  const targets = $$("a.button, button.button, .mini-button, .nav-action, .nav-cta, .tab-button, .back-link, .breadcrumb-link, .back-top, .submit-button, .modal-action-button, .continue-card");
   targets.forEach((target) => {
     target.addEventListener("pointerenter", (event) => createEnergyRipple(target, event));
     target.addEventListener("pointerdown", (event) => createEnergyRipple(target, event));
@@ -1275,6 +1402,19 @@ function createEnergyRipple(target, event) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  setNavHeightVar();
+  window.addEventListener("resize", () => requestAnimationFrame(setNavHeightVar));
+  window.addEventListener("load", () => {
+    setNavHeightVar();
+    correctInitialHashOffset();
+  });
+  if (document.fonts?.ready) {
+    document.fonts.ready.then(() => {
+      setNavHeightVar();
+      correctInitialHashOffset();
+    });
+  }
+
   initCinematicIntro();
   initCinematicCanvas();
   initPageTransitions();
@@ -1293,4 +1433,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initNeuralCanvas();
   initCinematicInteractions();
   initButtonRipples();
+  requestAnimationFrame(correctInitialHashOffset);
 });

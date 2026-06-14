@@ -4,13 +4,17 @@
     <!--
       Ziqian Portfolio - Projects Page
       Sections: projects hero, software/hardware tab switcher, project grids,
-      reusable project modal, footer actions.
+      reusable project modal, continue-exploring cards, footer actions.
       Replace comments mark real project images, GitHub links, live demos, and descriptions.
     -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projects | Ziqian</title>
-    <meta name="description" content="Software and hardware projects by Ziqian." />
+    <title>Projects | Ziqian's Portfolio</title>
+    <meta name="description" content="Software game projects and hardware systems by Ziqian." />
+    <meta property="og:title" content="Projects | Ziqian's Portfolio" />
+    <meta property="og:description" content="Software game projects and hardware systems by Ziqian." />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -93,8 +97,8 @@
 
     <main id="main">
       <section class="subpage-hero section-dark" aria-labelledby="projects-page-title">
-        <a class="back-link" href="index.html#projects">&larr; Back to Home</a>
         <div class="subpage-hero-inner" data-reveal>
+          <a class="breadcrumb-link" href="index.html#projects">&larr; Back to Home</a>
           <p class="section-kicker">Selected Work</p>
           <h1 class="display-heading" id="projects-page-title">Projects</h1>
           <p>Software systems and hardware prototypes, organized by discipline for easier browsing.</p>
@@ -146,11 +150,31 @@
         </div>
       </section>
 
+      <section class="continue-exploring section-dark" aria-labelledby="projects-continue-title">
+        <div class="continue-inner" data-reveal>
+          <p class="continue-label">Continue Exploring</p>
+          <h2 id="projects-continue-title">Want the bigger picture?</h2>
+          <div class="continue-links">
+            <a class="continue-card" href="about.html">
+              <span class="continue-icon" aria-hidden="true">ZQ</span>
+              <span class="continue-title">About Ziqian</span>
+              <span class="continue-desc">See the full journey, education, awards, activities, and skills</span>
+              <span class="continue-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="continue-card" href="index.html#testimonials">
+              <span class="continue-icon" aria-hidden="true">"</span>
+              <span class="continue-title">What People Say</span>
+              <span class="continue-desc">Read testimonials from mentors and collaborators</span>
+              <span class="continue-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section class="page-cta section-dark" aria-label="Project page actions">
         <div data-reveal>
-          <h2>Want The Bigger Picture?</h2>
+          <h2>Ready To Return Home?</h2>
           <div class="cta-actions">
-            <a class="button button-gradient" href="about.html">About Ziqian</a>
             <a class="button button-outline" href="index.html#hero">Back to Home</a>
           </div>
         </div>
@@ -161,35 +185,12 @@
       </section>
     </main>
 
-    <div class="project-modal" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
-      <div class="modal-scrim" data-close-modal></div>
-      <article class="modal-panel" tabindex="-1">
+    <div class="modal-overlay" id="project-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-backdrop" data-close-modal></div>
+      <div class="modal-content" tabindex="-1">
         <button class="modal-close" type="button" data-close-modal aria-label="Close project modal">&times;</button>
-        <div class="modal-media">
-          <img id="modal-image" src="images/project-alien-invasion.svg" alt="" />
-          <div class="modal-thumbs" id="modal-thumbs" aria-label="Project image thumbnails"></div>
-        </div>
-        <div class="modal-content">
-          <p class="section-kicker dark" id="modal-kicker">Project</p>
-          <h2 id="modal-title">Project Title</h2>
-          <p id="modal-description"></p>
-          <div class="modal-section"><h3>Problem</h3><p id="modal-problem"></p></div>
-          <div class="modal-section"><h3>Solution</h3><p id="modal-approach"></p></div>
-          <div class="modal-section"><h3>Results</h3><p id="modal-results"></p></div>
-          <div class="tag-list" id="modal-tags"></div>
-          <div class="modal-actions" id="modal-actions">
-            <a class="modal-action-button modal-github-button" id="modal-github" href="#" target="_blank" rel="noopener noreferrer">
-              <span aria-hidden="true">&lt;/&gt;</span>
-              View on GitHub
-            </a>
-            <a class="modal-action-button modal-play-button" id="modal-play" href="#" target="_blank" rel="noopener noreferrer">
-              <span aria-hidden="true">▶</span>
-              Try The Game
-            </a>
-            <p class="modal-link-helper" id="modal-link-helper">Opens in a new tab — this portfolio stays open here, so you can switch back anytime.</p>
-          </div>
-        </div>
-      </article>
+        <div class="modal-scroll-area"></div>
+      </div>
     </div>
   </body>
 </html>
