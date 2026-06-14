@@ -227,6 +227,7 @@ function initAutoHideNav() {
   let ticking = false;
   let revealedByMouse = false;
   let hideTimer = null;
+  let mouseRevealUntil = 0;
 
   const forceShow = () => {
     navbar.classList.remove("nav-hidden", "nav-revealed-by-mouse");
@@ -245,6 +246,8 @@ function initAutoHideNav() {
 
     if (document.body.classList.contains("menu-open") || document.body.classList.contains("modal-open") || currentScrollY <= 50) {
       forceShow();
+    } else if (Date.now() < mouseRevealUntil && navbar.classList.contains("nav-revealed-by-mouse")) {
+      navbar.classList.remove("nav-hidden");
     } else if (currentScrollY > lastScrollY && currentScrollY > 80) {
       hide();
     }
@@ -277,6 +280,7 @@ function initAutoHideNav() {
         navbar.classList.remove("nav-hidden");
         navbar.classList.add("nav-revealed-by-mouse");
         revealedByMouse = true;
+        mouseRevealUntil = Date.now() + 800;
         hideTimer = window.setTimeout(hide, 800);
       } else if (event.clientY >= 100 && revealedByMouse) {
         hideTimer = window.setTimeout(hide, 800);

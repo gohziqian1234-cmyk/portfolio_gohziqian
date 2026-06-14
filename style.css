@@ -33,13 +33,18 @@
 }
 
 html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
   scroll-behavior: smooth;
   scroll-padding-top: var(--nav-height);
 }
 
 body {
+  width: 100%;
+  max-width: 100%;
   margin: 0;
-  overflow-x: hidden;
+  overflow-x: clip;
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-body);
@@ -3965,4 +3970,46 @@ body.modal-open .project-card::after {
   .modal-action-button {
     transition: none !important;
   }
+}
+
+/* QA-stable final nav visibility rules.
+   The earlier experimental quick-action nav is disabled so desktop always shows
+   the full primary navigation plus the Hire Me CTA, while mobile uses hamburger. */
+.navbar .nav-action-pill {
+  display: none !important;
+}
+
+@media (min-width: 1024px) {
+  .navbar .nav-links-pill {
+    display: flex !important;
+  }
+
+  .navbar .nav-cta {
+    display: flex !important;
+  }
+
+  .navbar .nav-hamburger {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .navbar .nav-links-pill,
+  .navbar .nav-cta,
+  .navbar .nav-action-pill {
+    display: none !important;
+  }
+
+  .navbar .nav-hamburger {
+    display: flex !important;
+  }
+}
+
+/* Prevent marquee tracks from expanding the document width on mobile/tablet. */
+.marquee-wrap,
+.marquee-row {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
 }
