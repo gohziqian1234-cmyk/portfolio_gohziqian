@@ -2683,7 +2683,7 @@ section[id],
   align-items: center;
   justify-content: space-between;
   padding: 8px 8px 8px 20px;
-  background: rgba(245, 245, 248, 0.85);
+  background: rgba(245, 245, 248, 0.95);
   backdrop-filter: blur(20px);
   border-radius: 100px;
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -3410,9 +3410,17 @@ html {
   padding-bottom: var(--space-md);
 }
 
+#contact .contact-layout {
+  padding-top: calc(var(--nav-height) + 24px);
+}
+
 .subpage-hero {
   align-content: center;
   min-height: clamp(32rem, 62svh, 44rem);
+}
+
+.subpage-hero-inner {
+  padding-top: calc(var(--nav-height) + 24px);
 }
 
 .display-heading,

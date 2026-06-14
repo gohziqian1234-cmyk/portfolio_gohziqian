@@ -78,7 +78,17 @@ const PROJECTS = {
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
-function setNavHeightVar() {
+let scrollTriggerRefreshTimer = null;
+
+function scheduleScrollTriggerRefresh() {
+  if (!window.ScrollTrigger) return;
+  window.clearTimeout(scrollTriggerRefreshTimer);
+  scrollTriggerRefreshTimer = window.setTimeout(() => {
+    window.ScrollTrigger.refresh();
+  }, 150);
+}
+
+function setNavHeightVar(refreshScrollTriggers = false) {
   const nav = $(".navbar");
   if (!nav) return;
 
@@ -89,9 +99,7 @@ function setNavHeightVar() {
   const totalOffset = Math.ceil(nav.offsetHeight + topOffset + 32);
   document.documentElement.style.setProperty("--nav-height", `${totalOffset}px`);
 
-  if (window.ScrollTrigger) {
-    window.ScrollTrigger.refresh();
-  }
+  if (refreshScrollTriggers) scheduleScrollTriggerRefresh();
 }
 
 function getNavOffset() {
@@ -239,8 +247,6 @@ function initAutoHideNav() {
       forceShow();
     } else if (currentScrollY > lastScrollY && currentScrollY > 80) {
       hide();
-    } else if (currentScrollY < lastScrollY) {
-      forceShow();
     }
 
     lastScrollY = Math.max(0, currentScrollY);
@@ -271,6 +277,7 @@ function initAutoHideNav() {
         navbar.classList.remove("nav-hidden");
         navbar.classList.add("nav-revealed-by-mouse");
         revealedByMouse = true;
+        hideTimer = window.setTimeout(hide, 800);
       } else if (event.clientY >= 100 && revealedByMouse) {
         hideTimer = window.setTimeout(hide, 800);
       }
@@ -583,7 +590,7 @@ function createModalMarkup(project) {
     .map(
       (src, index) => `
         <button class="${index === 0 ? "is-active" : ""}" type="button" data-modal-thumb="${escapeHtml(src)}" aria-label="Show project image ${index + 1}">
-          <img src="${escapeHtml(src)}" alt="" loading="lazy" />
+          <img src="${escapeHtml(src)}" width="960" height="600" alt="" loading="lazy" />
         </button>
       `
     )
@@ -607,7 +614,7 @@ function createModalMarkup(project) {
 
       <section class="modal-gallery" aria-label="Project image gallery">
         <div class="modal-main-image">
-          <img src="${escapeHtml(images[0])}" alt="${escapeHtml(project.imageAlt || project.title)}" loading="lazy" data-modal-main-image />
+          <img src="${escapeHtml(images[0])}" width="960" height="600" alt="${escapeHtml(project.imageAlt || project.title)}" loading="lazy" data-modal-main-image />
         </div>
         <div class="modal-thumbs" aria-label="Project image thumbnails">${thumbs}</div>
       </section>
@@ -1027,7 +1034,7 @@ function initThreeCinematicScene() {
   grid.material.opacity = 0.18;
   world.add(grid);
 
-  const particleCount = 220;
+  const particleCount = 150;
   const particleGeometry = new THREE.BufferGeometry();
   const particlePositions = new Float32Array(particleCount * 3);
   for (let index = 0; index < particleCount; index += 1) {
@@ -1060,13 +1067,18 @@ function initThreeCinematicScene() {
   ];
 
   const pointer = new THREE.Vector2(0, 0);
-  let frameAverage = 16;
+  let activeParticleCount = particleCount;
+  let perfStage = 0;
+  let fpsWindowStart = 0;
+  let fpsFrames = 0;
+  let animationFrame = null;
+  let allowPointerParallax = true;
   let lowPerformance = false;
 
   const resize = () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lowPerformance ? 1 : 1.6));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lowPerformance ? 1 : 1.5));
     renderer.setSize(window.innerWidth, window.innerHeight, false);
   };
 
@@ -1075,17 +1087,50 @@ function initThreeCinematicScene() {
     return Math.max(0, Math.min(1, window.scrollY / maxScroll));
   };
 
+  const reduceSceneLoad = () => {
+    perfStage += 1;
+
+    if (perfStage === 1) {
+      activeParticleCount = Math.max(60, Math.floor(particleCount / 2));
+      particleGeometry.setDrawRange(0, activeParticleCount);
+      particleMaterial.opacity = 0.42;
+      return;
+    }
+
+    if (perfStage === 2) {
+      allowPointerParallax = false;
+      return;
+    }
+
+    lowPerformance = true;
+    document.body.classList.add("low-performance");
+    particleMaterial.opacity = 0.32;
+    objectGroup.visible = false;
+    resize();
+  };
+
+  const watchFrameRate = (time) => {
+    if (!fpsWindowStart) fpsWindowStart = time;
+    fpsFrames += 1;
+    const elapsed = time - fpsWindowStart;
+
+    if (elapsed < 2000) return;
+
+    const fps = (fpsFrames * 1000) / elapsed;
+    if (fps < 40 && perfStage < 3) reduceSceneLoad();
+    fpsWindowStart = time;
+    fpsFrames = 0;
+  };
+
   const render = (time) => {
+    if (document.visibilityState === "hidden") {
+      animationFrame = null;
+      return;
+    }
+
     const delta = time - (render.lastTime || time);
     render.lastTime = time;
-    frameAverage = frameAverage * 0.94 + delta * 0.06;
-    if (!lowPerformance && frameAverage > 34) {
-      lowPerformance = true;
-      document.body.classList.add("low-performance");
-      particleMaterial.opacity = 0.32;
-      objectGroup.visible = false;
-      resize();
-    }
+    if (delta > 0) watchFrameRate(time);
 
     const progress = getScrollProgress();
     const raw = progress * (scenes.length - 1);
@@ -1097,8 +1142,8 @@ function initThreeCinematicScene() {
     const breath = Math.sin(time / 8000) * 0.025;
 
     camera.position.copy(from.position).lerp(to.position, t);
-    camera.position.x += breath + pointer.x * 0.08;
-    camera.position.y += breath * 0.55 + pointer.y * 0.05;
+    camera.position.x += breath + (allowPointerParallax ? pointer.x * 0.08 : 0);
+    camera.position.y += breath * 0.55 + (allowPointerParallax ? pointer.y * 0.05 : 0);
     const target = from.target.clone().lerp(to.target, t);
     camera.lookAt(target);
 
@@ -1117,7 +1162,7 @@ function initThreeCinematicScene() {
     const [r, g, b] = color.toArray().map((value) => Math.round(value * 255));
     document.documentElement.style.setProperty("--scene-accent-rgb", `${r}, ${g}, ${b}`);
     renderer.render(scene, camera);
-    requestAnimationFrame(render);
+    animationFrame = requestAnimationFrame(render);
   };
 
   document.addEventListener(
@@ -1129,9 +1174,31 @@ function initThreeCinematicScene() {
     { passive: true }
   );
 
+  const startRenderLoop = () => {
+    if (animationFrame || document.visibilityState === "hidden") return;
+    render.lastTime = performance.now();
+    fpsWindowStart = 0;
+    fpsFrames = 0;
+    animationFrame = requestAnimationFrame(render);
+  };
+
+  const stopRenderLoop = () => {
+    if (!animationFrame) return;
+    cancelAnimationFrame(animationFrame);
+    animationFrame = null;
+  };
+
   resize();
-  requestAnimationFrame(render);
+  startRenderLoop();
   window.addEventListener("resize", resize);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+      stopRenderLoop();
+    } else {
+      startRenderLoop();
+    }
+  });
+  window.addEventListener("beforeunload", stopRenderLoop);
   return true;
 }
 
@@ -1161,20 +1228,24 @@ function initCinematicCanvas() {
   let particles = [];
   let objects = [];
   let animationFrame = null;
-  let frameAverage = 16;
+  let perfStage = 0;
+  let fpsWindowStart = 0;
+  let fpsFrames = 0;
+  let allowPointerParallax = true;
   let lowPerformance = false;
   let pointer = { x: 0, y: 0, active: false };
 
   const resize = () => {
     const rect = canvas.getBoundingClientRect();
-    ratio = Math.min(window.devicePixelRatio || 1, 2);
+    ratio = Math.min(window.devicePixelRatio || 1, lowPerformance ? 1 : 1.5);
     width = rect.width;
     height = rect.height;
     canvas.width = Math.floor(width * ratio);
     canvas.height = Math.floor(height * ratio);
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
 
-    const particleCount = Math.max(36, Math.min(lowPerformance ? 70 : 150, Math.floor(width / (lowPerformance ? 20 : 10))));
+    const particleLimit = perfStage >= 1 ? 70 : 150;
+    const particleCount = Math.max(36, Math.min(particleLimit, Math.floor(width / (perfStage >= 1 ? 20 : 10))));
     particles = Array.from({ length: particleCount }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
@@ -1208,8 +1279,8 @@ function initCinematicCanvas() {
       color: mixColor(from.color, to.color, t),
       density: lerp(from.density, to.density, t),
       camera: {
-        x: lerp(from.camera.x, to.camera.x, t) + breath + (pointer.active ? (pointer.x / width - 0.5) * 0.06 : 0),
-        y: lerp(from.camera.y, to.camera.y, t) + breath * 0.65 + (pointer.active ? (pointer.y / height - 0.5) * 0.04 : 0),
+        x: lerp(from.camera.x, to.camera.x, t) + breath + (allowPointerParallax && pointer.active ? (pointer.x / width - 0.5) * 0.06 : 0),
+        y: lerp(from.camera.y, to.camera.y, t) + breath * 0.65 + (allowPointerParallax && pointer.active ? (pointer.y / height - 0.5) * 0.04 : 0),
         z: lerp(from.camera.z, to.camera.z, t)
       }
     };
@@ -1306,21 +1377,52 @@ function initCinematicCanvas() {
       const size = Math.max(0.8, 2.4 / particle.z);
       context.globalAlpha = Math.min(0.78, 0.14 + (2.4 - particle.z) * 0.18);
       context.beginPath();
-      context.arc(particle.x + (pointer.active ? (pointer.x / width - 0.5) * -14 : 0), particle.y, size, 0, Math.PI * 2);
+      context.arc(particle.x + (allowPointerParallax && pointer.active ? (pointer.x / width - 0.5) * -14 : 0), particle.y, size, 0, Math.PI * 2);
       context.fill();
     });
     context.restore();
   };
 
+  const reduceCanvasLoad = () => {
+    perfStage += 1;
+
+    if (perfStage === 1) {
+      resize();
+      return;
+    }
+
+    if (perfStage === 2) {
+      allowPointerParallax = false;
+      return;
+    }
+
+    lowPerformance = true;
+    document.body.classList.add("low-performance");
+    resize();
+  };
+
+  const watchFrameRate = (time) => {
+    if (!fpsWindowStart) fpsWindowStart = time;
+    fpsFrames += 1;
+    const elapsed = time - fpsWindowStart;
+
+    if (elapsed < 2000) return;
+
+    const fps = (fpsFrames * 1000) / elapsed;
+    if (fps < 40 && perfStage < 3) reduceCanvasLoad();
+    fpsWindowStart = time;
+    fpsFrames = 0;
+  };
+
   const draw = (time) => {
+    if (document.visibilityState === "hidden") {
+      animationFrame = null;
+      return;
+    }
+
     const delta = time - (draw.lastTime || time);
     draw.lastTime = time;
-    frameAverage = frameAverage * 0.94 + delta * 0.06;
-    if (!lowPerformance && frameAverage > 34) {
-      lowPerformance = true;
-      document.body.classList.add("low-performance");
-      resize();
-    }
+    if (delta > 0) watchFrameRate(time);
 
     const state = getSceneState(time);
     const [r, g, b] = state.color;
@@ -1344,9 +1446,30 @@ function initCinematicCanvas() {
   }, { passive: true });
 
   resize();
-  animationFrame = requestAnimationFrame(draw);
+  const startDrawLoop = () => {
+    if (animationFrame || document.visibilityState === "hidden") return;
+    draw.lastTime = performance.now();
+    fpsWindowStart = 0;
+    fpsFrames = 0;
+    animationFrame = requestAnimationFrame(draw);
+  };
+
+  const stopDrawLoop = () => {
+    if (!animationFrame) return;
+    cancelAnimationFrame(animationFrame);
+    animationFrame = null;
+  };
+
+  startDrawLoop();
   window.addEventListener("resize", resize);
-  window.addEventListener("beforeunload", () => cancelAnimationFrame(animationFrame));
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+      stopDrawLoop();
+    } else {
+      startDrawLoop();
+    }
+  });
+  window.addEventListener("beforeunload", stopDrawLoop);
 }
 
 function initCinematicInteractions() {
@@ -1403,20 +1526,29 @@ function createEnergyRipple(target, event) {
 
 document.addEventListener("DOMContentLoaded", () => {
   setNavHeightVar();
-  window.addEventListener("resize", () => requestAnimationFrame(setNavHeightVar));
+  let navResizeTimer = null;
+  window.addEventListener("resize", () => {
+    window.clearTimeout(navResizeTimer);
+    navResizeTimer = window.setTimeout(() => requestAnimationFrame(() => setNavHeightVar(true)), 150);
+  });
   window.addEventListener("load", () => {
-    setNavHeightVar();
+    requestAnimationFrame(() => setNavHeightVar(true));
     correctInitialHashOffset();
   });
   if (document.fonts?.ready) {
     document.fonts.ready.then(() => {
-      setNavHeightVar();
+      setNavHeightVar(true);
       correctInitialHashOffset();
     });
   }
 
   initCinematicIntro();
-  initCinematicCanvas();
+  const startCinematicCanvas = () => initCinematicCanvas();
+  if ("requestIdleCallback" in window) {
+    window.requestIdleCallback(startCinematicCanvas, { timeout: 800 });
+  } else {
+    window.setTimeout(startCinematicCanvas, 120);
+  }
   initPageTransitions();
   initSmoothAnchors();
   initMobileMenu();
