@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">Smart Greenhouse System placeholder</title>
+  <desc id="desc">Technical greenhouse cross-section with sensors and microcontroller node.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#05110c"/><stop offset=".55" stop-color="#0b1b24"/><stop offset="1" stop-color="#050507"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" x2="1">
+      <stop stop-color="#4ade80"/><stop offset=".55" stop-color="#3d5afe"/><stop offset="1" stop-color="#7b61ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="600" fill="url(#bg)"/>
+  <g stroke="#f4f1ea" stroke-width="1" opacity=".09">
+    <path d="M0 120h960M0 240h960M0 360h960M0 480h960"/>
+    <path d="M120 0v600M240 0v600M360 0v600M480 0v600M600 0v600M720 0v600M840 0v600"/>
+  </g>
+  <path d="M154 410V244L480 112l326 132v166z" fill="none" stroke="#f4f1ea" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M154 244h652M480 112v298" stroke="#f4f1ea" stroke-width="4" opacity=".5"/>
+  <rect x="432" y="292" width="96" height="76" rx="14" fill="#101726" stroke="url(#glow)" stroke-width="4"/>
+  <g fill="none" stroke="url(#glow)" stroke-width="3">
+    <path d="M480 292 294 232"/><path d="M480 292 686 230"/><path d="M480 368 300 420"/><path d="M480 368 676 420"/>
+  </g>
+  <g fill="#4ade80">
+    <circle cx="294" cy="232" r="13"/><circle cx="686" cy="230" r="13"/><circle cx="300" cy="420" r="13"/><circle cx="676" cy="420" r="13"/>
+  </g>
+  <g fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="22">
+    <text x="244" y="196">TEMP</text><text x="642" y="194">HUM</text><text x="240" y="462">SOIL</text><text x="636" y="462">LIGHT</text>
+  </g>
+  <text x="44" y="540" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="30" letter-spacing="4">SMART GREENHOUSE SYSTEM</text>
+</svg>

@@ -1,0 +1,19 @@
+<!-- REPLACE: hardware category background graphic. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Hardware category graphic</title>
+  <desc id="desc">Abstract circuit board and embedded systems graphic.</desc>
+  <rect width="1200" height="800" fill="#0d0d0d"/>
+  <g fill="none" stroke="#3d5afe" stroke-width="8" stroke-linecap="round">
+    <path d="M160 180h220v140h180v180h220v120h250"/>
+    <path d="M160 610h160V460h250V280h180V150h280"/>
+    <path d="M330 320v-90h120M760 500v-120h160M570 460h-150v150"/>
+  </g>
+  <g fill="#f4f1ea">
+    <rect x="482" y="284" width="236" height="236" rx="26"/>
+    <circle cx="160" cy="180" r="20"/>
+    <circle cx="160" cy="610" r="20"/>
+    <circle cx="1030" cy="620" r="20"/>
+    <circle cx="1030" cy="150" r="20"/>
+  </g>
+  <text x="528" y="420" fill="#0d0d0d" font-family="Arial, sans-serif" font-size="48" font-weight="900">CPU</text>
+</svg>

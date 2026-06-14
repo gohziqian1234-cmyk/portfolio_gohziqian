@@ -1,0 +1,20 @@
+<!-- REPLACE: project thumbnail for Custom PCB Design Project. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">Custom PCB project placeholder</title>
+  <desc id="desc">Circuit board design placeholder graphic.</desc>
+  <rect width="1200" height="750" fill="#0d0d0d"/>
+  <rect x="150" y="115" width="900" height="520" rx="42" fill="#f4f1ea"/>
+  <g fill="none" stroke="#3d5afe" stroke-width="10" stroke-linecap="round">
+    <path d="M250 250h220v120h240v-80h180"/>
+    <path d="M250 500h180V390h160v110h310"/>
+    <path d="M500 250v-70M710 290v-90M430 500v90M760 500v80"/>
+  </g>
+  <g fill="#0d0d0d">
+    <rect x="500" y="300" width="200" height="150" rx="18"/>
+    <circle cx="250" cy="250" r="20"/>
+    <circle cx="250" cy="500" r="20"/>
+    <circle cx="890" cy="290" r="20"/>
+    <circle cx="900" cy="500" r="20"/>
+  </g>
+  <text x="180" y="700" fill="#f4f1ea" font-family="Arial, sans-serif" font-size="42" font-weight="900">CUSTOM PCB DESIGN</text>
+</svg>

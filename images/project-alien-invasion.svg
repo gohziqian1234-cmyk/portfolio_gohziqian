@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">Alien Invasion placeholder</title>
+  <desc id="desc">Dark arcade space scene with player ship, alien enemies, lasers, and stars.</desc>
+  <defs>
+    <radialGradient id="space" cx="50%" cy="42%" r="70%">
+      <stop offset="0" stop-color="#172451"/>
+      <stop offset="0.5" stop-color="#090b1c"/>
+      <stop offset="1" stop-color="#02030a"/>
+    </radialGradient>
+    <linearGradient id="beam" x1="0" x2="1">
+      <stop stop-color="#3d5afe"/>
+      <stop offset="1" stop-color="#7b61ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="600" fill="url(#space)"/>
+  <g opacity=".75" fill="#f4f1ea">
+    <circle cx="82" cy="92" r="3"/><circle cx="202" cy="166" r="2"/><circle cx="328" cy="72" r="3"/>
+    <circle cx="716" cy="116" r="2"/><circle cx="842" cy="210" r="3"/><circle cx="604" cy="86" r="2"/>
+    <circle cx="116" cy="424" r="2"/><circle cx="744" cy="436" r="2"/><circle cx="886" cy="506" r="3"/>
+  </g>
+  <g stroke="#3d5afe" stroke-width="2" opacity=".38">
+    <path d="M0 462h960M0 514h960M0 566h960"/>
+    <path d="M184 600 406 268M776 600 554 268M480 600V244"/>
+  </g>
+  <g transform="translate(170 146)" fill="none" stroke="#f4f1ea" stroke-width="8" stroke-linejoin="round">
+    <path d="m0 36 34-36 34 36-34 24z"/><path d="M22 30h24"/>
+  </g>
+  <g transform="translate(430 112)" fill="none" stroke="#7b61ff" stroke-width="8" stroke-linejoin="round">
+    <path d="m0 36 34-36 34 36-34 24z"/><path d="M22 30h24"/>
+  </g>
+  <g transform="translate(690 154)" fill="none" stroke="#f4f1ea" stroke-width="8" stroke-linejoin="round">
+    <path d="m0 36 34-36 34 36-34 24z"/><path d="M22 30h24"/>
+  </g>
+  <rect x="475" y="244" width="10" height="148" rx="5" fill="url(#beam)"/>
+  <rect x="358" y="312" width="8" height="82" rx="4" fill="#7b61ff" opacity=".78"/>
+  <rect x="592" y="306" width="8" height="96" rx="4" fill="#3d5afe" opacity=".78"/>
+  <g transform="translate(410 405)">
+    <path d="M70 0 0 112h140z" fill="#f4f1ea"/>
+    <path d="M70 20 36 92h68z" fill="#3d5afe"/>
+    <circle cx="70" cy="82" r="11" fill="#7b61ff"/>
+  </g>
+  <text x="42" y="540" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="32" letter-spacing="5">ALIEN INVASION</text>
+</svg>

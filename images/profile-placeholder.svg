@@ -1,0 +1,22 @@
+<!-- REPLACE: profile photo placeholder for Ziqian. Swap with an 800x1000px portrait. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Profile portrait placeholder</title>
+  <desc id="desc">Clean portrait placeholder frame for Ziqian.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#15151b"/>
+      <stop offset="1" stop-color="#0d0d0d"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3d5afe"/>
+      <stop offset="1" stop-color="#7b61ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" rx="44" fill="url(#bg)"/>
+  <rect x="30" y="30" width="740" height="940" rx="34" fill="none" stroke="url(#accent)" stroke-width="8" opacity=".8"/>
+  <circle cx="400" cy="360" r="150" fill="#f4f1ea" opacity=".9"/>
+  <path d="M164 902c36-244 126-352 236-352s200 108 236 352H164z" fill="#f4f1ea" opacity=".9"/>
+  <path d="M146 178h508M146 812h508" stroke="#f4f1ea" stroke-opacity=".18" stroke-width="2"/>
+  <text x="76" y="108" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="900" letter-spacing="5">REPLACE WITH PORTRAIT</text>
+  <text x="76" y="145" fill="#9f9f9f" font-family="Inter, Arial, sans-serif" font-size="18">Recommended 800 x 1000px</text>
+</svg>

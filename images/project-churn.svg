@@ -1,0 +1,17 @@
+<!-- REPLACE: project thumbnail for Customer Churn Prediction Model. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">Customer churn prediction thumbnail placeholder</title>
+  <desc id="desc">Abstract machine learning dashboard placeholder.</desc>
+  <rect width="1200" height="750" fill="#0d0d0d"/>
+  <rect x="70" y="70" width="1060" height="610" rx="18" fill="#171717" stroke="#f4f1ea" stroke-opacity=".14"/>
+  <path d="M130 560c130-210 235-120 360-240 124-120 222-140 392 48" fill="none" stroke="#3d5afe" stroke-width="18"/>
+  <path d="M130 610c160-86 302-60 428-122 128-62 258-112 512-84" fill="none" stroke="#7b61ff" stroke-width="8" opacity=".78"/>
+  <g fill="#f4f1ea">
+    <circle cx="214" cy="508" r="18"/>
+    <circle cx="440" cy="365" r="18"/>
+    <circle cx="648" cy="248" r="18"/>
+    <circle cx="902" cy="376" r="18"/>
+  </g>
+  <text x="110" y="160" fill="#f4f1ea" font-family="Arial, sans-serif" font-size="42" font-weight="900">CHURN MODEL</text>
+  <text x="110" y="210" fill="#9f9f9f" font-family="Arial, sans-serif" font-size="24">classification / retention / probability</text>
+</svg>

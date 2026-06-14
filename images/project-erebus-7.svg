@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">Erebus-7 First Skin placeholder</title>
+  <desc id="desc">Moody sci-fi void with a glowing character silhouette and distant grid.</desc>
+  <defs>
+    <radialGradient id="void" cx="50%" cy="42%" r="74%">
+      <stop offset="0" stop-color="#151036"/>
+      <stop offset=".52" stop-color="#070810"/>
+      <stop offset="1" stop-color="#010105"/>
+    </radialGradient>
+    <linearGradient id="skin" x1="0" x2="1">
+      <stop stop-color="#3d5afe"/>
+      <stop offset=".52" stop-color="#7b61ff"/>
+      <stop offset="1" stop-color="#f4f1ea"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="600" fill="url(#void)"/>
+  <g stroke="#3d5afe" stroke-width="2" opacity=".22">
+    <path d="M0 424h960M0 482h960M0 548h960"/>
+    <path d="M116 600 430 280M844 600 530 280M480 600V256"/>
+  </g>
+  <circle cx="480" cy="250" r="174" fill="none" stroke="#7b61ff" stroke-width="2" opacity=".28"/>
+  <circle cx="480" cy="250" r="110" fill="none" stroke="#3d5afe" stroke-width="5" opacity=".34"/>
+  <path d="M480 124c45 0 76 34 76 78 0 30-15 56-36 70 48 16 86 62 92 120H348c6-58 44-104 92-120-22-14-36-40-36-70 0-44 31-78 76-78z" fill="#05060c" stroke="url(#skin)" stroke-width="6"/>
+  <path d="M418 268c35 22 87 23 124 0" fill="none" stroke="#f4f1ea" stroke-width="3" opacity=".32"/>
+  <g fill="#f4f1ea" opacity=".68">
+    <circle cx="146" cy="118" r="2"/><circle cx="228" cy="486" r="3"/><circle cx="704" cy="92" r="2"/>
+    <circle cx="814" cy="348" r="3"/><circle cx="606" cy="514" r="2"/><circle cx="80" cy="390" r="2"/>
+  </g>
+  <text x="44" y="548" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="30" letter-spacing="5">EREBUS-7: FIRST SKIN</text>
+</svg>

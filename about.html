@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--
+      Ziqian Portfolio - Full About Page
+      Sections: about hero, education timeline, achievements, work experience,
+      CCA, volunteer work, grouped skills, CV/home footer actions.
+      Replace comments mark real education, awards, work, CCA, volunteer, and skills content.
+    -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Ziqian | AI &amp; Data Engineering</title>
+    <meta name="description" content="Full about page for Ziqian's AI and Data Engineering portfolio." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body data-page="about">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="page-transition" aria-hidden="true"></div>
+    <div class="cursor-follower" aria-hidden="true"></div>
+
+    <nav class="navbar" data-site-header aria-label="Primary navigation">
+      <a class="nav-logo" href="index.html#hero" aria-label="Ziqian portfolio home">
+        <span class="nav-avatar">ZQ</span>
+        <span class="nav-wordmark">ZIQIAN</span>
+      </a>
+
+      <div class="nav-action-pill" aria-label="Quick portfolio actions">
+        <a class="nav-action nav-action-primary" href="index.html#projects">View My Projects</a>
+        <a class="nav-action nav-action-soft" href="index.html#about">About Me</a>
+        <a class="nav-action nav-action-gradient" href="index.html#contact">
+          <span class="status-dot" aria-hidden="true"></span>
+          Hire Me
+        </a>
+      </div>
+
+      <div class="nav-links-pill" data-desktop-nav>
+        <div class="nav-active-indicator" aria-hidden="true"></div>
+        <a class="nav-link" href="index.html#hero" data-nav-link data-section="hero" data-section-target="hero">Home</a>
+        <a class="nav-link active is-active" href="about.html" data-nav-link data-section="about" data-section-target="about">About</a>
+        <a class="nav-link" href="projects.html" data-nav-link data-section="projects" data-section-target="projects">Projects</a>
+        <a class="nav-link" href="index.html#testimonials" data-nav-link data-section="testimonials" data-section-target="testimonials">Testimonials</a>
+        <a class="nav-link" href="index.html#contact" data-nav-link data-section="contact" data-section-target="contact">Contact</a>
+      </div>
+
+      <a class="nav-cta" href="index.html#contact" aria-label="Hire Ziqian">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>Hire Me</span>
+      </a>
+
+      <button class="nav-hamburger menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <nav aria-label="Site navigation">
+        <a href="index.html#hero" data-mobile-link>Home</a>
+        <a href="about.html" data-mobile-link>About</a>
+        <a href="projects.html" data-mobile-link>Projects</a>
+        <a href="index.html#testimonials" data-mobile-link>Testimonials</a>
+        <a href="index.html#contact" data-mobile-link>Contact</a>
+      </nav>
+      <div class="menu-footer">
+        <a class="menu-hire" href="index.html#contact" data-mobile-link>
+          <span aria-hidden="true"></span>
+          Hire Me
+        </a>
+        <div class="menu-socials" aria-label="Social links">
+          <!-- REPLACE: LinkedIn profile URL -->
+          <a href="#" aria-label="LinkedIn profile">in</a>
+          <!-- REPLACE: GitHub profile URL -->
+          <a href="#" aria-label="GitHub profile">GH</a>
+          <!-- REPLACE: email address -->
+          <a href="mailto:ziqian@example.com" aria-label="Email Ziqian">@</a>
+          <!-- REPLACE: Instagram URL or remove if not needed -->
+          <a href="#" aria-label="Instagram profile">IG</a>
+        </div>
+        <p>&copy; 2026 Ziqian</p>
+      </div>
+    </div>
+
+    <main id="main">
+      <section class="subpage-hero section-dark" aria-labelledby="about-page-title">
+        <a class="back-link" href="index.html#about">&larr; Back to Home</a>
+        <div class="subpage-hero-inner" data-reveal>
+          <p class="section-kicker">Full Profile</p>
+          <h1 class="display-heading" id="about-page-title">About Ziqian</h1>
+          <p>
+            A 19-year-old AI &amp; Data Engineering student focused on building practical systems,
+            learning deeply, and turning technical ideas into useful outcomes.
+          </p>
+        </div>
+      </section>
+
+      <section class="chapter chapter-dark" id="education" aria-labelledby="education-title">
+        <div class="chapter-heading" data-reveal>
+          <p class="section-kicker">Education</p>
+          <h2 id="education-title">Academic Timeline</h2>
+        </div>
+        <div class="timeline-wrap education-timeline" aria-label="Education timeline">
+          <div class="timeline-spine" aria-hidden="true"><span class="timeline-progress"></span></div>
+          <ol class="timeline-list">
+            <!-- ADD: real education details here -->
+            <li class="timeline-item timeline-left" data-reveal>
+              <article>
+                <span class="timeline-date">2019-2021</span>
+                <h3>Secondary School</h3>
+                <p>Discovered coding, logic, and interest in technology through school projects and self-learning.</p>
+              </article>
+            </li>
+            <li class="timeline-item timeline-right" data-reveal>
+              <article>
+                <span class="timeline-date">2023</span>
+                <h3>AI &amp; Data Engineering</h3>
+                <p>Started university studies with a focus on programming, databases, and analytics foundations.</p>
+              </article>
+            </li>
+            <li class="timeline-item timeline-left" data-reveal>
+              <article>
+                <span class="timeline-date">2025-2026</span>
+                <h3>GPA 4.0</h3>
+                <p>Maintained strong academic performance while taking machine learning and data engineering modules.</p>
+              </article>
+            </li>
+            <li class="timeline-item timeline-right" data-reveal>
+              <article>
+                <span class="timeline-date">Dean's List</span>
+                <h3>Academic Recognition</h3>
+                <p>Recognized for consistent performance, disciplined work habits, and strong technical growth.</p>
+              </article>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="chapter chapter-alt" id="achievements" aria-labelledby="achievements-title">
+        <div class="chapter-heading" data-reveal>
+          <p class="section-kicker">Achievements &amp; Awards</p>
+          <h2 id="achievements-title">Recognition</h2>
+        </div>
+        <div class="info-grid">
+          <!-- ADD: real achievement details here -->
+          <article class="info-card" data-reveal>
+            <i aria-hidden="true">DL</i>
+            <h3>Dean's List</h3>
+            <p><strong>University</strong> &bull; 2025</p>
+            <p>Recognized for excellent academic performance in Year 2 Semester 1.</p>
+          </article>
+          <article class="info-card" data-reveal>
+            <i aria-hidden="true">02</i>
+            <h3>Coding Competition</h3>
+            <p><strong>School Tech Club</strong> &bull; 2024</p>
+            <p>Placeholder award for algorithmic problem-solving and teamwork.</p>
+          </article>
+          <article class="info-card" data-reveal>
+            <i aria-hidden="true">AI</i>
+            <h3>Analytics Showcase</h3>
+            <p><strong>Data Module</strong> &bull; 2025</p>
+            <p>Presented a dashboard concept with clear data storytelling and insight design.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="chapter chapter-dark" id="experience" aria-labelledby="experience-title">
+        <div class="chapter-heading" data-reveal>
+          <p class="section-kicker">Work Experience</p>
+          <h2 id="experience-title">Practice</h2>
+        </div>
+        <div class="stacked-list">
+          <!-- ADD: real work experience here -->
+          <article class="experience-card" data-reveal>
+            <span class="logo-dot" aria-hidden="true">CO</span>
+            <div>
+              <p class="timeline-date">Jun 2025 - Aug 2025</p>
+              <h3>Data Intern - Placeholder Company</h3>
+              <ul>
+                <li>Cleaned and transformed spreadsheet data for analysis-ready reporting.</li>
+                <li>Built simple dashboards and documented repeatable data workflows.</li>
+                <li>Collaborated with mentors to translate questions into measurable metrics.</li>
+              </ul>
+            </div>
+          </article>
+          <article class="experience-card" data-reveal>
+            <span class="logo-dot" aria-hidden="true">TA</span>
+            <div>
+              <p class="timeline-date">2024 - 2025</p>
+              <h3>Peer Tutor - Programming Support</h3>
+              <ul>
+                <li>Helped classmates debug Python and SQL assignments.</li>
+                <li>Explained technical concepts with examples and short walkthroughs.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="chapter chapter-alt" id="cca" aria-labelledby="cca-title">
+        <div class="chapter-heading" data-reveal>
+          <p class="section-kicker">Co-Curricular Activities</p>
+          <h2 id="cca-title">CCA</h2>
+        </div>
+        <div class="info-grid">
+          <!-- ADD: real CCA details here -->
+          <article class="info-card" data-reveal>
+            <i aria-hidden="true">RB</i>
+            <h3>Robotics Club</h3>
+            <p><strong>Member</strong> &bull; 2024-2026</p>
+            <p>Explored sensors, microcontrollers, and prototyping through group activities.</p>
+          </article>
+          <article class="info-card" data-reveal>
+            <i aria-hidden="true">&lt;/&gt;</i>
+            <h3>Coding Society</h3>
+            <p><strong>Team Lead</strong> &bull; 2025</p>
+            <p>Organized study sessions and supported project-based coding practice.</p>
+          </article>
+          <article class="info-card" data-reveal>
+            <i aria-hidden="true">DA</i>
+            <h3>Data Analytics Group</h3>
+            <p><strong>Contributor</strong> &bull; 2025</p>
+            <p>Shared dashboard ideas, visual design references, and data project resources.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="chapter chapter-dark" id="volunteer" aria-labelledby="volunteer-title">
+        <div class="chapter-heading" data-reveal>
+          <p class="section-kicker">Volunteer Work</p>
+          <h2 id="volunteer-title">Community</h2>
+        </div>
+        <div class="info-grid">
+          <!-- ADD: real volunteer work here -->
+          <article class="info-card" data-reveal>
+            <i aria-hidden="true">HT</i>
+            <h3>Tech Literacy Support</h3>
+            <p><strong>Community Workshop</strong> &bull; 2024</p>
+            <p>Helped participants understand basic digital tools and safe online habits.</p>
+          </article>
+          <article class="info-card" data-reveal>
+            <i aria-hidden="true">ED</i>
+            <h3>Student Mentoring</h3>
+            <p><strong>Peer Program</strong> &bull; 2025</p>
+            <p>Supported juniors with study planning, programming practice, and confidence building.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="chapter chapter-alt" id="skills" aria-labelledby="about-skills-title">
+        <div class="chapter-heading" data-reveal>
+          <p class="section-kicker">Skills</p>
+          <h2 id="about-skills-title">Toolkit</h2>
+        </div>
+        <div class="skill-category-grid">
+          <!-- ADD: real skills and proficiency details here -->
+          <section class="skill-category" data-reveal>
+            <h3>Programming Languages</h3>
+            <div class="skills-grid">
+              <span><b>PY</b> Python</span>
+              <span><b>SQL</b> SQL</span>
+              <span><b>JS</b> JavaScript</span>
+              <span><b>C++</b> C++</span>
+            </div>
+          </section>
+          <section class="skill-category" data-reveal>
+            <h3>Frameworks / Tools</h3>
+            <div class="skills-grid">
+              <span><b>ML</b> Scikit-learn</span>
+              <span><b>NN</b> TensorFlow / PyTorch</span>
+              <span><b>DV</b> Power BI / Tableau</span>
+              <span><b>GT</b> Git</span>
+              <span><b>CL</b> AWS / Azure</span>
+              <span><b>NP</b> Pandas / NumPy</span>
+            </div>
+          </section>
+          <section class="skill-category" data-reveal>
+            <h3>Soft Skills</h3>
+            <div class="progress-list">
+              <div class="progress-item"><span>Problem Solving</span><i><b style="--target: 94%"></b></i></div>
+              <div class="progress-item"><span>Teamwork</span><i><b style="--target: 88%"></b></i></div>
+              <div class="progress-item"><span>Communication</span><i><b style="--target: 84%"></b></i></div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="page-cta section-dark" aria-label="About page actions">
+        <div data-reveal>
+          <h2>Ready For The Full CV?</h2>
+          <div class="cta-actions">
+            <!-- REPLACE: real resume PDF path -->
+            <a class="button button-gradient" href="assets/Ziqian-CV-placeholder.pdf" download>Download Full CV</a>
+            <a class="button button-outline" href="index.html#hero">Back to Home</a>
+          </div>
+        </div>
+        <footer class="site-footer">
+          <p>&copy; 2026 Ziqian. Built with passion for AI &amp; Data.</p>
+          <a class="back-top" href="index.html#hero" aria-label="Back to home">&uarr;</a>
+        </footer>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+<!-- REPLACE: project thumbnail for Weather Station Module. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">Weather station project placeholder</title>
+  <desc id="desc">Environmental sensor dashboard placeholder.</desc>
+  <rect width="1200" height="750" fill="#101014"/>
+  <circle cx="310" cy="260" r="105" fill="#f4f1ea"/>
+  <g stroke="#3d5afe" stroke-width="14" stroke-linecap="round">
+    <path d="M310 90v-48M310 478v-48M142 260H94M526 260h-48M190 140l-34-34M430 140l34-34M190 380l-34 34M430 380l34 34"/>
+  </g>
+  <rect x="620" y="160" width="300" height="420" rx="34" fill="#f4f1ea"/>
+  <path d="M770 500V250" stroke="#0d0d0d" stroke-width="28" stroke-linecap="round"/>
+  <circle cx="770" cy="520" r="58" fill="#7b61ff"/>
+  <text x="90" y="675" fill="#f4f1ea" font-family="Arial, sans-serif" font-size="42" font-weight="900">WEATHER STATION</text>
+</svg>

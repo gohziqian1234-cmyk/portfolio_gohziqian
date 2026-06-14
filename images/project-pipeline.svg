@@ -1,0 +1,21 @@
+<!-- REPLACE: project thumbnail for Real-Time Data Pipeline. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">Real-time data pipeline thumbnail placeholder</title>
+  <desc id="desc">Abstract data pipeline diagram placeholder.</desc>
+  <rect width="1200" height="750" fill="#101010"/>
+  <g fill="none" stroke="#3d5afe" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M150 375h210"/>
+    <path d="M480 375h210"/>
+    <path d="M810 375h210"/>
+    <path d="M360 375c40-120 80-120 120 0"/>
+    <path d="M690 375c40 120 80 120 120 0"/>
+  </g>
+  <g fill="#f4f1ea" stroke="#7b61ff" stroke-width="8">
+    <rect x="95" y="285" width="150" height="180" rx="24"/>
+    <rect x="405" y="285" width="150" height="180" rx="24"/>
+    <rect x="715" y="285" width="150" height="180" rx="24"/>
+    <rect x="995" y="285" width="110" height="180" rx="24"/>
+  </g>
+  <text x="90" y="135" fill="#f4f1ea" font-family="Arial, sans-serif" font-size="42" font-weight="900">DATA PIPELINE</text>
+  <text x="90" y="185" fill="#9f9f9f" font-family="Arial, sans-serif" font-size="24">ingest / transform / model / serve</text>
+</svg>

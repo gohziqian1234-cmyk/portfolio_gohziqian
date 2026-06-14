@@ -1,0 +1,13 @@
+<!-- REPLACE: project thumbnail for Line-Following Robot. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">Line-following robot project placeholder</title>
+  <desc id="desc">Robot and track placeholder graphic.</desc>
+  <rect width="1200" height="750" fill="#0d0d0d"/>
+  <path d="M110 560c190-260 380-260 570 0s300 160 410-30" fill="none" stroke="#f4f1ea" stroke-width="28" stroke-linecap="round"/>
+  <rect x="410" y="205" width="380" height="230" rx="34" fill="#f4f1ea"/>
+  <circle cx="500" cy="455" r="54" fill="#3d5afe"/>
+  <circle cx="700" cy="455" r="54" fill="#7b61ff"/>
+  <circle cx="520" cy="300" r="22" fill="#0d0d0d"/>
+  <circle cx="680" cy="300" r="22" fill="#0d0d0d"/>
+  <text x="90" y="120" fill="#f4f1ea" font-family="Arial, sans-serif" font-size="42" font-weight="900">LINE-FOLLOWING ROBOT</text>
+</svg>

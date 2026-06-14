@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">Smart Wheelchair System placeholder</title>
+  <desc id="desc">Blueprint-style wheelchair with highlighted sensor nodes and wiring paths.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#050812"/><stop offset=".55" stop-color="#0c162d"/><stop offset="1" stop-color="#050507"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0" x2="1">
+      <stop stop-color="#3d5afe"/><stop offset="1" stop-color="#7b61ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="600" fill="url(#bg)"/>
+  <g stroke="#f4f1ea" stroke-width="1" opacity=".1">
+    <path d="M0 92h960M0 184h960M0 276h960M0 368h960M0 460h960M0 552h960"/>
+    <path d="M96 0v600M192 0v600M288 0v600M384 0v600M480 0v600M576 0v600M672 0v600M768 0v600M864 0v600"/>
+  </g>
+  <g fill="none" stroke="#f4f1ea" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="314" cy="396" r="88"/>
+    <circle cx="314" cy="396" r="36" opacity=".45"/>
+    <path d="M364 386h166l54-138"/>
+    <path d="M430 386l-46-166h184"/>
+    <path d="M554 252h80c34 0 56 25 48 58l-24 102"/>
+    <path d="M548 220v-62h86"/>
+    <path d="M610 158l28 94"/>
+    <path d="M530 386l60 94h86"/>
+  </g>
+  <g stroke="url(#line)" stroke-width="3" fill="none">
+    <path d="M314 396 198 286 244 178"/>
+    <path d="M584 248 746 200 818 286"/>
+    <path d="M658 412 796 432"/>
+  </g>
+  <g fill="#3d5afe">
+    <circle cx="244" cy="178" r="12"/><circle cx="746" cy="200" r="12"/><circle cx="818" cy="286" r="12"/><circle cx="796" cy="432" r="12"/>
+  </g>
+  <text x="44" y="540" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="30" letter-spacing="4">SMART WHEELCHAIR SYSTEM</text>
+</svg>

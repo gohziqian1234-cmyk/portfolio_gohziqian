@@ -1,0 +1,24 @@
+<!-- REPLACE: project thumbnail for Database Design Project. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">Database design thumbnail placeholder</title>
+  <desc id="desc">Abstract database schema placeholder.</desc>
+  <rect width="1200" height="750" fill="#101010"/>
+  <g fill="#f4f1ea" stroke="#3d5afe" stroke-width="6">
+    <rect x="120" y="150" width="260" height="170" rx="12"/>
+    <rect x="470" y="120" width="260" height="170" rx="12"/>
+    <rect x="820" y="170" width="260" height="170" rx="12"/>
+    <rect x="300" y="455" width="260" height="170" rx="12"/>
+    <rect x="660" y="440" width="260" height="170" rx="12"/>
+  </g>
+  <g stroke="#7b61ff" stroke-width="8" fill="none">
+    <path d="M380 235h90M730 205l90 50M250 320l120 135M600 290l-170 165M950 340l-160 100"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="28" font-weight="900" fill="#0d0d0d">
+    <text x="155" y="235">USERS</text>
+    <text x="505" y="205">ORDERS</text>
+    <text x="855" y="255">EVENTS</text>
+    <text x="335" y="540">FACTS</text>
+    <text x="695" y="525">METRICS</text>
+  </g>
+  <text x="120" y="675" fill="#f4f1ea" font-family="Arial, sans-serif" font-size="42" font-weight="900">DATABASE DESIGN</text>
+</svg>

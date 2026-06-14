@@ -1,0 +1,18 @@
+<!-- REPLACE: project thumbnail for Sentiment Analysis Tool. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">Sentiment analysis thumbnail placeholder</title>
+  <desc id="desc">Abstract text sentiment analysis placeholder.</desc>
+  <rect width="1200" height="750" fill="#101014"/>
+  <g fill="#f4f1ea" opacity=".92">
+    <rect x="105" y="160" width="480" height="82" rx="41"/>
+    <rect x="105" y="282" width="610" height="82" rx="41"/>
+    <rect x="105" y="404" width="390" height="82" rx="41"/>
+  </g>
+  <g fill="#3d5afe">
+    <circle cx="820" cy="245" r="74"/>
+    <circle cx="960" cy="375" r="106" opacity=".78"/>
+    <circle cx="790" cy="520" r="52" opacity=".68"/>
+  </g>
+  <path d="M760 320c48 70 120 70 188 0" fill="none" stroke="#f4f1ea" stroke-width="12" stroke-linecap="round"/>
+  <text x="105" y="620" fill="#f4f1ea" font-family="Arial, sans-serif" font-size="42" font-weight="900">SENTIMENT ANALYSIS</text>
+</svg>

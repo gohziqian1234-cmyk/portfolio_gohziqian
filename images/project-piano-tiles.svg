@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">Piano Tiles placeholder</title>
+  <desc id="desc">Vertical rhythm lanes with falling tiles and glowing hit line.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#060711"/>
+      <stop offset=".55" stop-color="#10172f"/>
+      <stop offset="1" stop-color="#050509"/>
+    </linearGradient>
+    <linearGradient id="tile" x1="0" x2="1">
+      <stop stop-color="#3d5afe"/>
+      <stop offset="1" stop-color="#7b61ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="600" fill="url(#bg)"/>
+  <g opacity=".34" stroke="#f4f1ea" stroke-width="2">
+    <path d="M240 0v600M420 0v600M600 0v600M780 0v600"/>
+  </g>
+  <g fill="#f4f1ea" opacity=".9">
+    <rect x="72" y="58" width="136" height="160" rx="18"/>
+    <rect x="252" y="290" width="136" height="198" rx="18"/>
+    <rect x="432" y="118" width="136" height="182" rx="18"/>
+    <rect x="612" y="366" width="136" height="152" rx="18"/>
+    <rect x="792" y="188" width="96" height="210" rx="18"/>
+  </g>
+  <g fill="url(#tile)">
+    <rect x="72" y="58" width="136" height="18" rx="9"/>
+    <rect x="252" y="290" width="136" height="18" rx="9"/>
+    <rect x="432" y="118" width="136" height="18" rx="9"/>
+    <rect x="612" y="366" width="136" height="18" rx="9"/>
+    <rect x="792" y="188" width="96" height="18" rx="9"/>
+  </g>
+  <rect x="0" y="516" width="960" height="6" fill="#3d5afe"/>
+  <rect x="0" y="516" width="960" height="42" fill="#3d5afe" opacity=".16"/>
+  <g fill="#f4f1ea" opacity=".78">
+    <circle cx="116" cy="392" r="3"/><circle cx="352" cy="84" r="2"/><circle cx="520" cy="474" r="3"/>
+    <circle cx="694" cy="110" r="2"/><circle cx="834" cy="444" r="3"/>
+  </g>
+  <text x="44" y="548" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="34" letter-spacing="6">PIANO TILES</text>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">Smart Greenhouse build placeholder</title>
+  <desc id="desc">Placeholder panel for greenhouse build-process photos.</desc>
+  <rect width="960" height="600" fill="#06120d"/>
+  <rect x="80" y="72" width="800" height="400" rx="28" fill="none" stroke="#4ade80" stroke-width="4" stroke-dasharray="18 14"/>
+  <path d="M190 398V256l290-116 290 116v142z" fill="none" stroke="#f4f1ea" stroke-width="8" stroke-linejoin="round"/>
+  <circle cx="480" cy="304" r="34" fill="#3d5afe" opacity=".82"/>
+  <text x="112" y="530" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="900">REPLACE: BUILD PROCESS PHOTO</text>
+</svg>

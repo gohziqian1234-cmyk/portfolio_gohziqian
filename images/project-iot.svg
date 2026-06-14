@@ -1,0 +1,14 @@
+<!-- REPLACE: project thumbnail for Smart Home IoT System. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">Smart home IoT project placeholder</title>
+  <desc id="desc">Connected home and sensor network placeholder.</desc>
+  <rect width="1200" height="750" fill="#101014"/>
+  <path d="M220 420 600 150l380 270v230H220V420z" fill="#f4f1ea"/>
+  <path d="M350 650V440h180v210M680 650V440h170v210" fill="none" stroke="#0d0d0d" stroke-width="20"/>
+  <g fill="none" stroke="#3d5afe" stroke-width="10">
+    <path d="M210 230c110-80 210-80 300 0"/>
+    <path d="M700 230c110-80 210-80 300 0"/>
+    <path d="M480 320c80-55 160-55 240 0"/>
+  </g>
+  <text x="90" y="120" fill="#f4f1ea" font-family="Arial, sans-serif" font-size="42" font-weight="900">SMART HOME IOT</text>
+</svg>

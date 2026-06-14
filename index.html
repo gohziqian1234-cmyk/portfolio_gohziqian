@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--
+      Ziqian AI & Data Engineering Portfolio - Home
+      Sections: simplified sticky nav, hero, short journey timeline,
+      software/hardware project category cards, testimonials, contact.
+      Replace comments mark profile photo, social URLs, resume PDF, testimonials,
+      and form endpoint.
+    -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ziqian | AI &amp; Data Engineering Portfolio</title>
+    <meta
+      name="description"
+      content="Premium portfolio for Ziqian, a Year 2 AI and Data Engineering student with a 4.0 GPA and Dean's List recognition."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body data-page="home">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="page-transition" aria-hidden="true"></div>
+    <div class="cursor-follower" aria-hidden="true"></div>
+
+    <nav class="navbar" data-site-header aria-label="Primary navigation">
+      <a class="nav-logo" href="index.html#hero" aria-label="Ziqian portfolio home">
+        <span class="nav-avatar">ZQ</span>
+        <span class="nav-wordmark">ZIQIAN</span>
+      </a>
+
+      <div class="nav-action-pill" aria-label="Quick portfolio actions">
+        <a class="nav-action nav-action-primary" href="index.html#projects">View My Projects</a>
+        <a class="nav-action nav-action-soft" href="index.html#about">About Me</a>
+        <a class="nav-action nav-action-gradient" href="index.html#contact">
+          <span class="status-dot" aria-hidden="true"></span>
+          Hire Me
+        </a>
+      </div>
+
+      <div class="nav-links-pill" data-desktop-nav>
+        <div class="nav-active-indicator" aria-hidden="true"></div>
+        <a class="nav-link active is-active" href="index.html#hero" data-nav-link data-section="hero" data-section-target="hero">Home</a>
+        <a class="nav-link" href="index.html#about" data-nav-link data-section="about" data-section-target="about">About</a>
+        <a class="nav-link" href="index.html#projects" data-nav-link data-section="projects" data-section-target="projects">Projects</a>
+        <a class="nav-link" href="index.html#testimonials" data-nav-link data-section="testimonials" data-section-target="testimonials">Testimonials</a>
+        <a class="nav-link" href="index.html#contact" data-nav-link data-section="contact" data-section-target="contact">Contact</a>
+      </div>
+
+      <a class="nav-cta" href="index.html#contact" aria-label="Hire Ziqian">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>Hire Me</span>
+      </a>
+
+      <button class="nav-hamburger menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <nav aria-label="Site navigation">
+        <a href="index.html#hero" data-mobile-link>Home</a>
+        <a href="about.html" data-mobile-link>About</a>
+        <a href="projects.html" data-mobile-link>Projects</a>
+        <a href="index.html#testimonials" data-mobile-link>Testimonials</a>
+        <a href="index.html#contact" data-mobile-link>Contact</a>
+      </nav>
+      <div class="menu-footer">
+        <a class="menu-hire" href="index.html#contact" data-mobile-link>
+          <span aria-hidden="true"></span>
+          Hire Me
+        </a>
+        <div class="menu-socials" aria-label="Social links">
+          <!-- REPLACE: LinkedIn profile URL -->
+          <a href="#" aria-label="LinkedIn profile">in</a>
+          <!-- REPLACE: GitHub profile URL -->
+          <a href="#" aria-label="GitHub profile">GH</a>
+          <!-- REPLACE: email address -->
+          <a href="mailto:ziqian@example.com" aria-label="Email Ziqian">@</a>
+          <!-- REPLACE: Instagram URL or remove if not needed -->
+          <a href="#" aria-label="Instagram profile">IG</a>
+        </div>
+        <p>&copy; 2026 Ziqian</p>
+      </div>
+    </div>
+
+    <main id="main">
+      <section class="hero section-dark" id="hero" data-section aria-labelledby="hero-title">
+        <canvas class="neural-canvas" id="neural-canvas" aria-hidden="true"></canvas>
+        <div class="mesh-wash" aria-hidden="true"></div>
+
+        <div class="hero-layout">
+          <div class="hero-copy">
+            <p class="section-kicker" data-reveal>AI &amp; Data Engineering Portfolio</p>
+            <h1 class="hero-title" id="hero-title" aria-label="Building the future with data and AI">
+              <span class="hero-word">Building</span>
+              <span class="hero-word">The Future</span>
+              <span class="hero-word">With Data</span>
+              <span class="hero-word accent-word">&amp; AI</span>
+            </h1>
+            <p class="hero-subtitle" data-reveal>
+              Ziqian - AI &amp; Data Engineering Student | Year 2 | GPA 4.0 | Dean's List
+            </p>
+            <div class="hero-actions hero-pill-actions" data-reveal aria-label="Primary portfolio actions">
+              <a class="button button-fill" href="#projects">View My Projects</a>
+              <a class="button button-outline" href="#about">About Me</a>
+              <a class="button button-gradient" href="#contact">
+                <span class="status-dot" aria-hidden="true"></span>
+                Hire Me
+              </a>
+            </div>
+          </div>
+
+          <aside class="profile-showcase" data-reveal aria-label="Ziqian profile summary">
+            <figure class="photo-frame">
+              <!-- REPLACE: insert Ziqian's actual photo here, recommended 800x1000px portrait orientation -->
+              <img src="images/profile-placeholder.svg" width="800" height="1000" alt="Portrait placeholder for Ziqian" />
+              <figcaption>Year 2 &bull; AI &amp; Data Eng</figcaption>
+            </figure>
+            <div class="hero-stat-grid">
+              <div>
+                <i aria-hidden="true">ID</i>
+                <span data-count="19">19</span>
+                <p>Years Old</p>
+              </div>
+              <div>
+                <i aria-hidden="true">A+</i>
+                <span data-count="4" data-decimals="1">4.0</span>
+                <p>GPA</p>
+              </div>
+              <div>
+                <i aria-hidden="true">AI</i>
+                <span data-count="2" data-prefix="Y">Y2</span>
+                <p>AI &amp; Data</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <a class="scroll-cue" href="#about" aria-label="Scroll to about section">
+          <span>Scroll</span>
+          <i aria-hidden="true"></i>
+        </a>
+      </section>
+
+      <section class="about section-light" id="about" data-section aria-labelledby="about-title">
+        <div class="section-header" data-reveal>
+          <p class="section-kicker dark">About Me</p>
+          <h2 class="display-heading" id="about-title">My Journey</h2>
+          <p>
+            I am Ziqian, a 19-year-old Year 2 AI &amp; Data Engineering student with a 4.0 GPA
+            and Dean's List recognition. I enjoy turning messy information into clear systems,
+            learning fast, and building practical tools that make decisions sharper.
+          </p>
+        </div>
+
+        <div class="timeline-wrap short-timeline" aria-label="Short Ziqian journey timeline">
+          <div class="timeline-spine" aria-hidden="true">
+            <span class="timeline-progress"></span>
+          </div>
+
+          <ol class="timeline-list">
+            <li class="timeline-item timeline-left" data-reveal>
+              <article>
+                <span class="timeline-date">2019-2021</span>
+                <h3>Discovered Tech</h3>
+                <p>Built an early interest in coding, logic, and how data can explain real problems.</p>
+              </article>
+            </li>
+            <li class="timeline-item timeline-right" data-reveal>
+              <article>
+                <span class="timeline-date">2023</span>
+                <h3>Started University</h3>
+                <p>Began the AI &amp; Data Engineering program and built foundations in programming and analytics.</p>
+              </article>
+            </li>
+            <li class="timeline-item timeline-left" data-reveal>
+              <article>
+                <span class="timeline-date">2024-2025</span>
+                <h3>Foundation Projects</h3>
+                <p>Worked across Python, dashboards, databases, applied statistics, and data storytelling.</p>
+              </article>
+            </li>
+            <li class="timeline-item timeline-right" data-reveal>
+              <article>
+                <span class="timeline-date">2025-2026</span>
+                <h3>Dean's List</h3>
+                <p>Reached Year 2 with a 4.0 GPA while studying machine learning, data pipelines, and cloud concepts.</p>
+              </article>
+            </li>
+          </ol>
+        </div>
+
+        <div class="learn-more-block" data-reveal>
+          <a class="button button-fill" href="about.html">See Full Journey</a>
+        </div>
+      </section>
+
+      <section class="projects section-dark" id="projects" data-section aria-labelledby="projects-title">
+        <div class="section-header section-header-dark" data-reveal>
+          <p class="section-kicker">Selected Work</p>
+          <h2 class="display-heading" id="projects-title">My Projects</h2>
+          <p>Explore my work across software development and hardware/embedded systems.</p>
+        </div>
+
+        <div class="category-grid" data-reveal>
+          <article class="category-card software-card">
+            <span class="card-particles" aria-hidden="true"></span>
+            <div class="category-art" aria-hidden="true">
+              <img src="images/category-software.svg" width="960" height="760" loading="lazy" alt="" />
+            </div>
+            <div class="category-icon" aria-hidden="true">PLAY</div>
+            <span class="count-badge">2 Projects</span>
+            <h3>Software Projects</h3>
+            <p>Game development, programming logic, interactive systems, and software experiments.</p>
+            <a class="button button-fill" href="projects.html?category=software">View Software Projects</a>
+          </article>
+
+          <article class="category-card hardware-card">
+            <span class="card-particles" aria-hidden="true"></span>
+            <div class="category-art" aria-hidden="true">
+              <img src="images/category-hardware.svg" width="960" height="760" loading="lazy" alt="" />
+            </div>
+            <div class="category-icon" aria-hidden="true">CPU</div>
+            <span class="count-badge">2 Projects</span>
+            <h3>Hardware Projects</h3>
+            <p>Embedded systems, IoT devices, robotics, electronics, sensors, and prototyping work.</p>
+            <a class="button button-gradient" href="projects.html?category=hardware">View Hardware Projects</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="testimonials section-light" id="testimonials" data-section aria-labelledby="testimonials-title">
+        <div class="section-header centered" data-reveal>
+          <p class="section-kicker dark">Testimonials</p>
+          <h2 class="display-heading" id="testimonials-title">Testimonials</h2>
+          <p>What mentors, professors, and collaborators say.</p>
+        </div>
+
+        <div class="marquee-wrap" data-reveal aria-label="Auto-scrolling testimonials">
+          <div class="marquee-row">
+            <div class="marquee-track">
+              <article class="quote-card quote-light"><p aria-label="Five star rating">*****</p><blockquote>Ziqian consistently delivers analytical work beyond their year level.</blockquote><cite>Module Lecturer</cite></article>
+              <article class="quote-card quote-accent"><p aria-label="Five star rating">*****</p><blockquote>One of the most dedicated students I have supervised - always curious, always improving.</blockquote><cite>Academic Advisor</cite></article>
+              <article class="quote-card quote-dark"><p aria-label="Five star rating">*****</p><blockquote>Great collaborator on group projects, bringing clarity to complex data problems.</blockquote><cite>Classmate / Team Lead</cite></article>
+              <article class="quote-card quote-light"><p aria-label="Five star rating">*****</p><blockquote>Turns technical uncertainty into structured next steps with impressive calm.</blockquote><cite>Project Mentor</cite></article>
+              <article class="quote-card quote-light" aria-hidden="true"><p>*****</p><blockquote>Ziqian consistently delivers analytical work beyond their year level.</blockquote><cite>Module Lecturer</cite></article>
+              <article class="quote-card quote-accent" aria-hidden="true"><p>*****</p><blockquote>One of the most dedicated students I have supervised - always curious, always improving.</blockquote><cite>Academic Advisor</cite></article>
+              <article class="quote-card quote-dark" aria-hidden="true"><p>*****</p><blockquote>Great collaborator on group projects, bringing clarity to complex data problems.</blockquote><cite>Classmate / Team Lead</cite></article>
+              <article class="quote-card quote-light" aria-hidden="true"><p>*****</p><blockquote>Turns technical uncertainty into structured next steps with impressive calm.</blockquote><cite>Project Mentor</cite></article>
+            </div>
+          </div>
+
+          <div class="marquee-row reverse">
+            <div class="marquee-track">
+              <article class="quote-card quote-dark"><p aria-label="Five star rating">*****</p><blockquote>Strong technical discipline and a rare habit of documenting decisions clearly.</blockquote><cite>Data Systems Tutor</cite></article>
+              <article class="quote-card quote-light"><p aria-label="Five star rating">*****</p><blockquote>Reliable, thoughtful, and quick to connect theory with usable implementation.</blockquote><cite>Lab Partner</cite></article>
+              <article class="quote-card quote-accent"><p aria-label="Five star rating">*****</p><blockquote>The kind of student who keeps asking better questions after the assignment is done.</blockquote><cite>Professor</cite></article>
+              <article class="quote-card quote-light"><p aria-label="Five star rating">*****</p><blockquote>Brings a polished eye to dashboards and a practical mind to data pipelines.</blockquote><cite>Analytics Collaborator</cite></article>
+              <article class="quote-card quote-dark" aria-hidden="true"><p>*****</p><blockquote>Strong technical discipline and a rare habit of documenting decisions clearly.</blockquote><cite>Data Systems Tutor</cite></article>
+              <article class="quote-card quote-light" aria-hidden="true"><p>*****</p><blockquote>Reliable, thoughtful, and quick to connect theory with usable implementation.</blockquote><cite>Lab Partner</cite></article>
+              <article class="quote-card quote-accent" aria-hidden="true"><p>*****</p><blockquote>The kind of student who keeps asking better questions after the assignment is done.</blockquote><cite>Professor</cite></article>
+              <article class="quote-card quote-light" aria-hidden="true"><p>*****</p><blockquote>Brings a polished eye to dashboards and a practical mind to data pipelines.</blockquote><cite>Analytics Collaborator</cite></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact section-dark" id="contact" data-section aria-labelledby="contact-title">
+        <div class="contact-layout">
+          <div class="contact-copy" data-reveal>
+            <p class="section-kicker">Contact</p>
+            <h2 class="display-heading" id="contact-title">Let's Work Together</h2>
+            <p>
+              I am open to internships, student projects, freelance data work, and AI collaborations.
+              If you need someone who can learn quickly, reason clearly, and build with care, let's talk.
+            </p>
+            <div class="contact-socials" aria-label="Contact social links">
+              <!-- REPLACE: LinkedIn profile URL -->
+              <a href="#" aria-label="LinkedIn">in</a>
+              <!-- REPLACE: GitHub profile URL -->
+              <a href="#" aria-label="GitHub">GH</a>
+              <!-- REPLACE: email address -->
+              <a href="mailto:ziqian@example.com" aria-label="Email">@</a>
+              <!-- REPLACE: Instagram URL or remove if not needed -->
+              <a href="#" aria-label="Instagram">IG</a>
+            </div>
+            <!-- REPLACE: real resume PDF path -->
+            <a class="button button-gradient" href="assets/Ziqian-CV-placeholder.pdf" download>Download CV</a>
+          </div>
+
+          <!-- REPLACE: Formspree endpoint in the action attribute. -->
+          <form class="contact-form" action="https://formspree.io/f/REPLACE_WITH_FORM_ID" method="POST" novalidate data-contact-form data-reveal>
+            <div class="field">
+              <input id="name" name="name" type="text" placeholder=" " required autocomplete="name" />
+              <label for="name">Name</label>
+              <small class="field-error" id="name-error"></small>
+            </div>
+            <div class="field">
+              <input id="email" name="email" type="email" placeholder=" " required autocomplete="email" />
+              <label for="email">Email</label>
+              <small class="field-error" id="email-error"></small>
+            </div>
+            <div class="field">
+              <input id="subject" name="subject" type="text" placeholder=" " autocomplete="off" />
+              <label for="subject">Subject</label>
+              <small class="field-error" id="subject-error"></small>
+            </div>
+            <div class="field textarea-field">
+              <textarea id="message" name="message" placeholder=" " required rows="6"></textarea>
+              <label for="message">Message</label>
+              <small class="field-error" id="message-error"></small>
+            </div>
+            <button class="button button-fill submit-button" type="submit">
+              <span>Send Message</span>
+              <i aria-hidden="true"></i>
+            </button>
+          </form>
+        </div>
+
+        <footer class="site-footer">
+          <p>&copy; 2026 Ziqian. Built with passion for AI &amp; Data.</p>
+          <a class="back-top" href="#hero" aria-label="Back to top">&uarr;</a>
+        </footer>
+      </section>
+    </main>
+  </body>
+</html>

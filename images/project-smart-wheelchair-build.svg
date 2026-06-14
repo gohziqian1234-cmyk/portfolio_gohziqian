@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">Smart Wheelchair build placeholder</title>
+  <desc id="desc">Placeholder panel for wheelchair build-process photos.</desc>
+  <rect width="960" height="600" fill="#07101f"/>
+  <rect x="74" y="64" width="812" height="408" rx="28" fill="none" stroke="#3d5afe" stroke-width="4" stroke-dasharray="18 14"/>
+  <g fill="none" stroke="#f4f1ea" stroke-width="7" stroke-linecap="round" opacity=".85">
+    <path d="M232 356h292l74-162M348 356l-48-132h238M610 194h78"/>
+    <circle cx="262" cy="374" r="54"/>
+  </g>
+  <text x="110" y="530" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="900">REPLACE: BUILD PROCESS PHOTO</text>
+</svg>

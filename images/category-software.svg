@@ -1,0 +1,13 @@
+<!-- REPLACE: software category background graphic. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Software category graphic</title>
+  <desc id="desc">Abstract code and data visualization graphic.</desc>
+  <rect width="1200" height="800" fill="#101014"/>
+  <g opacity=".25" stroke="#f4f1ea" stroke-width="1">
+    <path d="M80 120h1040M80 220h1040M80 320h1040M80 420h1040M80 520h1040M80 620h1040"/>
+    <path d="M160 80v640M320 80v640M480 80v640M640 80v640M800 80v640M960 80v640"/>
+  </g>
+  <path d="M110 540c120-190 230-105 350-220s230-132 420 38" fill="none" stroke="#3d5afe" stroke-width="20"/>
+  <path d="M112 610c160-82 302-62 430-118 130-56 260-108 548-72" fill="none" stroke="#7b61ff" stroke-width="9"/>
+  <text x="80" y="170" fill="#f4f1ea" font-family="Arial, sans-serif" font-size="44" font-weight="900">&lt;/ DATA SYSTEMS &gt;</text>
+</svg>

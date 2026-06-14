@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--
+      Ziqian Portfolio - Projects Page
+      Sections: projects hero, software/hardware tab switcher, project grids,
+      reusable project modal, footer actions.
+      Replace comments mark real project images, GitHub links, live demos, and descriptions.
+    -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects | Ziqian</title>
+    <meta name="description" content="Software and hardware projects by Ziqian." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body data-page="projects">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="page-transition" aria-hidden="true"></div>
+    <div class="cursor-follower" aria-hidden="true"></div>
+
+    <nav class="navbar" data-site-header aria-label="Primary navigation">
+      <a class="nav-logo" href="index.html#hero" aria-label="Ziqian portfolio home">
+        <span class="nav-avatar">ZQ</span>
+        <span class="nav-wordmark">ZIQIAN</span>
+      </a>
+
+      <div class="nav-action-pill" aria-label="Quick portfolio actions">
+        <a class="nav-action nav-action-primary" href="index.html#projects">View My Projects</a>
+        <a class="nav-action nav-action-soft" href="index.html#about">About Me</a>
+        <a class="nav-action nav-action-gradient" href="index.html#contact">
+          <span class="status-dot" aria-hidden="true"></span>
+          Hire Me
+        </a>
+      </div>
+
+      <div class="nav-links-pill" data-desktop-nav>
+        <div class="nav-active-indicator" aria-hidden="true"></div>
+        <a class="nav-link" href="index.html#hero" data-nav-link data-section="hero" data-section-target="hero">Home</a>
+        <a class="nav-link" href="about.html" data-nav-link data-section="about" data-section-target="about">About</a>
+        <a class="nav-link active is-active" href="projects.html" data-nav-link data-section="projects" data-section-target="projects">Projects</a>
+        <a class="nav-link" href="index.html#testimonials" data-nav-link data-section="testimonials" data-section-target="testimonials">Testimonials</a>
+        <a class="nav-link" href="index.html#contact" data-nav-link data-section="contact" data-section-target="contact">Contact</a>
+      </div>
+
+      <a class="nav-cta" href="index.html#contact" aria-label="Hire Ziqian">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>Hire Me</span>
+      </a>
+
+      <button class="nav-hamburger menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <nav aria-label="Site navigation">
+        <a href="index.html#hero" data-mobile-link>Home</a>
+        <a href="about.html" data-mobile-link>About</a>
+        <a href="projects.html" data-mobile-link>Projects</a>
+        <a href="index.html#testimonials" data-mobile-link>Testimonials</a>
+        <a href="index.html#contact" data-mobile-link>Contact</a>
+      </nav>
+      <div class="menu-footer">
+        <a class="menu-hire" href="index.html#contact" data-mobile-link>
+          <span aria-hidden="true"></span>
+          Hire Me
+        </a>
+        <div class="menu-socials" aria-label="Social links">
+          <!-- REPLACE: LinkedIn profile URL -->
+          <a href="#" aria-label="LinkedIn profile">in</a>
+          <!-- REPLACE: GitHub profile URL -->
+          <a href="#" aria-label="GitHub profile">GH</a>
+          <!-- REPLACE: email address -->
+          <a href="mailto:ziqian@example.com" aria-label="Email Ziqian">@</a>
+          <!-- REPLACE: Instagram URL or remove if not needed -->
+          <a href="#" aria-label="Instagram profile">IG</a>
+        </div>
+        <p>&copy; 2026 Ziqian</p>
+      </div>
+    </div>
+
+    <main id="main">
+      <section class="subpage-hero section-dark" aria-labelledby="projects-page-title">
+        <a class="back-link" href="index.html#projects">&larr; Back to Home</a>
+        <div class="subpage-hero-inner" data-reveal>
+          <p class="section-kicker">Selected Work</p>
+          <h1 class="display-heading" id="projects-page-title">Projects</h1>
+          <p>Software systems and hardware prototypes, organized by discipline for easier browsing.</p>
+        </div>
+      </section>
+
+      <section class="project-browser section-dark" aria-label="Project browser">
+        <div class="tab-switcher" role="tablist" aria-label="Project category tabs" data-reveal>
+          <button class="tab-button is-active" type="button" role="tab" aria-selected="true" data-project-tab="software">Software</button>
+          <button class="tab-button" type="button" role="tab" aria-selected="false" data-project-tab="hardware">Hardware</button>
+        </div>
+
+        <div class="project-grid two-card-grid is-active" id="software" data-project-grid="software">
+          <article class="project-card grid-card" data-project-card data-category="software" data-reveal>
+            <span class="project-number" aria-hidden="true">01</span>
+            <span class="status-badge status-completed">Completed</span>
+            <span class="game-chip" aria-hidden="true">Play</span>
+            <figure><!-- REPLACE: actual gameplay screenshot/GIF from repo --><img src="images/project-piano-tiles.svg" width="960" height="600" loading="lazy" alt="Piano Tiles falling tiles gameplay placeholder graphic" /></figure>
+            <!-- CONFIRM: exact tech stack if different -->
+            <div class="project-card-body"><h3>Piano Tiles</h3><p>A rhythm-based reaction game where players tap falling tiles in time, built with an additional alien-themed arcade mode.</p><div class="tag-list"><span>Python</span><span>Game Dev</span><span>Pygame</span></div><button class="mini-button" type="button" data-open-project="piano">Learn More</button></div>
+          </article>
+          <article class="project-card grid-card horror-card" data-project-card data-category="software" data-reveal>
+            <span class="project-number" aria-hidden="true">02</span>
+            <span class="status-badge status-completed">Completed</span>
+            <span class="game-chip" aria-hidden="true">Play</span>
+            <figure><!-- REPLACE: actual gameplay screenshot/GIF from repo --><img src="images/project-erebus-7.svg" width="960" height="600" loading="lazy" alt="Erebus-7 First Skin horror stealth game placeholder graphic" /></figure>
+            <!-- CONFIRM: exact tech stack if different -->
+            <div class="project-card-body"><h3>Erebus-7: First Skin</h3><p>A single-player social-horror stealth game about an alien parasite wearing a human host, navigating suspicion and survival.</p><div class="tag-list"><span>Python</span><span>Game Dev</span><span>Stealth/Horror</span></div><button class="mini-button" type="button" data-open-project="erebus">Learn More</button></div>
+          </article>
+        </div>
+
+        <div class="project-grid two-card-grid" id="hardware" data-project-grid="hardware" hidden>
+          <article class="project-card grid-card" data-project-card data-category="hardware" data-reveal>
+            <span class="project-number" aria-hidden="true">01</span>
+            <span class="status-badge status-completed">Completed</span>
+            <!-- CONFIRM: actual project status -->
+            <figure><!-- REPLACE: actual project photo/diagram --><img src="images/project-smart-wheelchair.svg" width="960" height="600" loading="lazy" alt="Smart wheelchair system blueprint placeholder graphic" /></figure>
+            <!-- CONFIRM: exact components/tech used (e.g. specific microcontroller, sensor types, motor drivers) -->
+            <div class="project-card-body"><h3>Smart Wheelchair System</h3><p>An assistive hardware system designed to enhance mobility and safety for wheelchair users through embedded sensors and control systems.</p><div class="tag-list"><span>Arduino</span><span>Sensors</span><span>Embedded Systems</span></div><button class="mini-button" type="button" data-open-project="wheelchair">Learn More</button></div>
+          </article>
+          <article class="project-card grid-card" data-project-card data-category="hardware" data-reveal>
+            <span class="project-number" aria-hidden="true">02</span>
+            <span class="status-badge status-completed">Completed</span>
+            <!-- CONFIRM: actual project status -->
+            <figure><!-- REPLACE: actual project photo/diagram --><img src="images/project-smart-greenhouse.svg" width="960" height="600" loading="lazy" alt="Smart greenhouse system technical placeholder graphic" /></figure>
+            <!-- CONFIRM: exact components/tech (e.g. soil moisture sensor, DHT22 temp/humidity sensor, relay for irrigation, ESP32 for WiFi connectivity) -->
+            <div class="project-card-body"><h3>Smart Greenhouse System</h3><p>An automated greenhouse monitoring and control system using sensors to track environmental conditions and optimize plant growth.</p><div class="tag-list"><span>Arduino/ESP32</span><span>Sensors</span><span>IoT</span><span>Automation</span></div><button class="mini-button" type="button" data-open-project="greenhouse">Learn More</button></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="page-cta section-dark" aria-label="Project page actions">
+        <div data-reveal>
+          <h2>Want The Bigger Picture?</h2>
+          <div class="cta-actions">
+            <a class="button button-gradient" href="about.html">About Ziqian</a>
+            <a class="button button-outline" href="index.html#hero">Back to Home</a>
+          </div>
+        </div>
+        <footer class="site-footer">
+          <p>&copy; 2026 Ziqian. Built with passion for AI &amp; Data.</p>
+          <a class="back-top" href="index.html#hero" aria-label="Back to home">&uarr;</a>
+        </footer>
+      </section>
+    </main>
+
+    <div class="project-modal" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+      <div class="modal-scrim" data-close-modal></div>
+      <article class="modal-panel" tabindex="-1">
+        <button class="modal-close" type="button" data-close-modal aria-label="Close project modal">&times;</button>
+        <div class="modal-media">
+          <img id="modal-image" src="images/project-alien-invasion.svg" alt="" />
+          <div class="modal-thumbs" id="modal-thumbs" aria-label="Project image thumbnails"></div>
+        </div>
+        <div class="modal-content">
+          <p class="section-kicker dark" id="modal-kicker">Project</p>
+          <h2 id="modal-title">Project Title</h2>
+          <p id="modal-description"></p>
+          <div class="modal-section"><h3>Problem</h3><p id="modal-problem"></p></div>
+          <div class="modal-section"><h3>Solution</h3><p id="modal-approach"></p></div>
+          <div class="modal-section"><h3>Results</h3><p id="modal-results"></p></div>
+          <div class="tag-list" id="modal-tags"></div>
+          <div class="modal-actions" id="modal-actions">
+            <a class="modal-action-button modal-github-button" id="modal-github" href="#" target="_blank" rel="noopener noreferrer">
+              <span aria-hidden="true">&lt;/&gt;</span>
+              View on GitHub
+            </a>
+            <a class="modal-action-button modal-play-button" id="modal-play" href="#" target="_blank" rel="noopener noreferrer">
+              <span aria-hidden="true">▶</span>
+              Try The Game
+            </a>
+            <p class="modal-link-helper" id="modal-link-helper">Opens in a new tab — this portfolio stays open here, so you can switch back anytime.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </body>
+</html>
