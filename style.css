@@ -2358,10 +2358,15 @@ section[id],
 
 /* Scroll reveal */
 [data-reveal] {
-  opacity: 0;
-  transform: translateY(34px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 760ms ease, transform 760ms var(--ease);
   will-change: opacity, transform;
+}
+
+body.reveal-ready [data-reveal]:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(24px);
 }
 
 [data-reveal].is-visible {
@@ -2371,7 +2376,12 @@ section[id],
 
 .timeline-left[data-reveal],
 .timeline-right[data-reveal] {
-  transform: translateY(34px);
+  transform: translateY(0);
+}
+
+body.reveal-ready .timeline-left[data-reveal]:not(.is-visible),
+body.reveal-ready .timeline-right[data-reveal]:not(.is-visible) {
+  transform: translateY(24px);
 }
 
 .timeline-left[data-reveal].is-visible,
@@ -3209,14 +3219,22 @@ body.menu-open .navbar {
 
 .section-header[data-reveal],
 .subpage-hero-inner[data-reveal] {
-  filter: blur(8px);
-  transform: translateY(34px) scale(1.045);
-  transition: opacity 760ms ease, transform 760ms var(--ease), filter 760ms ease;
+  filter: none;
+  transform: translateY(0) scale(1);
+  transition: opacity 760ms ease, transform 760ms var(--ease);
+}
+
+body.reveal-ready .section-header[data-reveal]:not(.is-visible),
+body.reveal-ready .subpage-hero-inner[data-reveal]:not(.is-visible) {
+  opacity: 0;
+  filter: none;
+  transform: translateY(24px) scale(1);
 }
 
 .section-header[data-reveal].is-visible,
 .subpage-hero-inner[data-reveal].is-visible {
-  filter: blur(0);
+  opacity: 1;
+  filter: none;
   transform: translateY(0) scale(1);
 }
 
@@ -4012,4 +4030,69 @@ body.modal-open .project-card::after {
   max-width: 100%;
   min-width: 0;
   overflow: hidden;
+}
+
+/* Category card readability guardrails: decorative layers stay behind content. */
+.category-card::before,
+.category-card::after {
+  z-index: 1;
+}
+
+.category-card .category-art,
+.category-card .card-particles {
+  z-index: 0;
+  pointer-events: none;
+}
+
+.category-card .category-icon,
+.category-card .count-badge,
+.category-card h3,
+.category-card p,
+.category-card .button {
+  z-index: 3;
+}
+
+.category-card .category-icon {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  width: 3.25rem;
+  height: 3.25rem;
+  aspect-ratio: 1;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  opacity: 0.92;
+}
+
+.category-card .card-particles::before,
+.category-card .card-particles::after {
+  opacity: 0.12;
+}
+
+.software-card .card-particles::after {
+  right: 1.2rem;
+  bottom: 1.2rem;
+  width: auto;
+  max-width: 12rem;
+  color: rgba(244, 241, 234, 0.28);
+  font-size: 0.68rem;
+  line-height: 1.5;
+  letter-spacing: 0.16em;
+  text-align: right;
+}
+
+.hardware-card .card-particles::after {
+  right: 1.25rem;
+  bottom: 1.25rem;
+  width: 7rem;
+  height: 7rem;
+  opacity: 0.14;
+}
+
+.category-art img {
+  opacity: 0.42;
+}
+
+.category-card:hover .category-art img {
+  opacity: 0.58;
 }

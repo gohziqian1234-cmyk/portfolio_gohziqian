@@ -370,6 +370,7 @@ function moveActivePill() {
 function initRevealAnimations() {
   const revealItems = $$("[data-reveal]");
   if (!revealItems.length) return;
+  document.body.classList.add("reveal-ready");
 
   if (window.gsap && window.ScrollTrigger && !prefersReducedMotion) {
     gsap.registerPlugin(ScrollTrigger);
@@ -429,6 +430,10 @@ function initRevealAnimations() {
   );
 
   revealItems.forEach((item) => revealObserver.observe(item));
+
+  window.setTimeout(() => {
+    revealItems.forEach((item) => item.classList.add("is-visible"));
+  }, 1800);
 }
 
 function initTimelineFallback() {
@@ -753,26 +758,52 @@ function initStatCounters() {
   const stats = $$(".hero-stat-grid [data-count]");
   if (!stats.length) return;
 
+  const finalText = (item) => item.dataset.finalText || item.textContent.trim();
+
+  stats.forEach((item) => {
+    item.dataset.finalText = finalText(item);
+  });
+
   const setValue = (item, value) => {
     const decimals = Number(item.dataset.decimals || 0);
     const prefix = item.dataset.prefix || "";
     item.textContent = `${prefix}${value.toFixed(decimals)}`;
   };
 
+  const setFinalValue = (item) => {
+    item.textContent = finalText(item);
+    item.dataset.countComplete = "true";
+  };
+
   const animate = (item) => {
-    if (item.dataset.counted === "true") return;
+    if (item.dataset.counted === "true") {
+      setFinalValue(item);
+      return;
+    }
     item.dataset.counted = "true";
     const target = Number(item.dataset.count || 0);
     const duration = prefersReducedMotion ? 0 : 1200;
     const start = performance.now();
+    let finished = false;
+
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      setFinalValue(item);
+    };
 
     const tick = (now) => {
       const progress = duration ? Math.min(1, (now - start) / duration) : 1;
       const eased = 1 - Math.pow(1 - progress, 3);
       setValue(item, target * eased);
-      if (progress < 1) requestAnimationFrame(tick);
+      if (progress < 1) {
+        requestAnimationFrame(tick);
+        return;
+      }
+      finish();
     };
 
+    window.setTimeout(finish, duration + 150);
     requestAnimationFrame(tick);
   };
 
@@ -793,6 +824,14 @@ function initStatCounters() {
   );
 
   stats.forEach((item) => observer.observe(item));
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+      stats.forEach((item) => {
+        if (item.dataset.counted === "true") setFinalValue(item);
+      });
+    }
+  });
 }
 
 function initPhotoTilt() {
