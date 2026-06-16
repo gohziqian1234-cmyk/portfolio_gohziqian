@@ -7,6 +7,7 @@
 */
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const MODAL_VIDEO_GAIN = 2.2;
 
 const PROJECTS = {
   piano: {
@@ -541,7 +542,12 @@ function initProjectModal() {
 
   const closeModal = () => {
     if (!modal.classList.contains("active")) return;
-    $$(".modal-video", modal).forEach((video) => video.pause());
+    $$(".modal-video", modal).forEach((video) => {
+      video.pause();
+      video._portfolioAudioContext?.close?.();
+      video._portfolioAudioContext = null;
+      video._portfolioAudioReady = false;
+    });
     modal.classList.remove("active");
     modal.classList.add("is-closing");
 
@@ -570,6 +576,7 @@ function initProjectModal() {
     wireModalGallery(scrollArea);
     wireModalActionRipples(scrollArea);
     wireModalScrollFade(modal);
+    wireModalVideoBoost(scrollArea);
     modal.classList.remove("is-closing");
     modal.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
@@ -655,7 +662,7 @@ function createPianoModalMarkup(project) {
         <!-- ADD: path to gameplay video file, e.g. /assets/videos/piano-tiles-gameplay.mp4 -->
         <!-- ADD: path to poster thumbnail image, e.g. /assets/images/piano-tiles-poster.jpg -->
         <!-- RECOMMENDED VIDEO SPECS: keep the file under ~15-20MB and ideally under 60 seconds; compress with H.264 codec at 720p or 1080p so the portfolio stays fast. -->
-        <video class="modal-video" controls poster="${escapeHtml(project.poster)}" preload="metadata">
+        <video class="modal-video" controls poster="${escapeHtml(project.poster)}" preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
           <source src="${escapeHtml(project.video)}" type="video/mp4">
           <!-- OPTIONAL: <track kind="captions" src="captions.vtt" srclang="en" label="English"> -->
           Your browser does not support video playback.
@@ -812,6 +819,39 @@ function wireModalScrollFade(modal) {
   window.setTimeout(update, 120);
   window.setTimeout(update, 420);
   window.setTimeout(update, 900);
+}
+
+function wireModalVideoBoost(root) {
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+
+  $$(".modal-video", root).forEach((video) => {
+    video.volume = 1;
+
+    if (!AudioContextClass) return;
+
+    const boostAudio = () => {
+      if (video._portfolioAudioReady) {
+        video._portfolioAudioContext?.resume?.();
+        return;
+      }
+
+      try {
+        const audioContext = new AudioContextClass();
+        const source = audioContext.createMediaElementSource(video);
+        const gainNode = audioContext.createGain();
+        gainNode.gain.value = MODAL_VIDEO_GAIN;
+        source.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        video._portfolioAudioContext = audioContext;
+        video._portfolioAudioReady = true;
+        audioContext.resume?.();
+      } catch {
+        video.volume = 1;
+      }
+    };
+
+    video.addEventListener("play", boostAudio);
+  });
 }
 
 function clearProjectCardMotion() {
