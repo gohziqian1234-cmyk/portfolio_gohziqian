@@ -13,6 +13,9 @@ const PROJECTS = {
     title: "PIANO TILES",
     image: "images/project-piano-tiles.svg",
     imageAlt: "Piano Tiles rhythm game placeholder graphic",
+    modalVariant: "pianoCaseStudy",
+    video: "assets/videos/piano-tiles-gameplay.mp4",
+    poster: "images/piano-tiles-poster.svg",
     description: "A rhythm-based reaction game where players tap falling tiles in time, built with an additional alien-themed arcade mode.",
     problem: "Build a fast-paced, timing-based reactive game to practice real-time input handling, collision detection, and game-state/score management in Python.",
     approachHtml: "Designed a tile-spawning system with increasing difficulty, scoring logic based on accuracy and speed, and a game loop handling player input via Pygame. An additional <span class=\"inline-status inline-status-progress\">IN PROGRESS</span> Alien Invasion arcade mode was started as a companion project within the same repo.",
@@ -538,6 +541,7 @@ function initProjectModal() {
 
   const closeModal = () => {
     if (!modal.classList.contains("active")) return;
+    $$(".modal-video", modal).forEach((video) => video.pause());
     modal.classList.remove("active");
     modal.classList.add("is-closing");
 
@@ -565,6 +569,7 @@ function initProjectModal() {
     scrollArea.innerHTML = createModalMarkup(project);
     wireModalGallery(scrollArea);
     wireModalActionRipples(scrollArea);
+    wireModalScrollFade(modal);
     modal.classList.remove("is-closing");
     modal.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
@@ -591,6 +596,8 @@ function initProjectModal() {
 }
 
 function createModalMarkup(project) {
+  if (project.modalVariant === "pianoCaseStudy") return createPianoModalMarkup(project);
+
   const images = project.gallery?.length ? project.gallery : [project.image];
   const tags = project.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
   const approach = project.approachHtml || escapeHtml(project.approach || "");
@@ -626,6 +633,100 @@ function createModalMarkup(project) {
           <img src="${escapeHtml(images[0])}" width="960" height="600" alt="${escapeHtml(project.imageAlt || project.title)}" loading="lazy" data-modal-main-image />
         </div>
         <div class="modal-thumbs" aria-label="Project image thumbnails">${thumbs}</div>
+      </section>
+
+      ${actions}
+    </article>
+  `;
+}
+
+function createPianoModalMarkup(project) {
+  const actions = createModalActions(project);
+
+  return `
+    <article class="project-modal-body project-modal-body-long">
+      <header class="modal-project-hero modal-case-header">
+        <p class="modal-eyebrow section-kicker dark">Project</p>
+        <h2 class="modal-title" id="modal-title">${escapeHtml(project.title)}</h2>
+        <p>${escapeHtml(project.description)}</p>
+      </header>
+
+      <div class="modal-media modal-video-frame">
+        <!-- ADD: path to gameplay video file, e.g. /assets/videos/piano-tiles-gameplay.mp4 -->
+        <!-- ADD: path to poster thumbnail image, e.g. /assets/images/piano-tiles-poster.jpg -->
+        <!-- RECOMMENDED VIDEO SPECS: keep the file under ~15-20MB and ideally under 60 seconds; compress with H.264 codec at 720p or 1080p so the portfolio stays fast. -->
+        <video class="modal-video" controls poster="${escapeHtml(project.poster)}" preload="metadata">
+          <source src="${escapeHtml(project.video)}" type="video/mp4">
+          <!-- OPTIONAL: <track kind="captions" src="captions.vtt" srclang="en" label="English"> -->
+          Your browser does not support video playback.
+        </video>
+      </div>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">The Problem</h3>
+        <p>Nowadays, games are becoming more complex, competitive, and time-consuming. Many people lose the original feeling of playing games for fun - instead, they start playing mainly to win, which can make them feel more stressed or frustrated.</p>
+        <p>I wanted to create a simple browser game that is fun, interesting, and nostalgic. The target users are mainly students, polytechnic students, young adults, and the elderly who want a quick way to relax, reduce stress, and enjoy a short nostalgic game during their break time. Adults can also show their children what games were like when they were young, which can help create a bond between them.</p>
+        <p>The challenge of this project was to make the game slightly difficult but still simple at the same time, so users could understand it immediately and feel motivated to keep playing.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">What I Built</h3>
+        <p>I built a rhythm game where piano tiles fall into different lanes, and the player needs to press the correct key at the right time. If the player fails to do so, they lose one life - and lose the game after missing more than two times.</p>
+        <p>The game includes tile spawning, keyboard input detection, scoring, streak multipliers, lives, pause control, and game-over logic.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Key Features</h3>
+        <ul class="modal-feature-list">
+          <li>Simple rhythm gameplay inspired by classic piano tile games</li>
+          <li>Alien-themed visual style for a unique look and feel</li>
+          <li>Keyboard controls using the D, F, J, K keys</li>
+          <li>Randomized tile spawning across different lanes</li>
+          <li>Speed that steadily increases for rising difficulty</li>
+          <li>Scoring system with streak multiplier rewards</li>
+          <li>Three-lives system for added challenge</li>
+          <li>Clear visual feedback for hits, misses, score changes, and game states</li>
+        </ul>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Technologies Used</h3>
+        <p>Built with HTML, CSS, vanilla JavaScript, and HTML5 Canvas.</p>
+        <p><strong>HTML</strong> structured the game page - the canvas, start screen, game-over screen, and scoreboard display.</p>
+        <p><strong>CSS</strong> styled the purple alien theme, including effects, buttons, and layout.</p>
+        <p><strong>JavaScript</strong> powered the gameplay logic - falling tiles, keyboard and touch input, scoring, combo system, lives, levels, collision detection, and game-over handling.</p>
+        <p><strong>HTML5 Canvas</strong> rendered the live graphics - falling tiles, alien effects, the lane board, stars, particles, and animations.</p>
+        <div class="modal-tech-tags">
+          <span class="tech-tag">HTML</span>
+          <span class="tech-tag">CSS</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">HTML5 Canvas</span>
+        </div>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Challenges &amp; How I Overcame Them</h3>
+        <p>One challenge was making the game feel fair as the tiles became faster. Too strict a timing window felt frustrating; too loose made the game too easy and less engaging. I adjusted the hit-detection window and added clearer visual feedback so players could understand exactly when they hit or missed a tile.</p>
+        <p>Another challenge was managing different game states - ready, playing, paused, and game over. To avoid logic errors, I organized the game around a clear state system so each action only fires when the game is in the correct state.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Skills Demonstrated</h3>
+        <ul class="modal-feature-list modal-skills-list">
+          <li>JavaScript programming</li>
+          <li>HTML5 Canvas rendering</li>
+          <li>Keyboard event handling</li>
+          <li>Game loop logic</li>
+          <li>Game state management</li>
+          <li>Scoring and multiplier logic</li>
+          <li>Debugging and testing</li>
+          <li>User interface feedback</li>
+        </ul>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Outcome</h3>
+        <p>The final result is a simple but engaging rhythm game with increasing difficulty, responsive controls, scoring feedback, and a nostalgic gameplay style. This project helped me understand how real-time interaction, game loops, and user feedback shape the overall player experience.</p>
       </section>
 
       ${actions}
@@ -685,6 +786,32 @@ function wireModalActionRipples(root) {
     target.addEventListener("pointerenter", (event) => createEnergyRipple(target, event));
     target.addEventListener("pointerdown", (event) => createEnergyRipple(target, event));
   });
+}
+
+function wireModalScrollFade(modal) {
+  const scrollArea = $(".modal-scroll-area", modal);
+  if (!scrollArea) return;
+
+  const update = () => {
+    const remaining = scrollArea.scrollHeight - scrollArea.scrollTop - scrollArea.clientHeight;
+    modal.classList.toggle("is-scroll-end", remaining <= 50);
+    modal.classList.toggle("has-scroll-overflow", scrollArea.scrollHeight > scrollArea.clientHeight + 8);
+  };
+
+  scrollArea.removeEventListener("scroll", scrollArea._modalScrollFadeUpdate);
+  scrollArea._modalScrollFadeUpdate = update;
+  scrollArea.addEventListener("scroll", update, { passive: true });
+  $$("img, video", scrollArea).forEach((media) => {
+    media.addEventListener("load", update, { once: true });
+    media.addEventListener("loadedmetadata", update, { once: true });
+  });
+  requestAnimationFrame(() => {
+    update();
+    requestAnimationFrame(update);
+  });
+  window.setTimeout(update, 120);
+  window.setTimeout(update, 420);
+  window.setTimeout(update, 900);
 }
 
 function clearProjectCardMotion() {
