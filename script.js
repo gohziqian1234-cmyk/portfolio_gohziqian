@@ -18,11 +18,11 @@ const PROJECTS = {
     video: "assets/videos/piano-tiles-gameplay.mp4",
     poster: "images/piano-tiles-poster.svg",
     description: "A rhythm-based reaction game where players tap falling tiles in time, built with an additional alien-themed arcade mode.",
-    problem: "Build a fast-paced, timing-based reactive game to practice real-time input handling, collision detection, and game-state/score management in Python.",
-    approachHtml: "Designed a tile-spawning system with increasing difficulty, scoring logic based on accuracy and speed, and a game loop handling player input via Pygame. An additional <span class=\"inline-status inline-status-progress\">IN PROGRESS</span> Alien Invasion arcade mode was started as a companion project within the same repo.",
+    problem: "Build a fast-paced, timing-based reactive game to practice real-time input handling, collision detection, and game-state/score management in the browser.",
+    approachHtml: "Designed a tile-spawning system with increasing difficulty, scoring logic based on accuracy and speed, and a game loop handling player input with JavaScript and HTML5 Canvas. An additional <span class=\"inline-status inline-status-progress\">IN PROGRESS</span> Alien Invasion arcade mode was started as a companion project within the same repo.",
     results: "Fully playable Piano Tiles game with scoring and increasing difficulty; Alien Invasion mode in active development.",
     // CONFIRM: exact tech stack if different.
-    tags: ["Python", "Pygame", "Game Dev"],
+    tags: ["HTML", "CSS", "JavaScript", "HTML5 Canvas"],
     github: "https://github.com/gohziqian1234-cmyk/piano-tiles-alien-",
     // CONFIRM: GitHub Pages must be enabled in repo Settings > Pages, then update this URL if GitHub gives a different address.
     playUrl: "https://gohziqian1234-cmyk.github.io/piano-tiles-alien-/",
@@ -30,8 +30,8 @@ const PROJECTS = {
   },
   erebus: {
     title: "Erebus-7: First Skin",
-    image: "images/project-erebus-7.svg",
-    imageAlt: "Erebus-7 First Skin sci-fi game placeholder graphic",
+    image: "images/project-erebus-7.png",
+    imageAlt: "Erebus-7 First Skin horror corridor gameplay artwork",
     modalVariant: "erebusCaseStudy",
     video: "assets/videos/erebus-7-gameplay.mp4",
     poster: "images/erebus-7-poster.svg",
@@ -42,11 +42,11 @@ const PROJECTS = {
     // CONFIRM: any additional results, e.g. number of levels/chapters.
     results: "Completed playable single-player game with full narrative arc.",
     // CONFIRM: actual stack.
-    tags: ["Python", "Game Dev", "Stealth/Horror"],
+    tags: ["HTML", "CSS", "JavaScript", "HTML5 Canvas"],
     github: "https://github.com/gohziqian1234-cmyk/erebus-7",
     // CONFIRM: GitHub Pages must be enabled in repo Settings > Pages, then update this URL if GitHub gives a different address.
     playUrl: "https://gohziqian1234-cmyk.github.io/erebus-7/",
-    gallery: ["images/project-erebus-7.svg"]
+    gallery: ["images/project-erebus-7.png"]
   },
   wheelchair: {
     title: "SMART WHEELCHAIR SYSTEM",
