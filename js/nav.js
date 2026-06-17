@@ -1,6 +1,4 @@
-/* Navigation: one navbar system, measured active pill, mobile overlay, safe auto-hide. */
-
-export function initNavigation() {
+function initNavigation() {
   const nav = document.querySelector("[data-navbar]");
   const linksWrap = document.querySelector("[data-nav-links]");
   const indicator = document.querySelector("[data-nav-indicator]");
@@ -8,14 +6,13 @@ export function initNavigation() {
   const menuToggle = document.querySelector("[data-menu-toggle]");
   const mobileMenu = document.querySelector("[data-mobile-menu]");
   const mobileLinks = Array.from(document.querySelectorAll("[data-mobile-link]"));
-  const mobileCloseButtons = Array.from(document.querySelectorAll("[data-mobile-close]"));
   const page = document.body.dataset.page || "home";
 
   if (!nav) return;
 
   const setNavHeight = () => {
     const rect = nav.getBoundingClientRect();
-    const total = Math.ceil(rect.height + rect.top + 32);
+    const total = Math.ceil(rect.height + rect.top + 24);
     document.documentElement.style.setProperty("--nav-height", `${total}px`);
   };
 
@@ -47,15 +44,19 @@ export function initNavigation() {
     mobileMenu?.classList.add("is-open");
     mobileMenu?.setAttribute("aria-hidden", "false");
     menuToggle?.setAttribute("aria-expanded", "true");
-    nav.classList.remove("nav-hidden");
   };
 
   menuToggle?.addEventListener("click", () => {
-    document.body.classList.contains("menu-open") ? closeMenu() : openMenu();
+    if (document.body.classList.contains("menu-open")) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
   });
 
-  mobileLinks.forEach((link) => link.addEventListener("click", closeMenu));
-  mobileCloseButtons.forEach((button) => button.addEventListener("click", closeMenu));
+  mobileLinks.forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeMenu();
@@ -66,8 +67,7 @@ export function initNavigation() {
     if (!link) return;
 
     const url = new URL(link.href, window.location.href);
-    const samePage = url.pathname === window.location.pathname || url.pathname.endsWith("/index.html");
-    if (!samePage || !url.hash) return;
+    if (url.pathname !== window.location.pathname && !url.pathname.endsWith("/index.html")) return;
 
     const target = document.querySelector(url.hash);
     if (!target) return;
@@ -78,13 +78,13 @@ export function initNavigation() {
     history.pushState(null, "", url.hash);
   });
 
-  const homeSections = Array.from(
-    document.querySelectorAll(
-      "main #hero, main [data-section='about'], main [data-section='projects'], main [data-section='testimonials'], main [data-section='contact']"
-    )
-  );
+  if (page === "home") {
+    const sections = Array.from(
+      document.querySelectorAll(
+        "main #hero, main [data-section='about'], main [data-section='projects'], main [data-section='testimonials'], main [data-section='contact']"
+      )
+    );
 
-  if (page === "home" && homeSections.length) {
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -101,8 +101,8 @@ export function initNavigation() {
       }
     );
 
-    homeSections.forEach((section) => observer.observe(section));
-    setActive(hashToSection(window.location.hash));
+    sections.forEach((section) => observer.observe(section));
+    setActive(window.location.hash ? hashToSection(window.location.hash) : "hero");
   } else {
     setActive(page);
   }
@@ -121,59 +121,14 @@ export function initNavigation() {
     resizeTimer = window.setTimeout(refresh, 140);
   });
 
-  if (document.fonts?.ready) document.fonts.ready.then(refresh).catch(() => {});
-
-  initAutoHide(nav);
-}
-
-function initAutoHide(nav) {
-  let lastScrollY = window.scrollY;
-  let ticking = false;
-  let mouseRevealTimeout = 0;
-
-  const showNav = () => nav.classList.remove("nav-hidden");
-  const hideNav = () => {
-    if (window.scrollY <= 50 || document.body.classList.contains("menu-open") || document.body.classList.contains("modal-open")) return;
-    nav.classList.add("nav-hidden");
-  };
-
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const currentScrollY = window.scrollY;
-        if (currentScrollY <= 50) {
-          showNav();
-        } else if (currentScrollY > lastScrollY && currentScrollY > 80) {
-          hideNav();
-        }
-
-        lastScrollY = Math.max(currentScrollY, 0);
-        ticking = false;
-      });
-    },
-    { passive: true }
-  );
-
-  window.addEventListener(
-    "mousemove",
-    (event) => {
-      if (event.clientY >= 100 || window.scrollY <= 50) return;
-      if (!nav.classList.contains("nav-hidden")) return;
-
-      showNav();
-      window.clearTimeout(mouseRevealTimeout);
-      mouseRevealTimeout = window.setTimeout(hideNav, 850);
-    },
-    { passive: true }
-  );
+  if (document.fonts?.ready) {
+    document.fonts.ready.then(refresh).catch(() => {});
+  }
 }
 
 function hashToSection(hash) {
+  if (hash === "#hero") return "hero";
   if (hash === "#about-preview") return "about";
-  if (hash === "#hero" || !hash) return "hero";
   return hash.replace("#", "") || "hero";
 }
 
@@ -200,3 +155,5 @@ function currentHomeSection() {
 
   return best;
 }
+
+window.initNavigation = initNavigation;
