@@ -71,7 +71,7 @@ const PROJECTS = {
     modalVariant: "plantCaseStudy",
     reportUrl: "assets/reports/iot-smart-plant-monitoring-report.pdf",
     demoUrl: "assets/videos/iot-smart-plant-monitoring-demo.mp4",
-    diagram: "images/iot-plant-monitoring-architecture.svg",
+    diagram: "images/iot-plant-monitoring-architecture.png",
     description: "Automated indoor farming system using Arduino, Raspberry Pi, sensors, MariaDB, and Flask to monitor plant conditions and alert users when the environment is unsuitable.",
     // CONFIRM/EXPAND: specific goals, e.g. automated watering, temperature alerts.
     problem: "Reduce manual indoor farming monitoring by using IoT technology to provide real-time feedback, automatic light adjustment, and alerts when plant conditions are unsuitable.",
@@ -912,7 +912,7 @@ function createPlantModalMarkup(project) {
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">System Architecture</h3>
         <div class="modal-diagram">
-          <!-- ACTION REQUIRED: extract the project report flowchart or replace this clean placeholder with /assets/images/iot-plant-monitoring-architecture.png -->
+          <!-- DIAGRAM: extracted/replaced with the project architecture flowchart image. -->
           <img src="${escapeHtml(project.diagram)}" alt="System architecture flowchart showing data flow from sensors through Arduino, Raspberry Pi, MariaDB, to the Flask web interface" loading="lazy" width="1200" height="520">
         </div>
         <p>The Arduino collects data from the temperature sensor, light sensor, ultrasonic sensor, and rotary angle sensor. It processes the readings, controls the LED and buzzer, and displays the status on the LCD screen.</p>
@@ -974,8 +974,8 @@ function createPlantModalMarkup(project) {
       </section>
 
       <section class="modal-action-block" aria-label="Project report and demo">
-        <!-- ACTION REQUIRED: convert the co-authored .docx project report to PDF, confirm public sharing with Li Heng, then place it at assets/reports/iot-smart-plant-monitoring-report.pdf. -->
-        <!-- ACTION REQUIRED: add a demo video file or external URL showing sensors, LED/LCD updates, and Flask data display, then update the Watch Demo href if needed. -->
+        <!-- REPORT: converted from the co-authored DOCX project report to a web-friendly PDF. -->
+        <!-- DEMO: linked to the provided project demo MP4. -->
         <div class="modal-actions modal-action-row">
           <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.reportUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
             <span aria-hidden="true">PDF</span>
