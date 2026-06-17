@@ -29,10 +29,13 @@ const PROJECTS = {
     gallery: ["images/project-piano-tiles.svg", "images/project-alien-invasion.svg"]
   },
   erebus: {
-    title: "EREBUS-7: FIRST SKIN",
+    title: "Erebus-7: First Skin",
     image: "images/project-erebus-7.svg",
     imageAlt: "Erebus-7 First Skin sci-fi game placeholder graphic",
-    description: "A single-player social-horror stealth game about an alien parasite wearing a human host.",
+    modalVariant: "erebusCaseStudy",
+    video: "assets/videos/erebus-7-gameplay.mp4",
+    poster: "images/erebus-7-poster.svg",
+    description: "A single-player social-horror stealth game where you play an alien parasite infiltrating a space station, evading detection to reach the AI core.",
     problem: "Design and build a narrative-driven stealth game exploring tension, suspicion mechanics, and atmosphere - combining storytelling with gameplay systems.",
     // CONFIRM/EXPAND: add specific mechanics, e.g. suspicion meter, dialogue choices, level design details once available.
     approach: "Built core stealth/suspicion mechanics, narrative pacing, and atmospheric presentation to create a tense single-player horror experience.",
@@ -604,6 +607,7 @@ function initProjectModal() {
 
 function createModalMarkup(project) {
   if (project.modalVariant === "pianoCaseStudy") return createPianoModalMarkup(project);
+  if (project.modalVariant === "erebusCaseStudy") return createErebusModalMarkup(project);
 
   const images = project.gallery?.length ? project.gallery : [project.image];
   const tags = project.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
@@ -734,6 +738,109 @@ function createPianoModalMarkup(project) {
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Outcome</h3>
         <p>The final result is a simple but engaging rhythm game with increasing difficulty, responsive controls, scoring feedback, and a nostalgic gameplay style. This project helped me understand how real-time interaction, game loops, and user feedback shape the overall player experience.</p>
+      </section>
+
+      ${actions}
+    </article>
+  `;
+}
+
+function createErebusModalMarkup(project) {
+  const actions = createModalActions(project);
+
+  return `
+    <article class="project-modal-body project-modal-body-long">
+      <header class="modal-project-hero modal-case-header">
+        <p class="modal-eyebrow section-kicker dark">Project</p>
+        <h2 class="modal-title" id="modal-title">${escapeHtml(project.title)}</h2>
+        <p>${escapeHtml(project.description)}</p>
+      </header>
+
+      <div class="modal-media modal-video-frame">
+        <!-- ADD: path to Erebus-7 gameplay video, e.g. /assets/videos/erebus-7-gameplay.mp4 -->
+        <!-- ADD: path to poster thumbnail, e.g. /assets/images/erebus-7-poster.jpg -->
+        <!-- RECOMMENDED VIDEO SPECS: keep under ~15-20MB, H.264, 720p/1080p, ideally under 60 seconds of representative gameplay. -->
+        <video class="modal-video" controls poster="${escapeHtml(project.poster)}" preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
+          <source src="${escapeHtml(project.video)}" type="video/mp4">
+          <!-- OPTIONAL: <track kind="captions" src="captions.vtt" srclang="en" label="English"> -->
+          Your browser does not support video playback.
+        </video>
+      </div>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">The Problem</h3>
+        <p>Among Us is usually a multiplayer game, but not every player wants to play with random people online - some don't have friends to play with, or simply prefer to play alone without depending on anyone else.</p>
+        <p>This project set out to redesign the Among Us-style experience as a single-player game, built around solo gameplay, tasks, decision-making, and suspense rather than real players. The challenge was making the game genuinely interesting without any multiplayer interaction to fall back on.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">What I Built</h3>
+        <p>I built a single-player social-horror stealth game called <strong>Erebus-7: First Skin</strong>. Players take on the role of an alien parasite confined within a space station, controlling a human host who must infect crew members, evade detection, and gradually take over the station.</p>
+        <p>The primary objective is to navigate through the station's various sections and reach SELENE, the station's AI. To succeed, players must complete tasks, use infected hosts as allies, avoid guards and surveillance systems, and survive until the final chapter at the AI Core.</p>
+        <p>The game features movement mechanics, enemy patrols, detection systems, infection mechanics, a clone respawn option, varying difficulty levels, narrative scenes, sound effects, a tactical map, tutorials, save/load functionality, and multiple chapters.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Key Features</h3>
+        <ul class="modal-feature-list">
+          <li>Single-player horror stealth gameplay</li>
+          <li>Branching storyline with narrative progression</li>
+          <li>Detection bar that rises when guards or cameras spot the player</li>
+          <li>Easy, Medium, and Hard difficulty modes</li>
+          <li>Clone system letting the player respawn at a planted backup body</li>
+          <li>Tactical map showing rooms, people, danger, objectives, and routes</li>
+          <li>Distinct station zones - Crew Quarters, Med Bay, Security Hub, Command Deck, and AI Core</li>
+          <li>Story scenes and blackbox logs revealing what happened on the station</li>
+          <li>Sound design with alarms, footsteps, whispers, scanner sounds, and horror music</li>
+          <li>Pause menu, settings, save/load, tutorial, and game-over screens</li>
+        </ul>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Technologies Used</h3>
+        <p>Built with HTML, CSS, JavaScript, and HTML5 Canvas.</p>
+        <p><strong>HTML</strong> established the framework of the game page - the canvas, intro screen, tutorial, HUD, pause menu, tactical map, story scenes, and game-over screens.</p>
+        <p><strong>CSS</strong> shaped the visual style - a dark horror aesthetic in teal, red, green, and blue tones to match the space station and parasite theme.</p>
+        <p><strong>JavaScript</strong> powered the game's functionality - player movement, enemy AI, the detection bar, infection system, abilities, map system, story progression, sound, save/load, and game rules.</p>
+        <p><strong>HTML5 Canvas</strong> rendered the live game environment - the map, rooms, characters, vision cones, effects, lighting, particles, objectives, and animations in real time.</p>
+        <div class="modal-tech-tags">
+          <span class="tech-tag">HTML</span>
+          <span class="tech-tag">CSS</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">HTML5 Canvas</span>
+        </div>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Challenges &amp; Solutions</h3>
+        <p>One challenge was creating a genuinely scary atmosphere rather than just a dark one. Early on, the game felt too simplistic - players were just navigating a map. To fix this, I added more detailed room art, horror effects, sound design, story scenes, and frightening events triggered when the player entered certain areas.</p>
+        <p>Another challenge was balancing the detection system. If it filled too slowly, the game became too easy; too quickly, and it felt unfair. I addressed this by introducing difficulty levels and tuning the detection range, speed, and cooldown for each mode.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Skills Demonstrated</h3>
+        <ul class="modal-feature-list modal-skills-list">
+          <li>HTML, CSS, and JavaScript programming</li>
+          <li>HTML5 Canvas rendering</li>
+          <li>Game loop logic</li>
+          <li>Player movement and collision detection</li>
+          <li>Enemy AI and patrol behaviour</li>
+          <li>Detection and stealth systems</li>
+          <li>Game state management</li>
+          <li>UI and HUD design</li>
+          <li>Sound and music handling in the browser</li>
+          <li>Story writing and mission flow</li>
+          <li>Save/load system</li>
+          <li>Debugging and playtesting</li>
+          <li>Git and GitHub Pages publishing</li>
+        </ul>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Outcome</h3>
+        <p>The outcome is a playable horror game with a full story theme, multiple levels, enemies, objectives, sound, and a clear mission flow.</p>
+        <p>This project opened my eyes to how much work goes into making a game actually feel good - gameplay is so much more than controls and rules. A good game also needs feedback, sound, pacing, story, balance, and clear instructions for the player.</p>
+        <p>All in all, Erebus-7: First Skin became much more than a simple prototype - a full-fledged browser game, playable on the web and shareable with others.</p>
       </section>
 
       ${actions}
