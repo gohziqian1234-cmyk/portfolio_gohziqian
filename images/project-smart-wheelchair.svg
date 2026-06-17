@@ -1,76 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
-  <title id="title">Motor-Assisted Wheelchair Support Prototype thumbnail</title>
-  <desc id="desc">Wireframe wheelchair wheel with DC motor, potentiometer dial, ultrasonic sensor ping waves, buzzer feedback, and Tinkercad circuit cues.</desc>
+  <title id="title">Smart Wheelchair System placeholder</title>
+  <desc id="desc">Blueprint-style wheelchair with highlighted sensor nodes and wiring paths.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#050812"/>
-      <stop offset=".5" stop-color="#0b1328"/>
-      <stop offset="1" stop-color="#050507"/>
+      <stop stop-color="#050812"/><stop offset=".55" stop-color="#0c162d"/><stop offset="1" stop-color="#050507"/>
     </linearGradient>
     <linearGradient id="line" x1="0" x2="1">
-      <stop stop-color="#3d5afe"/>
-      <stop offset=".55" stop-color="#7b61ff"/>
-      <stop offset="1" stop-color="#4ade80"/>
+      <stop stop-color="#3d5afe"/><stop offset="1" stop-color="#7b61ff"/>
     </linearGradient>
-    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
   </defs>
   <rect width="960" height="600" fill="url(#bg)"/>
-  <g stroke="#f4f1ea" stroke-width="1" opacity=".09">
+  <g stroke="#f4f1ea" stroke-width="1" opacity=".1">
     <path d="M0 92h960M0 184h960M0 276h960M0 368h960M0 460h960M0 552h960"/>
     <path d="M96 0v600M192 0v600M288 0v600M384 0v600M480 0v600M576 0v600M672 0v600M768 0v600M864 0v600"/>
   </g>
-  <g opacity=".14" fill="none" stroke="#3d5afe" stroke-width="2">
-    <path d="M80 458c116-78 220-116 312-104 142 18 250-8 402-132"/>
-    <path d="M104 498c148-40 270-48 376-20 104 28 224 12 350-68"/>
-  </g>
   <g fill="none" stroke="#f4f1ea" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="302" cy="380" r="96"/>
-    <circle cx="302" cy="380" r="40" opacity=".42"/>
-    <path d="M362 370h168l54-132"/>
-    <path d="M428 370l-44-164h188"/>
-    <path d="M554 238h82c36 0 58 26 50 60l-26 98"/>
-    <path d="M548 204v-66h88"/>
-    <path d="M612 138l28 100"/>
-    <path d="M532 370l60 92h90"/>
+    <circle cx="314" cy="396" r="88"/>
+    <circle cx="314" cy="396" r="36" opacity=".45"/>
+    <path d="M364 386h166l54-138"/>
+    <path d="M430 386l-46-166h184"/>
+    <path d="M554 252h80c34 0 56 25 48 58l-24 102"/>
+    <path d="M548 220v-62h86"/>
+    <path d="M610 158l28 94"/>
+    <path d="M530 386l60 94h86"/>
   </g>
-  <g stroke="url(#line)" stroke-width="4" fill="none">
-    <path d="M384 398h110"/>
-    <path d="M494 398v62h104"/>
-    <path d="M594 238h136"/>
-    <path d="M636 462h122"/>
+  <g stroke="url(#line)" stroke-width="3" fill="none">
+    <path d="M314 396 198 286 244 178"/>
+    <path d="M584 248 746 200 818 286"/>
+    <path d="M658 412 796 432"/>
   </g>
-  <g transform="translate(492 356)" filter="url(#glow)">
-    <rect x="0" y="0" width="122" height="84" rx="18" fill="#101726" stroke="url(#line)" stroke-width="4"/>
-    <circle cx="38" cy="42" r="18" fill="none" stroke="#4ade80" stroke-width="5"/>
-    <path d="M78 26h22M78 42h22M78 58h22" stroke="#f4f1ea" stroke-width="4" stroke-linecap="round"/>
-    <text x="61" y="106" text-anchor="middle" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="15">DC MOTOR</text>
+  <g fill="#3d5afe">
+    <circle cx="244" cy="178" r="12"/><circle cx="746" cy="200" r="12"/><circle cx="818" cy="286" r="12"/><circle cx="796" cy="432" r="12"/>
   </g>
-  <g transform="translate(682 142)" filter="url(#glow)">
-    <circle cx="58" cy="58" r="48" fill="#101726" stroke="url(#line)" stroke-width="4"/>
-    <path d="M58 58 86 34" stroke="#f4f1ea" stroke-width="5" stroke-linecap="round"/>
-    <circle cx="58" cy="58" r="8" fill="#4ade80"/>
-    <text x="58" y="128" text-anchor="middle" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="15">POTENTIOMETER</text>
-  </g>
-  <g transform="translate(700 330)" filter="url(#glow)">
-    <rect x="0" y="0" width="126" height="78" rx="18" fill="#101726" stroke="url(#line)" stroke-width="4"/>
-    <circle cx="42" cy="39" r="11" fill="#f4f1ea"/>
-    <circle cx="84" cy="39" r="11" fill="#f4f1ea"/>
-    <path d="M126 18c36 18 52 42 0 62M142 8c54 28 74 66 0 90" stroke="#7b61ff" stroke-width="4" fill="none" stroke-linecap="round"/>
-    <text x="63" y="108" text-anchor="middle" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="15">ULTRASONIC</text>
-  </g>
-  <g transform="translate(124 136)" filter="url(#glow)">
-    <rect width="154" height="74" rx="18" fill="#101726" stroke="#3d5afe" stroke-width="4"/>
-    <path d="M38 42h18l16-20 20 40 16-20h14" stroke="#4ade80" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="77" y="102" text-anchor="middle" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="15">BUZZER ALERT</text>
-  </g>
-  <g fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="900">
-    <text x="44" y="516" font-size="25" letter-spacing="3">MOTOR-ASSISTED WHEELCHAIR</text>
-    <text x="44" y="552" font-size="25" letter-spacing="3">SUPPORT PROTOTYPE</text>
-  </g>
+  <text x="44" y="540" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="30" letter-spacing="4">SMART WHEELCHAIR SYSTEM</text>
 </svg>
