@@ -1,197 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!--
-      Ziqian Portfolio - Projects Page
-      Sections: projects hero, software/hardware tab switcher, project grids,
-      reusable project modal, continue-exploring cards, footer actions.
-      Replace comments mark real project images, GitHub links, live demos, and descriptions.
-    -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projects | Ziqian's Portfolio</title>
-    <meta name="description" content="Software game projects and hardware systems by Ziqian." />
-    <meta property="og:title" content="Projects | Ziqian's Portfolio" />
-    <meta property="og:description" content="Software game projects and hardware systems by Ziqian." />
-    <meta property="og:type" content="website" />
-    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+    <meta name="description" content="Software and hardware projects by Ziqian." />
+    <meta name="theme-color" content="#0d0d0d" />
+    <meta property="og:title" content="Projects | Ziqian Portfolio" />
+    <meta property="og:description" content="Selected software and hardware systems by Ziqian." />
+    <title>Projects | Ziqian Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-    <script src="script.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body data-page="projects">
     <a class="skip-link" href="#main">Skip to content</a>
-    <div class="page-transition" aria-hidden="true"></div>
-    <div class="cursor-follower" aria-hidden="true"></div>
 
-    <nav class="navbar" data-site-header aria-label="Primary navigation">
-      <a class="nav-logo" href="index.html#hero" aria-label="Ziqian portfolio home">
-        <span class="nav-avatar">ZQ</span>
-        <span class="nav-wordmark">ZIQIAN</span>
-      </a>
-
-      <div class="nav-action-pill" aria-label="Quick portfolio actions">
-        <a class="nav-action nav-action-primary" href="index.html#projects">View My Projects</a>
-        <a class="nav-action nav-action-soft" href="index.html#about">About Me</a>
-        <a class="nav-action nav-action-gradient" href="index.html#contact">
-          <span class="status-dot" aria-hidden="true"></span>
-          Hire Me
-        </a>
-      </div>
-
-      <div class="nav-links-pill" data-desktop-nav>
-        <div class="nav-active-indicator" aria-hidden="true"></div>
-        <a class="nav-link" href="index.html#hero" data-nav-link data-section="hero" data-section-target="hero">Home</a>
-        <a class="nav-link" href="about.html" data-nav-link data-section="about" data-section-target="about">About</a>
-        <a class="nav-link active is-active" href="projects.html" data-nav-link data-section="projects" data-section-target="projects">Projects</a>
-        <a class="nav-link" href="index.html#testimonials" data-nav-link data-section="testimonials" data-section-target="testimonials">Testimonials</a>
-        <a class="nav-link" href="index.html#contact" data-nav-link data-section="contact" data-section-target="contact">Contact</a>
-      </div>
-
-      <a class="nav-cta" href="index.html#contact" aria-label="Hire Ziqian">
-        <span class="status-dot" aria-hidden="true"></span>
-        <span>Hire Me</span>
-      </a>
-
-      <button class="nav-hamburger menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </nav>
-
-    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
-      <nav aria-label="Site navigation">
-        <a href="index.html#hero" data-mobile-link>Home</a>
-        <a href="about.html" data-mobile-link>About</a>
-        <a href="projects.html" data-mobile-link>Projects</a>
-        <a href="index.html#testimonials" data-mobile-link>Testimonials</a>
-        <a href="index.html#contact" data-mobile-link>Contact</a>
-      </nav>
-      <div class="menu-footer">
-        <a class="menu-hire" href="index.html#contact" data-mobile-link>
-          <span aria-hidden="true"></span>
-          Hire Me
-        </a>
-        <div class="menu-socials" aria-label="Social links">
-          <!-- REPLACE: LinkedIn profile URL -->
-          <a href="#" aria-label="LinkedIn profile">in</a>
-          <!-- REPLACE: GitHub profile URL -->
-          <a href="#" aria-label="GitHub profile">GH</a>
-          <!-- REPLACE: email address -->
-          <a href="mailto:ziqian@example.com" aria-label="Email Ziqian">@</a>
-          <!-- REPLACE: Instagram URL or remove if not needed -->
-          <a href="#" aria-label="Instagram profile">IG</a>
+    <header class="topbar" aria-label="Primary navigation">
+      <nav class="nav-shell" data-navbar>
+        <a class="brand" href="index.html#hero" data-nav-link data-section="hero" aria-label="Ziqian home"><span class="brand-mark">ZQ</span><span class="brand-name">ZIQIAN</span></a>
+        <div class="nav-links" data-nav-links>
+          <span class="nav-indicator" data-nav-indicator aria-hidden="true"></span>
+          <a href="index.html#hero" data-nav-link data-section="hero">Home</a>
+          <a href="about.html" data-nav-link data-section="about">About</a>
+          <a href="projects.html" data-nav-link data-section="projects">Projects</a>
+          <a href="index.html#testimonials" data-nav-link data-section="testimonials">Testimonials</a>
+          <a href="index.html#contact" data-nav-link data-section="contact">Contact</a>
         </div>
-        <p>&copy; 2026 Ziqian</p>
+        <a class="nav-cta" href="index.html#contact"><span class="status-dot" aria-hidden="true"></span><span>Hire Me</span></a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu" data-menu-toggle><span></span><span></span><span></span></button>
+      </nav>
+      <div class="mobile-menu" id="mobile-menu" data-mobile-menu aria-hidden="true">
+        <div class="mobile-menu-inner">
+          <a href="index.html#hero" data-mobile-link>Home</a>
+          <a href="about.html" data-mobile-link>About</a>
+          <a href="projects.html" data-mobile-link>Projects</a>
+          <a href="index.html#testimonials" data-mobile-link>Testimonials</a>
+          <a href="index.html#contact" data-mobile-link>Contact</a>
+          <a class="mobile-hire" href="index.html#contact" data-mobile-link><span class="status-dot" aria-hidden="true"></span>Hire Me</a>
+        </div>
       </div>
-    </div>
+    </header>
 
     <main id="main">
-      <section class="subpage-hero section-dark" aria-labelledby="projects-page-title">
-        <div class="subpage-hero-inner" data-reveal>
-          <a class="breadcrumb-link" href="index.html#projects">&larr; Back to Home</a>
-          <p class="section-kicker">Selected Work</p>
-          <h1 class="display-heading" id="projects-page-title">Projects</h1>
+      <section class="page-hero section-dark anchor-section" id="projects" data-section="projects">
+        <div class="section-shell" data-reveal>
+          <a class="breadcrumb-link" href="index.html#hero">&larr; Back to Home</a>
+          <p class="eyebrow">Selected Work</p>
+          <h1>Projects</h1>
           <p>Software systems and hardware prototypes, organized by discipline for easier browsing.</p>
         </div>
       </section>
 
       <section class="project-browser section-dark" aria-label="Project browser">
-        <div class="tab-switcher" role="tablist" aria-label="Project category tabs" data-reveal>
-          <button class="tab-button is-active" type="button" role="tab" aria-selected="true" data-project-tab="software">Software</button>
-          <button class="tab-button" type="button" role="tab" aria-selected="false" data-project-tab="hardware">Hardware</button>
-        </div>
+        <div class="section-shell">
+          <div class="tab-switcher" role="tablist" aria-label="Project categories" data-reveal>
+            <button class="tab-button is-active" type="button" role="tab" aria-selected="true" data-tab-button="software">Software</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab-button="hardware">Hardware</button>
+          </div>
 
-        <div class="project-grid two-card-grid is-active" id="software" data-project-grid="software">
-          <article class="project-card grid-card" data-project-card data-category="software" data-reveal>
-            <span class="project-number" aria-hidden="true">01</span>
-            <span class="status-badge status-completed">Completed</span>
-            <span class="game-chip" aria-hidden="true">Play</span>
-            <figure><!-- REPLACE: actual gameplay screenshot/GIF from repo --><img src="images/project-piano-tiles.svg" width="960" height="600" loading="lazy" alt="Alien Piano Tiles falling tiles gameplay placeholder graphic" /></figure>
-            <!-- CONFIRM: exact tech stack if different -->
-            <div class="project-card-body"><h3>Alien Piano Tiles</h3><p>Solo project - Designed and built the game logic, Canvas rendering, scoring system, keyboard controls, and difficulty progression.</p><div class="tag-list"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>HTML5 Canvas</span></div><button class="mini-button" type="button" data-open-project="piano">Learn More</button></div>
-          </article>
-          <article class="project-card grid-card horror-card" data-project-card data-category="software" data-reveal>
-            <span class="project-number" aria-hidden="true">02</span>
-            <span class="status-badge status-completed">Completed</span>
-            <span class="game-chip" aria-hidden="true">Play</span>
-            <figure><!-- REPLACE: actual gameplay screenshot/GIF from repo --><img src="images/project-erebus-7.png" width="1024" height="1536" loading="lazy" alt="Erebus-7 Parasite Protocol horror corridor gameplay artwork" /></figure>
-            <!-- CONFIRM: exact tech stack if different -->
-            <div class="project-card-body"><h3>Erebus-7: Parasite Protocol</h3><p>Solo project - Built the detection system, difficulty scaling, resource logic, story progression, and interactive gameplay flow.</p><div class="tag-list"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>HTML5 Canvas</span></div><button class="mini-button" type="button" data-open-project="erebus">Learn More</button></div>
-          </article>
-        </div>
+          <div class="project-grid is-active" data-project-grid="software">
+            <article class="project-card" data-project-card data-tilt data-reveal>
+              <span class="project-number">01</span>
+              <span class="status-badge">Completed</span>
+              <figure><img src="images/project-piano-tiles.svg" width="960" height="600" loading="lazy" alt="Alien Piano Tiles falling tiles gameplay graphic" /></figure>
+              <div class="project-card-body">
+                <h2>Alien Piano Tiles</h2>
+                <p>Solo project - Designed and built the game logic, Canvas rendering, scoring system, keyboard controls, and difficulty progression.</p>
+                <div class="tag-list"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>HTML5 Canvas</span></div>
+                <button class="mini-button" type="button" data-open-project="piano">Learn More</button>
+              </div>
+            </article>
 
-        <div class="project-grid two-card-grid" id="hardware" data-project-grid="hardware" hidden>
-          <article class="project-card grid-card" data-project-card data-category="hardware" data-reveal>
-            <span class="project-number" aria-hidden="true">01</span>
-            <span class="status-badge status-completed">Completed</span>
-            <!-- CONFIRM: actual project status -->
-            <figure><!-- REPLACE: update card thumbnail to reflect DC motor + potentiometer + ultrasonic sensor concept (previously a generic wheelchair-with-sensors graphic) --><img src="images/project-smart-wheelchair.svg" width="960" height="600" loading="lazy" alt="Motor-Assisted Wheelchair Support Prototype wireframe thumbnail" /></figure>
-            <!-- CONFIRM: exact components/tech used (e.g. specific microcontroller, sensor types, motor drivers) -->
-            <div class="project-card-body"><h3>Motor-Assisted Wheelchair Support Prototype</h3><p>An assistive hardware prototype designed to support self-propelled wheelchair users on slopes using motor assistance, adjustable speed control, ultrasonic obstacle detection, buzzer feedback, and switch control.</p><div class="tag-list"><span>Arduino</span><span>DC Motor</span><span>Ultrasonic Sensor</span><span>Potentiometer</span><span>Buzzer</span><span>Tinkercad</span></div><button class="mini-button" type="button" data-open-project="wheelchair">Learn More</button></div>
-          </article>
-          <article class="project-card grid-card plant-card" data-project-card data-category="hardware" data-reveal>
-            <span class="project-number" aria-hidden="true">02</span>
-            <span class="status-badge status-completed">Completed</span>
-            <!-- CONFIRM: actual project status -->
-            <figure><!-- REPLACE: update card thumbnail graphic to reflect Arduino + Raspberry Pi + sensors + database/web stack --><img src="images/project-smart-greenhouse.svg" width="960" height="600" loading="lazy" alt="IoT-Based Smart Plant Monitoring System technical placeholder graphic" /></figure>
-            <!-- CONFIRM: exact components/tech (e.g. soil moisture sensor, DHT22 temp/humidity sensor, relay for irrigation, ESP32 for WiFi connectivity) -->
-            <div class="project-card-body"><h3>IoT-Based Smart Plant Monitoring System</h3><p>Automated indoor farming system using Arduino, Raspberry Pi, sensors, MariaDB, and Flask to monitor plant conditions and alert users when the environment is unsuitable.</p><div class="tag-list"><span>Arduino</span><span>Raspberry Pi</span><span>IoT</span><span>Sensors</span><span>MariaDB</span><span>Flask</span><span>Python</span><span>Sustainability</span></div><button class="mini-button" type="button" data-open-project="greenhouse">Learn More</button></div>
-          </article>
-        </div>
-      </section>
+            <article class="project-card" data-project-card data-tilt data-reveal>
+              <span class="project-number">02</span>
+              <span class="status-badge">Completed</span>
+              <figure><img src="images/project-erebus-7.png" width="1024" height="1536" loading="lazy" alt="Erebus-7 Parasite Protocol horror corridor artwork" /></figure>
+              <div class="project-card-body">
+                <h2>Erebus-7: Parasite Protocol</h2>
+                <p>Solo project - Built the detection system, difficulty scaling, resource logic, story progression, and interactive gameplay flow.</p>
+                <div class="tag-list"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>HTML5 Canvas</span></div>
+                <button class="mini-button" type="button" data-open-project="erebus">Learn More</button>
+              </div>
+            </article>
+          </div>
 
-      <section class="continue-exploring section-dark" aria-labelledby="projects-continue-title">
-        <div class="continue-inner" data-reveal>
-          <p class="continue-label">Continue Exploring</p>
-          <h2 id="projects-continue-title">Want the bigger picture?</h2>
-          <div class="continue-links">
-            <a class="continue-card" href="about.html">
-              <span class="continue-icon" aria-hidden="true">ZQ</span>
-              <span class="continue-title">About Ziqian</span>
-              <span class="continue-desc">See the full journey, education, awards, activities, and skills</span>
-              <span class="continue-arrow" aria-hidden="true">&rarr;</span>
-            </a>
-            <a class="continue-card" href="index.html#testimonials">
-              <span class="continue-icon" aria-hidden="true">"</span>
-              <span class="continue-title">What People Say</span>
-              <span class="continue-desc">Read testimonials from mentors and collaborators</span>
-              <span class="continue-arrow" aria-hidden="true">&rarr;</span>
-            </a>
+          <div class="project-grid" data-project-grid="hardware" hidden>
+            <article class="project-card" data-project-card data-tilt data-reveal>
+              <span class="project-number">01</span>
+              <span class="status-badge">Completed</span>
+              <figure><img src="images/project-smart-wheelchair.svg" width="960" height="600" loading="lazy" alt="Motor-Assisted Wheelchair Support Prototype wireframe thumbnail" /></figure>
+              <div class="project-card-body">
+                <h2>Motor-Assisted Wheelchair Support Prototype</h2>
+                <p>An assistive hardware prototype designed to support self-propelled wheelchair users on slopes using motor assistance, adjustable speed control, ultrasonic obstacle detection, buzzer feedback, and switch control.</p>
+                <div class="tag-list"><span>Arduino</span><span>DC Motor</span><span>Ultrasonic Sensor</span><span>Potentiometer</span><span>Buzzer</span><span>Tinkercad</span></div>
+                <button class="mini-button" type="button" data-open-project="wheelchair">Learn More</button>
+              </div>
+            </article>
+
+            <article class="project-card" data-project-card data-tilt data-reveal>
+              <span class="project-number">02</span>
+              <span class="status-badge">Completed</span>
+              <figure><img src="images/project-smart-greenhouse.svg" width="960" height="600" loading="lazy" alt="IoT-Based Smart Plant Monitoring System technical graphic" /></figure>
+              <div class="project-card-body">
+                <h2>IoT-Based Smart Plant Monitoring System</h2>
+                <p>Automated indoor farming system using Arduino, Raspberry Pi, sensors, MariaDB, and Flask to monitor plant conditions and alert users when the environment is unsuitable.</p>
+                <div class="tag-list"><span>Arduino</span><span>Raspberry Pi</span><span>IoT</span><span>Sensors</span><span>MariaDB</span><span>Flask</span><span>Python</span><span>Sustainability</span></div>
+                <button class="mini-button" type="button" data-open-project="plant">Learn More</button>
+              </div>
+            </article>
           </div>
         </div>
       </section>
 
-      <section class="page-cta section-dark" aria-label="Project page actions">
-        <div data-reveal>
-          <h2>Ready To Return Home?</h2>
-          <div class="cta-actions">
-            <a class="button button-outline" href="index.html#hero">Back to Home</a>
+      <section class="continue section-light">
+        <div class="section-shell center" data-reveal>
+          <p class="eyebrow">Continue Exploring</p>
+          <h2>Want the bigger picture?</h2>
+          <div class="continue-grid">
+            <a class="continue-card" href="about.html"><span>About Ziqian</span><strong>See the full journey, skills, and profile</strong></a>
+            <a class="continue-card" href="index.html#testimonials"><span>Testimonials</span><strong>Read quotes from mentors and collaborators</strong></a>
           </div>
         </div>
-        <footer class="site-footer">
-          <p>&copy; 2026 Ziqian. Built with passion for AI &amp; Data.</p>
-          <a class="back-top" href="index.html#hero" aria-label="Back to home">&uarr;</a>
-        </footer>
       </section>
     </main>
 
-    <div class="modal-overlay" id="project-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <div class="modal-backdrop" data-close-modal></div>
-      <div class="modal-content" tabindex="-1">
-        <button class="modal-close" type="button" data-close-modal aria-label="Close project modal">&times;</button>
-        <div class="modal-scroll-area"></div>
-        <div class="modal-scroll-fade" aria-hidden="true"></div>
+    <div class="modal-overlay" id="project-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title" data-project-modal>
+      <div class="modal-backdrop" data-modal-close></div>
+      <div class="modal-content" role="document">
+        <button class="modal-close" type="button" aria-label="Close project details" data-modal-close>&times;</button>
+        <div class="modal-scroll-area" data-modal-content></div>
       </div>
     </div>
+
+    <footer class="site-footer">
+      <p>&copy; 2026 Ziqian. Built with passion for AI &amp; Data.</p>
+      <a class="back-top" href="#projects" aria-label="Back to top">&uarr;</a>
+    </footer>
+
+    <script src="js/nav.js"></script>
+    <script src="js/three-scene.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/tilt.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
