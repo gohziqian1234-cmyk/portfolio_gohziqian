@@ -4062,6 +4062,37 @@ button.button:hover,
   margin-top: 16px;
 }
 
+.modal-role-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 16px;
+  padding: 16px 20px;
+  border-left: 3px solid var(--accent-blue);
+  border-radius: 12px;
+  background: rgba(61, 90, 254, 0.06);
+}
+
+.role-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.role-meta-label {
+  color: var(--accent-blue);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.role-meta-value {
+  color: var(--text-dark, #0d0d0d);
+  font-size: 15px;
+  font-weight: 700;
+}
+
 .modal-diagram {
   margin: 16px 0 20px;
   overflow: hidden;
@@ -4074,6 +4105,51 @@ button.button:hover,
   display: block;
   width: 100%;
   height: auto;
+}
+
+.modal-table-wrapper {
+  margin: 16px 0;
+  overflow-x: auto;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+}
+
+.modal-data-table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.modal-data-table thead {
+  background: rgba(61, 90, 254, 0.08);
+}
+
+.modal-data-table th {
+  padding: 12px 16px;
+  border-bottom: 2px solid rgba(61, 90, 254, 0.15);
+  color: var(--text-dark, #0d0d0d);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.modal-data-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  color: var(--text-muted, #4a4a4a);
+  line-height: 1.5;
+  vertical-align: top;
+}
+
+.modal-data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.modal-data-table tbody tr:hover {
+  background: rgba(61, 90, 254, 0.03);
 }
 
 .tech-tag {
@@ -4094,6 +4170,32 @@ button.button:hover,
   margin-top: 34px;
 }
 
+.modal-action-row-triple {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.modal-action-row-triple a {
+  flex: 1 1 200px;
+}
+
+@media (max-width: 640px) {
+  .modal-table-wrapper {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal-action-row-triple {
+    flex-direction: column;
+  }
+
+  .modal-action-row-triple a {
+    flex: 1 1 auto;
+  }
+}
+
 .modal-coauthor-note {
   margin: 8px 0 0;
   color: rgba(0, 0, 0, 0.45);
@@ -4108,6 +4210,7 @@ body.modal-open {
 body.modal-open .navbar {
   opacity: 0 !important;
   pointer-events: none !important;
+  transition: none !important;
 }
 
 body.modal-open .project-card {

@@ -11,16 +11,16 @@ const MODAL_VIDEO_GAIN = 2.2;
 
 const PROJECTS = {
   piano: {
-    title: "PIANO TILES",
+    title: "Alien Piano Tiles",
     image: "images/project-piano-tiles.svg",
-    imageAlt: "Piano Tiles rhythm game placeholder graphic",
+    imageAlt: "Alien Piano Tiles rhythm game placeholder graphic",
     modalVariant: "pianoCaseStudy",
     video: "assets/videos/piano-tiles-gameplay.mp4",
     poster: "images/piano-tiles-poster.svg",
-    description: "A rhythm-based reaction game where players tap falling tiles in time, built with an additional alien-themed arcade mode.",
+    description: "Solo project - Designed and built the game logic, Canvas rendering, scoring system, keyboard controls, and difficulty progression.",
     problem: "Build a fast-paced, timing-based reactive game to practice real-time input handling, collision detection, and game-state/score management in the browser.",
     approachHtml: "Designed a tile-spawning system with increasing difficulty, scoring logic based on accuracy and speed, and a game loop handling player input with JavaScript and HTML5 Canvas. An additional <span class=\"inline-status inline-status-progress\">IN PROGRESS</span> Alien Invasion arcade mode was started as a companion project within the same repo.",
-    results: "Fully playable Piano Tiles game with scoring and increasing difficulty; Alien Invasion mode in active development.",
+    results: "Fully playable Alien Piano Tiles game with scoring and increasing difficulty; Alien Invasion mode in active development.",
     // CONFIRM: exact tech stack if different.
     tags: ["HTML", "CSS", "JavaScript", "HTML5 Canvas"],
     github: "https://github.com/gohziqian1234-cmyk/piano-tiles-alien-",
@@ -29,13 +29,13 @@ const PROJECTS = {
     gallery: ["images/project-piano-tiles.svg", "images/project-alien-invasion.svg"]
   },
   erebus: {
-    title: "Erebus-7: First Skin",
+    title: "Erebus-7: Parasite Protocol",
     image: "images/project-erebus-7.png",
-    imageAlt: "Erebus-7 First Skin horror corridor gameplay artwork",
+    imageAlt: "Erebus-7 Parasite Protocol horror corridor gameplay artwork",
     modalVariant: "erebusCaseStudy",
     video: "assets/videos/erebus-7-gameplay.mp4",
     poster: "images/erebus-7-poster.svg",
-    description: "A single-player social-horror stealth game where you play an alien parasite infiltrating a space station, evading detection to reach the AI core.",
+    description: "Solo project - Built the detection system, difficulty scaling, resource logic, story progression, and interactive gameplay flow.",
     problem: "Design and build a narrative-driven stealth game exploring tension, suspicion mechanics, and atmosphere - combining storytelling with gameplay systems.",
     // CONFIRM/EXPAND: add specific mechanics, e.g. suspicion meter, dialogue choices, level design details once available.
     approach: "Built core stealth/suspicion mechanics, narrative pacing, and atmospheric presentation to create a tense single-player horror experience.",
@@ -49,20 +49,17 @@ const PROJECTS = {
     gallery: ["images/project-erebus-7.png"]
   },
   wheelchair: {
-    title: "SMART WHEELCHAIR SYSTEM",
+    title: "Motor-Assisted Wheelchair Support Prototype",
     image: "images/project-smart-wheelchair.svg",
-    imageAlt: "Smart wheelchair system blueprint placeholder graphic",
-    description: "An assistive hardware system designed to enhance mobility and safety for wheelchair users through embedded sensors and control systems.",
-    // CONFIRM/EXPAND: specific problem this addresses, e.g. obstacle detection, fall prevention, navigation assistance.
-    problem: "Improve safety and independence for wheelchair users by integrating sensor-based monitoring and/or assistive controls into a standard wheelchair frame.",
-    // ADD: describe the system architecture - what sensors were used (ultrasonic, IR, accelerometer, etc.), what microcontroller, how data is processed, any output/alert mechanism.
-    approach: "Placeholder architecture: document the microcontroller, sensor inputs, control logic, and alert or assistive output mechanism once exact build details are confirmed.",
-    // ADD: outcome - e.g. successfully detects obstacles within X cm, alerts user via buzzer/vibration, etc.
-    results: "Placeholder outcome: add measured testing results, safety behavior, and final build notes once available.",
-    // CONFIRM: exact components/tech used (e.g. specific microcontroller, sensor types, motor drivers).
-    tags: ["Arduino", "Sensors", "C++", "Embedded Systems"],
+    imageAlt: "Motor-Assisted Wheelchair Support Prototype wireframe thumbnail",
+    modalVariant: "wheelchairCaseStudy",
+    slidesUrl: "assets/reports/wheelchair-prototype-slides.pdf",
+    tinkercadUrl: "https://www.tinkercad.com/things/3lyqhQ6I2kl-terrific-wolt-kup/editel?returnTo=https%3A%2F%2Fwww.tinkercad.com%2Fdashboard%2Fdesigns%2Fall",
+    demoUrl: "assets/videos/wheelchair-prototype-demo.mp4",
+    description: "An assistive hardware prototype designed to support self-propelled wheelchair users on slopes using motor assistance, adjustable speed control, ultrasonic obstacle detection, buzzer feedback, and switch control.",
+    tags: ["Arduino", "DC Motor", "Ultrasonic Sensor", "Potentiometer", "Buzzer", "Tinkercad"],
     github: "",
-    gallery: ["images/project-smart-wheelchair.svg", "images/project-smart-wheelchair-build.svg", "images/project-smart-wheelchair-testing.svg"]
+    gallery: ["images/project-smart-wheelchair.svg"]
   },
   greenhouse: {
     title: "IoT-Based Smart Plant Monitoring System",
@@ -613,6 +610,7 @@ function createModalMarkup(project) {
   if (project.modalVariant === "pianoCaseStudy") return createPianoModalMarkup(project);
   if (project.modalVariant === "erebusCaseStudy") return createErebusModalMarkup(project);
   if (project.modalVariant === "plantCaseStudy") return createPlantModalMarkup(project);
+  if (project.modalVariant === "wheelchairCaseStudy") return createWheelchairModalMarkup(project);
 
   const images = project.gallery?.length ? project.gallery : [project.image];
   const tags = project.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
@@ -656,8 +654,31 @@ function createModalMarkup(project) {
   `;
 }
 
+function createRoleSection(projectType, role, body) {
+  return `
+    <section class="modal-section modal-role-section">
+      <div class="modal-role-meta">
+        <div class="role-meta-item">
+          <span class="role-meta-label">Project Type</span>
+          <span class="role-meta-value">${escapeHtml(projectType)}</span>
+        </div>
+        <div class="role-meta-item">
+          <span class="role-meta-label">My Role</span>
+          <span class="role-meta-value">${escapeHtml(role)}</span>
+        </div>
+      </div>
+      <p>${escapeHtml(body)}</p>
+    </section>
+  `;
+}
+
 function createPianoModalMarkup(project) {
   const actions = createModalActions(project);
+  const roleSection = createRoleSection(
+    "Solo Software Project",
+    "Game Developer / Front-End Developer",
+    "I designed and developed the game logic, tile spawning system, keyboard input controls, scoring system, streak multiplier, lives system, and game state flow. I also worked on the visual feedback, difficulty progression, testing, and debugging to make the game feel responsive and playable."
+  );
 
   return `
     <article class="project-modal-body project-modal-body-long">
@@ -666,6 +687,8 @@ function createPianoModalMarkup(project) {
         <h2 class="modal-title" id="modal-title">${escapeHtml(project.title)}</h2>
         <p>${escapeHtml(project.description)}</p>
       </header>
+
+      ${roleSection}
 
       <div class="modal-media modal-video-frame">
         <!-- ADD: path to gameplay video file, e.g. /assets/videos/piano-tiles-gameplay.mp4 -->
@@ -752,6 +775,11 @@ function createPianoModalMarkup(project) {
 
 function createErebusModalMarkup(project) {
   const actions = createModalActions(project);
+  const roleSection = createRoleSection(
+    "Solo Software Project",
+    "Game Developer / Narrative Systems Developer",
+    "I designed and developed the core gameplay systems, including player progression, detection logic, difficulty scaling, resource management, story flow, and game state control. I also worked on the narrative structure, interaction design, testing, and balancing so that the game felt tense but still fair for the player."
+  );
 
   return `
     <article class="project-modal-body project-modal-body-long">
@@ -760,6 +788,8 @@ function createErebusModalMarkup(project) {
         <h2 class="modal-title" id="modal-title">${escapeHtml(project.title)}</h2>
         <p>${escapeHtml(project.description)}</p>
       </header>
+
+      ${roleSection}
 
       <div class="modal-media modal-video-frame">
         <!-- ADD: path to Erebus-7 gameplay video, e.g. /assets/videos/erebus-7-gameplay.mp4 -->
@@ -780,7 +810,7 @@ function createErebusModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">What I Built</h3>
-        <p>I built a single-player social-horror stealth game called <strong>Erebus-7: First Skin</strong>. Players take on the role of an alien parasite confined within a space station, controlling a human host who must infect crew members, evade detection, and gradually take over the station.</p>
+        <p>I built a single-player social-horror stealth game called <strong>Erebus-7: Parasite Protocol</strong>. Players take on the role of an alien parasite confined within a space station, controlling a human host who must infect crew members, evade detection, and gradually take over the station.</p>
         <p>The primary objective is to navigate through the station's various sections and reach SELENE, the station's AI. To succeed, players must complete tasks, use infected hosts as allies, avoid guards and surveillance systems, and survive until the final chapter at the AI Core.</p>
         <p>The game features movement mechanics, enemy patrols, detection systems, infection mechanics, a clone respawn option, varying difficulty levels, narrative scenes, sound effects, a tactical map, tutorials, save/load functionality, and multiple chapters.</p>
       </section>
@@ -845,7 +875,7 @@ function createErebusModalMarkup(project) {
         <h3 class="modal-section-heading">Outcome</h3>
         <p>The outcome is a playable horror game with a full story theme, multiple levels, enemies, objectives, sound, and a clear mission flow.</p>
         <p>This project opened my eyes to how much work goes into making a game actually feel good - gameplay is so much more than controls and rules. A good game also needs feedback, sound, pacing, story, balance, and clear instructions for the player.</p>
-        <p>All in all, Erebus-7: First Skin became much more than a simple prototype - a full-fledged browser game, playable on the web and shareable with others.</p>
+        <p>All in all, Erebus-7: Parasite Protocol became much more than a simple prototype - a full-fledged browser game, playable on the web and shareable with others.</p>
       </section>
 
       ${actions}
@@ -854,6 +884,12 @@ function createErebusModalMarkup(project) {
 }
 
 function createPlantModalMarkup(project) {
+  const roleSection = createRoleSection(
+    "Team Project",
+    "Co-developer / IoT System Developer",
+    "I contributed to the development of the IoT plant monitoring system, including sensor integration, Arduino logic, Raspberry Pi data handling, MariaDB database implementation, Flask web monitoring, testing, troubleshooting, and system documentation."
+  );
+
   return `
     <article class="project-modal-body project-modal-body-long">
       <header class="modal-project-hero modal-case-header">
@@ -868,6 +904,8 @@ function createPlantModalMarkup(project) {
         <p>This project connects hardware, software, database management, and web development into one complete IoT solution for sustainable indoor farming.</p>
       </section>
 
+      ${roleSection}
+
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">The Problem</h3>
         <p>Singapore has limited land for agriculture and aims to strengthen food security by increasing local food production. Indoor farming and vertical farming can help, but they require stable growing conditions - suitable temperature, sufficient light, and enough water.</p>
@@ -879,7 +917,7 @@ function createPlantModalMarkup(project) {
         <h3 class="modal-section-heading">What I Built</h3>
         <p>I built an automated plant monitoring and alert system that uses sensors to check whether the plant environment is suitable for growth. The system uses:</p>
         <ul class="modal-feature-list">
-          <li>A Grove temperature sensor to monitor whether the temperature is within the 20°C-35°C suitable range</li>
+          <li>A Grove temperature sensor to monitor whether the temperature is within the 20&deg;C-35&deg;C suitable range</li>
           <li>A Grove light sensor to measure ambient light intensity</li>
           <li>An ultrasonic sensor to estimate water level by measuring distance to the water surface</li>
           <li>A rotary angle sensor to allow manual LED brightness control</li>
@@ -922,7 +960,7 @@ function createPlantModalMarkup(project) {
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Technical Implementation</h3>
         <p>The system uses predefined thresholds to decide whether the environment is suitable for plant growth.</p>
-        <p>The temperature condition is suitable when the reading is between 20°C and 35°C. The light condition is evaluated using effective light, which combines ambient light and LED brightness - if the light level is too low, LED brightness increases automatically; if there's enough light, brightness decreases to save energy.</p>
+        <p>The temperature condition is suitable when the reading is between 20&deg;C and 35&deg;C. The light condition is evaluated using effective light, which combines ambient light and LED brightness - if the light level is too low, LED brightness increases automatically; if there's enough light, brightness decreases to save energy.</p>
         <p>The ultrasonic sensor measures the distance between the sensor and the water surface. If the distance is too high, the system treats the water level as low and activates an alert. The rotary angle sensor allows the user to manually override the automatic LED control when needed.</p>
         <div class="modal-tech-tags">
           <span class="tech-tag">Arduino</span>
@@ -987,6 +1025,146 @@ function createPlantModalMarkup(project) {
           </a>
         </div>
         <p class="modal-coauthor-note">Co-authored with Li Heng as a joint project submission.</p>
+        <p class="modal-link-helper modal-helper-text">Opens in a new tab - this portfolio stays open here, so you can switch back anytime.</p>
+      </section>
+    </article>
+  `;
+}
+
+function createWheelchairModalMarkup(project) {
+  const roleSection = createRoleSection(
+    "Team Project",
+    "Technical Lead / Prototype Developer",
+    "I led the main technical development and refinement of the prototype. My contribution included planning the solution, building and integrating the hardware components, developing the Arduino control logic, testing the system, identifying design weaknesses, and refining the final prototype."
+  );
+
+  return `
+    <article class="project-modal-body project-modal-body-long">
+      <header class="modal-project-hero modal-case-header">
+        <p class="modal-eyebrow section-kicker dark">Project</p>
+        <h2 class="modal-title" id="modal-title">${escapeHtml(project.title)}</h2>
+        <p>${escapeHtml(project.description)}</p>
+      </header>
+
+      ${roleSection}
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Overview</h3>
+        <p>An assistive hardware prototype designed to support self-propelled wheelchair users when travelling on slopes. The system combines motor assistance, adjustable speed control, ultrasonic obstacle detection, buzzer feedback, and switch control to reduce user effort and improve safety awareness.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Problem / Brief</h3>
+        <p>Self-propelled wheelchair users face greater difficulty when moving up slopes because more physical effort is required compared to flat ground. Moving down slopes can also be harder to control and may increase the risk of collision, tipping, or falling.</p>
+        <p>This project aimed to create a low-cost assistive prototype that demonstrates three core functions: motor assistance, user-adjustable speed control, and obstacle alert feedback.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">What I Built</h3>
+        <p>The prototype uses a DC motor to support forward movement, a potentiometer to control motor speed, an ultrasonic sensor to detect nearby obstacles, a buzzer to alert the user, and a switch to turn the system on or off.</p>
+        <p>The goal was not to build a commercial wheelchair product, but to demonstrate a practical assistive concept that could reduce user effort and improve safety awareness.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Key Features</h3>
+        <ul class="modal-feature-list">
+          <li>DC motor assistance to support wheelchair movement</li>
+          <li>Potentiometer speed control for adjustable motor output</li>
+          <li>Ultrasonic sensor for obstacle detection</li>
+          <li>Buzzer alert when an object is detected</li>
+          <li>Switch control for manual system on/off</li>
+          <li>Prototype refinement through testing</li>
+        </ul>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Design Process</h3>
+        <p>The project started with Crazy 8 brainstorming to generate multiple possible solutions. The team then used a value-effort map to compare ideas and selected the motor-assist wheelchair concept because it provided high user value while still being achievable within the project constraints.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Testing &amp; Evidence</h3>
+        <div class="modal-table-wrapper">
+          <table class="modal-data-table">
+            <thead>
+              <tr>
+                <th>Test</th>
+                <th>What Was Checked</th>
+                <th>Observation</th>
+                <th>What This Proved</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Motor Assist Test</td>
+                <td>Whether the DC motor could rotate and support forward movement</td>
+                <td>Motor spun consistently when the system was switched on and the potentiometer was adjusted</td>
+                <td>Core drive function was operational</td>
+              </tr>
+              <tr>
+                <td>Speed Control Test</td>
+                <td>Whether the potentiometer could adjust motor output</td>
+                <td>Motor speed increased or decreased when the knob was turned</td>
+                <td>User-adjustable speed control worked</td>
+              </tr>
+              <tr>
+                <td>Obstacle Detection Test</td>
+                <td>Whether the ultrasonic sensor could detect nearby objects</td>
+                <td>Buzzer activated when an object was placed in front of the sensor</td>
+                <td>Obstacle alert function was working</td>
+              </tr>
+              <tr>
+                <td>Switch Control Test</td>
+                <td>Whether the user could turn the system on and off</td>
+                <td>Motor and buzzer stopped when the switch was turned off</td>
+                <td>User had direct control and could cut off the system when needed</td>
+              </tr>
+              <tr>
+                <td>Feedback Comparison</td>
+                <td>Whether LED or buzzer feedback was more useful</td>
+                <td>Buzzer feedback was clearer and more noticeable than the LED</td>
+                <td>Audio feedback was more practical, so the LED was removed</td>
+              </tr>
+              <tr>
+                <td>Sensor Placement Test</td>
+                <td>Whether ultrasonic sensor placement affected detection</td>
+                <td>Sensor placement was adjusted after testing</td>
+                <td>Placement affected detection quality and needed refinement</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Outcome</h3>
+        <p>The final prototype demonstrated a functional assistive concept that combines motor support, speed control, and obstacle alert feedback. The strongest part of this project was the refinement process: removing unnecessary LED feedback, adding manual switch control, and improving ultrasonic sensor placement based on testing.</p>
+        <p>Each decision directly improved the user experience - simpler feedback, safer control, and more reliable obstacle detection without adding unnecessary cost or complexity.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Future Improvements</h3>
+        <p>Future versions require a higher-torque motor for stronger slope support, a dedicated battery system for longer operation, a stronger mounting structure, and a slope detection sensor to adjust motor assistance more automatically.</p>
+      </section>
+
+      <section class="modal-action-block" aria-label="Project slides, circuit, and demo">
+        <!-- SLIDES: exported from PG_Group3_PROJ2.pptx to a web-friendly PDF. -->
+        <!-- TINKERCAD: public/shareable Tinkercad circuit URL provided by Ziqian. -->
+        <!-- DEMO: linked to the provided wheelchair prototype demo MP4. -->
+        <div class="modal-action-row modal-action-row-triple">
+          <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.slidesUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
+            <span aria-hidden="true">PDF</span>
+            View Project Slides (PDF)
+          </a>
+          <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.tinkercadUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
+            <span aria-hidden="true">Tools</span>
+            View Circuit in Tinkercad
+          </a>
+          <a class="modal-action-button modal-play-button btn-primary" href="${escapeHtml(project.demoUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
+            <span aria-hidden="true">&#9654;</span>
+            Watch Demo
+          </a>
+        </div>
         <p class="modal-link-helper modal-helper-text">Opens in a new tab - this portfolio stays open here, so you can switch back anytime.</p>
       </section>
     </article>
