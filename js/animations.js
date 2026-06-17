@@ -1,6 +1,9 @@
-function initAnimations() {
-  document.body.classList.add("reveal-ready");
+/* Scroll and UI animation. Base CSS stays visible if JS fails. */
 
+export async function initAnimations() {
+  await loadGsapAssets();
+
+  document.body.classList.add("reveal-ready");
   initRevealObserver();
   initHeroIntro();
   initTimelineProgress();
@@ -15,13 +18,12 @@ function initRevealObserver() {
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
       });
     },
-    { rootMargin: "0px 0px -14% 0px", threshold: 0.12 }
+    { rootMargin: "0px 0px -12% 0px", threshold: 0.1 }
   );
 
   revealItems.forEach((item) => observer.observe(item));
@@ -33,9 +35,9 @@ function initHeroIntro() {
 
   gsap.defaults({ ease: "power3.out", duration: 0.8 });
   gsap.fromTo(
-    ".hero-title span, .hero-subtitle, .hero-cta-pill, .hero-panel",
+    ".hero-title span, .hero-subtitle, .hero-pill-actions, .hero-profile",
     { opacity: 0, y: 34 },
-    { opacity: 1, y: 0, stagger: 0.08, delay: 0.12 }
+    { opacity: 1, y: 0, stagger: 0.08, delay: 0.1 }
   );
 }
 
@@ -61,8 +63,8 @@ function initTimelineProgress() {
           ease: "none",
           scrollTrigger: {
             trigger: timeline,
-            start: "top 70%",
-            end: "bottom 70%",
+            start: "top 72%",
+            end: "bottom 72%",
             scrub: true
           }
         }
@@ -71,7 +73,7 @@ function initTimelineProgress() {
       items.forEach((item) => {
         ScrollTrigger.create({
           trigger: item,
-          start: "top 72%",
+          start: "top 74%",
           onEnter: () => item.classList.add("is-active"),
           onEnterBack: () => item.classList.add("is-active")
         });
@@ -82,8 +84,8 @@ function initTimelineProgress() {
     }
   });
 
-  if (document.fonts?.ready && ScrollTrigger) {
-    document.fonts.ready.then(() => ScrollTrigger.refresh()).catch(() => {});
+  if (document.fonts?.ready && window.ScrollTrigger) {
+    document.fonts.ready.then(() => window.ScrollTrigger.refresh()).catch(() => {});
   }
 }
 
@@ -100,7 +102,7 @@ function initCounters() {
         observer.unobserve(entry.target);
       });
     },
-    { threshold: 0.5 }
+    { threshold: 0.35 }
   );
 
   counters.forEach((counter) => observer.observe(counter));
@@ -139,7 +141,7 @@ function initProjectTabs() {
   const grids = Array.from(document.querySelectorAll("[data-project-grid]"));
   if (!buttons.length || !grids.length) return;
 
-  const activate = (category) => {
+  const activate = (category, updateUrl = true) => {
     buttons.forEach((button) => {
       const active = button.dataset.tabButton === category;
       button.classList.toggle("is-active", active);
@@ -150,21 +152,35 @@ function initProjectTabs() {
       const active = grid.dataset.projectGrid === category;
       grid.hidden = !active;
       grid.classList.toggle("is-active", active);
-      if (active) {
-        grid.querySelectorAll("[data-reveal]").forEach((item) => item.classList.add("is-visible"));
-      }
+      if (active) grid.querySelectorAll("[data-reveal]").forEach((item) => item.classList.add("is-visible"));
     });
+
+    if (updateUrl) history.replaceState(null, "", `?category=${category}`);
   };
 
   buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      activate(button.dataset.tabButton);
-      history.replaceState(null, "", `?category=${button.dataset.tabButton}`);
-    });
+    button.addEventListener("click", () => activate(button.dataset.tabButton));
   });
 
   const params = new URLSearchParams(window.location.search);
-  activate(params.get("category") === "hardware" ? "hardware" : "software");
+  activate(params.get("category") === "hardware" ? "hardware" : "software", false);
 }
 
-window.initAnimations = initAnimations;
+function loadGsapAssets() {
+  if (window.gsap && window.ScrollTrigger) return Promise.resolve();
+
+  return loadScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js")
+    .then(() => loadScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"))
+    .catch(() => {});
+}
+
+function loadScript(src) {
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.src = src;
+    script.async = true;
+    script.onload = resolve;
+    script.onerror = resolve;
+    document.head.appendChild(script);
+  });
+}

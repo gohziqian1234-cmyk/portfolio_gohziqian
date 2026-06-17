@@ -6,48 +6,57 @@
     <meta name="description" content="Software and hardware projects by Ziqian." />
     <meta name="theme-color" content="#0d0d0d" />
     <meta property="og:title" content="Projects | Ziqian Portfolio" />
-    <meta property="og:description" content="Selected software and hardware systems by Ziqian." />
+    <meta property="og:description" content="Selected software games, IoT systems, and hardware prototypes by Ziqian." />
+    <meta property="og:type" content="website" />
     <title>Projects | Ziqian Portfolio</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body data-page="projects">
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="topbar" aria-label="Primary navigation">
-      <nav class="nav-shell" data-navbar>
-        <a class="brand" href="index.html#hero" data-nav-link data-section="hero" aria-label="Ziqian home"><span class="brand-mark">ZQ</span><span class="brand-name">ZIQIAN</span></a>
-        <div class="nav-links" data-nav-links>
-          <span class="nav-indicator" data-nav-indicator aria-hidden="true"></span>
-          <a href="index.html#hero" data-nav-link data-section="hero">Home</a>
-          <a href="about.html" data-nav-link data-section="about">About</a>
-          <a href="projects.html" data-nav-link data-section="projects">Projects</a>
-          <a href="index.html#testimonials" data-nav-link data-section="testimonials">Testimonials</a>
-          <a href="index.html#contact" data-nav-link data-section="contact">Contact</a>
+      <nav class="navbar" data-navbar>
+        <a class="nav-logo" href="index.html#hero" data-nav-link data-section="hero" aria-label="Ziqian home">
+          <span class="nav-avatar">ZQ</span>
+          <span class="nav-wordmark">ZIQIAN</span>
+        </a>
+        <div class="nav-links-pill" data-nav-links>
+          <span class="nav-active-indicator" data-nav-indicator aria-hidden="true"></span>
+          <a class="nav-link" href="index.html#hero" data-nav-link data-section="hero">Home</a>
+          <a class="nav-link" href="about.html" data-nav-link data-section="about">About</a>
+          <a class="nav-link" href="projects.html" data-nav-link data-section="projects">Projects</a>
+          <a class="nav-link" href="index.html#testimonials" data-nav-link data-section="testimonials">Testimonials</a>
+          <a class="nav-link" href="index.html#contact" data-nav-link data-section="contact">Contact</a>
         </div>
         <a class="nav-cta" href="index.html#contact"><span class="status-dot" aria-hidden="true"></span><span>Hire Me</span></a>
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu" data-menu-toggle><span></span><span></span><span></span></button>
+        <button class="nav-hamburger" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu" data-menu-toggle><span></span><span></span><span></span></button>
       </nav>
       <div class="mobile-menu" id="mobile-menu" data-mobile-menu aria-hidden="true">
-        <div class="mobile-menu-inner">
+        <div class="mobile-menu-panel">
+          <button class="mobile-close" type="button" data-mobile-close>Close Menu</button>
           <a href="index.html#hero" data-mobile-link>Home</a>
           <a href="about.html" data-mobile-link>About</a>
           <a href="projects.html" data-mobile-link>Projects</a>
           <a href="index.html#testimonials" data-mobile-link>Testimonials</a>
           <a href="index.html#contact" data-mobile-link>Contact</a>
-          <a class="mobile-hire" href="index.html#contact" data-mobile-link><span class="status-dot" aria-hidden="true"></span>Hire Me</a>
+          <a class="mobile-menu-cta" href="index.html#contact" data-mobile-link><span class="status-dot" aria-hidden="true"></span>Hire Me</a>
+          <p>&copy; 2026 Ziqian</p>
         </div>
       </div>
     </header>
 
     <main id="main">
-      <section class="page-hero section-dark anchor-section" id="projects" data-section="projects">
+      <section class="page-hero section-dark anchor-section" id="projects" data-section="projects" aria-labelledby="projects-title">
+        <canvas class="hero-canvas" data-three-hero aria-hidden="true"></canvas>
         <div class="section-shell" data-reveal>
-          <a class="breadcrumb-link" href="index.html#hero">&larr; Back to Home</a>
+          <a class="breadcrumb-link" href="index.html#hero">Back to Home</a>
           <p class="eyebrow">Selected Work</p>
-          <h1>Projects</h1>
+          <h1 id="projects-title">Projects</h1>
           <p>Software systems and hardware prototypes, organized by discipline for easier browsing.</p>
         </div>
       </section>
@@ -63,7 +72,9 @@
             <article class="project-card" data-project-card data-tilt data-reveal>
               <span class="project-number">01</span>
               <span class="status-badge">Completed</span>
-              <figure><img src="images/project-piano-tiles.svg" width="960" height="600" loading="lazy" alt="Alien Piano Tiles falling tiles gameplay graphic" /></figure>
+              <figure>
+                <img src="images/project-piano-tiles.svg" width="960" height="600" loading="lazy" alt="Alien Piano Tiles falling tiles gameplay graphic" />
+              </figure>
               <div class="project-card-body">
                 <h2>Alien Piano Tiles</h2>
                 <p>Solo project - Designed and built the game logic, Canvas rendering, scoring system, keyboard controls, and difficulty progression.</p>
@@ -72,10 +83,12 @@
               </div>
             </article>
 
-            <article class="project-card" data-project-card data-tilt data-reveal>
+            <article class="project-card project-card-horror" data-project-card data-tilt data-reveal>
               <span class="project-number">02</span>
               <span class="status-badge">Completed</span>
-              <figure><img src="images/project-erebus-7.png" width="1024" height="1536" loading="lazy" alt="Erebus-7 Parasite Protocol horror corridor artwork" /></figure>
+              <figure>
+                <img src="images/project-erebus-7.png" width="1024" height="1536" loading="lazy" alt="Erebus-7 Parasite Protocol horror corridor artwork" />
+              </figure>
               <div class="project-card-body">
                 <h2>Erebus-7: Parasite Protocol</h2>
                 <p>Solo project - Built the detection system, difficulty scaling, resource logic, story progression, and interactive gameplay flow.</p>
@@ -89,7 +102,9 @@
             <article class="project-card" data-project-card data-tilt data-reveal>
               <span class="project-number">01</span>
               <span class="status-badge">Completed</span>
-              <figure><img src="images/project-smart-wheelchair.svg" width="960" height="600" loading="lazy" alt="Motor-Assisted Wheelchair Support Prototype wireframe thumbnail" /></figure>
+              <figure>
+                <img src="images/project-smart-wheelchair.svg" width="960" height="600" loading="lazy" alt="Motor-Assisted Wheelchair Support Prototype wireframe thumbnail" />
+              </figure>
               <div class="project-card-body">
                 <h2>Motor-Assisted Wheelchair Support Prototype</h2>
                 <p>An assistive hardware prototype designed to support self-propelled wheelchair users on slopes using motor assistance, adjustable speed control, ultrasonic obstacle detection, buzzer feedback, and switch control.</p>
@@ -101,7 +116,9 @@
             <article class="project-card" data-project-card data-tilt data-reveal>
               <span class="project-number">02</span>
               <span class="status-badge">Completed</span>
-              <figure><img src="images/project-smart-greenhouse.svg" width="960" height="600" loading="lazy" alt="IoT-Based Smart Plant Monitoring System technical graphic" /></figure>
+              <figure>
+                <img src="images/project-smart-greenhouse.svg" width="960" height="600" loading="lazy" alt="IoT-Based Smart Plant Monitoring System technical graphic" />
+              </figure>
               <div class="project-card-body">
                 <h2>IoT-Based Smart Plant Monitoring System</h2>
                 <p>Automated indoor farming system using Arduino, Raspberry Pi, sensors, MariaDB, and Flask to monitor plant conditions and alert users when the environment is unsuitable.</p>
@@ -113,13 +130,22 @@
         </div>
       </section>
 
-      <section class="continue section-light">
+      <section class="continue section-light" aria-labelledby="continue-title">
         <div class="section-shell center" data-reveal>
           <p class="eyebrow">Continue Exploring</p>
-          <h2>Want the bigger picture?</h2>
+          <h2 id="continue-title">Want the bigger picture?</h2>
           <div class="continue-grid">
-            <a class="continue-card" href="about.html"><span>About Ziqian</span><strong>See the full journey, skills, and profile</strong></a>
-            <a class="continue-card" href="index.html#testimonials"><span>Testimonials</span><strong>Read quotes from mentors and collaborators</strong></a>
+            <a class="continue-card" href="about.html">
+              <span>About Ziqian</span>
+              <strong>See the full journey, skills, and profile</strong>
+            </a>
+            <a class="continue-card" href="index.html#testimonials">
+              <span>What People Say</span>
+              <strong>Read testimonials from mentors and collaborators</strong>
+            </a>
+          </div>
+          <div class="closing-actions">
+            <a class="button button-dark" href="index.html#hero">Back to Home</a>
           </div>
         </div>
       </section>
@@ -130,19 +156,15 @@
       <div class="modal-content" role="document">
         <button class="modal-close" type="button" aria-label="Close project details" data-modal-close>&times;</button>
         <div class="modal-scroll-area" data-modal-content></div>
+        <div class="modal-scroll-fade" aria-hidden="true"></div>
       </div>
     </div>
 
     <footer class="site-footer">
-      <p>&copy; 2026 Ziqian. Built with passion for AI &amp; Data.</p>
-      <a class="back-top" href="#projects" aria-label="Back to top">&uarr;</a>
+      <p>&copy; 2026 Ziqian. Built with passion for AI and Data.</p>
+      <a class="back-top" href="#projects" aria-label="Back to top">Up</a>
     </footer>
 
-    <script src="js/nav.js"></script>
-    <script src="js/three-scene.js"></script>
-    <script src="js/animations.js"></script>
-    <script src="js/tilt.js"></script>
-    <script src="js/modal.js"></script>
-    <script src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>

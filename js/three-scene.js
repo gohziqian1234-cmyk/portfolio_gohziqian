@@ -1,18 +1,22 @@
-async function initThreeScene() {
-  const canvas = document.querySelector("[data-three-hero]");
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!canvas || reduceMotion) return;
+/* Lightweight Three.js scenes. They lazy-start after content paints and pause when hidden. */
 
-  const start = () => buildScene(canvas);
+export function initThreeScene() {
+  const canvases = Array.from(document.querySelectorAll("[data-three-hero], [data-three-contact]"));
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!canvases.length || reduceMotion) return;
+
+  const start = () => {
+    canvases.forEach((canvas, index) => buildScene(canvas, index));
+  };
 
   if ("requestIdleCallback" in window) {
-    window.requestIdleCallback(start, { timeout: 700 });
+    window.requestIdleCallback(start, { timeout: 800 });
   } else {
     window.setTimeout(start, 120);
   }
 }
 
-async function buildScene(canvas) {
+async function buildScene(canvas, sceneIndex) {
   let THREE;
   try {
     THREE = await import("https://unpkg.com/three@0.160.0/build/three.module.js");
@@ -32,28 +36,31 @@ async function buildScene(canvas) {
   const group = new THREE.Group();
   scene.add(group);
 
+  const primary = sceneIndex % 2 === 0 ? 0x3d5afe : 0x7b61ff;
+  const secondary = sceneIndex % 2 === 0 ? 0x7b61ff : 0x3d5afe;
+
   const knot = new THREE.Mesh(
-    new THREE.TorusKnotGeometry(1.15, 0.28, 130, 16),
+    new THREE.TorusKnotGeometry(1.15, 0.28, 120, 14),
     new THREE.MeshStandardMaterial({
-      color: 0x3d5afe,
+      color: primary,
       roughness: 0.22,
       metalness: 0.78,
-      emissive: 0x10154d,
-      emissiveIntensity: 0.72
+      emissive: primary,
+      emissiveIntensity: 0.2
     })
   );
-  knot.position.set(2.3, 0.3, -0.4);
+  knot.position.set(sceneIndex % 2 === 0 ? 2.3 : -2.2, 0.3, -0.4);
   group.add(knot);
 
   const ring = new THREE.Mesh(
-    new THREE.TorusGeometry(2.2, 0.012, 12, 160),
-    new THREE.MeshBasicMaterial({ color: 0x7b61ff, transparent: true, opacity: 0.46 })
+    new THREE.TorusGeometry(2.2, 0.012, 12, 150),
+    new THREE.MeshBasicMaterial({ color: secondary, transparent: true, opacity: 0.46 })
   );
   ring.rotation.x = Math.PI * 0.58;
-  ring.position.set(2.1, 0, -0.8);
+  ring.position.set(sceneIndex % 2 === 0 ? 2.1 : -2.1, 0, -0.8);
   group.add(ring);
 
-  const grid = new THREE.GridHelper(18, 42, 0x3d5afe, 0x23284b);
+  const grid = new THREE.GridHelper(18, 42, primary, 0x23284b);
   grid.position.y = -1.85;
   grid.material.transparent = true;
   grid.material.opacity = 0.24;
@@ -63,7 +70,7 @@ async function buildScene(canvas) {
   scene.add(particles);
 
   scene.add(new THREE.AmbientLight(0xffffff, 0.48));
-  const keyLight = new THREE.PointLight(0x7b61ff, 16, 18);
+  const keyLight = new THREE.PointLight(secondary, 16, 18);
   keyLight.position.set(0, 4, 5);
   scene.add(keyLight);
 
@@ -82,6 +89,7 @@ async function buildScene(canvas) {
   };
 
   const onPointerMove = (event) => {
+    if (reducedLoad) return;
     mouse.x = (event.clientX / window.innerWidth - 0.5) * 2;
     mouse.y = (event.clientY / window.innerHeight - 0.5) * 2;
   };
@@ -97,6 +105,7 @@ async function buildScene(canvas) {
     const avgDelta = frameTimes.reduce((total, value) => total + value, 0) / frameTimes.length;
     if (!reducedLoad && frameTimes.length > 60 && avgDelta > 25) {
       particles.geometry.setDrawRange(0, 75);
+      document.body.classList.add("low-performance");
       reducedLoad = true;
     }
 
@@ -106,7 +115,7 @@ async function buildScene(canvas) {
     ring.rotation.z = t * 0.1;
     particles.rotation.y = t * 0.025;
 
-    const parallaxStrength = reducedLoad ? 0.04 : 0.12;
+    const parallaxStrength = reducedLoad ? 0.02 : 0.12;
     camera.position.x += (mouse.x * parallaxStrength - camera.position.x) * 0.04;
     camera.position.y += (1.2 + -mouse.y * parallaxStrength - camera.position.y) * 0.04;
     camera.position.z = 7 + Math.sin(t * 0.5) * 0.08;
@@ -153,5 +162,3 @@ function createParticles(THREE, count) {
     })
   );
 }
-
-window.initThreeScene = initThreeScene;

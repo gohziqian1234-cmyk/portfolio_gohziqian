@@ -1,33 +1,20 @@
-document.addEventListener("DOMContentLoaded", () => {
-  window.initNavigation?.();
-  window.initTilt?.();
-  window.initProjectModal?.();
+/* Main entry point. No build step required. */
+
+import { initNavigation } from "./nav.js";
+import { initThreeScene } from "./three-scene.js";
+import { initAnimations } from "./animations.js";
+import { initCursorGlow, initTilt } from "./tilt.js";
+import { initProjectModal } from "./modal.js";
+
+document.addEventListener("DOMContentLoaded", async () => {
+  initNavigation();
+  initTilt();
+  initCursorGlow();
+  initProjectModal();
   initContactForm();
-  window.initThreeScene?.();
-
-  loadGsapAssets().finally(() => {
-    window.initAnimations?.();
-  });
+  initThreeScene();
+  await initAnimations();
 });
-
-function loadGsapAssets() {
-  if (window.gsap && window.ScrollTrigger) return Promise.resolve();
-
-  return loadScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js")
-    .then(() => loadScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"))
-    .catch(() => {});
-}
-
-function loadScript(src) {
-  return new Promise((resolve) => {
-    const script = document.createElement("script");
-    script.src = src;
-    script.async = true;
-    script.onload = resolve;
-    script.onerror = resolve;
-    document.head.appendChild(script);
-  });
-}
 
 function initContactForm() {
   const form = document.querySelector("[data-contact-form]");
@@ -51,6 +38,7 @@ function initContactForm() {
       button.textContent = "Message Sent!";
       status.textContent = "Thanks. This static form is ready to connect to a backend or Formspree endpoint.";
       form.reset();
+
       window.setTimeout(() => {
         button.disabled = false;
         button.textContent = "Send Message";

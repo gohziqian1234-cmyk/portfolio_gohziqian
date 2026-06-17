@@ -3,56 +3,65 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="About Ziqian, AI & Data Engineering student at Nanyang Polytechnic." />
+    <meta
+      name="description"
+      content="About Ziqian, a Year 2 AI and Data Engineering student at Nanyang Polytechnic with GPA 4.0 and Dean's List recognition."
+    />
     <meta name="theme-color" content="#0d0d0d" />
     <meta property="og:title" content="About Ziqian | Portfolio" />
     <meta property="og:description" content="Education, achievements, experience, activities, volunteer work, and skills." />
+    <meta property="og:type" content="website" />
     <title>About Ziqian | Portfolio</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body data-page="about">
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="topbar" aria-label="Primary navigation">
-      <nav class="nav-shell" data-navbar>
-        <a class="brand" href="index.html#hero" data-nav-link data-section="hero" aria-label="Ziqian home">
-          <span class="brand-mark">ZQ</span>
-          <span class="brand-name">ZIQIAN</span>
+      <nav class="navbar" data-navbar>
+        <a class="nav-logo" href="index.html#hero" data-nav-link data-section="hero" aria-label="Ziqian home">
+          <span class="nav-avatar">ZQ</span>
+          <span class="nav-wordmark">ZIQIAN</span>
         </a>
-        <div class="nav-links" data-nav-links>
-          <span class="nav-indicator" data-nav-indicator aria-hidden="true"></span>
-          <a href="index.html#hero" data-nav-link data-section="hero">Home</a>
-          <a href="about.html" data-nav-link data-section="about">About</a>
-          <a href="projects.html" data-nav-link data-section="projects">Projects</a>
-          <a href="index.html#testimonials" data-nav-link data-section="testimonials">Testimonials</a>
-          <a href="index.html#contact" data-nav-link data-section="contact">Contact</a>
+        <div class="nav-links-pill" data-nav-links>
+          <span class="nav-active-indicator" data-nav-indicator aria-hidden="true"></span>
+          <a class="nav-link" href="index.html#hero" data-nav-link data-section="hero">Home</a>
+          <a class="nav-link" href="about.html" data-nav-link data-section="about">About</a>
+          <a class="nav-link" href="projects.html" data-nav-link data-section="projects">Projects</a>
+          <a class="nav-link" href="index.html#testimonials" data-nav-link data-section="testimonials">Testimonials</a>
+          <a class="nav-link" href="index.html#contact" data-nav-link data-section="contact">Contact</a>
         </div>
         <a class="nav-cta" href="index.html#contact"><span class="status-dot" aria-hidden="true"></span><span>Hire Me</span></a>
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu" data-menu-toggle><span></span><span></span><span></span></button>
+        <button class="nav-hamburger" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu" data-menu-toggle><span></span><span></span><span></span></button>
       </nav>
       <div class="mobile-menu" id="mobile-menu" data-mobile-menu aria-hidden="true">
-        <div class="mobile-menu-inner">
+        <div class="mobile-menu-panel">
+          <button class="mobile-close" type="button" data-mobile-close>Close Menu</button>
           <a href="index.html#hero" data-mobile-link>Home</a>
           <a href="about.html" data-mobile-link>About</a>
           <a href="projects.html" data-mobile-link>Projects</a>
           <a href="index.html#testimonials" data-mobile-link>Testimonials</a>
           <a href="index.html#contact" data-mobile-link>Contact</a>
-          <a class="mobile-hire" href="index.html#contact" data-mobile-link><span class="status-dot" aria-hidden="true"></span>Hire Me</a>
+          <a class="mobile-menu-cta" href="index.html#contact" data-mobile-link><span class="status-dot" aria-hidden="true"></span>Hire Me</a>
+          <p>&copy; 2026 Ziqian</p>
         </div>
       </div>
     </header>
 
     <main id="main">
-      <section class="page-hero section-dark anchor-section" id="about" data-section="about">
+      <section class="page-hero section-dark anchor-section" id="about" data-section="about" aria-labelledby="about-title">
+        <canvas class="hero-canvas" data-three-hero aria-hidden="true"></canvas>
         <div class="section-shell" data-reveal>
-          <a class="breadcrumb-link" href="index.html#hero">&larr; Back to Home</a>
+          <a class="breadcrumb-link" href="index.html#hero">Back to Home</a>
           <p class="eyebrow">Full Profile</p>
-          <h1>About Ziqian</h1>
+          <h1 id="about-title">About Ziqian</h1>
           <p>
-            A 19-year-old AI &amp; Data Engineering student at Nanyang Polytechnic, currently in Year 2 with GPA 4.0 and Dean's List recognition.
+            A 19-year-old AI and Data Engineering student at Nanyang Polytechnic, currently in Year 2 with GPA 4.0 and Dean's List recognition.
           </p>
         </div>
       </section>
@@ -62,16 +71,68 @@
           <div class="section-header" data-reveal>
             <p class="eyebrow">Education</p>
             <h2 id="education-title">Academic Timeline</h2>
-            <p>Each stage helped shape a stronger technical foundation and a clearer direction toward AI, data, and engineering.</p>
+            <p>
+              I am Ziqian, a Year 2 student studying AI and Data Engineering at Nanyang Polytechnic.
+              My journey hasn't been a straight path, but each stage has helped me build stronger discipline,
+              technical confidence, and a clearer direction toward AI, data, and engineering.
+            </p>
           </div>
+
           <div class="timeline" data-timeline>
             <span class="timeline-line" aria-hidden="true"></span>
             <span class="timeline-progress" aria-hidden="true"></span>
-            <article class="timeline-item" data-reveal><span class="timeline-dot" aria-hidden="true"></span><span class="date-badge">2020-2023</span><h3>Mayflower Secondary School</h3><p>Studied in the Normal (Academic) stream, building early discipline, consistency, and problem-solving habits.</p></article>
-            <article class="timeline-item" data-reveal><span class="timeline-dot" aria-hidden="true"></span><span class="date-badge">2024-2025</span><h3>PFP Foundation Year</h3><p>Entered NYP through the Polytechnic Foundation Programme, strengthening academic foundations and building new friendships.</p></article>
-            <article class="timeline-item" data-reveal><span class="timeline-dot" aria-hidden="true"></span><span class="date-badge">2025-2026</span><h3>Started Common Engineering</h3><p>Began exploring engineering and technology while developing interest in AI, data, programming, and practical systems.</p></article>
-            <article class="timeline-item" data-reveal><span class="timeline-dot" aria-hidden="true"></span><span class="date-badge">2025-2026</span><h3>Grew In AI &amp; Data Engineering</h3><p>Worked across programming, data preparation, dashboards, machine learning, databases, cloud concepts, and sensor-based systems.</p></article>
-            <article class="timeline-item is-current" data-reveal><span class="timeline-dot" aria-hidden="true"></span><span class="date-badge">2025-Present</span><h3>Building Toward Real-World Impact</h3><p>Focused on becoming stronger in AI, data engineering, analytics, and cloud-based systems that can create useful outcomes.</p></article>
+
+            <article class="timeline-item" data-reveal>
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="date-badge">2020-2023</span>
+              <h3>Mayflower Secondary School</h3>
+              <p>
+                Studied at Mayflower Secondary School in the Normal (Academic) stream, where I built my early foundation in discipline,
+                consistency, and problem-solving. This period taught me how to work through challenges step by step instead of giving up
+                when things became difficult.
+              </p>
+            </article>
+
+            <article class="timeline-item" data-reveal>
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="date-badge">2024-2025</span>
+              <h3>PFP Foundation Year</h3>
+              <p>
+                Entered Nanyang Polytechnic through the Polytechnic Foundation Programme. This year helped me strengthen my academic foundation
+                and adjust to the pace, expectations, and learning style of polytechnic education. Just as importantly, it was a year of meeting
+                new people and building new friendships.
+              </p>
+            </article>
+
+            <article class="timeline-item" data-reveal>
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="date-badge">2025-2026</span>
+              <h3>Started Common Engineering</h3>
+              <p>
+                Began my engineering journey at NYP and was introduced to different areas of engineering and technology. During this stage,
+                I became increasingly interested in AI, data, programming, and how technology can be used to solve real-world problems.
+              </p>
+            </article>
+
+            <article class="timeline-item" data-reveal>
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="date-badge">2025-2026</span>
+              <h3>Grew In AI and Data Engineering</h3>
+              <p>
+                Worked across programming, data preparation, dashboards, machine learning, databases, cloud concepts, and sensor-based systems.
+                These experiences helped me connect classroom theory with practical implementation.
+              </p>
+            </article>
+
+            <article class="timeline-item is-current" data-reveal>
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="date-badge">2025-Present</span>
+              <h3>Building Toward Real-World Impact</h3>
+              <p>
+                Currently focused on growing stronger in AI, data engineering, analytics, and cloud-based systems. My goal is to build practical
+                technology that supports better decisions, improves systems, and creates meaningful impact.
+              </p>
+            </article>
           </div>
         </div>
       </section>
@@ -80,32 +141,74 @@
         <div class="section-shell">
           <div class="section-header" data-reveal>
             <p class="eyebrow">Recognition</p>
-            <h2 id="achievements-title">Achievements &amp; Awards</h2>
+            <h2 id="achievements-title">Achievements and Awards</h2>
           </div>
           <div class="card-grid">
-            <article class="info-card" data-reveal><span class="card-icon">4.0</span><h3>GPA 4.0</h3><p>Current academic standing in AI &amp; Data Engineering.</p></article>
-            <article class="info-card" data-reveal><span class="card-icon">DL</span><h3>Dean's List</h3><p>Recognized for strong academic performance and consistency.</p></article>
-            <article class="info-card" data-reveal><span class="card-icon">AI</span><h3>Applied Projects</h3><p>Built software and hardware systems with real implementation constraints.</p></article>
+            <article class="info-card" data-reveal>
+              <span class="card-icon">4.0</span>
+              <h3>GPA 4.0</h3>
+              <p>Maintained a GPA of 4.0 while building stronger foundations in AI and Data Engineering.</p>
+            </article>
+            <article class="info-card" data-reveal>
+              <span class="card-icon">DL</span>
+              <h3>Dean's List</h3>
+              <p>Recognized for strong academic performance, consistency, and discipline.</p>
+            </article>
+            <article class="info-card" data-reveal>
+              <span class="card-icon">AI</span>
+              <h3>Applied Projects</h3>
+              <p>Built software games, IoT systems, and hardware prototypes with real constraints.</p>
+            </article>
           </div>
         </div>
       </section>
 
       <section class="chapter section-light" id="experience" aria-labelledby="experience-title">
         <div class="section-shell">
-          <div class="section-header" data-reveal><p class="eyebrow">Experience</p><h2 id="experience-title">Work &amp; Activities</h2></div>
+          <div class="section-header" data-reveal>
+            <p class="eyebrow">Experience</p>
+            <h2 id="experience-title">Work, CCA and Volunteer Work</h2>
+          </div>
           <div class="split-grid">
-            <article class="info-card" data-reveal><h3>Work Experience</h3><p>Add internship, part-time, or project-based work details here when ready.</p></article>
-            <article class="info-card" data-reveal><h3>Co-Curricular Activities</h3><p>Robotics, coding, data, or leadership activities can be added as Ziqian's portfolio grows.</p></article>
-            <article class="info-card" data-reveal><h3>Volunteer Work</h3><p>Community and service experiences can be listed here with role, date, and impact.</p></article>
+            <article class="info-card" data-reveal>
+              <h3>Work Experience</h3>
+              <p>Add internship, part-time, or project-based work details here when ready.</p>
+            </article>
+            <article class="info-card" data-reveal>
+              <h3>Co-Curricular Activities</h3>
+              <p>Robotics, coding, data, or leadership activities can be added as Ziqian's portfolio grows.</p>
+            </article>
+            <article class="info-card" data-reveal>
+              <h3>Volunteer Work</h3>
+              <p>Community and service experiences can be listed here with role, date, and impact.</p>
+            </article>
           </div>
         </div>
       </section>
 
       <section class="chapter section-dark" id="skills" aria-labelledby="skills-title">
         <div class="section-shell">
-          <div class="section-header" data-reveal><p class="eyebrow">Skills</p><h2 id="skills-title">Technical Stack</h2></div>
-          <div class="skill-grid" data-reveal>
-            <span>Python</span><span>SQL</span><span>Machine Learning</span><span>Data Visualization</span><span>Pandas / NumPy</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Arduino</span><span>Raspberry Pi</span><span>MariaDB</span><span>Flask</span><span>Git</span><span>Cloud Concepts</span><span>Problem Solving</span>
+          <div class="section-header" data-reveal>
+            <p class="eyebrow">Skills</p>
+            <h2 id="skills-title">Technical Stack</h2>
+          </div>
+          <div class="skill-groups" data-reveal>
+            <article>
+              <h3>Programming</h3>
+              <div class="skill-grid"><span>Python</span><span>SQL</span><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            </article>
+            <article>
+              <h3>Tools and Systems</h3>
+              <div class="skill-grid"><span>Machine Learning</span><span>Data Visualization</span><span>Pandas</span><span>NumPy</span><span>MariaDB</span><span>Flask</span><span>Git</span></div>
+            </article>
+            <article>
+              <h3>Hardware</h3>
+              <div class="skill-grid"><span>Arduino</span><span>Raspberry Pi</span><span>Sensors</span><span>IoT</span><span>Tinkercad</span></div>
+            </article>
+            <article>
+              <h3>Soft Skills</h3>
+              <div class="skill-grid"><span>Problem Solving</span><span>Teamwork</span><span>Communication</span><span>Testing</span><span>Discipline</span></div>
+            </article>
           </div>
         </div>
       </section>
@@ -115,23 +218,28 @@
           <p class="eyebrow">Continue Exploring</p>
           <h2 id="continue-title">What would you like to see next?</h2>
           <div class="continue-grid">
-            <a class="continue-card" href="projects.html"><span>Projects</span><strong>Explore software and hardware work</strong></a>
-            <a class="continue-card" href="index.html#testimonials"><span>Testimonials</span><strong>Read what mentors and collaborators say</strong></a>
+            <a class="continue-card" href="index.html#testimonials">
+              <span>What People Say</span>
+              <strong>Read testimonials from mentors and collaborators</strong>
+            </a>
+            <a class="continue-card" href="projects.html">
+              <span>My Projects</span>
+              <strong>Explore software and hardware work</strong>
+            </a>
+          </div>
+          <div class="closing-actions">
+            <a class="button button-dark" href="assets/Ziqian-CV-placeholder.pdf" target="_blank" rel="noopener noreferrer">Download Full CV</a>
+            <a class="button button-outline-dark" href="index.html#hero">Back to Home</a>
           </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <p>&copy; 2026 Ziqian. Built with passion for AI &amp; Data.</p>
-      <a class="back-top" href="#about" aria-label="Back to top">&uarr;</a>
+      <p>&copy; 2026 Ziqian. Built with passion for AI and Data.</p>
+      <a class="back-top" href="#about" aria-label="Back to top">Up</a>
     </footer>
 
-    <script src="js/nav.js"></script>
-    <script src="js/three-scene.js"></script>
-    <script src="js/animations.js"></script>
-    <script src="js/tilt.js"></script>
-    <script src="js/modal.js"></script>
-    <script src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>
