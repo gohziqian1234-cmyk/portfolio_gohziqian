@@ -3476,6 +3476,10 @@ html {
   line-height: 1.08;
 }
 
+.plant-card h3 {
+  text-transform: none;
+}
+
 .chapter .timeline-item article,
 .experience-card,
 .info-card,
@@ -3964,6 +3968,7 @@ button.button:hover,
 
 .project-modal-body-long .modal-title {
   max-width: 14ch;
+  text-transform: none;
 }
 
 .project-modal-body-long .modal-media {
@@ -4057,6 +4062,20 @@ button.button:hover,
   margin-top: 16px;
 }
 
+.modal-diagram {
+  margin: 16px 0 20px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  background: rgba(13, 13, 13, 0.04);
+}
+
+.modal-diagram img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .tech-tag {
   display: inline-flex;
   align-items: center;
@@ -4073,6 +4092,13 @@ button.button:hover,
 
 .project-modal-body-long .modal-action-block {
   margin-top: 34px;
+}
+
+.modal-coauthor-note {
+  margin: 8px 0 0;
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 12px;
+  font-style: italic;
 }
 
 body.modal-open {

@@ -65,18 +65,22 @@ const PROJECTS = {
     gallery: ["images/project-smart-wheelchair.svg", "images/project-smart-wheelchair-build.svg", "images/project-smart-wheelchair-testing.svg"]
   },
   greenhouse: {
-    title: "SMART GREENHOUSE SYSTEM",
+    title: "IoT-Based Smart Plant Monitoring System",
     image: "images/project-smart-greenhouse.svg",
-    imageAlt: "Smart greenhouse system technical placeholder graphic",
-    description: "An automated greenhouse monitoring and control system using sensors to track environmental conditions and optimize plant growth.",
+    imageAlt: "IoT-Based Smart Plant Monitoring System technical placeholder graphic",
+    modalVariant: "plantCaseStudy",
+    reportUrl: "assets/reports/iot-smart-plant-monitoring-report.pdf",
+    demoUrl: "assets/videos/iot-smart-plant-monitoring-demo.mp4",
+    diagram: "images/iot-plant-monitoring-architecture.svg",
+    description: "Automated indoor farming system using Arduino, Raspberry Pi, sensors, MariaDB, and Flask to monitor plant conditions and alert users when the environment is unsuitable.",
     // CONFIRM/EXPAND: specific goals, e.g. automated watering, temperature alerts.
-    problem: "Automate environmental monitoring and control for a greenhouse to maintain optimal growing conditions with minimal manual intervention.",
+    problem: "Reduce manual indoor farming monitoring by using IoT technology to provide real-time feedback, automatic light adjustment, and alerts when plant conditions are unsuitable.",
     // ADD: describe system - sensors used, how data is collected/displayed (e.g. LCD screen, app, serial monitor), any automated actuators (water pump, fan, etc.).
-    approach: "Placeholder architecture: document the sensor set, microcontroller, data display path, and any automated actuator logic once exact build details are confirmed.",
+    approach: "Arduino collects temperature, light, water level, and manual control readings, then sends processed data to Raspberry Pi for MariaDB storage and Flask web monitoring.",
     // ADD: outcome - e.g. successfully monitors temp/humidity/soil moisture in real-time, automated irrigation triggers at threshold X.
-    results: "Placeholder outcome: add monitoring results, threshold behavior, and automation performance once available.",
+    results: "The system monitored temperature, light intensity, and water level in real time, adjusted LED brightness, triggered alerts, stored sensor data, and displayed readings through Flask.",
     // CONFIRM: exact components/tech (e.g. soil moisture sensor, DHT22 temp/humidity sensor, relay for irrigation, ESP32 for WiFi connectivity).
-    tags: ["Arduino/ESP32", "Sensors", "C++", "IoT"],
+    tags: ["Arduino", "Raspberry Pi", "IoT", "Sensors", "MariaDB", "Flask", "Python", "Sustainability"],
     github: "",
     gallery: ["images/project-smart-greenhouse.svg", "images/project-smart-greenhouse-build.svg", "images/project-smart-greenhouse-testing.svg"]
   }
@@ -608,6 +612,7 @@ function initProjectModal() {
 function createModalMarkup(project) {
   if (project.modalVariant === "pianoCaseStudy") return createPianoModalMarkup(project);
   if (project.modalVariant === "erebusCaseStudy") return createErebusModalMarkup(project);
+  if (project.modalVariant === "plantCaseStudy") return createPlantModalMarkup(project);
 
   const images = project.gallery?.length ? project.gallery : [project.image];
   const tags = project.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
@@ -844,6 +849,146 @@ function createErebusModalMarkup(project) {
       </section>
 
       ${actions}
+    </article>
+  `;
+}
+
+function createPlantModalMarkup(project) {
+  return `
+    <article class="project-modal-body project-modal-body-long">
+      <header class="modal-project-hero modal-case-header">
+        <p class="modal-eyebrow section-kicker dark">Project</p>
+        <h2 class="modal-title" id="modal-title">${escapeHtml(project.title)}</h2>
+        <p>${escapeHtml(project.description)}</p>
+      </header>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Overview</h3>
+        <p>An automated indoor farming monitoring system designed to track plant-growing conditions in real time. The system monitors temperature, light intensity, and water level using sensors, then provides alerts, automatic LED control, database storage, and web-based monitoring.</p>
+        <p>This project connects hardware, software, database management, and web development into one complete IoT solution for sustainable indoor farming.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">The Problem</h3>
+        <p>Singapore has limited land for agriculture and aims to strengthen food security by increasing local food production. Indoor farming and vertical farming can help, but they require stable growing conditions - suitable temperature, sufficient light, and enough water.</p>
+        <p>In many indoor farming setups, these conditions are still checked manually. This can lead to delayed responses, inconsistent plant care, inefficient resource use, and weaker plant growth. Vertical farming can also create uneven lighting, where upper plants block light from reaching lower plants.</p>
+        <p>This project was built to reduce manual monitoring by using IoT technology to provide real-time feedback, automatic light adjustment, and alerts when plant conditions are unsuitable.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">What I Built</h3>
+        <p>I built an automated plant monitoring and alert system that uses sensors to check whether the plant environment is suitable for growth. The system uses:</p>
+        <ul class="modal-feature-list">
+          <li>A Grove temperature sensor to monitor whether the temperature is within the 20°C-35°C suitable range</li>
+          <li>A Grove light sensor to measure ambient light intensity</li>
+          <li>An ultrasonic sensor to estimate water level by measuring distance to the water surface</li>
+          <li>A rotary angle sensor to allow manual LED brightness control</li>
+          <li>An LED to simulate grow-light adjustment</li>
+          <li>A buzzer to alert users when conditions are not suitable</li>
+          <li>A 16x2 LCD display to show real-time readings and status</li>
+          <li>Arduino to collect sensor data and control outputs</li>
+          <li>Raspberry Pi to receive and process data</li>
+          <li>MariaDB to store sensor readings</li>
+          <li>Flask to display recorded data on a web interface</li>
+        </ul>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Key Features</h3>
+        <ul class="modal-feature-list">
+          <li>Real-time temperature monitoring</li>
+          <li>Light intensity monitoring</li>
+          <li>Water level detection</li>
+          <li>Automatic LED brightness adjustment</li>
+          <li>Manual LED brightness override</li>
+          <li>LCD display for live plant condition feedback</li>
+          <li>Buzzer alert for unsuitable conditions</li>
+          <li>Serial communication between Arduino and Raspberry Pi</li>
+          <li>MariaDB database storage</li>
+          <li>Flask web interface for monitoring recorded data</li>
+        </ul>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">System Architecture</h3>
+        <div class="modal-diagram">
+          <!-- ACTION REQUIRED: extract the project report flowchart or replace this clean placeholder with /assets/images/iot-plant-monitoring-architecture.png -->
+          <img src="${escapeHtml(project.diagram)}" alt="System architecture flowchart showing data flow from sensors through Arduino, Raspberry Pi, MariaDB, to the Flask web interface" loading="lazy" width="1200" height="520">
+        </div>
+        <p>The Arduino collects data from the temperature sensor, light sensor, ultrasonic sensor, and rotary angle sensor. It processes the readings, controls the LED and buzzer, and displays the status on the LCD screen.</p>
+        <p>The processed data is then sent to the Raspberry Pi through serial communication. The Raspberry Pi stores the readings in a MariaDB database and displays the data through a Flask web page, allowing users to view plant condition data more clearly and use it for future analysis.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Technical Implementation</h3>
+        <p>The system uses predefined thresholds to decide whether the environment is suitable for plant growth.</p>
+        <p>The temperature condition is suitable when the reading is between 20°C and 35°C. The light condition is evaluated using effective light, which combines ambient light and LED brightness - if the light level is too low, LED brightness increases automatically; if there's enough light, brightness decreases to save energy.</p>
+        <p>The ultrasonic sensor measures the distance between the sensor and the water surface. If the distance is too high, the system treats the water level as low and activates an alert. The rotary angle sensor allows the user to manually override the automatic LED control when needed.</p>
+        <div class="modal-tech-tags">
+          <span class="tech-tag">Arduino</span>
+          <span class="tech-tag">Raspberry Pi</span>
+          <span class="tech-tag">IoT</span>
+          <span class="tech-tag">Sensors</span>
+          <span class="tech-tag">MariaDB</span>
+          <span class="tech-tag">Flask</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Sustainability</span>
+        </div>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Testing & Results</h3>
+        <p>The system was tested under different environmental conditions to verify each function worked correctly. Test cases checked whether:</p>
+        <ul class="modal-feature-list">
+          <li>The buzzer stayed off when all conditions were suitable</li>
+          <li>The buzzer activated when temperature, light, or water level was unsuitable</li>
+          <li>LED brightness increased in darker conditions</li>
+          <li>LED brightness decreased in brighter conditions</li>
+          <li>Low water level was detected correctly</li>
+          <li>Manual LED control overrode automatic brightness adjustment</li>
+        </ul>
+        <p>The system successfully responded to these test conditions, showing that the hardware, software, database, and web interface could work together as one complete IoT system.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Skills Demonstrated</h3>
+        <ul class="modal-feature-list modal-skills-list">
+          <li>IoT system design</li>
+          <li>Sensor integration</li>
+          <li>Arduino programming</li>
+          <li>Raspberry Pi data processing</li>
+          <li>Serial communication</li>
+          <li>Python scripting</li>
+          <li>MariaDB database implementation</li>
+          <li>Flask web development</li>
+          <li>Real-time monitoring</li>
+          <li>Testing and troubleshooting</li>
+          <li>Sustainability-focused engineering</li>
+        </ul>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Outcome</h3>
+        <p>The final system successfully monitored temperature, light intensity, and water level in real time. It could automatically adjust LED brightness, alert users when plant conditions were unsuitable, store sensor data in a database, and display the readings through a Flask web interface.</p>
+        <p>This project helped me understand how hardware, software, databases, and web technologies can be integrated into a practical IoT solution - and how technology can support more efficient and sustainable indoor farming.</p>
+      </section>
+
+      <section class="modal-action-block" aria-label="Project report and demo">
+        <!-- ACTION REQUIRED: convert the co-authored .docx project report to PDF, confirm public sharing with Li Heng, then place it at assets/reports/iot-smart-plant-monitoring-report.pdf. -->
+        <!-- ACTION REQUIRED: add a demo video file or external URL showing sensors, LED/LCD updates, and Flask data display, then update the Watch Demo href if needed. -->
+        <div class="modal-actions modal-action-row">
+          <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.reportUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
+            <span aria-hidden="true">PDF</span>
+            View Full Report
+          </a>
+          <a class="modal-action-button modal-play-button btn-primary" href="${escapeHtml(project.demoUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
+            <span aria-hidden="true">&#9654;</span>
+            Watch Demo
+          </a>
+        </div>
+        <p class="modal-coauthor-note">Co-authored with Li Heng as a joint project submission.</p>
+        <p class="modal-link-helper modal-helper-text">Opens in a new tab - this portfolio stays open here, so you can switch back anytime.</p>
+      </section>
     </article>
   `;
 }

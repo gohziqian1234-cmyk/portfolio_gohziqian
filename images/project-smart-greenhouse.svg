@@ -1,30 +1,81 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
-  <title id="title">Smart Greenhouse System placeholder</title>
-  <desc id="desc">Technical greenhouse cross-section with sensors and microcontroller node.</desc>
+  <title id="title">IoT-Based Smart Plant Monitoring System placeholder</title>
+  <desc id="desc">Premium wireframe thumbnail showing a plant, sensor nodes, Arduino, Raspberry Pi, MariaDB, and Flask web monitoring.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#05110c"/><stop offset=".55" stop-color="#0b1b24"/><stop offset="1" stop-color="#050507"/>
+      <stop stop-color="#05090d"/>
+      <stop offset=".45" stop-color="#071a18"/>
+      <stop offset="1" stop-color="#050507"/>
     </linearGradient>
-    <linearGradient id="glow" x1="0" x2="1">
-      <stop stop-color="#4ade80"/><stop offset=".55" stop-color="#3d5afe"/><stop offset="1" stop-color="#7b61ff"/>
+    <linearGradient id="accent" x1="0" x2="1">
+      <stop stop-color="#4ade80"/>
+      <stop offset=".45" stop-color="#3d5afe"/>
+      <stop offset="1" stop-color="#7b61ff"/>
     </linearGradient>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
   </defs>
   <rect width="960" height="600" fill="url(#bg)"/>
-  <g stroke="#f4f1ea" stroke-width="1" opacity=".09">
+  <g stroke="#f4f1ea" stroke-width="1" opacity=".075">
     <path d="M0 120h960M0 240h960M0 360h960M0 480h960"/>
     <path d="M120 0v600M240 0v600M360 0v600M480 0v600M600 0v600M720 0v600M840 0v600"/>
   </g>
-  <path d="M154 410V244L480 112l326 132v166z" fill="none" stroke="#f4f1ea" stroke-width="8" stroke-linejoin="round"/>
-  <path d="M154 244h652M480 112v298" stroke="#f4f1ea" stroke-width="4" opacity=".5"/>
-  <rect x="432" y="292" width="96" height="76" rx="14" fill="#101726" stroke="url(#glow)" stroke-width="4"/>
-  <g fill="none" stroke="url(#glow)" stroke-width="3">
-    <path d="M480 292 294 232"/><path d="M480 292 686 230"/><path d="M480 368 300 420"/><path d="M480 368 676 420"/>
+  <g opacity=".16" stroke="#3d5afe" stroke-width="2" fill="none">
+    <path d="M82 438c96-88 170-132 246-132s142 42 218 42 160-48 304-154"/>
+    <path d="M92 470c128-46 222-62 310-42 112 26 206 10 366-92"/>
   </g>
-  <g fill="#4ade80">
-    <circle cx="294" cy="232" r="13"/><circle cx="686" cy="230" r="13"/><circle cx="300" cy="420" r="13"/><circle cx="676" cy="420" r="13"/>
+  <g transform="translate(90 94)">
+    <rect x="0" y="0" width="360" height="322" rx="28" fill="#f4f1ea" fill-opacity=".03" stroke="#f4f1ea" stroke-opacity=".28" stroke-width="3"/>
+    <path d="M58 260h244" stroke="url(#accent)" stroke-width="4" opacity=".8"/>
+    <path d="M180 262c-4-76 0-132 0-190" stroke="url(#accent)" stroke-width="5" stroke-linecap="round"/>
+    <path d="M179 144c-64-48-104-38-124 14 58 28 98 22 124-14z" fill="none" stroke="#4ade80" stroke-width="6"/>
+    <path d="M181 118c55-66 110-54 136 0-50 44-96 44-136 0z" fill="none" stroke="#3d5afe" stroke-width="6"/>
+    <path d="M181 198c66-38 116-24 148 40-72 22-118 8-148-40z" fill="none" stroke="#7b61ff" stroke-width="6"/>
+    <g fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" letter-spacing="2">
+      <text x="54" y="52">TEMP</text>
+      <text x="238" y="52">LIGHT</text>
+      <text x="56" y="306">WATER</text>
+    </g>
+    <g filter="url(#softGlow)">
+      <circle cx="46" cy="76" r="12" fill="#4ade80"/>
+      <circle cx="286" cy="76" r="12" fill="#3d5afe"/>
+      <circle cx="46" cy="252" r="12" fill="#7b61ff"/>
+    </g>
+    <g stroke="url(#accent)" stroke-width="3" fill="none" opacity=".75">
+      <path d="M58 76h78"/>
+      <path d="M274 76h-64"/>
+      <path d="M58 252h78"/>
+    </g>
   </g>
-  <g fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="22">
-    <text x="244" y="196">TEMP</text><text x="642" y="194">HUM</text><text x="240" y="462">SOIL</text><text x="636" y="462">LIGHT</text>
+  <g transform="translate(514 122)">
+    <rect x="0" y="0" width="124" height="84" rx="16" fill="#0e1524" stroke="url(#accent)" stroke-width="4"/>
+    <text x="62" y="48" text-anchor="middle" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="900">ARDUINO</text>
+    <rect x="190" y="0" width="130" height="84" rx="16" fill="#0e1524" stroke="url(#accent)" stroke-width="4"/>
+    <text x="255" y="38" text-anchor="middle" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900">RASPBERRY</text>
+    <text x="255" y="58" text-anchor="middle" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900">PI</text>
+    <rect x="26" y="178" width="124" height="78" rx="14" fill="#0e1524" stroke="#3d5afe" stroke-width="3"/>
+    <text x="88" y="224" text-anchor="middle" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900">MARIADB</text>
+    <rect x="196" y="178" width="124" height="78" rx="14" fill="#0e1524" stroke="#7b61ff" stroke-width="3"/>
+    <text x="258" y="224" text-anchor="middle" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900">FLASK</text>
+    <g stroke="url(#accent)" stroke-width="4" fill="none" marker-end="url(#arrow)">
+      <path d="M124 42h66"/>
+      <path d="M255 84v82"/>
+      <path d="M190 208h-40"/>
+      <path d="M150 218h46"/>
+    </g>
   </g>
-  <text x="44" y="540" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="30" letter-spacing="4">SMART GREENHOUSE SYSTEM</text>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0l10 5-10 5z" fill="#7b61ff"/>
+    </marker>
+  </defs>
+  <g fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="900">
+    <text x="44" y="518" font-size="28" letter-spacing="3">IoT-BASED SMART PLANT</text>
+    <text x="44" y="554" font-size="28" letter-spacing="3">MONITORING SYSTEM</text>
+  </g>
 </svg>
