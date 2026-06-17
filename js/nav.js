@@ -1,35 +1,33 @@
-function initNavigation() {
-  const nav = document.querySelector("[data-navbar]");
-  const linksWrap = document.querySelector("[data-nav-links]");
+export function initNavigation() {
+  const navbar = document.querySelector("[data-navbar]");
+  const track = document.querySelector("[data-nav-links]");
   const indicator = document.querySelector("[data-nav-indicator]");
-  const navLinks = linksWrap ? Array.from(linksWrap.querySelectorAll("[data-nav-link][data-section]")) : [];
+  const navLinks = track ? Array.from(track.querySelectorAll(".nav-link[data-section]")) : [];
   const menuToggle = document.querySelector("[data-menu-toggle]");
   const mobileMenu = document.querySelector("[data-mobile-menu]");
   const mobileLinks = Array.from(document.querySelectorAll("[data-mobile-link]"));
   const page = document.body.dataset.page || "home";
 
-  if (!nav) return;
+  if (!navbar) return;
 
-  const setNavHeight = () => {
-    const rect = nav.getBoundingClientRect();
-    const total = Math.ceil(rect.height + rect.top + 24);
-    document.documentElement.style.setProperty("--nav-height", `${total}px`);
+  const updateNavHeight = () => {
+    const rect = navbar.getBoundingClientRect();
+    document.documentElement.style.setProperty("--nav-height", `${Math.ceil(rect.height + rect.top + 32)}px`);
+  };
+
+  const updateActivePill = () => {
+    const activeLink = document.querySelector(".nav-link.is-active");
+    if (!activeLink || !indicator || !track || track.offsetParent === null) return;
+    const trackRect = track.getBoundingClientRect();
+    const linkRect = activeLink.getBoundingClientRect();
+    indicator.style.left = `${linkRect.left - trackRect.left}px`;
+    indicator.style.width = `${linkRect.width}px`;
   };
 
   const setActive = (sectionId) => {
     if (!sectionId) return;
-
-    navLinks.forEach((link) => {
-      link.classList.toggle("is-active", link.dataset.section === sectionId);
-    });
-
-    const active = navLinks.find((link) => link.dataset.section === sectionId);
-    if (!active || !linksWrap || !indicator || linksWrap.offsetParent === null) return;
-
-    const activeRect = active.getBoundingClientRect();
-    const wrapRect = linksWrap.getBoundingClientRect();
-    indicator.style.left = `${activeRect.left - wrapRect.left}px`;
-    indicator.style.width = `${activeRect.width}px`;
+    navLinks.forEach((link) => link.classList.toggle("is-active", link.dataset.section === sectionId));
+    updateActivePill();
   };
 
   const closeMenu = () => {
@@ -41,41 +39,48 @@ function initNavigation() {
 
   const openMenu = () => {
     document.body.classList.add("menu-open");
+    navbar.classList.remove("nav-hidden");
     mobileMenu?.classList.add("is-open");
     mobileMenu?.setAttribute("aria-hidden", "false");
     menuToggle?.setAttribute("aria-expanded", "true");
   };
 
   menuToggle?.addEventListener("click", () => {
-    if (document.body.classList.contains("menu-open")) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
+    document.body.classList.contains("menu-open") ? closeMenu() : openMenu();
   });
 
-  mobileLinks.forEach((link) => {
-    link.addEventListener("click", closeMenu);
-  });
-
+  mobileLinks.forEach((link) => link.addEventListener("click", closeMenu));
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeMenu();
   });
 
   document.addEventListener("click", (event) => {
-    const link = event.target.closest('a[href^="#"], a[href^="index.html#"]');
-    if (!link) return;
+    const link = event.target.closest("a[href]");
+    if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
 
     const url = new URL(link.href, window.location.href);
-    if (url.pathname !== window.location.pathname && !url.pathname.endsWith("/index.html")) return;
+    const current = new URL(window.location.href);
+    const samePage = url.pathname === current.pathname;
+    const isInternalPage = url.origin === current.origin && /\.(html)?$/i.test(url.pathname);
 
-    const target = document.querySelector(url.hash);
-    if (!target) return;
+    if (samePage && url.hash) {
+      const target = document.querySelector(url.hash);
+      if (!target) return;
+      event.preventDefault();
+      closeMenu();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.pushState(null, "", url.hash);
+      setActive(hashToSection(url.hash));
+      return;
+    }
 
-    event.preventDefault();
-    closeMenu();
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-    history.pushState(null, "", url.hash);
+    if (url.origin === current.origin && isInternalPage) {
+      event.preventDefault();
+      document.body.classList.add("page-transitioning");
+      window.setTimeout(() => {
+        window.location.href = link.href;
+      }, 300);
+    }
   });
 
   if (page === "home") {
@@ -90,70 +95,72 @@ function initNavigation() {
         const visible = entries
           .filter((entry) => entry.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
         if (!visible) return;
-        const section = visible.target.id === "hero" ? "hero" : visible.target.dataset.section;
-        setActive(section);
+        setActive(visible.target.id === "hero" ? "hero" : visible.target.dataset.section);
       },
-      {
-        rootMargin: "-22% 0px -52% 0px",
-        threshold: [0.15, 0.35, 0.6]
-      }
+      { rootMargin: "-22% 0px -52% 0px", threshold: [0.12, 0.35, 0.6] }
     );
 
     sections.forEach((section) => observer.observe(section));
-    setActive(window.location.hash ? hashToSection(window.location.hash) : "hero");
+    setActive(hashToSection(window.location.hash));
   } else {
     setActive(page);
   }
 
   let resizeTimer = 0;
   const refresh = () => {
-    setNavHeight();
-    setActive(page === "home" ? currentHomeSection() : page);
+    updateNavHeight();
+    updateActivePill();
   };
 
-  setNavHeight();
+  updateNavHeight();
   requestAnimationFrame(refresh);
   window.addEventListener("load", refresh);
   window.addEventListener("resize", () => {
     window.clearTimeout(resizeTimer);
-    resizeTimer = window.setTimeout(refresh, 140);
+    resizeTimer = window.setTimeout(refresh, 120);
   });
+  document.fonts?.ready?.then(refresh).catch(() => {});
 
-  if (document.fonts?.ready) {
-    document.fonts.ready.then(refresh).catch(() => {});
-  }
+  initSmartHide(navbar);
+}
+
+function initSmartHide(navbar) {
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const current = window.scrollY;
+        if (current <= 100 || document.body.classList.contains("menu-open") || document.body.classList.contains("modal-open")) {
+          navbar.classList.remove("nav-hidden");
+        } else if (current > lastScrollY) {
+          navbar.classList.add("nav-hidden");
+        } else if (current < lastScrollY) {
+          navbar.classList.remove("nav-hidden");
+        }
+        lastScrollY = Math.max(current, 0);
+        ticking = false;
+      });
+    },
+    { passive: true }
+  );
+
+  window.addEventListener(
+    "mousemove",
+    (event) => {
+      if (event.clientY < 80) navbar.classList.remove("nav-hidden");
+    },
+    { passive: true }
+  );
 }
 
 function hashToSection(hash) {
-  if (hash === "#hero") return "hero";
   if (hash === "#about-preview") return "about";
-  return hash.replace("#", "") || "hero";
+  if (!hash || hash === "#hero") return "hero";
+  return hash.replace("#", "");
 }
-
-function currentHomeSection() {
-  const candidates = [
-    ["hero", document.querySelector("#hero")],
-    ["about", document.querySelector("main [data-section='about']")],
-    ["projects", document.querySelector("main [data-section='projects']")],
-    ["testimonials", document.querySelector("main [data-section='testimonials']")],
-    ["contact", document.querySelector("main [data-section='contact']")]
-  ].filter(([, element]) => element);
-
-  const midpoint = window.innerHeight * 0.38;
-  let best = candidates[0]?.[0] || "hero";
-  let bestDistance = Infinity;
-
-  candidates.forEach(([id, element]) => {
-    const distance = Math.abs(element.getBoundingClientRect().top - midpoint);
-    if (distance < bestDistance) {
-      best = id;
-      bestDistance = distance;
-    }
-  });
-
-  return best;
-}
-
-window.initNavigation = initNavigation;

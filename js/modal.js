@@ -253,8 +253,8 @@ const PROJECTS = {
   }
 };
 
-function initProjectModal() {
-  const modal = document.querySelector("[data-project-modal]");
+export function initProjectModal() {
+  const modal = document.querySelector("[data-modal-root]");
   const content = document.querySelector("[data-modal-content]");
   if (!modal || !content) return;
 
@@ -300,7 +300,7 @@ function initProjectModal() {
 
 function renderProject(project) {
   return `
-    <article class="project-modal-body">
+    <article class="modal-body">
       <header class="modal-header">
         <p class="modal-eyebrow">${project.eyebrow}</p>
         <h2 id="modal-title" class="modal-title">${project.title}</h2>
@@ -393,4 +393,3 @@ function renderAction([label, href, style, icon]) {
   `;
 }
 
-window.initProjectModal = initProjectModal;

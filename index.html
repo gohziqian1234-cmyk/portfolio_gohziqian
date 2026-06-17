@@ -29,19 +29,19 @@
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="topbar" aria-label="Primary navigation">
-      <nav class="nav-shell" data-navbar>
-        <a class="brand" href="index.html#hero" data-nav-link data-section="hero" aria-label="Ziqian home">
-          <span class="brand-mark">ZQ</span>
-          <span class="brand-name">ZIQIAN</span>
+      <nav class="navbar" data-navbar>
+        <a class="nav-logo" href="index.html#hero" data-nav-link data-section="hero" aria-label="Ziqian home">
+          <span class="nav-avatar">ZQ</span>
+          <span class="nav-wordmark">ZIQIAN</span>
         </a>
 
-        <div class="nav-links" data-nav-links>
-          <span class="nav-indicator" data-nav-indicator aria-hidden="true"></span>
-          <a href="index.html#hero" data-nav-link data-section="hero">Home</a>
-          <a href="about.html" data-nav-link data-section="about">About</a>
-          <a href="projects.html" data-nav-link data-section="projects">Projects</a>
-          <a href="index.html#testimonials" data-nav-link data-section="testimonials">Testimonials</a>
-          <a href="index.html#contact" data-nav-link data-section="contact">Contact</a>
+        <div class="nav-links-pill" data-nav-links>
+          <span class="nav-active-indicator" data-nav-indicator aria-hidden="true"></span>
+          <a class="nav-link" href="index.html#hero" data-nav-link data-section="hero">Home</a>
+          <a class="nav-link" href="about.html" data-nav-link data-section="about">About</a>
+          <a class="nav-link" href="projects.html" data-nav-link data-section="projects">Projects</a>
+          <a class="nav-link" href="index.html#testimonials" data-nav-link data-section="testimonials">Testimonials</a>
+          <a class="nav-link" href="index.html#contact" data-nav-link data-section="contact">Contact</a>
         </div>
 
         <a class="nav-cta" href="index.html#contact">
@@ -49,7 +49,7 @@
           <span>Hire Me</span>
         </a>
 
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu" data-menu-toggle>
+        <button class="nav-hamburger" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu" data-menu-toggle>
           <span></span>
           <span></span>
           <span></span>
@@ -78,7 +78,7 @@
 
     <main id="main">
       <section class="hero section-dark anchor-section" id="hero" aria-labelledby="hero-title">
-        <canvas class="hero-canvas" data-three-hero aria-hidden="true"></canvas>
+        <canvas id="hero-canvas" class="hero-canvas" data-three-hero aria-hidden="true"></canvas>
         <div class="hero-orb" aria-hidden="true"></div>
         <div class="hero-inner">
           <div class="hero-copy" data-reveal-group>
@@ -93,7 +93,7 @@
               Ziqian - AI &amp; Data Engineering Student | Year 2 | GPA 4.0 | Dean's List
             </p>
 
-            <div class="hero-cta-pill" aria-label="Hero actions">
+            <div class="hero-pill-actions" aria-label="Hero actions">
               <a class="pill-button pill-button-light" href="#projects">View My Projects</a>
               <a class="pill-button pill-button-ghost" href="#about-preview">About Me</a>
               <a class="pill-button pill-button-gradient" href="#contact">
@@ -311,11 +311,6 @@
       <a class="back-top" href="#hero" aria-label="Back to top">&uarr;</a>
     </footer>
 
-    <script src="js/nav.js"></script>
-    <script src="js/three-scene.js"></script>
-    <script src="js/animations.js"></script>
-    <script src="js/tilt.js"></script>
-    <script src="js/modal.js"></script>
-    <script src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>
