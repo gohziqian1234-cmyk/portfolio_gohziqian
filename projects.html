@@ -132,44 +132,55 @@
             <span class="status-badge status-completed">Completed</span>
             <!-- CONFIRM: actual project status -->
             <figure>
-              <svg class="project-card-diagram" viewBox="0 0 960 600" role="img" aria-label="Wireframe diagram of a wheelchair wheel with motor, potentiometer dial, and ultrasonic sensor waves">
+              <svg class="project-card-diagram premium-hardware-diagram" viewBox="0 0 960 600" role="img" aria-label="Clean blueprint diagram of a motor-assisted wheelchair support prototype">
                 <defs>
-                  <linearGradient id="wheelchairLine" x1="0" y1="0" x2="1" y2="1">
+                  <linearGradient id="wheelchairStroke" x1="180" y1="120" x2="760" y2="480" gradientUnits="userSpaceOnUse">
                     <stop stop-color="#3d5afe" />
                     <stop offset="1" stop-color="#7b61ff" />
                   </linearGradient>
-                  <filter id="wheelchairGlow" x="-40%" y="-40%" width="180%" height="180%">
-                    <feGaussianBlur stdDeviation="5" result="blur" />
+                  <radialGradient id="wheelchairAura" cx="50%" cy="50%" r="55%">
+                    <stop stop-color="#3d5afe" stop-opacity=".26" />
+                    <stop offset=".55" stop-color="#7b61ff" stop-opacity=".1" />
+                    <stop offset="1" stop-color="#0d0d0d" stop-opacity="0" />
+                  </radialGradient>
+                  <filter id="wheelchairSoftGlow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feGaussianBlur stdDeviation="4" result="blur" />
                     <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
                   </filter>
                 </defs>
-                <rect width="960" height="600" fill="#0d0d0d" />
-                <g stroke="#f4f1ea" stroke-width="1" opacity=".07">
-                  <path d="M0 120h960M0 240h960M0 360h960M0 480h960" />
-                  <path d="M120 0v600M240 0v600M360 0v600M480 0v600M600 0v600M720 0v600M840 0v600" />
+                <rect width="960" height="600" fill="#0b0c12" />
+                <circle cx="480" cy="300" r="245" fill="url(#wheelchairAura)" />
+                <g stroke="#ffffff" stroke-width="1" opacity=".045">
+                  <path d="M0 150h960M0 300h960M0 450h960" />
+                  <path d="M160 0v600M320 0v600M480 0v600M640 0v600M800 0v600" />
                 </g>
-                <g fill="none" stroke="url(#wheelchairLine)" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="300" cy="360" r="116" stroke-width="4" />
-                  <circle cx="300" cy="360" r="38" stroke-width="3" opacity=".75" />
-                  <path d="M300 244v232M184 360h232M218 278l164 164M382 278 218 442" stroke-width="2" opacity=".7" />
-                  <path d="M416 348h142l54-132h92" stroke-width="4" />
-                  <path d="M470 348 430 216h154" stroke-width="3" opacity=".8" />
-                  <rect x="514" y="326" width="128" height="86" rx="20" stroke-width="4" />
-                  <circle cx="552" cy="369" r="17" stroke-width="3" />
-                  <path d="M590 350h26M590 369h26M590 388h26" stroke="#f4f1ea" stroke-width="3" opacity=".85" />
-                  <circle cx="735" cy="190" r="54" stroke-width="4" />
-                  <path d="M735 190l34-32" stroke="#f4f1ea" stroke-width="4" />
-                  <rect x="706" y="332" width="118" height="74" rx="18" stroke-width="4" />
-                  <circle cx="744" cy="369" r="10" stroke="#f4f1ea" stroke-width="3" />
-                  <circle cx="786" cy="369" r="10" stroke="#f4f1ea" stroke-width="3" />
-                  <path d="M824 346c48 22 54 56 0 80M846 330c78 40 86 94 0 128" stroke-width="3" opacity=".85" />
-                  <path d="M642 370h64M706 190H612M558 216v110" stroke-width="2" opacity=".65" />
+                <g fill="none" stroke="url(#wheelchairStroke)" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="295" cy="350" r="118" stroke-width="5" />
+                  <circle cx="295" cy="350" r="36" stroke-width="4" opacity=".8" />
+                  <path d="M295 232v236M177 350h236M212 267l166 166M378 267 212 433" stroke-width="2.2" opacity=".45" />
+                  <path d="M396 338h166l48-132h112" stroke-width="6" />
+                  <path d="M456 338 416 214h170" stroke-width="4" opacity=".75" />
+                  <path d="M598 206h116c42 0 70 32 62 74l-20 106" stroke-width="4" opacity=".75" />
+                  <rect x="515" y="390" width="142" height="78" rx="24" stroke-width="5" />
+                  <circle cx="560" cy="429" r="18" stroke-width="4" />
+                  <path d="M600 412h28M600 429h28M600 446h28" stroke="#f4f1ea" stroke-width="3" opacity=".75" />
+                  <circle cx="746" cy="184" r="54" stroke-width="5" />
+                  <path d="M746 184l32-30" stroke="#f4f1ea" stroke-width="5" />
+                  <rect x="706" y="324" width="120" height="76" rx="22" stroke-width="5" />
+                  <circle cx="746" cy="362" r="9" stroke="#f4f1ea" stroke-width="4" />
+                  <circle cx="786" cy="362" r="9" stroke="#f4f1ea" stroke-width="4" />
+                  <path d="M828 338c48 24 48 54 0 78M850 322c78 40 78 90 0 128" stroke-width="3.5" opacity=".85" />
                 </g>
-                <g fill="#4ade80" filter="url(#wheelchairGlow)">
-                  <circle cx="416" cy="348" r="7" />
-                  <circle cx="642" cy="370" r="7" />
-                  <circle cx="706" cy="190" r="7" />
-                  <circle cx="824" cy="369" r="7" />
+                <g fill="#4ade80" filter="url(#wheelchairSoftGlow)">
+                  <circle cx="396" cy="338" r="8" />
+                  <circle cx="657" cy="429" r="8" />
+                  <circle cx="746" cy="184" r="8" />
+                  <circle cx="826" cy="362" r="8" />
+                </g>
+                <g fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="18" letter-spacing="2" opacity=".78">
+                  <text x="520" y="500">DC MOTOR</text>
+                  <text x="690" y="118">SPEED DIAL</text>
+                  <text x="676" y="462">OBSTACLE SENSOR</text>
                 </g>
               </svg>
             </figure>
@@ -181,54 +192,64 @@
             <span class="status-badge status-completed">Completed</span>
             <!-- CONFIRM: actual project status -->
             <figure>
-              <svg class="project-card-diagram" viewBox="0 0 960 600" role="img" aria-label="Wireframe diagram of plant monitoring sensors connected to Arduino, Raspberry Pi, MariaDB, and Flask web interface">
+              <svg class="project-card-diagram premium-hardware-diagram" viewBox="0 0 960 600" role="img" aria-label="Clean blueprint diagram of plant sensors connected to an IoT monitoring stack">
                 <defs>
-                  <linearGradient id="plantLine" x1="0" y1="0" x2="1" y2="1">
+                  <linearGradient id="plantStroke" x1="160" y1="120" x2="820" y2="500" gradientUnits="userSpaceOnUse">
                     <stop stop-color="#3d5afe" />
                     <stop offset="1" stop-color="#7b61ff" />
                   </linearGradient>
-                  <filter id="plantGlow" x="-40%" y="-40%" width="180%" height="180%">
-                    <feGaussianBlur stdDeviation="5" result="blur" />
+                  <radialGradient id="plantAura" cx="46%" cy="48%" r="58%">
+                    <stop stop-color="#3d5afe" stop-opacity=".23" />
+                    <stop offset=".56" stop-color="#7b61ff" stop-opacity=".1" />
+                    <stop offset="1" stop-color="#0d0d0d" stop-opacity="0" />
+                  </radialGradient>
+                  <filter id="plantSoftGlow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feGaussianBlur stdDeviation="4" result="blur" />
                     <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
                   </filter>
                 </defs>
-                <rect width="960" height="600" fill="#0d0d0d" />
-                <g stroke="#f4f1ea" stroke-width="1" opacity=".07">
-                  <path d="M0 120h960M0 240h960M0 360h960M0 480h960" />
-                  <path d="M120 0v600M240 0v600M360 0v600M480 0v600M600 0v600M720 0v600M840 0v600" />
+                <rect width="960" height="600" fill="#0b0c12" />
+                <circle cx="456" cy="300" r="250" fill="url(#plantAura)" />
+                <g stroke="#ffffff" stroke-width="1" opacity=".045">
+                  <path d="M0 150h960M0 300h960M0 450h960" />
+                  <path d="M160 0v600M320 0v600M480 0v600M640 0v600M800 0v600" />
                 </g>
-                <g fill="none" stroke="url(#plantLine)" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M236 414c0-92 0-172 0-268" stroke-width="4" />
-                  <path d="M236 232c-70-52-122-38-154 34 70 32 122 20 154-34z" stroke-width="4" />
-                  <path d="M238 190c56-70 126-58 164 4-58 48-114 48-164-4z" stroke-width="4" />
-                  <path d="M238 300c74-44 132-24 172 48-78 26-134 10-172-48z" stroke-width="4" />
-                  <path d="M118 98h106M326 98h110M118 454h116" stroke-width="2" opacity=".72" />
-                  <circle cx="96" cy="98" r="22" stroke-width="3" />
-                  <path d="M96 82v28M88 110h16" stroke="#f4f1ea" stroke-width="3" opacity=".85" />
-                  <circle cx="458" cy="98" r="22" stroke-width="3" />
-                  <path d="M458 76v12M458 108v12M436 98h12M468 98h12M443 83l8 8M465 105l8 8M473 83l-8 8M451 105l-8 8" stroke="#f4f1ea" stroke-width="3" opacity=".85" />
-                  <circle cx="96" cy="454" r="22" stroke-width="3" />
-                  <path d="M82 456c12-10 20-10 32 0M82 468c12-10 20-10 32 0" stroke="#f4f1ea" stroke-width="3" opacity=".85" />
-                  <rect x="514" y="176" width="136" height="86" rx="18" stroke-width="4" />
-                  <path d="M542 204h80M542 234h80M532 192v58M632 192v58" stroke="#f4f1ea" stroke-width="2" opacity=".55" />
-                  <rect x="704" y="176" width="136" height="86" rx="18" stroke-width="4" />
-                  <circle cx="742" cy="219" r="18" stroke="#f4f1ea" stroke-width="3" opacity=".75" />
-                  <path d="M778 202h32M778 220h32M778 238h32" stroke="#f4f1ea" stroke-width="3" opacity=".75" />
-                  <path d="M650 219h54M410 248h104M410 336h172v-74M582 262v90h68" stroke-width="3" opacity=".75" />
-                  <path d="M650 352h74" stroke-width="3" />
-                  <path d="M724 314h116v76H724z" stroke-width="4" />
-                  <path d="M724 336h116" stroke="#f4f1ea" stroke-width="2" opacity=".5" />
-                  <path d="M616 352c0 36 24 54 62 54h86" stroke-width="3" opacity=".75" />
-                  <path d="M764 428c0-34 0-72 0-112" stroke-width="2" opacity=".45" />
-                  <ellipse cx="764" cy="438" rx="54" ry="16" stroke-width="3" />
-                  <path d="M710 438v34c0 10 24 18 54 18s54-8 54-18v-34" stroke-width="3" />
+                <g fill="none" stroke="url(#plantStroke)" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="306" cy="302" r="150" stroke-width="4" opacity=".55" />
+                  <path d="M306 402V218" stroke-width="6" />
+                  <path d="M304 282c-76-58-132-40-168 38 74 36 132 22 168-38z" stroke-width="5" />
+                  <path d="M308 246c56-78 132-68 178 0-62 56-124 56-178 0z" stroke-width="5" />
+                  <path d="M308 342c84-48 150-26 196 54-88 30-150 12-196-54z" stroke-width="5" />
+                  <circle cx="148" cy="154" r="34" stroke-width="5" />
+                  <path d="M148 130v38M136 168h24" stroke="#f4f1ea" stroke-width="4" opacity=".75" />
+                  <circle cx="468" cy="154" r="34" stroke-width="5" />
+                  <path d="M468 122v16M468 170v16M436 154h16M484 154h16M446 132l12 12M478 164l12 12M490 132l-12 12M458 164l-12 12" stroke="#f4f1ea" stroke-width="4" opacity=".75" />
+                  <circle cx="148" cy="452" r="34" stroke-width="5" />
+                  <path d="M126 454c16-14 28-14 44 0M126 472c16-14 28-14 44 0" stroke="#f4f1ea" stroke-width="4" opacity=".75" />
+                  <path d="M182 154h96M434 154h-92M182 452h96" stroke-width="3" opacity=".62" />
+                  <rect x="570" y="196" width="150" height="96" rx="24" stroke-width="5" />
+                  <path d="M602 226h86M602 262h86M588 214v60M704 214v60" stroke="#f4f1ea" stroke-width="2.5" opacity=".52" />
+                  <rect x="570" y="352" width="150" height="88" rx="22" stroke-width="5" />
+                  <path d="M606 386h76M606 410h76" stroke="#f4f1ea" stroke-width="4" opacity=".66" />
+                  <ellipse cx="812" cy="242" rx="62" ry="20" stroke-width="5" />
+                  <path d="M750 242v54c0 14 28 24 62 24s62-10 62-24v-54" stroke-width="5" />
+                  <path d="M720 396h146v88H720z" stroke-width="5" />
+                  <path d="M720 424h146" stroke="#f4f1ea" stroke-width="3" opacity=".5" />
+                  <path d="M456 302h114M720 244h30M720 396h-74v-44" stroke-width="4" opacity=".75" />
                 </g>
-                <g fill="#4ade80" filter="url(#plantGlow)">
-                  <circle cx="410" cy="248" r="7" />
-                  <circle cx="410" cy="336" r="7" />
-                  <circle cx="650" cy="219" r="7" />
-                  <circle cx="650" cy="352" r="7" />
-                  <circle cx="724" cy="352" r="7" />
+                <g fill="#4ade80" filter="url(#plantSoftGlow)">
+                  <circle cx="456" cy="302" r="8" />
+                  <circle cx="570" cy="244" r="8" />
+                  <circle cx="570" cy="396" r="8" />
+                  <circle cx="750" cy="244" r="8" />
+                  <circle cx="720" cy="396" r="8" />
+                </g>
+                <g fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="18" letter-spacing="2" opacity=".78">
+                  <text x="104" y="104">TEMP</text>
+                  <text x="426" y="104">LIGHT</text>
+                  <text x="104" y="522">WATER</text>
+                  <text x="584" y="174">BOARD</text>
+                  <text x="752" y="352">DATA + WEB</text>
                 </g>
               </svg>
             </figure>
@@ -239,42 +260,55 @@
             <span class="project-number" aria-hidden="true">03</span>
             <span class="status-badge status-completed">Completed</span>
             <figure>
-              <svg class="project-card-diagram" viewBox="0 0 960 600" role="img" aria-label="Wireframe diagram of a multifunctional keychain with ruler markings, keyring hole, opener cutout, phone stand, and magnet recess">
+              <svg class="project-card-diagram premium-hardware-diagram" viewBox="0 0 960 600" role="img" aria-label="Clean blueprint diagram of a multifunctional 3D-printed keychain">
                 <defs>
-                  <linearGradient id="keychainLine" x1="0" y1="0" x2="1" y2="1">
+                  <linearGradient id="keychainStroke" x1="150" y1="150" x2="820" y2="455" gradientUnits="userSpaceOnUse">
                     <stop stop-color="#3d5afe" />
                     <stop offset="1" stop-color="#7b61ff" />
                   </linearGradient>
-                  <filter id="keychainGlow" x="-40%" y="-40%" width="180%" height="180%">
-                    <feGaussianBlur stdDeviation="5" result="blur" />
+                  <radialGradient id="keychainAura" cx="50%" cy="50%" r="58%">
+                    <stop stop-color="#3d5afe" stop-opacity=".24" />
+                    <stop offset=".56" stop-color="#7b61ff" stop-opacity=".1" />
+                    <stop offset="1" stop-color="#0d0d0d" stop-opacity="0" />
+                  </radialGradient>
+                  <filter id="keychainSoftGlow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feGaussianBlur stdDeviation="4" result="blur" />
                     <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
                   </filter>
                 </defs>
-                <rect width="960" height="600" fill="#0d0d0d" />
-                <g stroke="#f4f1ea" stroke-width="1" opacity=".07">
-                  <path d="M0 120h960M0 240h960M0 360h960M0 480h960" />
-                  <path d="M120 0v600M240 0v600M360 0v600M480 0v600M600 0v600M720 0v600M840 0v600" />
+                <rect width="960" height="600" fill="#0b0c12" />
+                <circle cx="480" cy="300" r="250" fill="url(#keychainAura)" />
+                <g stroke="#ffffff" stroke-width="1" opacity=".045">
+                  <path d="M0 150h960M0 300h960M0 450h960" />
+                  <path d="M160 0v600M320 0v600M480 0v600M640 0v600M800 0v600" />
                 </g>
-                <g fill="none" stroke="url(#keychainLine)" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M160 250h520c42 0 70 24 70 60v16h72v68h-84c-28 0-45-14-52-40l-18-58H160c-38 0-62 22-62 54s24 54 62 54h340l44 58h96l-70-104h-410" stroke-width="5" />
-                  <circle cx="164" cy="312" r="28" stroke-width="4" />
-                  <path d="M300 246v46M342 246v34M384 246v46M426 246v34M468 246v46M510 246v34M552 246v46" stroke-width="3" opacity=".9" />
-                  <path d="M292 214h276" stroke-width="2" opacity=".5" />
-                  <path d="M566 214c36-44 80-44 118 0" stroke-width="3" />
-                  <path d="M560 428h120l-44-66" stroke-width="4" />
-                  <rect x="648" y="168" width="96" height="64" rx="12" stroke-width="3" />
-                  <path d="M672 232l72 58" stroke-width="3" />
-                  <circle cx="344" cy="368" r="20" stroke-width="3" />
-                  <path d="M340 348v-68M344 388v74M704 326h92" stroke-width="2" opacity=".65" />
-                  <path d="M230 432c40 22 86 22 128 0" stroke-width="3" opacity=".7" />
-                  <path d="M158 312H86M344 368H238M696 200H800M796 326H856M636 362H740" stroke-width="2" opacity=".62" />
+                <g fill="none" stroke="url(#keychainStroke)" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M168 276h472c44 0 74 26 74 64v18h92v76h-105c-30 0-49-15-57-44l-18-65H168c-42 0-68 22-68 56s26 56 68 56h300l55 70h124l-88-126H168" stroke-width="6" />
+                  <circle cx="172" cy="340" r="31" stroke-width="5" />
+                  <path d="M292 272v50M336 272v38M380 272v50M424 272v38M468 272v50M512 272v38M556 272v50" stroke-width="4" opacity=".92" />
+                  <path d="M282 236h292" stroke-width="3" opacity=".45" />
+                  <path d="M552 236c42-50 94-50 138 0" stroke-width="4" />
+                  <path d="M548 466h134l-48-72" stroke-width="5" />
+                  <rect x="666" y="162" width="102" height="70" rx="16" stroke-width="4" />
+                  <path d="M690 232l76 62" stroke-width="4" />
+                  <circle cx="348" cy="398" r="22" stroke-width="4" />
+                  <path d="M348 376v-60M348 420v68M806 358h66" stroke-width="3" opacity=".62" />
+                  <path d="M218 468c42 22 96 22 142 0" stroke-width="4" opacity=".62" />
+                  <path d="M172 340H102M348 398H246M717 197H820M806 358H874M632 394H732" stroke-width="3" opacity=".58" />
                 </g>
-                <g fill="#4ade80" filter="url(#keychainGlow)">
-                  <circle cx="164" cy="312" r="7" />
-                  <circle cx="344" cy="368" r="7" />
-                  <circle cx="696" cy="200" r="7" />
-                  <circle cx="796" cy="326" r="7" />
-                  <circle cx="636" cy="362" r="7" />
+                <g fill="#4ade80" filter="url(#keychainSoftGlow)">
+                  <circle cx="172" cy="340" r="8" />
+                  <circle cx="348" cy="398" r="8" />
+                  <circle cx="717" cy="197" r="8" />
+                  <circle cx="806" cy="358" r="8" />
+                  <circle cx="632" cy="394" r="8" />
+                </g>
+                <g fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="18" letter-spacing="2" opacity=".78">
+                  <text x="120" y="244">KEYRING</text>
+                  <text x="314" y="210">RULER</text>
+                  <text x="646" y="132">PHONE STAND</text>
+                  <text x="752" y="476">OPENER CUT</text>
+                  <text x="278" y="526">MAGNET RECESS</text>
                 </g>
               </svg>
             </figure>

@@ -2047,6 +2047,13 @@ section[id],
   line-height: 0.8;
 }
 
+.hardware-grid .project-number {
+  top: 1.65rem;
+  right: 1.05rem;
+  color: rgba(255, 255, 255, 0.052);
+  font-size: clamp(2.85rem, 4.8vw, 4.2rem);
+}
+
 .project-card figure {
   position: relative;
   aspect-ratio: 16 / 10;
@@ -2067,6 +2074,13 @@ section[id],
   width: 100%;
   height: 100%;
   transition: transform 520ms ease;
+}
+
+.premium-hardware-diagram text {
+  paint-order: stroke;
+  stroke: rgba(13, 13, 13, 0.72);
+  stroke-width: 4px;
+  stroke-linejoin: round;
 }
 
 .project-card:hover img,
