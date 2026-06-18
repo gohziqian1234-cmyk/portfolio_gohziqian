@@ -21,11 +21,11 @@
       href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=project-structure-fix" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-    <script src="script.js" defer></script>
+    <script src="script.js?v=project-structure-fix" defer></script>
   </head>
   <body data-page="projects">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -111,7 +111,7 @@
           <button class="tab-button" type="button" role="tab" aria-selected="false" data-project-tab="hardware">Hardware</button>
         </div>
 
-        <div class="project-grid two-card-grid is-active" id="software" data-project-grid="software">
+        <div class="project-grid two-card-grid software-grid is-active" id="software" data-project-grid="software" data-category="software">
           <article class="project-card grid-card" data-project-card data-category="software" data-reveal>
             <span class="project-number" aria-hidden="true">01</span>
             <span class="status-badge status-completed">Completed</span>
@@ -130,7 +130,7 @@
           </article>
         </div>
 
-        <div class="project-grid two-card-grid" id="hardware" data-project-grid="hardware" hidden>
+        <div class="project-grid two-card-grid hardware-grid" id="hardware" data-project-grid="hardware" data-category="hardware" hidden>
           <article class="project-card grid-card" data-project-card data-category="hardware" data-reveal>
             <span class="project-number" aria-hidden="true">01</span>
             <span class="status-badge status-completed">Completed</span>
