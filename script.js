@@ -87,6 +87,7 @@ const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
 let scrollTriggerRefreshTimer = null;
+let smoothScrollFrame = null;
 
 function scheduleScrollTriggerRefresh() {
   if (!window.ScrollTrigger) return;
@@ -117,6 +118,35 @@ function getNavOffset() {
     return parsed * Number.parseFloat(getComputedStyle(document.documentElement).fontSize || "16");
   }
   return Number.isFinite(parsed) ? parsed : 112;
+}
+
+function easeOutExpo(t) {
+  return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+}
+
+function smoothScrollToPosition(top) {
+  const targetTop = Math.max(0, top);
+  window.cancelAnimationFrame(smoothScrollFrame);
+
+  if (prefersReducedMotion) {
+    window.scrollTo({ top: targetTop, behavior: "auto" });
+    return;
+  }
+
+  const startTop = window.pageYOffset;
+  const distance = targetTop - startTop;
+  const duration = Math.min(850, Math.max(420, Math.abs(distance) * 0.35));
+  const startTime = performance.now();
+
+  const step = (now) => {
+    const progress = Math.min(1, (now - startTime) / duration);
+    window.scrollTo(0, startTop + distance * easeOutExpo(progress));
+    if (progress < 1) {
+      smoothScrollFrame = requestAnimationFrame(step);
+    }
+  };
+
+  smoothScrollFrame = requestAnimationFrame(step);
 }
 
 function isLocalUrl(url) {
@@ -177,7 +207,7 @@ function initSmoothAnchors() {
       closeMobileMenu();
       setNavHeightVar();
       const targetTop = target.getBoundingClientRect().top + window.pageYOffset - getNavOffset();
-      window.scrollTo({ top: Math.max(0, targetTop), behavior: prefersReducedMotion ? "auto" : "smooth" });
+      smoothScrollToPosition(targetTop);
       history.pushState(null, "", targetUrl.hash);
     });
   });
@@ -382,7 +412,7 @@ function initRevealAnimations() {
 
   if (window.gsap && window.ScrollTrigger && !prefersReducedMotion) {
     gsap.registerPlugin(ScrollTrigger);
-    gsap.defaults({ ease: "power3.out", duration: 0.8 });
+    gsap.defaults({ ease: "expo.out", duration: 0.78 });
 
     if ($(".hero-word")) {
       gsap.from(".hero-word", {
@@ -1285,7 +1315,7 @@ function wireModalVideoBoost(root) {
 }
 
 function clearProjectCardMotion() {
-  $$("[data-project-card]").forEach((card) => {
+  $$("[data-project-card], .category-card").forEach((card) => {
     card.style.removeProperty("transform");
     card.style.removeProperty("--glow-x");
     card.style.removeProperty("--glow-y");
@@ -2151,7 +2181,7 @@ function initCinematicCanvas() {
 function initCinematicInteractions() {
   if (prefersReducedMotion || window.matchMedia("(pointer: coarse)").matches) return;
 
-  $$("[data-project-card]").forEach((card) => {
+  $$("[data-project-card], .category-card").forEach((card) => {
     let frame = null;
 
     const move = (event) => {
@@ -2164,7 +2194,7 @@ function initCinematicInteractions() {
       frame = requestAnimationFrame(() => {
         card.style.setProperty("--glow-x", `${x * 100}%`);
         card.style.setProperty("--glow-y", `${y * 100}%`);
-        card.style.transform = `perspective(900px) rotateX(${((0.5 - y) * 8).toFixed(2)}deg) rotateY(${((x - 0.5) * 8).toFixed(2)}deg) translateY(-8px) scale(1.012)`;
+        card.style.transform = `perspective(1000px) rotateX(${((0.5 - y) * 4).toFixed(2)}deg) rotateY(${((x - 0.5) * 4).toFixed(2)}deg) translateY(-4px)`;
       });
     };
 
@@ -2181,7 +2211,7 @@ function initCinematicInteractions() {
 function initButtonRipples() {
   if (prefersReducedMotion) return;
 
-  const targets = $$("a.button, button.button, .mini-button, .nav-action, .nav-cta, .tab-button, .back-link, .breadcrumb-link, .back-top, .submit-button, .modal-action-button, .continue-card");
+  const targets = $$("a.button, button.button, .mini-button, .nav-action, .nav-cta, .tab-button, .back-link, .breadcrumb-link, .back-top, .submit-button, .modal-action-button, .continue-card, .nav-link, .mobile-menu nav a, .menu-socials a, .contact-socials a");
   targets.forEach((target) => {
     target.addEventListener("pointerenter", (event) => createEnergyRipple(target, event));
     target.addEventListener("pointerdown", (event) => createEnergyRipple(target, event));
