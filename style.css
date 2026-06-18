@@ -3997,6 +3997,15 @@ button.button:hover,
   object-fit: contain;
 }
 
+.modal-media-caption {
+  margin-top: -8px;
+  margin-bottom: 24px;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 13px;
+  font-style: italic;
+  text-align: center;
+}
+
 .project-modal-body-long .modal-section {
   margin-top: 32px;
   padding: 24px 0 0;

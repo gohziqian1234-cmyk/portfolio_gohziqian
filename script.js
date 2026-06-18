@@ -81,6 +81,21 @@ const PROJECTS = {
     tags: ["Arduino", "Raspberry Pi", "IoT", "Sensors", "MariaDB", "Flask", "Python", "Sustainability"],
     github: "",
     gallery: ["images/project-smart-greenhouse.svg", "images/project-smart-greenhouse-build.svg", "images/project-smart-greenhouse-testing.svg"]
+  },
+  keychain: {
+    title: "Multifunctional 3D-Printed Keychain",
+    image: "images/project-keychain-photo.png",
+    imageAlt: "Multifunctional 3D-printed keychain with ruler, bottle opener, phone stand, and cable holder features",
+    modalVariant: "keychainCaseStudy",
+    video: "assets/videos/keychain-printing-timelapse.webm",
+    videoType: "video/webm",
+    poster: "images/keychain-printing-poster.png",
+    keychainUrl: "images/project-keychain-photo.png",
+    reportUrl: "assets/reports/keychain-design-report.pdf",
+    description: "A compact 3D-printed keychain designed with multiple daily-use functions, including a mini ruler, bottle-opener-style cut-out, phone stand, cable holder, bookmark clip, keyring hole, and magnet recess. This project focused on CAD modelling, 3D printing, product usability, and improving the design through print testing and refinement.",
+    tags: ["Autodesk Inventor", "CAD Design", "3D Printing", "Product Design", "Prototyping", "Design Iteration"],
+    github: "",
+    gallery: ["images/project-keychain-photo.png"]
   }
 };
 
@@ -780,6 +795,7 @@ function createModalMarkup(project) {
   if (project.modalVariant === "erebusCaseStudy") return createErebusModalMarkup(project);
   if (project.modalVariant === "plantCaseStudy") return createPlantModalMarkup(project);
   if (project.modalVariant === "wheelchairCaseStudy") return createWheelchairModalMarkup(project);
+  if (project.modalVariant === "keychainCaseStudy") return createKeychainModalMarkup(project);
 
   const images = project.gallery?.length ? project.gallery : [project.image];
   const tags = project.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
@@ -1386,6 +1402,143 @@ function createWheelchairModalMarkup(project) {
           </a>
         </div>
         <p class="modal-link-helper modal-helper-text">Opens in a new tab - this portfolio stays open here, so you can switch back anytime.</p>
+      </section>
+    </article>
+  `;
+}
+
+function createKeychainModalMarkup(project) {
+  return `
+    <article class="project-modal-body project-modal-body-long">
+      <header class="modal-project-hero modal-case-header">
+        <p class="modal-eyebrow section-kicker dark">Project</p>
+        <h2 class="modal-title" id="modal-title">${escapeHtml(project.title)}</h2>
+        <p>${escapeHtml(project.description)}</p>
+      </header>
+
+      <section class="modal-section modal-role-section">
+        <div class="modal-role-meta">
+          <div class="role-meta-item">
+            <span class="role-meta-label">Project Type</span>
+            <span class="role-meta-value">Individual Design Project</span>
+          </div>
+          <div class="role-meta-item">
+            <span class="role-meta-label">My Role</span>
+            <span class="role-meta-value">CAD Designer / 3D Printing Prototype Developer</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Overview</h3>
+        <p>A compact 3D-printed keychain designed to combine multiple daily-use functions into one portable product. The design focuses on convenience, safety, and manufacturability while keeping the product slim, lightweight, and easy to carry.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Problem / Brief</h3>
+        <p>Many small everyday tools are useful but inconvenient to carry separately. This project aimed to design a compact keychain that combines several practical functions while still being printable, lightweight, and comfortable for daily use.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">What I Built</h3>
+        <p>I designed and 3D-printed a multifunctional keychain with several integrated features, including a keyring hole, mini ruler, bottle-opener-style cut-out, phone stand, cable holder, bookmark clip, magnet recess for name-tag use, rounded edges, and chamfered functional areas.</p>
+        <p>The design was created to be flat and portable so it could be attached to a bag or carried in a pocket without taking up much space.</p>
+        <div class="modal-media modal-video-frame">
+          <!-- ACTION REQUIRED: replace this generated preview with the real 3D printer time-lapse video later, e.g. /assets/videos/keychain-printing-timelapse.mp4. -->
+          <!-- ACTION REQUIRED: replace the poster with a representative thumbnail frame from the real video when available. -->
+          <!-- RECOMMENDED VIDEO SPECS: keep under ~20MB, H.264 if using MP4, ideally under 60-90 seconds. -->
+          <video class="modal-video" controls poster="${escapeHtml(project.poster)}" preload="metadata">
+            <source src="${escapeHtml(project.video)}" type="${escapeHtml(project.videoType || "video/mp4")}">
+            Your browser does not support video playback.
+          </video>
+        </div>
+        <p class="modal-media-caption">Time-lapse of the 3D printer manufacturing the keychain.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Key Features</h3>
+        <ul class="modal-feature-list">
+          <li>Keyring hole for attachment</li>
+          <li>Mini ruler markings for quick measurement</li>
+          <li>Bottle-opener-style feature</li>
+          <li>Phone stand support</li>
+          <li>Cable holder area for organising wires</li>
+          <li>Bookmark clip function</li>
+          <li>Magnet recess for name-tag use</li>
+          <li>Filleted edges to reduce sharp corners</li>
+          <li>Chamfered areas for functional grip and usability</li>
+        </ul>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Design & Manufacturing Process</h3>
+        <p>The first print revealed several design problems. Some engraved details were unclear, the ruler markings were too close together, and the name engraving was too deep, affecting the back of the keychain.</p>
+        <p>To improve the second version, I increased the spacing between ruler markings, adjusted the detail size, and reduced the depth of the name engraving. This made the final print cleaner and more readable.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Testing & Refinement</h3>
+        <p>The prototype was tested through physical use and visual inspection. The second print showed clearer ruler markings, better engraving quality, and improved overall appearance compared to the first version.</p>
+        <p>This project helped me understand that a design may look correct on screen but still fail during manufacturing if feature size, spacing, depth, and tolerance are not considered properly.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Skills Demonstrated</h3>
+        <ul class="modal-feature-list modal-skills-list">
+          <li>CAD modelling</li>
+          <li>Autodesk Inventor features</li>
+          <li>Extrude, cut, fillet, chamfer, and emboss</li>
+          <li>3D printing preparation</li>
+          <li>Product prototyping</li>
+          <li>Design refinement</li>
+          <li>Manufacturing awareness</li>
+          <li>Problem-solving through iteration</li>
+        </ul>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Outcome</h3>
+        <p>The final keychain prototype showed improvement from the first print to the second print. The project strengthened my ability to design with manufacturing in mind, not just appearance. It also taught me to consider print quality, engraving depth, spacing, and usability before finalizing a physical product.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">What I Learned</h3>
+        <p>This project taught me that designing for the screen is different from designing for manufacturing. Some features looked clear in Autodesk Inventor, but became too small or unclear after 3D printing because I had not fully considered printer resolution, minimum feature size, spacing, and material behaviour.</p>
+        <p>The first print revealed several problems: the ruler markings were too close together, the engraved details were unclear, and the name engraving was too deep. For the second print, I increased the spacing between markings, adjusted the feature size, and reduced the engraving depth. These changes improved the readability and overall print quality.</p>
+        <p>This strengthened my ability to use Autodesk Inventor tools such as extrude, cut, fillet, chamfer, and emboss with manufacturing intent, not just visual design intent. I learned that a good product is not only about how it looks on screen, but also whether it can be printed, used, and improved in real life.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Future Improvements</h3>
+        <p>Future versions can improve the ruler markings by adding stronger contrast, such as painted engraving or a clearer colour-fill method, so the markings are easier to read.</p>
+        <p>The phone stand and cable holder can be refined to support different phone sizes and cable thicknesses more securely. The magnet recess can also be improved by testing different tolerance fits so the magnet sits firmly without becoming too loose or too tight.</p>
+        <p>The edge comfort can be improved by testing different fillet and chamfer sizes to make the keychain smoother when carried in a pocket or bag. A stronger material, such as PETG, could also be considered if the keychain is meant for daily use.</p>
+        <p>The emergency-tool-inspired features should be treated as design exploration only unless they are tested with proper materials and safety standards. A stronger version would require better material strength, safer edge geometry, and proper functional testing before being described as a real emergency tool.</p>
+        <p>Overall, the next improvement would focus on making the keychain more readable, durable, comfortable to carry, and reliable as a daily-use product.</p>
+      </section>
+
+      <div class="modal-tech-tags">
+        <span class="tech-tag">Autodesk Inventor</span>
+        <span class="tech-tag">CAD Design</span>
+        <span class="tech-tag">3D Printing</span>
+        <span class="tech-tag">Product Design</span>
+        <span class="tech-tag">Prototyping</span>
+        <span class="tech-tag">Design Iteration</span>
+      </div>
+
+      <section class="modal-action-block" aria-label="Keychain project links">
+        <!-- ACTION REQUIRED: replace View the Keychain with a 3D model viewer or multi-angle gallery when ready. -->
+        <div class="modal-actions modal-action-row">
+          <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.keychainUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
+            <span aria-hidden="true">Key</span>
+            View the Keychain
+          </a>
+          <a class="modal-action-button modal-play-button btn-primary" href="${escapeHtml(project.reportUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
+            <span aria-hidden="true">PDF</span>
+            View Full Report
+          </a>
+        </div>
+        <p class="modal-link-helper modal-helper-text">Opens in a new tab &mdash; this portfolio stays open here, so you can switch back anytime.</p>
       </section>
     </article>
   `;
