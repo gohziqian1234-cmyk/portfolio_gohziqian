@@ -1307,8 +1307,9 @@ function initContactForm() {
 
   const submit = $(".submit-button", form);
   const submitText = $("span", submit);
+  const status = $("[data-form-status]", form);
 
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const valid = validateForm(form);
     if (!valid) return;
@@ -1316,18 +1317,53 @@ function initContactForm() {
     submit.disabled = true;
     submit.classList.add("is-loading");
     submitText.textContent = "Sending...";
+    if (status) status.textContent = "";
 
-    window.setTimeout(() => {
+    const action = form.getAttribute("action") || "";
+    const formspreeAction = form.dataset.formspreeAction || action;
+    const hasFormspreeEndpoint = formspreeAction.includes("formspree.io/f/") && !formspreeAction.includes("REPLACE_WITH_FORM_ID");
+
+    if (!hasFormspreeEndpoint) {
+      const emailAddress = form.dataset.contactEmail || "gohziqian1234@gmail.com";
+      const data = new FormData(form);
+      const subject = encodeURIComponent(data.get("subject") || "Portfolio Contact Message");
+      const body = encodeURIComponent(
+        `Name: ${data.get("name") || ""}\nEmail: ${data.get("email") || ""}\n\n${data.get("message") || ""}`
+      );
+      window.location.href = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
+      submit.classList.remove("is-loading");
+      submit.disabled = false;
+      submitText.textContent = "Send Message";
+      if (status) status.textContent = "Opening your email app to send this message.";
+      return;
+    }
+
+    try {
+      const response = await fetch(formspreeAction, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" }
+      });
+
+      if (!response.ok) throw new Error("Form submission failed");
+
       submit.classList.remove("is-loading");
       submit.classList.add("is-success");
       submitText.textContent = "Message Sent!";
+      if (status) status.textContent = "Thanks. Your message has been sent.";
       form.reset();
       window.setTimeout(() => {
         submit.classList.remove("is-success");
         submit.disabled = false;
         submitText.textContent = "Send Message";
+        if (status) status.textContent = "";
       }, 3000);
-    }, 900);
+    } catch {
+      submit.classList.remove("is-loading");
+      submit.disabled = false;
+      submitText.textContent = "Send Message";
+      if (status) status.textContent = "Message could not be sent. Please email gohziqian1234@gmail.com directly.";
+    }
   });
 }
 
