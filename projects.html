@@ -131,7 +131,48 @@
             <span class="project-number" aria-hidden="true">01</span>
             <span class="status-badge status-completed">Completed</span>
             <!-- CONFIRM: actual project status -->
-            <figure><!-- REPLACE: update card thumbnail to reflect DC motor + potentiometer + ultrasonic sensor concept (previously a generic wheelchair-with-sensors graphic) --><img src="images/project-smart-wheelchair.svg" width="960" height="600" loading="lazy" alt="Motor-Assisted Wheelchair Support Prototype wireframe thumbnail" /></figure>
+            <figure>
+              <svg class="project-card-diagram" viewBox="0 0 960 600" role="img" aria-label="Wireframe diagram of a wheelchair wheel with motor, potentiometer dial, and ultrasonic sensor waves">
+                <defs>
+                  <linearGradient id="wheelchairLine" x1="0" y1="0" x2="1" y2="1">
+                    <stop stop-color="#3d5afe" />
+                    <stop offset="1" stop-color="#7b61ff" />
+                  </linearGradient>
+                  <filter id="wheelchairGlow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feGaussianBlur stdDeviation="5" result="blur" />
+                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                  </filter>
+                </defs>
+                <rect width="960" height="600" fill="#0d0d0d" />
+                <g stroke="#f4f1ea" stroke-width="1" opacity=".07">
+                  <path d="M0 120h960M0 240h960M0 360h960M0 480h960" />
+                  <path d="M120 0v600M240 0v600M360 0v600M480 0v600M600 0v600M720 0v600M840 0v600" />
+                </g>
+                <g fill="none" stroke="url(#wheelchairLine)" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="300" cy="360" r="116" stroke-width="4" />
+                  <circle cx="300" cy="360" r="38" stroke-width="3" opacity=".75" />
+                  <path d="M300 244v232M184 360h232M218 278l164 164M382 278 218 442" stroke-width="2" opacity=".7" />
+                  <path d="M416 348h142l54-132h92" stroke-width="4" />
+                  <path d="M470 348 430 216h154" stroke-width="3" opacity=".8" />
+                  <rect x="514" y="326" width="128" height="86" rx="20" stroke-width="4" />
+                  <circle cx="552" cy="369" r="17" stroke-width="3" />
+                  <path d="M590 350h26M590 369h26M590 388h26" stroke="#f4f1ea" stroke-width="3" opacity=".85" />
+                  <circle cx="735" cy="190" r="54" stroke-width="4" />
+                  <path d="M735 190l34-32" stroke="#f4f1ea" stroke-width="4" />
+                  <rect x="706" y="332" width="118" height="74" rx="18" stroke-width="4" />
+                  <circle cx="744" cy="369" r="10" stroke="#f4f1ea" stroke-width="3" />
+                  <circle cx="786" cy="369" r="10" stroke="#f4f1ea" stroke-width="3" />
+                  <path d="M824 346c48 22 54 56 0 80M846 330c78 40 86 94 0 128" stroke-width="3" opacity=".85" />
+                  <path d="M642 370h64M706 190H612M558 216v110" stroke-width="2" opacity=".65" />
+                </g>
+                <g fill="#4ade80" filter="url(#wheelchairGlow)">
+                  <circle cx="416" cy="348" r="7" />
+                  <circle cx="642" cy="370" r="7" />
+                  <circle cx="706" cy="190" r="7" />
+                  <circle cx="824" cy="369" r="7" />
+                </g>
+              </svg>
+            </figure>
             <!-- CONFIRM: exact components/tech used (e.g. specific microcontroller, sensor types, motor drivers) -->
             <div class="project-card-body"><h3>Motor-Assisted Wheelchair Support Prototype</h3><p>An assistive hardware prototype designed to support self-propelled wheelchair users on slopes using motor assistance, adjustable speed control, ultrasonic obstacle detection, buzzer feedback, and switch control.</p><div class="tag-list"><span>Arduino</span><span>DC Motor</span><span>Ultrasonic Sensor</span><span>Potentiometer</span><span>Buzzer</span><span>Tinkercad</span></div><button class="mini-button" type="button" data-open-project="wheelchair">Learn More</button></div>
           </article>
@@ -139,14 +180,104 @@
             <span class="project-number" aria-hidden="true">02</span>
             <span class="status-badge status-completed">Completed</span>
             <!-- CONFIRM: actual project status -->
-            <figure><!-- REPLACE: update card thumbnail graphic to reflect Arduino + Raspberry Pi + sensors + database/web stack --><img src="images/project-smart-greenhouse.svg" width="960" height="600" loading="lazy" alt="IoT-Based Smart Plant Monitoring System technical placeholder graphic" /></figure>
+            <figure>
+              <svg class="project-card-diagram" viewBox="0 0 960 600" role="img" aria-label="Wireframe diagram of plant monitoring sensors connected to Arduino, Raspberry Pi, MariaDB, and Flask web interface">
+                <defs>
+                  <linearGradient id="plantLine" x1="0" y1="0" x2="1" y2="1">
+                    <stop stop-color="#3d5afe" />
+                    <stop offset="1" stop-color="#7b61ff" />
+                  </linearGradient>
+                  <filter id="plantGlow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feGaussianBlur stdDeviation="5" result="blur" />
+                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                  </filter>
+                </defs>
+                <rect width="960" height="600" fill="#0d0d0d" />
+                <g stroke="#f4f1ea" stroke-width="1" opacity=".07">
+                  <path d="M0 120h960M0 240h960M0 360h960M0 480h960" />
+                  <path d="M120 0v600M240 0v600M360 0v600M480 0v600M600 0v600M720 0v600M840 0v600" />
+                </g>
+                <g fill="none" stroke="url(#plantLine)" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M236 414c0-92 0-172 0-268" stroke-width="4" />
+                  <path d="M236 232c-70-52-122-38-154 34 70 32 122 20 154-34z" stroke-width="4" />
+                  <path d="M238 190c56-70 126-58 164 4-58 48-114 48-164-4z" stroke-width="4" />
+                  <path d="M238 300c74-44 132-24 172 48-78 26-134 10-172-48z" stroke-width="4" />
+                  <path d="M118 98h106M326 98h110M118 454h116" stroke-width="2" opacity=".72" />
+                  <circle cx="96" cy="98" r="22" stroke-width="3" />
+                  <path d="M96 82v28M88 110h16" stroke="#f4f1ea" stroke-width="3" opacity=".85" />
+                  <circle cx="458" cy="98" r="22" stroke-width="3" />
+                  <path d="M458 76v12M458 108v12M436 98h12M468 98h12M443 83l8 8M465 105l8 8M473 83l-8 8M451 105l-8 8" stroke="#f4f1ea" stroke-width="3" opacity=".85" />
+                  <circle cx="96" cy="454" r="22" stroke-width="3" />
+                  <path d="M82 456c12-10 20-10 32 0M82 468c12-10 20-10 32 0" stroke="#f4f1ea" stroke-width="3" opacity=".85" />
+                  <rect x="514" y="176" width="136" height="86" rx="18" stroke-width="4" />
+                  <path d="M542 204h80M542 234h80M532 192v58M632 192v58" stroke="#f4f1ea" stroke-width="2" opacity=".55" />
+                  <rect x="704" y="176" width="136" height="86" rx="18" stroke-width="4" />
+                  <circle cx="742" cy="219" r="18" stroke="#f4f1ea" stroke-width="3" opacity=".75" />
+                  <path d="M778 202h32M778 220h32M778 238h32" stroke="#f4f1ea" stroke-width="3" opacity=".75" />
+                  <path d="M650 219h54M410 248h104M410 336h172v-74M582 262v90h68" stroke-width="3" opacity=".75" />
+                  <path d="M650 352h74" stroke-width="3" />
+                  <path d="M724 314h116v76H724z" stroke-width="4" />
+                  <path d="M724 336h116" stroke="#f4f1ea" stroke-width="2" opacity=".5" />
+                  <path d="M616 352c0 36 24 54 62 54h86" stroke-width="3" opacity=".75" />
+                  <path d="M764 428c0-34 0-72 0-112" stroke-width="2" opacity=".45" />
+                  <ellipse cx="764" cy="438" rx="54" ry="16" stroke-width="3" />
+                  <path d="M710 438v34c0 10 24 18 54 18s54-8 54-18v-34" stroke-width="3" />
+                </g>
+                <g fill="#4ade80" filter="url(#plantGlow)">
+                  <circle cx="410" cy="248" r="7" />
+                  <circle cx="410" cy="336" r="7" />
+                  <circle cx="650" cy="219" r="7" />
+                  <circle cx="650" cy="352" r="7" />
+                  <circle cx="724" cy="352" r="7" />
+                </g>
+              </svg>
+            </figure>
             <!-- CONFIRM: exact components/tech (e.g. soil moisture sensor, DHT22 temp/humidity sensor, relay for irrigation, ESP32 for WiFi connectivity) -->
             <div class="project-card-body"><h3>IoT-Based Smart Plant Monitoring System</h3><p>Automated indoor farming system using Arduino, Raspberry Pi, sensors, MariaDB, and Flask to monitor plant conditions and alert users when the environment is unsuitable.</p><div class="tag-list"><span>Arduino</span><span>Raspberry Pi</span><span>IoT</span><span>Sensors</span><span>MariaDB</span><span>Flask</span><span>Python</span><span>Sustainability</span></div><button class="mini-button" type="button" data-open-project="greenhouse">Learn More</button></div>
           </article>
           <article class="project-card grid-card" data-project-card data-category="hardware" data-reveal>
             <span class="project-number" aria-hidden="true">03</span>
             <span class="status-badge status-completed">Completed</span>
-            <figure><!-- REPLACE: add a clean multi-angle product photo or CAD render of the keychain when available --><img src="images/project-keychain-photo.png" width="1200" height="1600" loading="lazy" alt="Multifunctional 3D-printed keychain with ruler, bottle opener, phone stand, and cable holder features" /></figure>
+            <figure>
+              <svg class="project-card-diagram" viewBox="0 0 960 600" role="img" aria-label="Wireframe diagram of a multifunctional keychain with ruler markings, keyring hole, opener cutout, phone stand, and magnet recess">
+                <defs>
+                  <linearGradient id="keychainLine" x1="0" y1="0" x2="1" y2="1">
+                    <stop stop-color="#3d5afe" />
+                    <stop offset="1" stop-color="#7b61ff" />
+                  </linearGradient>
+                  <filter id="keychainGlow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feGaussianBlur stdDeviation="5" result="blur" />
+                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                  </filter>
+                </defs>
+                <rect width="960" height="600" fill="#0d0d0d" />
+                <g stroke="#f4f1ea" stroke-width="1" opacity=".07">
+                  <path d="M0 120h960M0 240h960M0 360h960M0 480h960" />
+                  <path d="M120 0v600M240 0v600M360 0v600M480 0v600M600 0v600M720 0v600M840 0v600" />
+                </g>
+                <g fill="none" stroke="url(#keychainLine)" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M160 250h520c42 0 70 24 70 60v16h72v68h-84c-28 0-45-14-52-40l-18-58H160c-38 0-62 22-62 54s24 54 62 54h340l44 58h96l-70-104h-410" stroke-width="5" />
+                  <circle cx="164" cy="312" r="28" stroke-width="4" />
+                  <path d="M300 246v46M342 246v34M384 246v46M426 246v34M468 246v46M510 246v34M552 246v46" stroke-width="3" opacity=".9" />
+                  <path d="M292 214h276" stroke-width="2" opacity=".5" />
+                  <path d="M566 214c36-44 80-44 118 0" stroke-width="3" />
+                  <path d="M560 428h120l-44-66" stroke-width="4" />
+                  <rect x="648" y="168" width="96" height="64" rx="12" stroke-width="3" />
+                  <path d="M672 232l72 58" stroke-width="3" />
+                  <circle cx="344" cy="368" r="20" stroke-width="3" />
+                  <path d="M340 348v-68M344 388v74M704 326h92" stroke-width="2" opacity=".65" />
+                  <path d="M230 432c40 22 86 22 128 0" stroke-width="3" opacity=".7" />
+                  <path d="M158 312H86M344 368H238M696 200H800M796 326H856M636 362H740" stroke-width="2" opacity=".62" />
+                </g>
+                <g fill="#4ade80" filter="url(#keychainGlow)">
+                  <circle cx="164" cy="312" r="7" />
+                  <circle cx="344" cy="368" r="7" />
+                  <circle cx="696" cy="200" r="7" />
+                  <circle cx="796" cy="326" r="7" />
+                  <circle cx="636" cy="362" r="7" />
+                </g>
+              </svg>
+            </figure>
             <div class="project-card-body"><h3>Multifunctional 3D-Printed Keychain</h3><p>A compact 3D-printed keychain designed with multiple daily-use functions, including a mini ruler, bottle-opener-style cut-out, phone stand, cable holder, bookmark clip, keyring hole, and magnet recess. This project focused on CAD modelling, 3D printing, product usability, and improving the design through print testing and refinement.</p><div class="tag-list"><span>Autodesk Inventor</span><span>CAD Design</span><span>3D Printing</span><span>Product Design</span><span>Prototyping</span><span>Design Iteration</span></div><button class="mini-button" type="button" data-open-project="keychain">Learn More</button></div>
           </article>
         </div>

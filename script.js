@@ -87,10 +87,9 @@ const PROJECTS = {
     image: "images/project-keychain-photo.png",
     imageAlt: "Multifunctional 3D-printed keychain with ruler, bottle opener, phone stand, and cable holder features",
     modalVariant: "keychainCaseStudy",
-    video: "assets/videos/keychain-printing-timelapse.webm",
-    videoType: "video/webm",
-    poster: "images/keychain-printing-poster.png",
     keychainUrl: "images/project-keychain-photo.png",
+    // ACTION REQUIRED: replace this Autodesk Viewer landing URL with the public Autodesk Viewer / A360 share link for the keychain CAD model.
+    inventorUrl: "https://viewer.autodesk.com/",
     reportUrl: "assets/reports/keychain-design-report.pdf",
     description: "A compact 3D-printed keychain designed with multiple daily-use functions, including a mini ruler, bottle-opener-style cut-out, phone stand, cable holder, bookmark clip, keyring hole, and magnet recess. This project focused on CAD modelling, 3D printing, product usability, and improving the design through print testing and refinement.",
     tags: ["Autodesk Inventor", "CAD Design", "3D Printing", "Product Design", "Prototyping", "Design Iteration"],
@@ -1443,16 +1442,11 @@ function createKeychainModalMarkup(project) {
         <h3 class="modal-section-heading">What I Built</h3>
         <p>I designed and 3D-printed a multifunctional keychain with several integrated features, including a keyring hole, mini ruler, bottle-opener-style cut-out, phone stand, cable holder, bookmark clip, magnet recess for name-tag use, rounded edges, and chamfered functional areas.</p>
         <p>The design was created to be flat and portable so it could be attached to a bag or carried in a pocket without taking up much space.</p>
-        <div class="modal-media modal-video-frame">
-          <!-- ACTION REQUIRED: replace this generated preview with the real 3D printer time-lapse video later, e.g. /assets/videos/keychain-printing-timelapse.mp4. -->
-          <!-- ACTION REQUIRED: replace the poster with a representative thumbnail frame from the real video when available. -->
-          <!-- RECOMMENDED VIDEO SPECS: keep under ~20MB, H.264 if using MP4, ideally under 60-90 seconds. -->
-          <video class="modal-video" controls poster="${escapeHtml(project.poster)}" preload="metadata">
-            <source src="${escapeHtml(project.video)}" type="${escapeHtml(project.videoType || "video/mp4")}">
-            Your browser does not support video playback.
-          </video>
+        <div class="modal-photo-gallery">
+          <img src="${escapeHtml(project.gallery[0])}" alt="Finished 3D-printed keychain, full view showing ruler markings and keyring hole" loading="lazy">
+          <!-- ACTION REQUIRED: add additional close-up photos here as they become available - e.g. bottle-opener cutout, phone stand in use, magnet recess. Currently only 1 photo is provided; gallery supports 1-4 images gracefully. -->
         </div>
-        <p class="modal-media-caption">Time-lapse of the 3D printer manufacturing the keychain.</p>
+        <p class="modal-media-caption">The finished, 3D-printed keychain prototype.</p>
       </section>
 
       <section class="modal-section modal-case-section">
@@ -1528,10 +1522,15 @@ function createKeychainModalMarkup(project) {
 
       <section class="modal-action-block" aria-label="Keychain project links">
         <!-- ACTION REQUIRED: replace View the Keychain with a 3D model viewer or multi-angle gallery when ready. -->
-        <div class="modal-actions modal-action-row">
+        <div class="modal-actions modal-action-row modal-action-row-triple">
           <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.keychainUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
             <span aria-hidden="true">Key</span>
             View the Keychain
+          </a>
+          <!-- ACTION REQUIRED: replace this with a public Autodesk Viewer / A360 share link for the actual Inventor CAD model. -->
+          <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.inventorUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
+            <span aria-hidden="true">CAD</span>
+            View in Autodesk Inventor
           </a>
           <a class="modal-action-button modal-play-button btn-primary" href="${escapeHtml(project.reportUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
             <span aria-hidden="true">PDF</span>
