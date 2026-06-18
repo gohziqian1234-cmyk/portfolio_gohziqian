@@ -4711,3 +4711,231 @@ button.button:active,
     transform: none !important;
   }
 }
+
+/* Premium motion elevation layer. */
+.cinematic-intro.cinematic-aperture {
+  display: block;
+  background: #000;
+  clip-path: none;
+}
+
+.cinematic-intro.cinematic-aperture span,
+.cinematic-intro.cinematic-aperture i {
+  display: none;
+}
+
+.cinematic-intro.cinematic-aperture.is-opening {
+  opacity: 0;
+  transition: opacity 300ms var(--ease-smooth);
+}
+
+.hero-aperture-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  background: #000;
+  pointer-events: none;
+}
+
+.hero-line-focus {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
+.hero-word.accent-word {
+  transform-origin: center bottom;
+}
+
+[data-parallax-depth] {
+  will-change: transform;
+  transition: transform 300ms var(--ease-smooth);
+}
+
+body[data-scene="hero"],
+body[data-scene="projects"] {
+  --ambient-rgb: 61, 90, 254;
+}
+
+body[data-scene="about"],
+body[data-scene="testimonials"] {
+  --ambient-rgb: 35, 129, 255;
+}
+
+body[data-scene="contact"] {
+  --ambient-rgb: 123, 97, 255;
+}
+
+body {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(var(--ambient-rgb, 61, 90, 254), 0.08), transparent 38rem),
+    var(--paper);
+  transition: background 650ms var(--ease-smooth);
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(40px) scale(0.98);
+  transition:
+    opacity 900ms var(--ease-out-expo),
+    transform 900ms var(--ease-out-expo),
+    filter 900ms var(--ease-out-expo);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+.heading-word {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateY(0.35em) rotateX(18deg);
+  transform-origin: center bottom;
+  transition:
+    opacity 720ms var(--ease-out-expo),
+    transform 720ms var(--ease-out-expo),
+    filter 720ms var(--ease-out-expo);
+  will-change: transform, opacity, filter;
+}
+
+.is-visible .heading-word,
+.heading-word.is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) rotateX(0);
+}
+
+.category-card::after {
+  background:
+    radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.11), transparent 44%),
+    linear-gradient(180deg, transparent 18%, rgba(13, 13, 13, 0.84) 72%);
+}
+
+.project-card::after {
+  background: radial-gradient(circle at var(--mx, var(--glow-x, 50%)) var(--my, var(--glow-y, 50%)), rgba(var(--scene-accent-rgb, 61, 90, 254), 0.24), transparent 42%);
+}
+
+.category-card,
+.project-card {
+  transition: transform 200ms var(--ease-smooth), box-shadow 250ms var(--ease-smooth), border-color 250ms var(--ease-smooth), background 250ms var(--ease-smooth), opacity 250ms var(--ease-smooth);
+}
+
+.project-grid {
+  transition: opacity 180ms var(--ease-smooth), transform 180ms var(--ease-smooth);
+}
+
+.project-grid.is-leaving {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+.project-grid.is-entering {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hero-pill-actions .button,
+.category-card .button {
+  transition:
+    transform 300ms var(--ease-bounce),
+    box-shadow 250ms var(--ease-smooth),
+    background 250ms var(--ease-smooth),
+    color 250ms var(--ease-smooth),
+    filter 250ms var(--ease-smooth);
+}
+
+.category-card .button-fill,
+.category-card .button-gradient,
+.hero-pill-actions .button-gradient,
+.nav-action-gradient,
+.modal-play-button,
+.submit-button {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-violet), var(--accent-blue));
+  background-size: 200% 200%;
+  animation: gradient-drift 6s ease infinite;
+}
+
+@keyframes gradient-drift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.modal-overlay {
+  transition: opacity 200ms var(--ease-smooth);
+}
+
+.modal-overlay .modal-content {
+  filter: blur(8px);
+  transform: translateY(24px) scale(0.9);
+  transition:
+    opacity 350ms var(--ease-out-expo) 50ms,
+    transform 350ms var(--ease-out-expo) 50ms,
+    filter 350ms var(--ease-out-expo) 50ms;
+}
+
+.modal-overlay.active .modal-content {
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+.modal-overlay.is-closing {
+  transition-duration: 200ms;
+}
+
+.modal-overlay.is-closing .modal-content {
+  filter: blur(4px);
+  transform: translateY(12px) scale(0.96);
+  transition:
+    opacity 200ms var(--ease-smooth),
+    transform 200ms var(--ease-smooth),
+    filter 200ms var(--ease-smooth);
+}
+
+.quote-card {
+  opacity: var(--marquee-opacity, 1);
+  transform: translateY(var(--quote-lift, 0)) scale(var(--marquee-scale, 1));
+  transition: opacity 220ms var(--ease-smooth), transform 220ms var(--ease-smooth);
+  will-change: opacity, transform;
+}
+
+.quote-card:hover {
+  --quote-lift: -3px;
+}
+
+@media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+  .cinematic-intro.cinematic-aperture,
+  .hero-aperture-overlay {
+    display: none !important;
+  }
+
+  [data-parallax-depth],
+  .reveal-on-scroll,
+  .heading-word,
+  .category-card,
+  .project-card,
+  .quote-card {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .category-card .button-fill,
+  .category-card .button-gradient,
+  .hero-pill-actions .button-gradient,
+  .nav-action-gradient,
+  .modal-play-button,
+  .submit-button {
+    animation: none !important;
+  }
+}

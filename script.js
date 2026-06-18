@@ -7,6 +7,7 @@
 */
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const finePointer = window.matchMedia("(pointer: fine)").matches && !("ontouchstart" in window);
 const MODAL_VIDEO_GAIN = 2.2;
 
 const PROJECTS = {
@@ -122,6 +123,10 @@ function getNavOffset() {
 
 function easeOutExpo(t) {
   return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+}
+
+function shouldSkipFineMotion() {
+  return prefersReducedMotion || !finePointer || document.body.classList.contains("low-performance");
 }
 
 function smoothScrollToPosition(top) {
@@ -406,23 +411,15 @@ function moveActivePill() {
 }
 
 function initRevealAnimations() {
-  const revealItems = $$("[data-reveal]");
+  const revealItems = $$("[data-reveal], .quote-card:not([aria-hidden='true'])");
   if (!revealItems.length) return;
   document.body.classList.add("reveal-ready");
+  revealItems.forEach((item) => item.classList.add("reveal-on-scroll"));
+  applyRevealStaggers();
 
   if (window.gsap && window.ScrollTrigger && !prefersReducedMotion) {
     gsap.registerPlugin(ScrollTrigger);
     gsap.defaults({ ease: "expo.out", duration: 0.78 });
-
-    if ($(".hero-word")) {
-      gsap.from(".hero-word", {
-        yPercent: 110,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.08,
-        ease: "power4.out"
-      });
-    }
 
     $$(".timeline-wrap").forEach((wrap) => {
       const progress = $(".timeline-progress", wrap);
@@ -468,10 +465,116 @@ function initRevealAnimations() {
   );
 
   revealItems.forEach((item) => revealObserver.observe(item));
+}
 
-  window.setTimeout(() => {
-    revealItems.forEach((item) => item.classList.add("is-visible"));
-  }, 1800);
+function applyRevealStaggers() {
+  const groups = [
+    ".timeline-wrap",
+    ".category-grid",
+    ".project-grid",
+    ".info-grid",
+    ".experience-list",
+    ".skill-category-grid",
+    ".continue-links",
+    ".marquee-track"
+  ];
+
+  groups.forEach((selector) => {
+    $$(selector).forEach((group) => {
+      $$(".reveal-on-scroll, [data-reveal], .quote-card:not([aria-hidden='true'])", group).forEach((item, index) => {
+        item.style.transitionDelay = `${Math.min(index * 80, 480)}ms`;
+      });
+    });
+  });
+}
+
+function initHeroEntrance() {
+  const hero = $(".hero");
+  if (!hero) return;
+
+  const heroRevealItems = $$("[data-reveal]", hero);
+  heroRevealItems.forEach((item) => item.classList.add("is-visible"));
+
+  if (prefersReducedMotion) {
+    hero.animate?.([{ opacity: 0 }, { opacity: 1 }], { duration: 300, easing: "ease-out" });
+    return;
+  }
+
+  const kicker = $(".section-kicker", hero);
+  const words = $$(".hero-word", hero);
+  const accent = $(".hero-word.accent-word", hero);
+  const subtitle = $(".hero-subtitle", hero);
+  const buttons = $$(".hero-pill-actions .button", hero);
+  const profile = $(".profile-showcase", hero);
+  const stats = $$(".hero-stat-grid > div", hero);
+  const overlay = document.createElement("div");
+  overlay.className = "hero-aperture-overlay";
+  overlay.setAttribute("aria-hidden", "true");
+  hero.appendChild(overlay);
+
+  words.forEach((word) => word.classList.add("hero-line-focus"));
+
+  if (window.gsap) {
+    const tl = gsap.timeline({
+      defaults: { ease: "power3.out" },
+      onComplete: () => overlay.remove()
+    });
+    const introItems = [kicker, subtitle, ...buttons].filter(Boolean);
+
+    gsap.set(introItems, { opacity: 0, y: 12 });
+    gsap.set(words, { opacity: 0, y: 30, filter: "blur(6px)" });
+    if (profile) gsap.set(profile, { opacity: 0, x: 40, rotate: 3 });
+    gsap.set(stats, { opacity: 0, y: 18, scale: 0.96 });
+
+    tl.to(overlay, { opacity: 0, duration: 0.3 }, 0)
+      .to(kicker, { opacity: 1, y: 0, duration: 0.6 }, 0.3)
+      .to(words, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, stagger: 0.12, ease: "power4.out" }, 0.5)
+      .to(accent, { scale: 1.05, duration: 0.18, yoyo: true, repeat: 1, textShadow: "0 0 40px rgba(61,90,254,0.4)" }, 1.12)
+      .to([subtitle, ...buttons].filter(Boolean), { opacity: 1, y: 0, duration: 0.55, stagger: 0.08 }, 1.2)
+      .to(profile, { opacity: 1, x: 0, rotate: 0, duration: 0.75, ease: "power3.out" }, 1.0)
+      .to(stats, { opacity: 1, y: 0, scale: 1, duration: 0.55, stagger: 0.08, ease: "back.out(1.4)" }, 1.34);
+    return;
+  }
+
+  overlay.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, easing: "ease-out" }).finished.finally(() => overlay.remove());
+  [kicker, ...words, subtitle, ...buttons, profile, ...stats].filter(Boolean).forEach((item, index) => {
+    item.animate(
+      [{ opacity: 0, transform: "translateY(20px)", filter: "blur(4px)" }, { opacity: 1, transform: "translateY(0)", filter: "blur(0)" }],
+      { duration: 700, delay: 300 + index * 60, easing: "cubic-bezier(0.16, 1, 0.3, 1)", fill: "both" }
+    );
+  });
+}
+
+function initHeadingWordReveals() {
+  if (prefersReducedMotion) return;
+
+  const headings = $$([
+    ".section-header h2",
+    ".chapter-heading h2",
+    ".subpage-hero h1",
+    ".project-browser h1",
+    ".page-cta h2",
+    ".continue-inner h2",
+    ".contact-copy h2"
+  ].join(","));
+
+  headings.forEach((heading) => {
+    if (heading.dataset.wordRevealReady === "true" || heading.closest(".hero-title")) return;
+    const original = heading.textContent;
+    const tokens = original.match(/\S+|\s+/g);
+    if (!tokens || tokens.length < 2) return;
+
+    heading.dataset.wordRevealReady = "true";
+    heading.setAttribute("aria-label", heading.getAttribute("aria-label") || original);
+    heading.innerHTML = tokens.map((token) => {
+      if (/^\s+$/.test(token)) return token;
+      return `<span class="heading-word">${escapeHtml(token)}</span>`;
+    }).join("");
+
+    $$(".heading-word", heading).forEach((word, index) => {
+      word.style.transitionDelay = `${index * 40}ms`;
+    });
+  });
 }
 
 function initTimelineFallback() {
@@ -519,18 +622,31 @@ function initProjectTabs() {
   const params = new URLSearchParams(window.location.search);
   const requested = (params.get("category") || window.location.hash.replace("#", "") || "software").toLowerCase();
   const initialCategory = requested === "hardware" ? "hardware" : "software";
+  let activeCategory = "";
+  let tabAnimationTimer = null;
 
   const setCategory = (category, updateUrl = false) => {
+    if (category === activeCategory && updateUrl) return;
+    const previousCategory = activeCategory;
+    activeCategory = category;
+
     tabs.forEach((tab) => {
       const active = tab.dataset.projectTab === category;
       tab.classList.toggle("is-active", active);
       tab.setAttribute("aria-selected", String(active));
     });
 
+    window.clearTimeout(tabAnimationTimer);
+    const outgoing = grids.find((grid) => grid.dataset.projectGrid === previousCategory);
+    const incoming = grids.find((grid) => grid.dataset.projectGrid === category);
+    const animateSwap = Boolean(outgoing && incoming && outgoing !== incoming && !prefersReducedMotion);
+
     grids.forEach((grid) => {
       const active = grid.dataset.projectGrid === category;
-      grid.hidden = !active;
-      grid.classList.toggle("is-active", active);
+      if (!animateSwap || grid === incoming) {
+        grid.hidden = !active;
+        grid.classList.toggle("is-active", active);
+      }
 
       if (active) {
         $$("[data-project-card]", grid).forEach((card, index) => {
@@ -540,6 +656,29 @@ function initProjectTabs() {
         });
       }
     });
+
+    if (animateSwap) {
+      outgoing.classList.add("is-leaving");
+      outgoing.classList.remove("is-active", "is-entering");
+      incoming.hidden = false;
+      incoming.classList.add("is-entering");
+      incoming.classList.remove("is-leaving");
+
+      $$("[data-project-card]", incoming).forEach((card, index) => {
+        card.classList.remove("is-visible");
+        card.style.transitionDelay = `${index * 60}ms`;
+      });
+
+      tabAnimationTimer = window.setTimeout(() => {
+        outgoing.hidden = true;
+        outgoing.classList.remove("is-leaving");
+        incoming.classList.add("is-active");
+        requestAnimationFrame(() => {
+          $$("[data-project-card]", incoming).forEach((card) => card.classList.add("is-visible"));
+          window.setTimeout(() => incoming.classList.remove("is-entering"), 420);
+        });
+      }, 150);
+    }
 
     if (updateUrl) {
       const nextUrl = `${window.location.pathname}?category=${category}`;
@@ -1319,6 +1458,8 @@ function clearProjectCardMotion() {
     card.style.removeProperty("transform");
     card.style.removeProperty("--glow-x");
     card.style.removeProperty("--glow-y");
+    card.style.removeProperty("--mx");
+    card.style.removeProperty("--my");
   });
 }
 
@@ -1652,21 +1793,20 @@ function initNeuralCanvas() {
 }
 
 function initCinematicIntro() {
-  if (prefersReducedMotion || sessionStorage.getItem("ziqianIntroSeen") === "true") return;
+  if (prefersReducedMotion || initCinematicIntro.played || !$(".hero")) return;
 
   const intro = document.createElement("div");
-  intro.className = "cinematic-intro";
+  intro.className = "cinematic-intro cinematic-aperture";
   intro.setAttribute("aria-hidden", "true");
-  intro.innerHTML = '<span>ZIQIAN</span><i></i>';
   document.body.appendChild(intro);
   document.body.classList.add("intro-running");
-  sessionStorage.setItem("ziqianIntroSeen", "true");
+  initCinematicIntro.played = true;
 
-  window.setTimeout(() => intro.classList.add("is-opening"), 120);
+  window.setTimeout(() => intro.classList.add("is-opening"), 40);
   window.setTimeout(() => {
     document.body.classList.remove("intro-running");
     intro.remove();
-  }, 1550);
+  }, 360);
 }
 
 function initSceneDirector() {
@@ -1694,7 +1834,16 @@ function initSceneDirector() {
       }
     });
 
-    document.body.dataset.scene = active?.id || "hero";
+    const activeId = active?.id || "hero";
+    const sceneTints = {
+      hero: "61, 90, 254",
+      about: "35, 129, 255",
+      projects: "123, 97, 255",
+      testimonials: "244, 183, 204",
+      contact: "123, 97, 255"
+    };
+    document.body.dataset.scene = activeId;
+    document.documentElement.style.setProperty("--ambient-rgb", sceneTints[activeId] || sceneTints.hero);
     ticking = false;
   };
 
@@ -2179,10 +2328,11 @@ function initCinematicCanvas() {
 }
 
 function initCinematicInteractions() {
-  if (prefersReducedMotion || window.matchMedia("(pointer: coarse)").matches) return;
+  if (shouldSkipFineMotion()) return;
 
   $$("[data-project-card], .category-card").forEach((card) => {
     let frame = null;
+    const maxTilt = card.classList.contains("category-card") ? 5 : 6;
 
     const move = (event) => {
       if (document.body.classList.contains("low-performance") || document.body.classList.contains("modal-open")) return;
@@ -2194,7 +2344,9 @@ function initCinematicInteractions() {
       frame = requestAnimationFrame(() => {
         card.style.setProperty("--glow-x", `${x * 100}%`);
         card.style.setProperty("--glow-y", `${y * 100}%`);
-        card.style.transform = `perspective(1000px) rotateX(${((0.5 - y) * 4).toFixed(2)}deg) rotateY(${((x - 0.5) * 4).toFixed(2)}deg) translateY(-4px)`;
+        card.style.setProperty("--mx", `${x * 100}%`);
+        card.style.setProperty("--my", `${y * 100}%`);
+        card.style.transform = `perspective(1200px) rotateX(${((0.5 - y) * maxTilt * 2).toFixed(2)}deg) rotateY(${((x - 0.5) * maxTilt * 2).toFixed(2)}deg) translateZ(8px)`;
       });
     };
 
@@ -2204,8 +2356,121 @@ function initCinematicInteractions() {
       card.style.removeProperty("transform");
       card.style.removeProperty("--glow-x");
       card.style.removeProperty("--glow-y");
+      card.style.removeProperty("--mx");
+      card.style.removeProperty("--my");
     });
   });
+}
+
+function initAmbientParallax() {
+  if (initAmbientParallax.initialized) return;
+  if (shouldSkipFineMotion()) return;
+
+  const layers = [
+    [".neural-canvas", 0.3],
+    [".mesh-wash", 0.45],
+    [".cinematic-canvas", 0.35],
+    [".category-card .category-art", 0.55],
+    [".category-card .card-particles", 0.95]
+  ];
+  const parallaxItems = [];
+
+  layers.forEach(([selector, depth]) => {
+    $$(selector).forEach((element) => {
+      element.dataset.parallaxDepth = String(depth);
+      parallaxItems.push(element);
+    });
+  });
+
+  if (!parallaxItems.length) return;
+  initAmbientParallax.initialized = true;
+
+  let frame = null;
+  let pointer = { x: 0, y: 0 };
+
+  document.addEventListener("pointermove", (event) => {
+    pointer = {
+      x: (event.clientX / window.innerWidth - 0.5) * 2,
+      y: (event.clientY / window.innerHeight - 0.5) * 2
+    };
+
+    if (frame) return;
+    frame = requestAnimationFrame(() => {
+      parallaxItems.forEach((element) => {
+        const depth = Number.parseFloat(element.dataset.parallaxDepth) || 1;
+        element.style.transform = `translate(${(pointer.x * depth * 15).toFixed(2)}px, ${(pointer.y * depth * 15).toFixed(2)}px)`;
+      });
+      frame = null;
+    });
+  }, { passive: true });
+}
+
+function initMagneticButtons() {
+  if (shouldSkipFineMotion()) return;
+
+  $$(".hero-pill-actions .button, .category-card .button").forEach((button) => {
+    let frame = null;
+    let point = { x: 0, y: 0 };
+
+    button.addEventListener("pointermove", (event) => {
+      const rect = button.getBoundingClientRect();
+      point = {
+        x: event.clientX - rect.left - rect.width / 2,
+        y: event.clientY - rect.top - rect.height / 2
+      };
+
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        button.style.transform = `translate(${(point.x * 0.15).toFixed(2)}px, ${(point.y * 0.15 - 3).toFixed(2)}px) scale(1.02)`;
+        frame = null;
+      });
+    });
+
+    button.addEventListener("pointerleave", () => {
+      window.cancelAnimationFrame(frame);
+      frame = null;
+      button.style.removeProperty("transform");
+    });
+  });
+}
+
+function initMarqueeDepth() {
+  if (prefersReducedMotion) return;
+
+  const cards = $$(".quote-card");
+  if (!cards.length) return;
+
+  let frame = null;
+  const update = () => {
+    const center = window.innerWidth / 2;
+    const falloff = Math.max(320, window.innerWidth * 0.46);
+
+    cards.forEach((card) => {
+      const rect = card.getBoundingClientRect();
+      const cardCenter = rect.left + rect.width / 2;
+      const distance = Math.min(1, Math.abs(cardCenter - center) / falloff);
+      const scale = 1 - distance * 0.08;
+      const opacity = 1 - distance * 0.4;
+      card.style.setProperty("--marquee-scale", scale.toFixed(3));
+      card.style.setProperty("--marquee-opacity", opacity.toFixed(3));
+    });
+
+    frame = requestAnimationFrame(update);
+  };
+
+  const start = () => {
+    if (!frame) frame = requestAnimationFrame(update);
+  };
+  const stop = () => {
+    window.cancelAnimationFrame(frame);
+    frame = null;
+  };
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") stop();
+    else start();
+  });
+  start();
 }
 
 function initButtonRipples() {
@@ -2249,7 +2514,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   initCinematicIntro();
-  const startCinematicCanvas = () => initCinematicCanvas();
+  initHeroEntrance();
+  const startCinematicCanvas = () => {
+    initCinematicCanvas();
+    initAmbientParallax();
+  };
   if ("requestIdleCallback" in window) {
     window.requestIdleCallback(startCinematicCanvas, { timeout: 800 });
   } else {
@@ -2260,6 +2529,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initMobileMenu();
   initAutoHideNav();
   initActiveMenuLinks();
+  initHeadingWordReveals();
   initRevealAnimations();
   initSceneDirector();
   initProjectTabs();
@@ -2270,6 +2540,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initCustomCursor();
   initNeuralCanvas();
   initCinematicInteractions();
+  initMagneticButtons();
+  initMarqueeDepth();
   initButtonRipples();
   requestAnimationFrame(correctInitialHashOffset);
 });
