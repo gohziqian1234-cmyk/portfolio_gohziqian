@@ -49,6 +49,19 @@ const PROJECTS = {
     playUrl: "https://gohziqian1234-cmyk.github.io/erebus-7/",
     gallery: ["images/project-erebus-7.png"]
   },
+  mcfast: {
+    title: "McFast Ordering System",
+    image: "images/project-mcfast-ordering.svg",
+    imageAlt: "McFast Ordering System fast-food ordering app interface graphic",
+    modalVariant: "mcfastCaseStudy",
+    video: "videos/mcfast-demo.mp4",
+    poster: "images/project-mcfast-ordering.svg",
+    description: "A Streamlit-based fast-food ordering app that allows users to browse menu categories, add items to a cart, update or remove items, apply discounts, calculate 9% GST, and generate a final receipt. This project demonstrates Python application logic, cart management, calculation flow, and browser-based app deployment.",
+    tags: ["Python", "Streamlit", "Cart System", "Session State", "Discount Logic", "GST Calculation", "Receipt Generation"],
+    github: "https://github.com/gohziqian1234-cmyk/portfolio_gohziqian",
+    streamlitUrl: "https://gohziqian1234-cmyk-mcfast-app-app-hrwj7l.streamlit.app/",
+    gallery: ["images/project-mcfast-ordering.svg"]
+  },
   wheelchair: {
     title: "Motor-Assisted Wheelchair Support Prototype",
     image: "images/project-smart-wheelchair.svg",
@@ -791,6 +804,7 @@ function initProjectModal() {
 function createModalMarkup(project) {
   if (project.modalVariant === "pianoCaseStudy") return createPianoModalMarkup(project);
   if (project.modalVariant === "erebusCaseStudy") return createErebusModalMarkup(project);
+  if (project.modalVariant === "mcfastCaseStudy") return createMcfastModalMarkup(project);
   if (project.modalVariant === "plantCaseStudy") return createPlantModalMarkup(project);
   if (project.modalVariant === "wheelchairCaseStudy") return createWheelchairModalMarkup(project);
   if (project.modalVariant === "keychainCaseStudy") return createKeychainModalMarkup(project);
@@ -1077,6 +1091,123 @@ function createErebusModalMarkup(project) {
       </section>
 
       ${actions}
+    </article>
+  `;
+}
+
+function createMcfastModalMarkup(project) {
+  const tags = project.tags.map((tag) => `<span class="tech-tag">${escapeHtml(tag)}</span>`).join("");
+
+  return `
+    <article class="project-modal-body project-modal-body-long">
+      <header class="modal-project-hero modal-case-header">
+        <p class="modal-eyebrow section-kicker dark">Project</p>
+        <h2 class="modal-title" id="modal-title">PROJECT: MCFAST ORDERING SYSTEM</h2>
+      </header>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Overview</h3>
+        <p>McFast Ordering System is a Python-based food ordering app built with Streamlit. The app simulates a fast-food ordering flow where users can browse menu categories, add items to a cart, update quantities, apply discounts, calculate GST, and generate a final receipt.</p>
+        <p>This project is a supporting software project that demonstrates my ability to build a functional Python application with a browser-based interface.</p>
+      </section>
+
+      <div class="modal-media modal-video-frame">
+        <!-- Demo video file provided by Ziqian and placed at /videos/mcfast-demo.mp4. -->
+        <video class="modal-video" controls playsinline poster="${escapeHtml(project.poster)}" preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
+          <source src="${escapeHtml(project.video)}" type="video/mp4">
+          Your browser does not support video playback.
+        </video>
+      </div>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Problem / Brief</h3>
+        <p>A food ordering system needs a clear flow from menu browsing to checkout. If the logic is not structured properly, users may enter invalid quantities, the cart may calculate wrongly, or the final receipt may become unclear.</p>
+        <p>The aim of this project was to build a simple ordering app that handles menu selection, cart management, discount application, GST calculation, and receipt generation in a clear and organised way.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">My Role</h3>
+        <p>I developed the application logic and Streamlit interface. My work included structuring the menu data, building the cart system, handling quantity updates, applying discount rules, calculating GST, generating the final receipt, and testing the app flow.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">What I Built</h3>
+        <p>I built a Streamlit app where users can select food items, choose quantities, manage their cart, apply discount types, and complete checkout. The app calculates the subtotal, discount, GST, and final total before displaying the receipt.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Key Features</h3>
+        <ul class="modal-feature-list">
+          <li>Menu browsing by category</li>
+          <li>Add-to-cart function with quantity selection</li>
+          <li>Cart display with itemised order summary</li>
+          <li>Update or remove cart items</li>
+          <li>Discount options for Student, Staff, Loyalty Member, or None</li>
+          <li>9% GST calculation</li>
+          <li>Final receipt generation</li>
+          <li>Browser-based interface using Streamlit</li>
+        </ul>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Technical Implementation</h3>
+        <p>The project uses Python for the main application logic and Streamlit for the web interface. Menu items and prices are handled in the app so the system can calculate item subtotals, discounts, GST, and the final total.</p>
+        <p>The cart logic keeps track of selected items and quantities before checkout. The checkout flow applies the selected discount first, then calculates GST, and finally generates the receipt.</p>
+        <div class="modal-tech-tags">${tags}</div>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Skills Demonstrated</h3>
+        <ul class="modal-feature-list modal-skills-list">
+          <li>Python programming</li>
+          <li>Streamlit app development</li>
+          <li>Cart and order management</li>
+          <li>Conditional logic</li>
+          <li>Input handling</li>
+          <li>Calculation flow</li>
+          <li>Discount and GST logic</li>
+          <li>Receipt generation</li>
+          <li>Debugging and testing</li>
+        </ul>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Testing Evidence</h3>
+        <ul class="modal-feature-list">
+          <li>Tested adding different items and quantities into the cart</li>
+          <li>Tested updating and removing cart items</li>
+          <li>Tested checkout with different discount types</li>
+          <li>Tested 9% GST calculation after discount</li>
+          <li>Tested receipt generation after checkout</li>
+        </ul>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Outcome</h3>
+        <p>The final app demonstrates a working food ordering system with a clear user flow from menu selection to final receipt. It helped me practise Python application logic, Streamlit interface design, cart management, and calculation accuracy.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Future Improvements</h3>
+        <p>Future versions can include a database to store menu items, prices, customer orders, and order history instead of keeping the data only inside the app code.</p>
+        <p>An admin panel can also be added so menu items, prices, and discounts can be updated without editing the source code directly.</p>
+        <p>The receipt system can be improved by allowing users to download the final receipt as a PDF or text file.</p>
+        <p>The app interface can also be improved with food images, order numbers, a cleaner checkout page, and better visual styling.</p>
+      </section>
+
+      <section class="modal-action-block" aria-label="McFast project links">
+        <div class="modal-actions modal-action-row">
+          <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.github)}" target="_blank" rel="noopener noreferrer" data-modal-action>
+            <span aria-hidden="true">&lt;/&gt;</span>
+            View Code on GitHub
+          </a>
+          <a class="modal-action-button modal-play-button btn-primary" href="${escapeHtml(project.streamlitUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
+            <span aria-hidden="true">&#9654;</span>
+            Try App on Streamlit
+          </a>
+        </div>
+        <p class="modal-link-helper modal-helper-text">Opens in a new tab - this portfolio stays open here, so you can switch back anytime.</p>
+      </section>
     </article>
   `;
 }

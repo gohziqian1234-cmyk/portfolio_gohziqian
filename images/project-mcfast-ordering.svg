@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">McFast Ordering System interface graphic</title>
+  <desc id="desc">Stylized fast-food ordering app interface with menu cards, cart sidebar, and receipt preview.</desc>
+  <defs>
+    <linearGradient id="mcfast-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#060711"/>
+      <stop offset=".54" stop-color="#10172f"/>
+      <stop offset="1" stop-color="#050509"/>
+    </linearGradient>
+    <linearGradient id="mcfast-accent" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#3d5afe"/>
+      <stop offset="1" stop-color="#7b61ff"/>
+    </linearGradient>
+    <filter id="mcfast-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="960" height="600" fill="url(#mcfast-bg)"/>
+  <g stroke="#f4f1ea" stroke-width="1" opacity=".055">
+    <path d="M0 120h960M0 240h960M0 360h960M0 480h960"/>
+    <path d="M120 0v600M240 0v600M360 0v600M480 0v600M600 0v600M720 0v600M840 0v600"/>
+  </g>
+  <g opacity=".26" fill="none" stroke="url(#mcfast-accent)" stroke-width="2">
+    <path d="M88 116h208M656 98h188M116 484h326M590 504h234"/>
+    <circle cx="108" cy="116" r="5" fill="#3d5afe"/>
+    <circle cx="656" cy="98" r="5" fill="#7b61ff"/>
+    <circle cx="442" cy="484" r="5" fill="#3d5afe"/>
+    <circle cx="824" cy="504" r="5" fill="#7b61ff"/>
+  </g>
+  <g filter="url(#mcfast-glow)">
+    <rect x="82" y="92" width="568" height="374" rx="22" fill="#0c1020" stroke="url(#mcfast-accent)" stroke-width="4"/>
+    <rect x="674" y="92" width="204" height="374" rx="22" fill="#0c1020" stroke="#7b61ff" stroke-width="4"/>
+  </g>
+  <g fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="900" letter-spacing="4">
+    <text x="116" y="146" font-size="28">MCFAST ORDERING</text>
+    <text x="704" y="146" font-size="22">CART</text>
+  </g>
+  <g fill="none" stroke="#f4f1ea" stroke-width="2" opacity=".18">
+    <path d="M116 168h486M704 168h134"/>
+  </g>
+  <g>
+    <rect x="116" y="206" width="132" height="94" rx="14" fill="#f4f1ea" opacity=".92"/>
+    <rect x="276" y="206" width="132" height="94" rx="14" fill="#f4f1ea" opacity=".86"/>
+    <rect x="436" y="206" width="132" height="94" rx="14" fill="#f4f1ea" opacity=".78"/>
+    <rect x="116" y="330" width="132" height="94" rx="14" fill="#f4f1ea" opacity=".8"/>
+    <rect x="276" y="330" width="132" height="94" rx="14" fill="#f4f1ea" opacity=".9"/>
+    <rect x="436" y="330" width="132" height="94" rx="14" fill="#f4f1ea" opacity=".84"/>
+  </g>
+  <g fill="url(#mcfast-accent)">
+    <rect x="116" y="206" width="132" height="12" rx="6"/>
+    <rect x="276" y="206" width="132" height="12" rx="6"/>
+    <rect x="436" y="206" width="132" height="12" rx="6"/>
+    <rect x="116" y="330" width="132" height="12" rx="6"/>
+    <rect x="276" y="330" width="132" height="12" rx="6"/>
+    <rect x="436" y="330" width="132" height="12" rx="6"/>
+  </g>
+  <g fill="#050509" opacity=".76">
+    <circle cx="154" cy="252" r="16"/><rect x="184" y="240" width="42" height="10" rx="5"/><rect x="184" y="262" width="28" height="8" rx="4"/>
+    <circle cx="314" cy="252" r="16"/><rect x="344" y="240" width="42" height="10" rx="5"/><rect x="344" y="262" width="28" height="8" rx="4"/>
+    <circle cx="474" cy="252" r="16"/><rect x="504" y="240" width="42" height="10" rx="5"/><rect x="504" y="262" width="28" height="8" rx="4"/>
+    <circle cx="154" cy="376" r="16"/><rect x="184" y="364" width="42" height="10" rx="5"/><rect x="184" y="386" width="28" height="8" rx="4"/>
+    <circle cx="314" cy="376" r="16"/><rect x="344" y="364" width="42" height="10" rx="5"/><rect x="344" y="386" width="28" height="8" rx="4"/>
+    <circle cx="474" cy="376" r="16"/><rect x="504" y="364" width="42" height="10" rx="5"/><rect x="504" y="386" width="28" height="8" rx="4"/>
+  </g>
+  <g fill="#f4f1ea" opacity=".86">
+    <rect x="704" y="204" width="134" height="18" rx="9"/>
+    <rect x="704" y="248" width="112" height="18" rx="9"/>
+    <rect x="704" y="292" width="128" height="18" rx="9"/>
+    <rect x="704" y="376" width="134" height="3"/>
+    <rect x="704" y="408" width="94" height="16" rx="8"/>
+  </g>
+  <g fill="url(#mcfast-accent)">
+    <circle cx="836" cy="213" r="8"/>
+    <circle cx="836" cy="257" r="8"/>
+    <circle cx="836" cy="301" r="8"/>
+    <rect x="704" y="438" width="134" height="20" rx="10"/>
+  </g>
+  <text x="82" y="548" fill="#f4f1ea" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="30" letter-spacing="5">MCFAST ORDERING SYSTEM</text>
+</svg>
