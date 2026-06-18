@@ -88,8 +88,7 @@ const PROJECTS = {
     imageAlt: "Multifunctional 3D-printed keychain with ruler, bottle opener, phone stand, and cable holder features",
     modalVariant: "keychainCaseStudy",
     keychainUrl: "images/project-keychain-photo.png",
-    // ACTION REQUIRED: replace this Autodesk Viewer landing URL with the public Autodesk Viewer / A360 share link for the keychain CAD model.
-    inventorUrl: "https://viewer.autodesk.com/",
+    inventorUrl: "assets/cad/multifunctional-keychain-autodesk-inventor.ipt",
     reportUrl: "assets/reports/keychain-design-report.pdf",
     description: "A compact 3D-printed keychain designed with multiple daily-use functions, including a mini ruler, bottle-opener-style cut-out, phone stand, cable holder, bookmark clip, keyring hole, and magnet recess. This project focused on CAD modelling, 3D printing, product usability, and improving the design through print testing and refinement.",
     tags: ["Autodesk Inventor", "CAD Design", "3D Printing", "Product Design", "Prototyping", "Design Iteration"],
@@ -1527,8 +1526,7 @@ function createKeychainModalMarkup(project) {
             <span aria-hidden="true">Key</span>
             View the Keychain
           </a>
-          <!-- ACTION REQUIRED: replace this with a public Autodesk Viewer / A360 share link for the actual Inventor CAD model. -->
-          <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.inventorUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
+          <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.inventorUrl)}" target="_blank" rel="noopener noreferrer" download="multifunctional-keychain-autodesk-inventor.ipt" data-modal-action>
             <span aria-hidden="true">CAD</span>
             View in Autodesk Inventor
           </a>
