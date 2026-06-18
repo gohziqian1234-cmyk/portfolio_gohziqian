@@ -9,5 +9,5 @@
   </g>
   <path d="M110 540c120-190 230-105 350-220s230-132 420 38" fill="none" stroke="#3d5afe" stroke-width="20"/>
   <path d="M112 610c160-82 302-62 430-118 130-56 260-108 548-72" fill="none" stroke="#7b61ff" stroke-width="9"/>
-  <text x="80" y="170" fill="#f4f1ea" font-family="Arial, sans-serif" font-size="44" font-weight="900">&lt;/ DATA SYSTEMS &gt;</text>
+  <text x="760" y="150" fill="#f4f1ea" opacity=".14" font-family="Arial, sans-serif" font-size="26" font-weight="900">&lt;/ DATA SYSTEMS &gt;</text>
 </svg>

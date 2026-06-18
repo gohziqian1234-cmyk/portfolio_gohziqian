@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "qa": "node qa-runner.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.60.0"
+  }
+}
