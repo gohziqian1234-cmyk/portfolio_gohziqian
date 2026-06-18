@@ -937,6 +937,15 @@ function createPianoModalMarkup(project) {
         <p>The final result is a simple but engaging rhythm game with increasing difficulty, responsive controls, scoring feedback, and a nostalgic gameplay style. This project helped me understand how real-time interaction, game loops, and user feedback shape the overall player experience.</p>
       </section>
 
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Future Improvements</h3>
+        <p>Future versions of Alien Piano Tiles could include a music-synchronised mode, where tile spawning follows the beat of an actual soundtrack instead of relying only on timed falling tiles. This would make the rhythm gameplay feel more natural and challenging.</p>
+        <p>A leaderboard system could also be added to store high scores, longest streaks, and best accuracy — giving players a reason to replay the game and improve their performance.</p>
+        <p>Another improvement would be difficulty customisation, such as adjustable tile speed, hit-window timing, and lane count, making the game more flexible for both beginner and advanced players.</p>
+        <p>The game could also be improved with better visual and audio feedback, such as hit effects, miss effects, combo animations, and distinct sound effects for different actions, making the gameplay feel more polished and responsive.</p>
+        <p>For a stronger final version, the game could support mobile touch controls, allowing users to play on both desktop and mobile devices.</p>
+      </section>
+
       ${actions}
     </article>
   `;
@@ -1045,6 +1054,12 @@ function createErebusModalMarkup(project) {
         <p>The outcome is a playable horror game with a full story theme, multiple levels, enemies, objectives, sound, and a clear mission flow.</p>
         <p>This project opened my eyes to how much work goes into making a game actually feel good - gameplay is so much more than controls and rules. A good game also needs feedback, sound, pacing, story, balance, and clear instructions for the player.</p>
         <p>All in all, Erebus-7: Parasite Protocol became much more than a simple prototype - a full-fledged browser game, playable on the web and shareable with others.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Future Improvements</h3>
+        <p>Using real human voice acting instead of placeholder or text-based narration could make the experience feel more immersive and significantly increase the horror atmosphere of the game.</p>
+        <p>The narrative system could also be expanded with more branching choices, alternate endings, and unlockable story paths. This would make the story feel more interactive and give players more reasons to replay the game.</p>
       </section>
 
       ${actions}
@@ -1180,6 +1195,15 @@ function createPlantModalMarkup(project) {
         <p>This project helped me understand how hardware, software, databases, and web technologies can be integrated into a practical IoT solution - and how technology can support more efficient and sustainable indoor farming.</p>
       </section>
 
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Future Improvements</h3>
+        <p>Although the system successfully monitors temperature, light intensity, and water level in real time, the current version mainly provides alerts when conditions are not suitable. A stronger future version could respond automatically instead of only notifying the user.</p>
+        <p>The first improvement would be an automatic watering system. At the moment, the ultrasonic sensor can detect when the water level is low and trigger an alert, but the user still needs to refill the water manually. A future version could include a water pump that automatically adds water when the level falls below the acceptable range.</p>
+        <p>The second improvement would be automatic temperature control. The current system can detect when the temperature is below 20&deg;C or above 35&deg;C and activate the buzzer, but it does not directly control the temperature. A future version could include a fan, heater, or cooling system to automatically adjust the temperature and keep the plant environment within the suitable range.</p>
+        <p>The third improvement would be a stronger web dashboard. The current Flask web interface displays recorded sensor data in a table format. A future version could improve this by adding charts, trend analysis, and warning history so users can understand how the plant environment changes over time.</p>
+        <p>Overall, the next version should move from a monitoring-and-alert system to a more complete automated control system. This would reduce manual work further, improve plant growth consistency, and make the system more useful for real indoor farming.</p>
+      </section>
+
       <section class="modal-action-block" aria-label="Project report and demo">
         <!-- REPORT: converted from the co-authored DOCX project report to a web-friendly PDF. -->
         <!-- DEMO: linked to the provided project demo MP4. -->
@@ -1312,8 +1336,35 @@ function createWheelchairModalMarkup(project) {
       </section>
 
       <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Refinement Decisions</h3>
+        <p>During testing, the LED was removed because it added less practical value than the buzzer. The buzzer provided clearer feedback through sound, while the LED made the design more complex without improving the user experience.</p>
+        <p>A switch was added because users needed direct control to turn the system on or off. The ultrasonic sensor placement was also adjusted after testing to improve front obstacle detection.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Known Limitation</h3>
+        <p>The prototype demonstrated the core assistive functions, but it was not ready for real wheelchair deployment. The motor, power supply, and mounting structure would need to be improved before the system could support heavier loads or longer real-world use.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Future Improvements</h3>
         <p>Future versions require a higher-torque motor for stronger slope support, a dedicated battery system for longer operation, a stronger mounting structure, and a slope detection sensor to adjust motor assistance more automatically.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Skills Demonstrated</h3>
+        <ul class="modal-feature-list modal-skills-list">
+          <li>Assistive technology design</li>
+          <li>Hardware prototyping</li>
+          <li>Arduino programming</li>
+          <li>Circuit planning</li>
+          <li>Sensor integration</li>
+          <li>Motor control logic</li>
+          <li>User-centred design</li>
+          <li>Testing and refinement</li>
+          <li>Market comparison</li>
+          <li>Engineering decision-making</li>
+        </ul>
       </section>
 
       <section class="modal-action-block" aria-label="Project slides, circuit, and demo">
