@@ -447,32 +447,9 @@ function initRevealAnimations() {
     gsap.registerPlugin(ScrollTrigger);
     gsap.defaults({ ease: "expo.out", duration: 0.78 });
 
-    $$(".timeline-wrap").forEach((wrap) => {
-      const progress = $(".timeline-progress", wrap);
-      if (!progress) return;
-      gsap.to(progress, {
-        height: "100%",
-        ease: "none",
-        scrollTrigger: {
-          trigger: wrap,
-          start: `top+=${getNavOffset()} 72%`,
-          end: "bottom 65%",
-          scrub: true
-        }
-      });
-    });
-
-    $$(".timeline-item").forEach((item) => {
-      ScrollTrigger.create({
-        trigger: item,
-        start: `top+=${getNavOffset()} 68%`,
-        onEnter: () => item.classList.add("is-passed"),
-        onLeaveBack: () => item.classList.remove("is-passed")
-      });
-    });
-  } else {
-    initTimelineFallback();
   }
+
+  initTimelineProgress();
 
   if (!("IntersectionObserver" in window)) {
     revealItems.forEach((item) => item.classList.add("is-visible"));
@@ -603,11 +580,18 @@ function initHeadingWordReveals() {
   });
 }
 
-function initTimelineFallback() {
+function initTimelineProgress() {
   const wraps = $$(".timeline-wrap");
   if (!wraps.length) return;
 
   let ticking = false;
+
+  const dotCenterY = (wrap, item) => {
+    const before = getComputedStyle(item, "::before");
+    const top = Number.parseFloat(before.top) || 0;
+    const height = Number.parseFloat(before.height) || item.offsetHeight || 0;
+    return item.offsetTop + top + height / 2;
+  };
 
   const update = () => {
     wraps.forEach((wrap) => {
@@ -615,15 +599,23 @@ function initTimelineFallback() {
       if (!progress) return;
 
       const rect = wrap.getBoundingClientRect();
-      const viewport = window.innerHeight;
-      const total = rect.height + viewport * 0.45;
-      const current = viewport * 0.78 - rect.top;
-      const ratio = Math.max(0, Math.min(1, current / total));
-      progress.style.height = `${ratio * 100}%`;
+      const items = $$(".timeline-item", wrap);
+      if (!items.length) return;
 
-      $$(".timeline-item", wrap).forEach((item) => {
-        const itemRect = item.getBoundingClientRect();
-        item.classList.toggle("is-passed", itemRect.top < viewport * 0.68);
+      const viewport = window.innerHeight;
+      const firstDot = dotCenterY(wrap, items[0]);
+      const lastDot = dotCenterY(wrap, items[items.length - 1]);
+      const dotRange = Math.max(1, lastDot - firstDot);
+      const triggerLine = viewport * 0.66;
+      const current = triggerLine - (rect.top + firstDot);
+      const ratio = Math.max(0, Math.min(1, current / dotRange));
+
+      progress.style.top = `${firstDot}px`;
+      progress.style.height = `${ratio * dotRange}px`;
+
+      items.forEach((item) => {
+        const itemDotViewportY = rect.top + dotCenterY(wrap, item);
+        item.classList.toggle("is-passed", itemDotViewportY <= triggerLine);
       });
     });
     ticking = false;
@@ -638,6 +630,10 @@ function initTimelineFallback() {
   update();
   window.addEventListener("scroll", requestUpdate, { passive: true });
   window.addEventListener("resize", requestUpdate);
+  window.addEventListener("load", requestUpdate);
+  document.fonts?.ready?.then(requestUpdate).catch(() => {});
+  window.setTimeout(requestUpdate, 250);
+  window.setTimeout(requestUpdate, 750);
 }
 
 function initProjectTabs() {

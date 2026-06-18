@@ -5443,7 +5443,7 @@ body[data-page="home"] .hero-stat-grid i {
   margin-bottom: 8px;
   border-radius: 0;
   background: transparent;
-  color: var(--color-slate);
+  color: var(--color-text-muted);
 }
 
 body[data-page="home"] .hero-stat-grid span {
@@ -5654,7 +5654,7 @@ body[data-page="home"] .field textarea:not(:placeholder-shown) + label {
 
 body[data-page="home"] .site-footer {
   border-top: 1px solid var(--color-border);
-  color: var(--color-slate);
+  color: var(--color-text-muted);
 }
 
 body[data-page="home"] .back-top {
@@ -5665,7 +5665,7 @@ body[data-page="home"] .back-top {
 }
 
 body[data-page="home"] .scroll-cue {
-  color: var(--color-slate);
+  color: var(--color-text-muted);
 }
 
 body[data-page="home"] .scroll-cue i {
@@ -6037,7 +6037,7 @@ body[data-page="projects"] .subpage-hero-inner {
 
 body[data-page="about"] .breadcrumb-link,
 body[data-page="projects"] .breadcrumb-link {
-  color: var(--color-slate);
+  color: var(--color-accent);
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 700;
@@ -6206,7 +6206,7 @@ body[data-page="projects"] .project-card:focus-within {
 
 body[data-page="about"] .timeline-date,
 body[data-page="about"] .experience-card .timeline-date {
-  color: var(--color-slate);
+  color: var(--color-text);
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 700;
@@ -6417,7 +6417,7 @@ body[data-page="projects"] .btn-primary:focus-visible {
 body[data-page="about"] .site-footer,
 body[data-page="projects"] .site-footer {
   border-top: 1px solid var(--color-border);
-  color: var(--color-slate);
+  color: var(--color-text-muted);
   font-family: var(--font-mono);
 }
 
@@ -6600,6 +6600,10 @@ body[data-page="projects"] .modal-feature-list li,
 body[data-page="projects"] .modal-data-table td,
 body[data-page="projects"] .role-meta-value {
   color: var(--color-text-muted);
+}
+
+body[data-page="projects"] .project-modal-body-long .modal-section p strong {
+  color: var(--color-accent);
 }
 
 body[data-page="projects"] .modal-role-meta,
