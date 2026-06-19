@@ -27,6 +27,33 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
     <script src="script.js" defer></script>
   </head>
+  <!--
+  PHOTO ASSETS FOR THIS PAGE - place files at these exact paths:
+
+  PROFILE:
+    images/profile-photo.jpg         - Your profile photo (square, min 400x400px)
+
+  AWARD CERTIFICATES:
+    images/cert-good-progress-award.jpg     - Good Progress Award 2020
+    images/cert-edusave-scholarship.jpg     - Edusave Scholarship 2022
+    images/cert-edusave-academic.jpg        - Edusave Cert of Academic Achievement 2023
+    images/cert-edusave-bursary.jpg         - Edusave Merit Bursary (used for 2023 + 2025)
+    images/cert-directors-list.jpg          - Director's List AY2025/2026
+    images/cert-cep-aces.jpg                - CEP ACES Book Prize (TODO: not received yet)
+
+  WORK:
+    images/work-takashimaya.jpg      - Photo of you working at Takashimaya
+    images/work-peer-tutoring.jpg    - TODO: add if available
+
+  VOLUNTEERING:
+    images/volunteer-cny.jpg         - CNY goodie bag packing, AWWA 2022
+    images/volunteer-citizenship.jpg - Citizenship Ceremony, Cheng San CC, April 2026
+    images/volunteer-community-heart.jpg - TODO: add if available
+
+  CV & DOCUMENTS (in assets/ folder, not images/):
+    assets/Ziqian-CV.pdf                    - Your CV (TODO: add before going live)
+    assets/ziqian-school-testimonial.pdf    - School testimonial PDF (TODO: add)
+  -->
   <body data-page="about">
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="page-transition" aria-hidden="true"></div>
@@ -97,10 +124,22 @@
           <a class="breadcrumb-link" href="index.html#about">&larr; Back to Home</a>
           <p class="section-kicker">Full Profile</p>
           <h1 class="display-heading" id="about-page-title">About Ziqian</h1>
+          <figure class="photo-frame" style="max-width: 220px; margin: 1.5rem 0;">
+            <!-- PROFILE PHOTO: place your photo at images/profile-photo.jpg
+                 Recommended: square crop, minimum 400x400px, smart-casual -->
+            <img
+              src="images/profile-photo.jpg"
+              alt="Zi Qian — AI and Data Engineering student at Nanyang Polytechnic"
+            />
+          </figure>
           <p>
-            I am Ziqian, a Year 2 student studying AI and Data Engineering at Nanyang Polytechnic.
-            My journey hasn't been a straight path, but each stage has helped me build stronger
-            discipline, technical confidence, and a clearer direction toward AI, data, and engineering.
+            I am Zi Qian, an AI &amp; Data Engineering student at Nanyang Polytechnic. While maintaining Director's List recognition across both semesters of AY2025/2026, I also worked part-time as a Sales Advisor at Takashimaya during holidays and non-exam periods &mdash; balancing real-world responsibility alongside my studies.
+          </p>
+          <p>
+            My journey has been shaped by consistent improvement, project-based learning, and a drive to apply what I learn to real problems.
+          </p>
+          <p>
+            I build practical systems across software, data engineering, IoT, and hardware prototyping &mdash; and I am always looking for the next problem worth solving.
           </p>
         </div>
       </section>
@@ -159,24 +198,72 @@
           <h2 id="achievements-title">Recognition</h2>
         </div>
         <div class="info-grid">
-          <!-- ADD: real achievement details here -->
+          <article class="info-card" data-reveal>
+            <i aria-hidden="true">GP</i>
+            <h3>Good Progress Award</h3>
+            <p><strong>MOE Edusave</strong> &bull; 2020</p>
+            <p>Recognised for showing strong improvement, effort, and progress in my studies.</p>
+            <a href="images/cert-good-progress-award.jpg" target="_blank" rel="noopener noreferrer">
+              <img src="images/cert-good-progress-award.jpg" alt="Good Progress Award certificate 2020" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;">
+            </a>
+            <p><small>View certificate &rarr;</small></p>
+          </article>
+          <article class="info-card" data-reveal>
+            <i aria-hidden="true">ES</i>
+            <h3>Edusave Scholarship</h3>
+            <p><strong>MOE Edusave</strong> &bull; 2022</p>
+            <p>Awarded for strong academic performance and consistent effort.</p>
+            <a href="images/cert-edusave-scholarship.jpg" target="_blank" rel="noopener noreferrer">
+              <img src="images/cert-edusave-scholarship.jpg" alt="Edusave Scholarship certificate 2022" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;">
+            </a>
+            <p><small>View certificate &rarr;</small></p>
+          </article>
+          <article class="info-card" data-reveal>
+            <i aria-hidden="true">EC</i>
+            <h3>Edusave Certificate of Academic Achievement</h3>
+            <p><strong>MOE Edusave</strong> &bull; 2023</p>
+            <p>Recognised for academic achievement during secondary school.</p>
+            <a href="images/cert-edusave-academic.jpg" target="_blank" rel="noopener noreferrer">
+              <img src="images/cert-edusave-academic.jpg" alt="Edusave Certificate of Academic Achievement 2023" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;">
+            </a>
+            <p><small>View certificate &rarr;</small></p>
+          </article>
+          <article class="info-card" data-reveal>
+            <i aria-hidden="true">EM</i>
+            <h3>Edusave Merit Bursary</h3>
+            <p><strong>MOE Edusave</strong> &bull; 2023</p>
+            <p>Awarded for good academic performance and progress.</p>
+            <a href="images/cert-edusave-bursary.jpg" target="_blank" rel="noopener noreferrer">
+              <img src="images/cert-edusave-bursary.jpg" alt="Edusave Merit Bursary certificate 2023" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;">
+            </a>
+            <p><small>View certificate &rarr;</small></p>
+          </article>
           <article class="info-card" data-reveal>
             <i aria-hidden="true">DL</i>
-            <h3>Dean's List</h3>
-            <p><strong>University</strong> &bull; 2025</p>
-            <p>Recognized for excellent academic performance in Year 2 Semester 1.</p>
+            <h3>Director's List &mdash; Semester 1 &amp; Semester 2</h3>
+            <p><strong>Nanyang Polytechnic</strong> &bull; AY2025/2026</p>
+            <p>Achieved Director's List recognition at Nanyang Polytechnic for strong academic performance across both semesters of AY2025/2026.</p>
+            <a href="images/cert-directors-list.jpg" target="_blank" rel="noopener noreferrer">
+              <img src="images/cert-directors-list.jpg" alt="Director's List certificate AY2025/2026" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;">
+            </a>
+            <p><small>View certificate &rarr;</small></p>
           </article>
           <article class="info-card" data-reveal>
-            <i aria-hidden="true">02</i>
-            <h3>Coding Competition</h3>
-            <p><strong>School Tech Club</strong> &bull; 2024</p>
-            <p>Placeholder award for algorithmic problem-solving and teamwork.</p>
+            <i aria-hidden="true">CB</i>
+            <h3>CEP ACES Book Prize</h3>
+            <p><strong>Nanyang Polytechnic</strong> &bull; AY2025/2026</p>
+            <p>Selected for the CEP ACES Book Prize in recognition of academic achievement. The formal certificate will be received during the award dinner.</p>
+            <!-- TODO: Add cert photo as images/cert-cep-aces.jpg when received at award dinner -->
           </article>
           <article class="info-card" data-reveal>
-            <i aria-hidden="true">AI</i>
-            <h3>Analytics Showcase</h3>
-            <p><strong>Data Module</strong> &bull; 2025</p>
-            <p>Presented a dashboard concept with clear data storytelling and insight design.</p>
+            <i aria-hidden="true">EM</i>
+            <h3>Edusave Merit Bursary</h3>
+            <p><strong>MOE Edusave</strong> &bull; 2025</p>
+            <p>Awarded for academic performance and progress.</p>
+            <a href="images/cert-edusave-bursary.jpg" target="_blank" rel="noopener noreferrer">
+              <img src="images/cert-edusave-bursary.jpg" alt="Edusave Merit Bursary certificate 2025" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;">
+            </a>
+            <p><small>View certificate &rarr;</small></p>
           </article>
         </div>
       </section>
@@ -187,28 +274,37 @@
           <h2 id="experience-title">Practice</h2>
         </div>
         <div class="stacked-list">
-          <!-- ADD: real work experience here -->
-          <article class="experience-card" data-reveal>
-            <span class="logo-dot" aria-hidden="true">CO</span>
-            <div>
-              <p class="timeline-date">Jun 2025 - Aug 2025</p>
-              <h3>Data Intern - Placeholder Company</h3>
-              <ul>
-                <li>Cleaned and transformed spreadsheet data for analysis-ready reporting.</li>
-                <li>Built simple dashboards and documented repeatable data workflows.</li>
-                <li>Collaborated with mentors to translate questions into measurable metrics.</li>
-              </ul>
-            </div>
-          </article>
           <article class="experience-card" data-reveal>
             <span class="logo-dot" aria-hidden="true">TA</span>
             <div>
-              <p class="timeline-date">2024 - 2025</p>
-              <h3>Peer Tutor - Programming Support</h3>
+              <p class="timeline-date">Nov 2023 &ndash; Present</p>
+              <h3>Part-Time Sales Advisor</h3>
+              <p><strong>Takashimaya</strong></p>
               <ul>
-                <li>Helped classmates debug Python and SQL assignments.</li>
-                <li>Explained technical concepts with examples and short walkthroughs.</li>
+                <li>Served customers and answered product enquiries during holidays and non-exam periods.</li>
+                <li>Supported daily store operations and maintained the presentation of the sales area.</li>
+                <li>Built stronger communication skills, patience, responsibility, and professionalism through a customer-facing role.</li>
+                <li>Learned to stay calm under pressure and balance work responsibilities alongside school commitments.</li>
               </ul>
+              <a href="images/work-takashimaya.jpg" target="_blank" rel="noopener noreferrer">
+                <img src="images/work-takashimaya.jpg" alt="Zi Qian working as a Sales Advisor at Takashimaya" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;">
+              </a>
+              <p><small>At work &mdash; Takashimaya</small></p>
+            </div>
+          </article>
+          <article class="experience-card" data-reveal>
+            <span class="logo-dot" aria-hidden="true">PT</span>
+            <div>
+              <p class="timeline-date">2025 &ndash; Present</p>
+              <h3>Peer Tutor</h3>
+              <p><strong>Nanyang Polytechnic</strong></p>
+              <ul>
+                <li>Support Year 1 students by helping them understand topics from Year 1 modules.</li>
+                <li>Explain concepts, guide students through difficult areas, and help them build confidence in their learning.</li>
+                <li>Strengthened my own communication and leadership skills by adjusting explanations to each student's understanding.</li>
+                <li>Teaching others reinforced my own understanding by requiring deeper knowledge of the topics.</li>
+              </ul>
+              <!-- TODO: Add peer tutoring photo as images/work-peer-tutoring.jpg if available -->
             </div>
           </article>
         </div>
@@ -220,24 +316,31 @@
           <h2 id="cca-title">CCA</h2>
         </div>
         <div class="info-grid">
-          <!-- ADD: real CCA details here -->
+          <p class="section-kicker" data-reveal style="grid-column: 1 / -1;">Secondary School</p>
           <article class="info-card" data-reveal>
-            <i aria-hidden="true">RB</i>
-            <h3>Robotics Club</h3>
-            <p><strong>Member</strong> &bull; 2024-2026</p>
-            <p>Explored sensors, microcontrollers, and prototyping through group activities.</p>
+            <i aria-hidden="true">IC</i>
+            <h3>Infocomm Media Club</h3>
+            <p><strong>Mayflower Secondary School</strong> &bull; 2020 &ndash; 2023</p>
+            <p>Member of the Infocomm Media Club throughout secondary school. Carried out responsibilities including supporting the PA sound system during morning assembly, and participated in technology-related activities, media work, and school-based digital projects.</p>
           </article>
           <article class="info-card" data-reveal>
-            <i aria-hidden="true">&lt;/&gt;</i>
-            <h3>Coding Society</h3>
-            <p><strong>Team Lead</strong> &bull; 2025</p>
-            <p>Organized study sessions and supported project-based coding practice.</p>
+            <i aria-hidden="true">DJ</i>
+            <h3>DJI Online RoboMaster Challenge</h3>
+            <p><strong>Mayflower Secondary School</strong> &bull; 2020 &ndash; 2023</p>
+            <p>Participated in a technology-related competition that helped develop my early interest in technology and technical problem-solving.</p>
           </article>
           <article class="info-card" data-reveal>
-            <i aria-hidden="true">DA</i>
-            <h3>Data Analytics Group</h3>
-            <p><strong>Contributor</strong> &bull; 2025</p>
-            <p>Shared dashboard ideas, visual design references, and data project resources.</p>
+            <i aria-hidden="true">IY</i>
+            <h3>Infocomm Media Club Youth Awards</h3>
+            <p><strong>Mayflower Secondary School</strong> &bull; 2020 &ndash; 2023</p>
+            <p>Participated in the Infocomm Media Club Youth Awards, gaining early exposure to media, technology, and school-based digital projects.</p>
+          </article>
+          <p class="section-kicker" data-reveal style="grid-column: 1 / -1;">Polytechnic</p>
+          <article class="info-card" data-reveal>
+            <i aria-hidden="true">EC</i>
+            <h3>Entrepreneur Club</h3>
+            <p><strong>Nanyang Polytechnic</strong> &bull; 2025 &ndash; Present</p>
+            <p>Member of the Entrepreneur Club at Nanyang Polytechnic. Attended an entrepreneur workshop in early 2025 where participants engaged with and learned directly from experienced entrepreneurs.</p>
           </article>
         </div>
       </section>
@@ -248,18 +351,39 @@
           <h2 id="volunteer-title">Community</h2>
         </div>
         <div class="info-grid">
-          <!-- ADD: real volunteer work here -->
           <article class="info-card" data-reveal>
-            <i aria-hidden="true">HT</i>
-            <h3>Tech Literacy Support</h3>
-            <p><strong>Community Workshop</strong> &bull; 2024</p>
-            <p>Helped participants understand basic digital tools and safe online habits.</p>
+            <i aria-hidden="true">CN</i>
+            <h3>CNY Goodie Bag Packing</h3>
+            <p><strong>AWWA Elderly Centre</strong> &bull; 2022</p>
+            <p>Helped pack Chinese New Year goodie bags for elderly beneficiaries. Contributed to the community through simple but meaningful service work.</p>
+            <a href="images/volunteer-cny.jpg" target="_blank" rel="noopener noreferrer">
+              <img src="images/volunteer-cny.jpg" alt="CNY goodie bag packing for AWWA Elderly Centre 2022" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;">
+            </a>
+            <p><small>CNY volunteering &mdash; AWWA Elderly Centre</small></p>
           </article>
           <article class="info-card" data-reveal>
-            <i aria-hidden="true">ED</i>
-            <h3>Student Mentoring</h3>
-            <p><strong>Peer Program</strong> &bull; 2025</p>
-            <p>Supported juniors with study planning, programming practice, and confidence building.</p>
+            <i aria-hidden="true">CH</i>
+            <h3>Community@Heart Volunteering</h3>
+            <p><strong>Community Programme</strong> &bull; 2022</p>
+            <p>Participated in a community volunteering activity focused on local outreach and engagement. This experience helped me understand the importance of contributing time and effort beyond school.</p>
+            <!-- TODO: Add photo as images/volunteer-community-heart.jpg if available -->
+          </article>
+          <article class="info-card" data-reveal>
+            <i aria-hidden="true">SC</i>
+            <h3>Singapore Citizenship Ceremony Volunteer</h3>
+            <p><strong>Cheng San Community Club</strong> &bull; 25 April 2026</p>
+            <p>Supported the Singapore Citizenship Ceremony by helping with event operations including registration, seating, gift distribution, signage, and guiding participants during the event.</p>
+            <a href="images/volunteer-citizenship.jpg" target="_blank" rel="noopener noreferrer">
+              <img src="images/volunteer-citizenship.jpg" alt="Volunteering at Singapore Citizenship Ceremony, Cheng San Community Club, April 2026" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;">
+            </a>
+            <p><small>Citizenship Ceremony &mdash; Cheng San CC</small></p>
+          </article>
+          <article class="info-card" data-reveal>
+            <i aria-hidden="true">RC</i>
+            <span class="timeline-date" style="display:inline-block; color:#fff; background:#d99b16; padding:0.28rem 0.55rem; border-radius:999px; margin-bottom:0.65rem;">Upcoming</span>
+            <h3>Running Club Volunteer</h3>
+            <p><strong>Upcoming</strong> &bull; Upcoming</p>
+            <p>Signed up for a running club volunteer role and will contribute once the volunteering activity begins.</p>
           </article>
         </div>
       </section>
@@ -270,25 +394,37 @@
           <h2 id="about-skills-title">Toolkit</h2>
         </div>
         <div class="skill-category-grid">
-          <!-- ADD: real skills and proficiency details here -->
           <section class="skill-category" data-reveal>
             <h3>Programming Languages</h3>
             <div class="skills-grid">
               <span><b>PY</b> Python</span>
-              <span><b>SQL</b> SQL</span>
               <span><b>JS</b> JavaScript</span>
+              <span><b>HT</b> HTML/CSS</span>
+              <span><b>SQ</b> SQL</span>
               <span><b>C++</b> C++</span>
             </div>
           </section>
           <section class="skill-category" data-reveal>
-            <h3>Frameworks / Tools</h3>
+            <h3>Frameworks &amp; Tools</h3>
             <div class="skills-grid">
-              <span><b>ML</b> Scikit-learn</span>
-              <span><b>NN</b> TensorFlow / PyTorch</span>
-              <span><b>DV</b> Power BI / Tableau</span>
-              <span><b>GT</b> Git</span>
-              <span><b>CL</b> AWS / Azure</span>
-              <span><b>NP</b> Pandas / NumPy</span>
+              <span><b>ST</b> Streamlit</span>
+              <span><b>FL</b> Flask</span>
+              <span><b>DB</b> MariaDB</span>
+              <span><b>GT</b> Git / GitHub</span>
+              <span><b>AI</b> Autodesk Inventor</span>
+            </div>
+          </section>
+          <section class="skill-category" data-reveal>
+            <h3>Hardware</h3>
+            <div class="skills-grid">
+              <span><b>AR</b> Arduino</span>
+              <span><b>RP</b> Raspberry Pi</span>
+            </div>
+          </section>
+          <section class="skill-category" data-reveal>
+            <h3>Other</h3>
+            <div class="skills-grid">
+              <span><b>DP</b> Data Preparation &amp; Dashboard Basics</span>
             </div>
           </section>
           <section class="skill-category" data-reveal>
@@ -327,8 +463,11 @@
         <div data-reveal>
           <h2>Ready For The Full CV?</h2>
           <div class="cta-actions">
-            <!-- ACTION REQUIRED: replace with the final CV PDF, e.g. assets/Ziqian-Goh-CV.pdf, when ready. -->
-            <a class="button button-gradient" href="mailto:gohziqian1234@gmail.com?subject=CV%20Request%20-%20Ziqian%20Portfolio">Request Full CV</a>
+            <!-- CV DOWNLOAD: Place your real CV PDF at
+                 assets/Ziqian-CV.pdf before going live.
+                 If not ready, add style="display:none" to this
+                 button temporarily. -->
+            <a class="button button-gradient" href="assets/Ziqian-CV.pdf" target="_blank" rel="noopener noreferrer">Download Full CV</a>
             <a class="button button-outline" href="index.html#hero">Back to Home</a>
           </div>
         </div>
