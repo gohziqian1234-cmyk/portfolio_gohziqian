@@ -107,6 +107,19 @@ const PROJECTS = {
     tags: ["Autodesk Inventor", "CAD Design", "3D Printing", "Product Design", "Prototyping", "Design Iteration"],
     github: "",
     gallery: ["images/project-keychain-photo.png"]
+  },
+  construction: {
+    title: "Construction Safety Fall-Risk Detection System",
+    image: "images/project-construction-safety.svg",
+    imageAlt: "Construction Safety Fall-Risk Detection System construction site safety monitoring schematic",
+    modalVariant: "constructionCaseStudy",
+    video: "videos/construction-safety-demo.mp4",
+    poster: "images/project-construction-safety.svg",
+    github: "https://github.com/gohziqian1234-cmyk/REPLACE-WITH-CONSTRUCTION-SAFETY-REPO",
+    reportUrl: "#",
+    description: "A work-in-progress safety monitoring system designed to detect fall-from-height, slip-trip-fall, and near-miss risks in construction environments. The project uses sensor-based data collection, microcontroller processing, data pipeline development, database storage, and dashboard visualisation to support faster safety intervention.",
+    tags: ["IoT", "Data Engineering", "Sensors", "Arduino Nesso N1", "Data Pipeline", "Database", "Dashboard", "Workplace Safety"],
+    gallery: ["images/project-construction-safety.svg"]
   }
 };
 
@@ -804,6 +817,7 @@ function createModalMarkup(project) {
   if (project.modalVariant === "plantCaseStudy") return createPlantModalMarkup(project);
   if (project.modalVariant === "wheelchairCaseStudy") return createWheelchairModalMarkup(project);
   if (project.modalVariant === "keychainCaseStudy") return createKeychainModalMarkup(project);
+  if (project.modalVariant === "constructionCaseStudy") return createConstructionModalMarkup(project);
 
   const images = project.gallery?.length ? project.gallery : [project.image];
   const tags = project.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
@@ -1663,6 +1677,137 @@ function createKeychainModalMarkup(project) {
           </a>
         </div>
         <p class="modal-link-helper modal-helper-text">Opens in a new tab &mdash; this portfolio stays open here, so you can switch back anytime.</p>
+      </section>
+    </article>
+  `;
+}
+
+function createConstructionModalMarkup(project) {
+  const tags = project.tags.map((tag) => `<span class="tech-tag">${escapeHtml(tag)}</span>`).join("");
+
+  return `
+    <article class="project-modal-body project-modal-body-long">
+      <header class="modal-project-hero modal-case-header">
+        <p class="modal-eyebrow section-kicker dark">Project</p>
+        <h2 class="modal-title" id="modal-title">PROJECT: CONSTRUCTION SAFETY FALL-RISK DETECTION SYSTEM</h2>
+      </header>
+
+      <div class="modal-status-callout" role="status">
+        &#9888; Work In Progress — This project is currently under active development. Sections marked [Planned] describe intended design and architecture that has not yet been fully built.
+      </div>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Overview</h3>
+        <p>The Construction Safety Fall-Risk Detection System is a work-in-progress IoT and data engineering project built to monitor construction environments and detect fall-from-height, slip-trip-fall, and near-miss incidents in real time.</p>
+        <p>The system collects sensor data from an Arduino Nesso N1 microcontroller, processes it through a data pipeline, stores readings in a database, and visualises alerts on a safety dashboard. The goal is to support faster intervention and improve on-site safety awareness.</p>
+        <p>This project demonstrates my ability to work across the full stack of an IoT data system — from physical sensor integration at the edge to structured data storage and operator-facing visualisation.</p>
+      </section>
+
+      <div class="modal-media modal-video-frame">
+        <!-- TODO: Replace src with actual Construction Safety demo video (place file at /videos/construction-safety-demo.mp4) -->
+        <video class="modal-video" controls playsinline poster="${escapeHtml(project.poster)}" preload="none" data-volume-boost="${MODAL_VIDEO_GAIN}">
+          <source src="${escapeHtml(project.video)}" type="video/mp4">
+          Your browser does not support video playback.
+        </video>
+      </div>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Problem / Brief</h3>
+        <p>Construction sites are one of the most hazardous working environments, with falls from height being a leading cause of serious injury and fatality. Traditional safety monitoring relies heavily on manual supervision, which cannot always detect near-miss events in time for intervention.</p>
+        <p>The brief for this project was to design and begin building a sensor-based system that can automatically monitor construction environments, detect fall-risk events, and surface alerts to a safety dashboard — reducing the reliance on manual observation and enabling faster response times.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">My Role</h3>
+        <p>I am developing this project independently. My responsibilities include designing the sensor integration, writing the microcontroller data collection code, building the data pipeline, setting up the database schema, and developing the dashboard for visualising safety alerts.</p>
+        <p>This is a solo project covering the full scope from edge hardware to data infrastructure to front-end visualisation.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">What I Am Building</h3>
+        <p>I am building a multi-layer IoT safety monitoring system with the following components:</p>
+        <p>An Arduino Nesso N1 microcontroller connected to sensors that measure motion, acceleration, and positional data relevant to fall-risk detection on construction sites.</p>
+        <p>A data pipeline that receives sensor readings, processes and validates the data, and routes it into structured storage.</p>
+        <p>A database that logs sensor events, timestamps, alert levels, and incident classifications for ongoing analysis.</p>
+        <p>A safety dashboard that visualises real-time readings, flags high-risk events, and provides a historical record of near-miss and alert incidents.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Key Features</h3>
+        <ul class="modal-feature-list">
+          <li>Sensor-based fall-from-height detection using Arduino Nesso N1</li>
+          <li>Slip-trip-fall and near-miss risk event classification</li>
+          <li>Real-time data collection from construction environment sensors</li>
+          <li>Data pipeline for processing and routing sensor readings</li>
+          <li>Database storage for events, alerts, and incident history</li>
+          <li>Safety dashboard for real-time monitoring and alert visualisation</li>
+          <li>Designed for construction site deployment</li>
+        </ul>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Technical Implementation</h3>
+        <p>The Arduino Nesso N1 is used as the primary microcontroller for sensor data collection. It reads motion, acceleration, and environmental data from connected sensors and transmits the data through the pipeline layer.</p>
+        <p>The data pipeline receives raw sensor output, applies processing and validation logic, and stores structured records in the database. The pipeline is designed to handle continuous sensor readings and route alert-level events for priority display on the dashboard.</p>
+        <p>The database schema organises sensor readings by timestamp, location, alert type, and severity level, making it possible to query historical incident data as well as real-time events.</p>
+        <p>The dashboard layer reads from the database and renders readings, alert flags, and incident trends in a format suited for a construction site safety operator.</p>
+        <div class="modal-tech-tags">${tags}</div>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Skills Demonstrated</h3>
+        <ul class="modal-feature-list modal-skills-list">
+          <li>IoT sensor integration</li>
+          <li>Microcontroller programming (Arduino Nesso N1)</li>
+          <li>Data pipeline design and development</li>
+          <li>Database schema design and management</li>
+          <li>Dashboard development and data visualisation</li>
+          <li>Construction safety domain understanding</li>
+          <li>End-to-end system architecture (edge to dashboard)</li>
+          <li>Iterative prototyping and testing</li>
+        </ul>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Current Progress</h3>
+        <p>The project is currently in active development. The following progress has been made so far:</p>
+        <ul class="modal-feature-list">
+          <li>Sensor selection and hardware setup with Arduino Nesso N1 underway</li>
+          <li>Data pipeline architecture designed and partially implemented</li>
+          <li>Database schema defined</li>
+          <li>Dashboard design and structure planned</li>
+        </ul>
+        <p>Remaining work includes completing sensor integration, finalising the pipeline and database connection, and building out the full dashboard interface.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Outcome</h3>
+        <p>The intended outcome of this project is a working fall-risk detection system that demonstrates a complete IoT data pipeline — from physical sensor readings on a construction site through to a live safety dashboard.</p>
+        <p>This project represents my ability to connect hardware, data engineering, and visualisation into one unified system, applied to a real-world safety problem in the construction industry.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Future Improvements</h3>
+        <p>Once the core system is complete, future development could include integrating additional sensor types such as environmental monitors, pressure sensors, and wearable biometric devices for a more complete safety profile.</p>
+        <p>The alert system could be extended with SMS or push notification delivery so safety officers receive real-time incident alerts without needing to monitor the dashboard continuously.</p>
+        <p>Machine learning classification could be added to improve the accuracy of fall-risk event detection by learning from historical sensor patterns rather than relying on fixed threshold rules.</p>
+        <p>A mobile-responsive version of the safety dashboard could also be developed for use on tablets or smartphones on-site.</p>
+      </section>
+
+      <section class="modal-action-block" aria-label="Construction safety project links">
+        <div class="modal-actions modal-action-row">
+          <!-- TODO: Replace with actual GitHub repo URL for Construction Safety Fall-Risk Detection System -->
+          <a class="modal-action-button modal-play-button btn-primary" href="${escapeHtml(project.github)}" target="_blank" rel="noopener noreferrer" data-modal-action>
+            <span aria-hidden="true">&lt;/&gt;</span>
+            View Code on GitHub
+          </a>
+          <!-- TODO: Replace href with link to project report or documentation when available -->
+          <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.reportUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
+            <span aria-hidden="true">PDF</span>
+            View Project Report
+          </a>
+        </div>
+        <p class="modal-link-helper modal-helper-text">Opens in a new tab - this portfolio stays open here, so you can switch back anytime.</p>
       </section>
     </article>
   `;

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">Construction Safety Fall-Risk Detection System schematic</title>
+  <desc id="desc">A dark technical schematic showing a construction worker, scaffolding, sensor node, data pipeline, database, and safety dashboard.</desc>
+  <defs>
+    <linearGradient id="safetyStroke" x1="142" y1="126" x2="820" y2="474" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3d5afe"/>
+      <stop offset=".52" stop-color="#7b61ff"/>
+      <stop offset="1" stop-color="#ffb020"/>
+    </linearGradient>
+    <radialGradient id="safetyAura" cx="48%" cy="48%" r="58%">
+      <stop stop-color="#3d5afe" stop-opacity=".22"/>
+      <stop offset=".54" stop-color="#7b61ff" stop-opacity=".1"/>
+      <stop offset="1" stop-color="#0e1113" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="safetyGlow" x="-45%" y="-45%" width="190%" height="190%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="960" height="600" fill="#0b0c12"/>
+  <circle cx="480" cy="300" r="258" fill="url(#safetyAura)"/>
+  <g stroke="#ffffff" stroke-width="1" opacity=".05">
+    <path d="M0 120h960M0 240h960M0 360h960M0 480h960"/>
+    <path d="M120 0v600M240 0v600M360 0v600M480 0v600M600 0v600M720 0v600M840 0v600"/>
+  </g>
+  <g fill="none" stroke="url(#safetyStroke)" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M128 478h704" stroke-width="3" opacity=".48"/>
+    <path d="M154 156v322M272 156v322M154 156h118M154 254h118M154 352h118M154 450h118" stroke-width="4"/>
+    <path d="M154 254l118-98M154 352l118-98M154 450l118-98M272 254l-118-98M272 352l-118-98M272 450l-118-98" stroke-width="2.2" opacity=".5"/>
+    <path d="M210 154v-52h120v52" stroke-width="4"/>
+    <path d="M234 102h72M234 128h72" stroke="#f4f1ea" stroke-width="2.5" opacity=".55"/>
+
+    <circle cx="386" cy="176" r="34" stroke-width="4"/>
+    <path d="M354 212l-26 98M418 212l36 96M342 306h108M354 382l32-74M422 382l-36-74" stroke-width="5"/>
+    <path d="M348 232l-48 40M424 234l70 24" stroke-width="4"/>
+    <path d="M358 154h56" stroke-width="5"/>
+    <path d="M334 154h104" stroke="#ffb020" stroke-width="3" opacity=".9"/>
+
+    <circle cx="520" cy="258" r="40" stroke-width="4"/>
+    <path d="M520 218v80M480 258h80M492 230l56 56M548 230l-56 56" stroke="#f4f1ea" stroke-width="2.4" opacity=".5"/>
+    <path d="M560 258h70M630 258v108M630 366h72" stroke-width="3.5" opacity=".75"/>
+
+    <rect x="702" y="150" width="148" height="96" rx="18" stroke-width="4"/>
+    <path d="M732 184h76M732 212h48" stroke="#f4f1ea" stroke-width="4" opacity=".58"/>
+    <path d="M718 280h118v72H718z" stroke-width="4"/>
+    <path d="M736 322l20-22 24 18 32-38" stroke="#ffb020" stroke-width="4"/>
+    <ellipse cx="778" cy="420" rx="58" ry="18" stroke-width="4"/>
+    <path d="M720 420v46c0 13 26 23 58 23s58-10 58-23v-46" stroke-width="4"/>
+    <path d="M672 366h46M778 352v50" stroke-width="3.5" opacity=".75"/>
+  </g>
+  <g fill="#ffb020" filter="url(#safetyGlow)">
+    <circle cx="386" cy="176" r="7"/>
+    <circle cx="520" cy="258" r="7"/>
+    <circle cx="630" cy="366" r="7"/>
+    <circle cx="718" cy="316" r="7"/>
+    <circle cx="778" cy="420" r="7"/>
+  </g>
+  <g fill="#f3f1ec" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800" letter-spacing="2" opacity=".82">
+    <text x="138" y="524">HEIGHT ZONE</text>
+    <text x="314" y="432">WORKER NODE</text>
+    <text x="468" y="182">SENSOR</text>
+    <text x="690" y="124">SAFETY DASHBOARD</text>
+    <text x="706" y="528">EVENT DATABASE</text>
+  </g>
+  <g fill="#ffb020" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="900" letter-spacing="4" opacity=".9">
+    <text x="54" y="74">FALL RISK / NEAR MISS</text>
+  </g>
+</svg>

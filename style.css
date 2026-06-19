@@ -6533,6 +6533,12 @@ body[data-page="projects"] .game-chip {
   letter-spacing: 0.08em;
 }
 
+body[data-page="projects"] .status-badge.status-progress {
+  border-color: #d99b16;
+  background: #d99b16;
+  color: var(--color-bg);
+}
+
 body[data-page="projects"] .project-card-body {
   background: linear-gradient(180deg, rgba(21, 25, 28, 0.92), var(--color-bg-raised));
 }
@@ -6604,6 +6610,20 @@ body[data-page="projects"] .role-meta-value {
 
 body[data-page="projects"] .project-modal-body-long .modal-section p strong {
   color: var(--color-accent);
+}
+
+body[data-page="projects"] .modal-status-callout {
+  margin: 24px 0 8px;
+  padding: 16px 18px;
+  border: 1px solid var(--color-accent);
+  border-left-width: 4px;
+  border-radius: 2px;
+  background: var(--color-accent-dim);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.6;
 }
 
 body[data-page="projects"] .modal-role-meta,
