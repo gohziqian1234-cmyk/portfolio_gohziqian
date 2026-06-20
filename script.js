@@ -123,6 +123,121 @@ const PROJECTS = {
   }
 };
 
+const ABOUT_DETAILS = {
+  takashimaya: {
+    title: "Part-Time Sales Advisor — Christofle, Takashimaya",
+    sections: [
+      {
+        title: "The Role",
+        paragraphs: [
+          "I work as a part-time Sales Advisor at Christofle in Takashimaya during holidays and non-exam periods. Christofle is a luxury silverware brand, so the role requires professionalism, product knowledge, attention to detail, and the ability to communicate clearly with different types of customers."
+        ]
+      },
+      {
+        title: "A Typical Shift",
+        paragraphs: [
+          "During morning shifts, I usually report at 9:30am and attend the Takashimaya morning briefing conducted by the management team. After the briefing, I prepare the counter for daily operations by cleaning the display area, opening the sales system, checking stock, arranging products, and making sure the counter is ready before customers arrive. This taught me the importance of preparation, consistency, and maintaining a professional retail environment."
+        ]
+      },
+      {
+        title: "Working With Customers",
+        paragraphs: [
+          "A major part of my role is assisting customers who are interested in Christofle products. I answer product enquiries, explain product details, understand what the customer is looking for, and recommend suitable silverware items based on their needs. Since luxury products are usually higher-value purchases, I learned that selling is not only about promoting an item, but also about building trust, listening carefully, and helping customers feel confident in their decision."
+        ]
+      },
+      {
+        title: "Sales Experience",
+        paragraphs: [
+          "Through this role, I gained real experience in customer communication and sales responsibility. I have contributed to sales conversations involving high-value items, including assisted sales exceeding $4,000 individually and over $10,000 as part of a team effort with my manager. These experiences helped me become more confident when speaking to customers, explaining product value, and handling sales conversations professionally."
+        ]
+      },
+      {
+        title: "Handling Pressure",
+        paragraphs: [
+          "Working in retail also taught me how to manage pressure and difficult situations. There were times when customers became unhappy because of miscommunication, and I had to stay calm instead of reacting emotionally. From these situations, I learned to listen carefully, speak respectfully, clarify the issue, and handle the customer professionally."
+        ]
+      },
+      {
+        title: "What This Taught Me",
+        paragraphs: [
+          "This experience helped me grow beyond technical skills. It strengthened my communication, patience, responsibility, emotional control, and ability to adapt to different people. These are skills that also support my project work, especially when working in teams, explaining ideas, presenting solutions, and handling feedback."
+        ]
+      }
+    ]
+  },
+  citizenship: {
+    title: "Singapore Citizenship Ceremony Volunteer",
+    sections: [
+      {
+        title: "The Event",
+        paragraphs: [
+          "I volunteered at the Singapore Citizenship Ceremony held at Cheng San Community Club. The event ran from around 9am to 5pm and consisted of two ceremony sessions attended by newly approved Singapore citizens and their families. The ceremony was an important occasion that celebrated their official integration into Singapore society and recognised their commitment to becoming part of the nation."
+        ]
+      },
+      {
+        title: "Before the Ceremony",
+        paragraphs: [
+          "I assisted with venue preparation by arranging chairs, organising registration materials, checking seating arrangements, and ensuring that the event area was ready to receive participants."
+        ]
+      },
+      {
+        title: "During Registration",
+        paragraphs: [
+          "I welcomed attendees, verified their names and seating information, directed them to the appropriate locations, and answered basic enquiries to help the registration process run smoothly and efficiently."
+        ]
+      },
+      {
+        title: "During the Ceremony",
+        paragraphs: [
+          "Throughout the ceremony, I remained attentive and approachable so that participants could seek assistance whenever needed. As many attendees were experiencing a significant milestone in their lives, I made an effort to communicate politely, patiently, and respectfully. I understood that creating a positive and welcoming environment was important in helping participants feel comfortable and valued during the event."
+        ]
+      },
+      {
+        title: "Teamwork",
+        paragraphs: [
+          "Working alongside other volunteers and event organisers also taught me the importance of teamwork and coordination. We had to cooperate closely to manage participant flow, maintain order, and ensure that both ceremony sessions proceeded according to schedule. Through this experience, I learned how effective communication and collaboration contribute to the success of large-scale community events."
+        ]
+      },
+      {
+        title: "What This Taught Me",
+        paragraphs: [
+          "This volunteering experience strengthened my communication, interpersonal, and organisational skills. It improved my ability to interact confidently with members of the public, adapt to different situations, and take responsibility for assigned tasks. Most importantly, it gave me a deeper appreciation of community service and the role volunteers play in supporting meaningful national and community events."
+        ]
+      }
+    ]
+  },
+  infocomm: {
+    title: "Infocomm Media Club — Mayflower Secondary School",
+    sections: [
+      {
+        title: "My Role",
+        paragraphs: [
+          "I was a member of the Infocomm Media Club during secondary school, where I supported school media, audio-visual operations, and event coverage. One of my regular responsibilities was helping with the school PA system during morning assembly, making sure the audio setup was ready and working properly."
+        ]
+      },
+      {
+        title: "Event Support",
+        paragraphs: [
+          "I also helped during school events such as CCA exhibitions and school open house activities by supporting media-related tasks, taking photos or videos, and helping with event operations when needed. These experiences taught me how to be responsible behind the scenes and support school activities in a professional way."
+        ]
+      },
+      {
+        title: "Competitions Through This CCA",
+        paragraphs: [
+          "As part of my CCA experience, I also participated in technology-related competitions and activities, including the DJI RoboMaster Online Challenge (2022) and Infocomm Media Club Youth Award (2022). Although these were not major award-winning achievements, they gave me early exposure to robotics, media, teamwork, and technical problem-solving.",
+          "For the DJI RoboMaster Online Challenge specifically: I participated as part of my Infocomm Media Club experience. Although I do not have full details of the final outcome, the activity exposed me to robotics-related thinking, teamwork, and technology-based problem solving. This experience contributed to my early interest in engineering and technical projects, especially in areas involving systems, hardware, and problem-solving."
+        ]
+      },
+      {
+        title: "What This Taught Me",
+        paragraphs: [
+          "This CCA helped me build responsibility, attention to detail, confidence in handling technical equipment, and early interest in technology-related work."
+        ]
+      }
+    ]
+  }
+};
+
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
@@ -810,6 +925,103 @@ function initProjectModal() {
   });
 }
 
+function initAboutModal() {
+  const modal = $("#about-modal");
+  if (!modal) return;
+
+  const content = $(".modal-content", modal);
+  const scrollArea = $(".modal-scroll-area", modal);
+  let previousFocus = null;
+  let closeFallback = null;
+
+  if (!content || !scrollArea) return;
+
+  const finishClose = () => {
+    window.clearTimeout(closeFallback);
+    modal.classList.remove("is-closing");
+    modal.setAttribute("aria-hidden", "true");
+    scrollArea.innerHTML = "";
+    document.body.classList.remove("modal-open");
+    previousFocus?.focus?.();
+  };
+
+  const closeModal = () => {
+    if (!modal.classList.contains("active")) return;
+    modal.classList.remove("active");
+    modal.classList.add("is-closing");
+
+    if (prefersReducedMotion) {
+      finishClose();
+      return;
+    }
+
+    const onTransitionEnd = (event) => {
+      if (event.target !== content) return;
+      content.removeEventListener("transitionend", onTransitionEnd);
+      finishClose();
+    };
+
+    content.addEventListener("transitionend", onTransitionEnd);
+    closeFallback = window.setTimeout(() => {
+      content.removeEventListener("transitionend", onTransitionEnd);
+      finishClose();
+    }, 380);
+  };
+
+  const openModal = (detail) => {
+    previousFocus = document.activeElement;
+    scrollArea.innerHTML = createAboutModalMarkup(detail);
+    wireModalActionRipples(scrollArea);
+    wireModalScrollFade(modal);
+    modal.classList.remove("is-closing");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+    requestAnimationFrame(() => {
+      modal.classList.add("active");
+      $(".modal-close", modal)?.focus();
+    });
+  };
+
+  $$("[data-open-about]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const detail = ABOUT_DETAILS[button.dataset.openAbout];
+      if (detail) openModal(detail);
+    });
+  });
+
+  modal.addEventListener("click", (event) => {
+    if (event.target.closest("[data-close-about-modal]")) closeModal();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeModal();
+  });
+}
+
+function createAboutModalMarkup(detail) {
+  const sections = detail.sections
+    .map((section) => {
+      const paragraphs = section.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
+      return `
+        <section class="modal-section modal-case-section">
+          <h3 class="modal-section-heading">${escapeHtml(section.title)}</h3>
+          ${paragraphs}
+        </section>
+      `;
+    })
+    .join("");
+
+  return `
+    <article class="project-modal-body project-modal-body-long">
+      <header class="modal-project-hero modal-case-header">
+        <p class="modal-eyebrow section-kicker dark">Detail</p>
+        <h2 class="modal-title" id="about-modal-title">${escapeHtml(detail.title)}</h2>
+      </header>
+      ${sections}
+    </article>
+  `;
+}
+
 function createModalMarkup(project) {
   if (project.modalVariant === "pianoCaseStudy") return createPianoModalMarkup(project);
   if (project.modalVariant === "erebusCaseStudy") return createErebusModalMarkup(project);
@@ -1216,6 +1428,7 @@ function createMcfastModalMarkup(project) {
             Try App on Streamlit
           </a>
         </div>
+        <p class="modal-link-helper modal-helper-text">Note: This app is hosted on a free tier and may take 30&ndash;60 seconds to load if it has been inactive. If you see a 'Zzzz' sleep screen, click to wake it up and wait briefly.</p>
         <p class="modal-link-helper modal-helper-text">Opens in a new tab - this portfolio stays open here, so you can switch back anytime.</p>
       </section>
     </article>
@@ -3007,6 +3220,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initSceneDirector();
   initProjectTabs();
   initProjectModal();
+  initAboutModal();
   initContactForm();
   initStatCounters();
   initPhotoTilt();

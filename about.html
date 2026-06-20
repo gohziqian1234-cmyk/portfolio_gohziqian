@@ -28,31 +28,31 @@
     <script src="script.js" defer></script>
   </head>
   <!--
-  PHOTO ASSETS FOR THIS PAGE - place files at these exact paths:
+  PHOTO ASSETS - place files at these exact paths:
 
   PROFILE:
-    images/profile-photo.jpg         - Your profile photo (square, min 400x400px)
+    images/profile-photo.jpg
 
   AWARD CERTIFICATES:
-    images/cert-good-progress-award.jpg     - Good Progress Award 2020
-    images/cert-edusave-scholarship.jpg     - Edusave Scholarship 2022
-    images/cert-edusave-academic.jpg        - Edusave Cert of Academic Achievement 2023
-    images/cert-edusave-bursary.jpg         - Edusave Merit Bursary (used for 2023 + 2025)
-    images/cert-directors-list.jpg          - Director's List AY2025/2026
-    images/cert-cep-aces.jpg                - CEP ACES Book Prize (TODO: not received yet)
+    images/cert-good-progress-award.jpg
+    images/cert-edusave-scholarship.jpg
+    images/cert-edusave-academic.jpg
+    images/cert-edusave-bursary.jpg
+    images/cert-directors-list.jpg
+    images/cert-cep-aces.jpg (TODO: not received yet)
 
   WORK:
-    images/work-takashimaya.jpg      - Photo of you working at Takashimaya
-    images/work-peer-tutoring.jpg    - TODO: add if available
+    images/work-takashimaya.jpg
+    images/work-peer-tutoring.jpg (TODO: add if available)
 
   VOLUNTEERING:
-    images/volunteer-cny.jpg         - CNY goodie bag packing, AWWA 2022
-    images/volunteer-citizenship.jpg - Citizenship Ceremony, Cheng San CC, April 2026
-    images/volunteer-community-heart.jpg - TODO: add if available
+    images/volunteer-cny.jpg (the REAL CNY-specific photo - do not reuse the Community@Heart photo here)
+    images/volunteer-community-heart.jpg (its own separate photo)
+    images/volunteer-citizenship.jpg
 
-  CV & DOCUMENTS (in assets/ folder, not images/):
-    assets/Ziqian-CV.pdf                    - Your CV (TODO: add before going live)
-    assets/ziqian-school-testimonial.pdf    - School testimonial PDF (TODO: add)
+  DOCUMENTS (in assets/ folder):
+    assets/Ziqian-CV.pdf
+    assets/ziqian-school-testimonial.pdf
   -->
   <body data-page="about">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -125,8 +125,7 @@
           <p class="section-kicker">Full Profile</p>
           <h1 class="display-heading" id="about-page-title">About Ziqian</h1>
           <figure class="photo-frame" style="max-width: 220px; margin: 1.5rem 0;">
-            <!-- PROFILE PHOTO: place your photo at images/profile-photo.jpg
-                 Recommended: square crop, minimum 400x400px, smart-casual -->
+            <!-- PROFILE PHOTO: place your photo at images/profile-photo.jpg -->
             <img
               src="images/profile-photo.jpg"
               alt="Zi Qian — AI and Data Engineering student at Nanyang Polytechnic"
@@ -253,17 +252,14 @@
             <h3>CEP ACES Book Prize</h3>
             <p><strong>Nanyang Polytechnic</strong> &bull; AY2025/2026</p>
             <p>Selected for the CEP ACES Book Prize in recognition of academic achievement. The formal certificate will be received during the award dinner.</p>
-            <!-- TODO: Add cert photo as images/cert-cep-aces.jpg when received at award dinner -->
+            <!-- TODO: add images/cert-cep-aces.jpg when received -->
           </article>
           <article class="info-card" data-reveal>
             <i aria-hidden="true">EM</i>
             <h3>Edusave Merit Bursary</h3>
             <p><strong>MOE Edusave</strong> &bull; 2025</p>
             <p>Awarded for academic performance and progress.</p>
-            <a href="images/cert-edusave-bursary.jpg" target="_blank" rel="noopener noreferrer">
-              <img src="images/cert-edusave-bursary.jpg" alt="Edusave Merit Bursary certificate 2025" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;">
-            </a>
-            <p><small>View certificate &rarr;</small></p>
+            <p><small>Certificate not available &mdash; award confirmed via school records.</small></p>
           </article>
         </div>
       </section>
@@ -281,15 +277,16 @@
               <h3>Part-Time Sales Advisor</h3>
               <p><strong>Takashimaya</strong></p>
               <ul>
-                <li>Served customers and answered product enquiries during holidays and non-exam periods.</li>
-                <li>Supported daily store operations and maintained the presentation of the sales area.</li>
-                <li>Built stronger communication skills, patience, responsibility, and professionalism through a customer-facing role.</li>
-                <li>Learned to stay calm under pressure and balance work responsibilities alongside school commitments.</li>
+                <li>Serve customers and answer product enquiries during holidays and non-exam periods.</li>
+                <li>Support daily store operations and maintain the presentation of the sales area.</li>
+                <li>Built stronger communication skills, patience, responsibility, and professionalism.</li>
+                <li>Learned to stay calm under pressure and balance work with school commitments.</li>
               </ul>
               <a href="images/work-takashimaya.jpg" target="_blank" rel="noopener noreferrer">
                 <img src="images/work-takashimaya.jpg" alt="Zi Qian working as a Sales Advisor at Takashimaya" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;">
               </a>
               <p><small>At work &mdash; Takashimaya</small></p>
+              <button class="mini-button" type="button" data-open-about="takashimaya">Learn More</button>
             </div>
           </article>
           <article class="experience-card" data-reveal>
@@ -321,19 +318,8 @@
             <i aria-hidden="true">IC</i>
             <h3>Infocomm Media Club</h3>
             <p><strong>Mayflower Secondary School</strong> &bull; 2020 &ndash; 2023</p>
-            <p>Member of the Infocomm Media Club throughout secondary school. Carried out responsibilities including supporting the PA sound system during morning assembly, and participated in technology-related activities, media work, and school-based digital projects.</p>
-          </article>
-          <article class="info-card" data-reveal>
-            <i aria-hidden="true">DJ</i>
-            <h3>DJI Online RoboMaster Challenge</h3>
-            <p><strong>Mayflower Secondary School</strong> &bull; 2020 &ndash; 2023</p>
-            <p>Participated in a technology-related competition that helped develop my early interest in technology and technical problem-solving.</p>
-          </article>
-          <article class="info-card" data-reveal>
-            <i aria-hidden="true">IY</i>
-            <h3>Infocomm Media Club Youth Awards</h3>
-            <p><strong>Mayflower Secondary School</strong> &bull; 2020 &ndash; 2023</p>
-            <p>Participated in the Infocomm Media Club Youth Awards, gaining early exposure to media, technology, and school-based digital projects.</p>
+            <p>Member of the Infocomm Media Club throughout secondary school. Carried out responsibilities including supporting the PA sound system during morning assembly, and participated in technology activities, media work, and competitions including the DJI RoboMaster Online Challenge (2022) and Infocomm Media Club Youth Award (2022).</p>
+            <button class="mini-button" type="button" data-open-about="infocomm">Learn More</button>
           </article>
           <p class="section-kicker" data-reveal style="grid-column: 1 / -1;">Polytechnic</p>
           <article class="info-card" data-reveal>
@@ -366,7 +352,10 @@
             <h3>Community@Heart Volunteering</h3>
             <p><strong>Community Programme</strong> &bull; 2022</p>
             <p>Participated in a community volunteering activity focused on local outreach and engagement. This experience helped me understand the importance of contributing time and effort beyond school.</p>
-            <!-- TODO: Add photo as images/volunteer-community-heart.jpg if available -->
+            <a href="images/volunteer-community-heart.jpg" target="_blank" rel="noopener noreferrer">
+              <img src="images/volunteer-community-heart.jpg" alt="Community@Heart volunteering activity 2022" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;">
+            </a>
+            <p><small>Community@Heart volunteering</small></p>
           </article>
           <article class="info-card" data-reveal>
             <i aria-hidden="true">SC</i>
@@ -377,6 +366,7 @@
               <img src="images/volunteer-citizenship.jpg" alt="Volunteering at Singapore Citizenship Ceremony, Cheng San Community Club, April 2026" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;">
             </a>
             <p><small>Citizenship Ceremony &mdash; Cheng San CC</small></p>
+            <button class="mini-button" type="button" data-open-about="citizenship">Learn More</button>
           </article>
           <article class="info-card" data-reveal>
             <i aria-hidden="true">RC</i>
@@ -463,10 +453,7 @@
         <div data-reveal>
           <h2>Ready For The Full CV?</h2>
           <div class="cta-actions">
-            <!-- CV DOWNLOAD: Place your real CV PDF at
-                 assets/Ziqian-CV.pdf before going live.
-                 If not ready, add style="display:none" to this
-                 button temporarily. -->
+            <!-- CV DOWNLOAD: Place real CV PDF at assets/Ziqian-CV.pdf before going live -->
             <a class="button button-gradient" href="assets/Ziqian-CV.pdf" target="_blank" rel="noopener noreferrer">Download Full CV</a>
             <a class="button button-outline" href="index.html#hero">Back to Home</a>
           </div>
@@ -477,5 +464,14 @@
         </footer>
       </section>
     </main>
+
+    <div class="modal-overlay" id="about-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="about-modal-title">
+      <div class="modal-backdrop" data-close-about-modal></div>
+      <div class="modal-content" tabindex="-1">
+        <button class="modal-close" type="button" data-close-about-modal aria-label="Close about detail modal">&times;</button>
+        <div class="modal-scroll-area"></div>
+        <div class="modal-scroll-fade" aria-hidden="true"></div>
+      </div>
+    </div>
   </body>
 </html>
