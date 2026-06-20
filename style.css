@@ -6239,6 +6239,26 @@ body[data-page="projects"] .project-card p {
   line-height: 1.62;
 }
 
+body[data-page="about"] .timeline-item article strong,
+body[data-page="about"] .info-card strong,
+body[data-page="about"] .experience-card strong,
+body[data-page="about"] .skill-category strong {
+  color: var(--color-text);
+}
+
+body[data-page="about"] .timeline-item article small,
+body[data-page="about"] .info-card small,
+body[data-page="about"] .experience-card small,
+body[data-page="about"] .skill-category small {
+  color: var(--color-text-muted);
+}
+
+body[data-page="about"] .info-card a:not(.mini-button):not(.button),
+body[data-page="about"] .experience-card a:not(.mini-button):not(.button),
+body[data-page="about"] .skill-category a:not(.mini-button):not(.button) {
+  color: var(--color-text-muted);
+}
+
 body[data-page="about"] .info-card > i,
 body[data-page="about"] .info-card > span,
 body[data-page="about"] .continue-icon,
