@@ -6243,11 +6243,49 @@ body[data-page="about"] .info-card > i,
 body[data-page="about"] .info-card > span,
 body[data-page="about"] .continue-icon,
 body[data-page="projects"] .continue-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  background: var(--color-bg);
   color: var(--color-accent);
   font-family: var(--font-mono);
-  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-size: 14px;
   font-style: normal;
   font-weight: 700;
+  line-height: 1;
+  box-shadow: none;
+}
+
+body[data-page="about"] #achievements .info-card > a[href^="images/cert-"] {
+  display: inline-grid;
+  justify-items: start;
+  gap: 6px;
+  width: max-content;
+  max-width: 100%;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+body[data-page="about"] #achievements .info-card > a[href^="images/cert-"] img {
+  width: 80px;
+  height: 80px;
+  max-width: 80px;
+  max-height: 80px;
+  object-fit: cover;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+body[data-page="about"] #achievements .info-card > a[href^="images/cert-"]:hover,
+body[data-page="about"] #achievements .info-card > a[href^="images/cert-"]:focus-visible {
+  color: var(--color-accent);
 }
 
 body[data-page="about"] .experience-card {
@@ -6358,6 +6396,7 @@ body[data-page="projects"] .continue-card:focus-visible .continue-arrow {
 }
 
 body[data-page="about"] .button,
+body[data-page="about"] .mini-button,
 body[data-page="projects"] .button,
 body[data-page="projects"] .mini-button,
 body[data-page="projects"] .modal-action-button {
@@ -6379,6 +6418,7 @@ body[data-page="projects"] .btn-primary {
 }
 
 body[data-page="about"] .button-outline,
+body[data-page="about"] .mini-button,
 body[data-page="projects"] .button-outline,
 body[data-page="projects"] .modal-github-button,
 body[data-page="projects"] .btn-secondary,
@@ -6390,6 +6430,8 @@ body[data-page="projects"] .mini-button {
 
 body[data-page="about"] .button:hover,
 body[data-page="about"] .button:focus-visible,
+body[data-page="about"] .mini-button:hover,
+body[data-page="about"] .mini-button:focus-visible,
 body[data-page="projects"] .button:hover,
 body[data-page="projects"] .button:focus-visible,
 body[data-page="projects"] .mini-button:hover,
