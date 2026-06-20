@@ -165,6 +165,25 @@ const ABOUT_DETAILS = {
       }
     ]
   },
+  "peer-tutor": {
+    eyebrow: "WORK EXPERIENCE",
+    title: "Peer Tutor — Programming Support",
+    meta: [
+      { label: "Role", value: "Peer Tutor" },
+      { label: "Duration", value: "2024 – 2025" }
+    ],
+    sections: [
+      {
+        paragraphs: [
+          "I support a junior/student by helping him during exam and assessment periods, especially when he needs guidance with difficult topics. Before major tests or submissions, I would check in and ask whether he needed help, then guide him through the areas he was struggling with.",
+          "The support covered modules such as mathematics, mechanical-related topics, electrical concepts, and general study preparation. Instead of only giving answers, I tried to explain the steps clearly, break down the problem, and help him understand how to approach similar questions in the future.",
+          "There were also times when he needed urgent help late at night. On one occasion, he messaged me close to midnight before an assessment period, and I still guided him online for around two hours to help him understand the topic better. This showed me the importance of patience, responsibility, and being willing to support others outside normal study hours.",
+          "Beyond academic explanation, I also shared advice on how to prepare for assessments, how to focus on high-mark areas, how to avoid common mistakes, and how to study more effectively. This experience strengthened my communication skills because I had to explain technical concepts in a simple way and adjust my explanation based on his understanding.",
+          "Through peer support, I learned that helping others is not only about knowing the answer. It is also about being patient, listening carefully, encouraging the other person, and helping them build confidence in their own learning."
+        ]
+      }
+    ]
+  },
   citizenship: {
     title: "Singapore Citizenship Ceremony Volunteer",
     sections: [
@@ -206,6 +225,41 @@ const ABOUT_DETAILS = {
       }
     ]
   },
+  "cny-goodie": {
+    eyebrow: "VOLUNTEER WORK",
+    title: "CNY Goodie Bag Packing",
+    meta: [
+      { label: "Organisation", value: "AWWA Elderly Centre" },
+      { label: "Duration", value: "2022" }
+    ],
+    sections: [
+      {
+        paragraphs: [
+          "I participated in a Chinese New Year goodie bag packing activity for elderly beneficiaries from AWWA Elderly Centre. The activity involved collecting food items and packing them into goodie bags so they could be distributed to elderly residents during Chinese New Year.",
+          "During the activity, I worked together with my peer to organise the items, pack the bags properly, and make sure the food items were prepared neatly for distribution. The packing session lasted around two hours and required teamwork, patience, and attention to detail so that the items were packed efficiently.",
+          "This volunteering experience also gave me the opportunity to contribute to a meaningful community activity. Although the task was simple, it reminded me that small acts of service can still support others, especially elderly beneficiaries during festive periods.",
+          "Through this activity, I learned the importance of teamwork, responsibility, and contributing time to help the community."
+        ]
+      }
+    ]
+  },
+  "community-heart": {
+    eyebrow: "VOLUNTEER WORK",
+    title: "Community@Heart Volunteering",
+    meta: [
+      { label: "Programme", value: "Community@Heart" },
+      { label: "Duration", value: "2022" }
+    ],
+    sections: [
+      {
+        paragraphs: [
+          "I participated in a Community@Heart volunteering activity where I helped make mosquito repellent for distribution to others in the community. This was my first time taking part in this type of activity, so I had to learn the process step by step and follow the instructions carefully.",
+          "During the activity, I worked with others to prepare the mosquito repellent properly and make sure the items were ready to be given out. Although the task was new to me, I was willing to learn, ask questions when needed, and contribute to the group effort.",
+          "This experience helped me understand that volunteering does not always need to be a large or complex task. Even simple work, such as preparing useful items for others, can still support the community. It also helped me build teamwork, patience, and a stronger willingness to try new things."
+        ]
+      }
+    ]
+  },
   infocomm: {
     title: "Infocomm Media Club — Mayflower Secondary School",
     sections: [
@@ -232,6 +286,23 @@ const ABOUT_DETAILS = {
         title: "What This Taught Me",
         paragraphs: [
           "This CCA helped me build responsibility, attention to detail, confidence in handling technical equipment, and early interest in technology-related work."
+        ]
+      }
+    ]
+  },
+  entrepreneurship: {
+    eyebrow: "CO-CURRICULAR ACTIVITY",
+    title: "Entrepreneurship Club",
+    meta: [
+      { label: "Role", value: "Member" },
+      { label: "Duration", value: "2025 – Present" }
+    ],
+    sections: [
+      {
+        paragraphs: [
+          "I joined the Entrepreneurship Club to gain exposure to entrepreneurship, business thinking, and innovation beyond my technical modules. Through the club, I was introduced to how ideas can be developed into practical solutions, how value is created for users, and how communication is important when presenting or explaining an idea.",
+          "Although my involvement was mainly through club participation and event exposure, the experience helped me understand that a good solution is not only about building something technically. It also needs to solve a real problem, meet user needs, and be communicated clearly to others.",
+          "This CCA supported my growth as an AI & Data Engineering student because it helped me think beyond coding and technical implementation. It reminded me to consider the user, the problem, the value of the solution, and how a project can create real-world impact."
         ]
       }
     ]
@@ -999,12 +1070,30 @@ function initAboutModal() {
 }
 
 function createAboutModalMarkup(detail) {
+  const meta = detail.meta?.length
+    ? `
+      <div class="modal-role-meta">
+        ${detail.meta
+          .map(
+            (item) => `
+              <div class="role-meta-item">
+                <span class="role-meta-label">${escapeHtml(item.label)}</span>
+                <span class="role-meta-value">${escapeHtml(item.value)}</span>
+              </div>
+            `
+          )
+          .join("")}
+      </div>
+    `
+    : "";
+
   const sections = detail.sections
     .map((section) => {
       const paragraphs = section.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
+      const heading = section.title ? `<h3 class="modal-section-heading">${escapeHtml(section.title)}</h3>` : "";
       return `
         <section class="modal-section modal-case-section">
-          <h3 class="modal-section-heading">${escapeHtml(section.title)}</h3>
+          ${heading}
           ${paragraphs}
         </section>
       `;
@@ -1012,11 +1101,12 @@ function createAboutModalMarkup(detail) {
     .join("");
 
   return `
-    <article class="project-modal-body project-modal-body-long">
+    <article class="project-modal-body project-modal-body-long detail-modal-body">
       <header class="modal-project-hero modal-case-header">
-        <p class="modal-eyebrow section-kicker dark">Detail</p>
+        <p class="modal-eyebrow section-kicker dark">${escapeHtml(detail.eyebrow || "Detail")}</p>
         <h2 class="modal-title" id="about-modal-title">${escapeHtml(detail.title)}</h2>
       </header>
+      ${meta}
       ${sections}
     </article>
   `;

@@ -6810,3 +6810,135 @@ body[data-page="projects"] .modal-scroll-fade {
     width: var(--target);
   }
 }
+
+/* Final About readability guard: match text colors to the actual card surface. */
+body[data-page="about"] .chapter-heading h2,
+body[data-page="about"] .continue-exploring h2,
+body[data-page="about"] .page-cta h2 {
+  color: #f4f1ea;
+}
+
+body[data-page="about"] .subpage-hero .display-heading,
+body[data-page="about"] .timeline-item {
+  color: #f4f1ea;
+}
+
+body[data-page="about"] .section-kicker,
+body[data-page="about"] .continue-label,
+body[data-page="about"] .breadcrumb-link {
+  padding: 0.18rem 0.46rem;
+  border-radius: 2px;
+  background: #f4f1ea;
+  color: #3d5afe;
+}
+
+body[data-page="about"] .timeline-item article,
+body[data-page="about"] .info-card,
+body[data-page="about"] .experience-card,
+body[data-page="about"] .skill-category,
+body[data-page="about"] .continue-card {
+  border-color: rgba(13, 13, 13, 0.12);
+  background: #f4f1ea;
+  color: #0d0d0d;
+}
+
+body[data-page="about"] .timeline-item h3,
+body[data-page="about"] .info-card h3,
+body[data-page="about"] .experience-card h3,
+body[data-page="about"] .skill-category h3,
+body[data-page="about"] .continue-title,
+body[data-page="about"] .timeline-item article strong,
+body[data-page="about"] .info-card strong,
+body[data-page="about"] .experience-card strong,
+body[data-page="about"] .skill-category strong {
+  color: #0d0d0d;
+}
+
+body[data-page="about"] .timeline-item p,
+body[data-page="about"] .info-card p,
+body[data-page="about"] .experience-card p,
+body[data-page="about"] .experience-card li,
+body[data-page="about"] .skill-category p,
+body[data-page="about"] .progress-item span,
+body[data-page="about"] .continue-desc,
+body[data-page="about"] .info-card small,
+body[data-page="about"] .experience-card small,
+body[data-page="about"] .skill-category small,
+body[data-page="about"] .info-card a:not(.mini-button):not(.button),
+body[data-page="about"] .experience-card a:not(.mini-button):not(.button),
+body[data-page="about"] .skill-category a:not(.mini-button):not(.button) {
+  color: rgba(13, 13, 13, 0.68);
+}
+
+body[data-page="about"] .timeline-date,
+body[data-page="about"] .experience-card .timeline-date {
+  border-color: #3d5afe;
+  background: #f4f1ea;
+  color: #3d5afe;
+}
+
+body[data-page="about"] .info-card > i,
+body[data-page="about"] .info-card > span,
+body[data-page="about"] .logo-dot,
+body[data-page="about"] .continue-icon,
+body[data-page="about"] .skill-category .skills-grid span {
+  border-color: rgba(61, 90, 254, 0.34);
+  background: #f4f1ea;
+  color: #3d5afe;
+}
+
+body[data-page="about"] .skill-category .skills-grid b,
+body[data-page="about"] .experience-card li::before,
+body[data-page="about"] .continue-arrow,
+body[data-page="about"] #achievements .info-card > a[href^="images/cert-"],
+body[data-page="about"] .info-card > span.timeline-date,
+body[data-page="about"] #achievements .info-card > a[href^="images/cert-"]:hover,
+body[data-page="about"] #achievements .info-card > a[href^="images/cert-"]:focus-visible {
+  color: #3d5afe;
+}
+
+body[data-page="about"] .info-card > span.timeline-date {
+  background: #f4f1ea !important;
+  color: #3d5afe !important;
+}
+
+body[data-page="about"] .mini-button {
+  border-color: rgba(61, 90, 254, 0.38);
+  color: #3d5afe;
+}
+
+body[data-page="about"] .mini-button:hover,
+body[data-page="about"] .mini-button:focus-visible {
+  border-color: #3d5afe;
+  background: rgba(61, 90, 254, 0.08);
+  color: #0d0d0d;
+  box-shadow: 0 0 16px rgba(61, 90, 254, 0.18);
+}
+
+body[data-page="about"] .modal-content {
+  border-color: rgba(244, 241, 234, 0.16);
+  background: #1a1a1a;
+  color: #f4f1ea;
+}
+
+body[data-page="about"] .modal-title,
+body[data-page="about"] .role-meta-value {
+  color: #f4f1ea;
+}
+
+body[data-page="about"] .modal-eyebrow,
+body[data-page="about"] .modal-section-heading,
+body[data-page="about"] .role-meta-label,
+body[data-page="about"] .modal-close {
+  color: #3d5afe;
+}
+
+body[data-page="about"] .modal-section p {
+  color: rgba(244, 241, 234, 0.72);
+}
+
+body[data-page="about"] .modal-role-meta {
+  border-color: rgba(61, 90, 254, 0.34);
+  border-left-color: #3d5afe;
+  background: rgba(61, 90, 254, 0.12);
+}
