@@ -12,6 +12,7 @@ const MODAL_VIDEO_GAIN = 2.2;
 
 const PROJECTS = {
   piano: {
+    category: "software",
     title: "Alien Piano Tiles",
     image: "images/project-piano-tiles.svg",
     imageAlt: "Illustrated Alien Piano Tiles rhythm game scene",
@@ -30,6 +31,7 @@ const PROJECTS = {
     gallery: ["images/project-piano-tiles.svg", "images/project-alien-invasion.svg"]
   },
   erebus: {
+    category: "software",
     title: "Erebus-7: Parasite Protocol",
     image: "images/project-erebus-7.webp",
     imageAlt: "Erebus-7 Parasite Protocol horror corridor gameplay artwork",
@@ -50,6 +52,7 @@ const PROJECTS = {
     gallery: ["images/project-erebus-7.webp"]
   },
   mcfast: {
+    category: "software",
     title: "McFast Ordering System",
     image: "images/project-mcfast-ordering.svg",
     imageAlt: "McFast Ordering System fast-food ordering app interface graphic",
@@ -63,6 +66,7 @@ const PROJECTS = {
     gallery: ["images/project-mcfast-ordering.svg"]
   },
   wheelchair: {
+    category: "hardware",
     title: "Motor-Assisted Wheelchair Support Prototype",
     image: "images/project-smart-wheelchair.svg",
     imageAlt: "Motor-Assisted Wheelchair Support Prototype wireframe thumbnail",
@@ -76,6 +80,7 @@ const PROJECTS = {
     gallery: ["images/project-smart-wheelchair.svg"]
   },
   greenhouse: {
+    category: "hardware",
     title: "IoT-Based Smart Plant Monitoring System",
     image: "images/project-smart-greenhouse.svg",
     imageAlt: "IoT-Based Smart Plant Monitoring System technical diagram",
@@ -96,6 +101,7 @@ const PROJECTS = {
     gallery: ["images/project-smart-greenhouse.svg", "images/project-smart-greenhouse-build.svg", "images/project-smart-greenhouse-testing.svg"]
   },
   keychain: {
+    category: "hardware",
     title: "Multifunctional 3D-Printed Keychain",
     image: "images/project-keychain-photo.webp",
     imageAlt: "Multifunctional 3D-printed keychain with ruler, bottle opener, phone stand, and cable holder features",
@@ -109,6 +115,7 @@ const PROJECTS = {
     gallery: ["images/project-keychain-photo.webp"]
   },
   construction: {
+    category: "hardware",
     title: "Construction Safety Fall-Risk Detection System",
     image: "images/project-construction-safety.svg",
     imageAlt: "Construction Safety Fall-Risk Detection System construction site safety monitoring schematic",
@@ -2339,23 +2346,46 @@ function createProjectBottomActions(project) {
   `;
 }
 
-function createNextProjectCard(project) {
-  const projectKey = getProjectKey(project);
-  const nextKey = getAdjacentProjectKey(projectKey, 1);
-  const nextProject = PROJECTS[nextKey];
-  if (!nextProject) return "";
+function getProjectCategoryLabel(project) {
+  return project.category === "software" ? "Software Project" : "Hardware Project";
+}
+
+function createProjectPreviewCard(projectKey, direction) {
+  const targetProject = PROJECTS[projectKey];
+  if (!targetProject) return "";
+
+  const isPrevious = direction === "previous";
+  const directionLabel = isPrevious ? "Previous" : "Next";
+  const arrow = isPrevious ? "&larr;" : "&rarr;";
+  const title = escapeHtml(targetProject.title);
 
   return `
-    <section class="project-next-section" aria-label="Next project">
-      <p class="modal-eyebrow">Next Project</p>
-      <button class="project-next-card" type="button" data-project-nav="${escapeHtml(nextKey)}" aria-label="View next project: ${escapeHtml(nextProject.title)}">
-        <span class="project-next-image"><img src="${escapeHtml(nextProject.image)}" alt="" loading="lazy"></span>
+    <div class="project-sequence-item project-sequence-${direction}">
+      <p class="modal-eyebrow">${directionLabel} Project</p>
+      <button class="project-next-card project-${direction}-card" type="button" data-project-nav="${escapeHtml(projectKey)}" aria-label="View ${direction} project: ${escapeHtml(targetProject.title)}">
+        <span class="project-next-image"><img src="${escapeHtml(targetProject.image)}" alt="" loading="lazy"></span>
         <span class="project-next-copy">
-          <strong>Next &rarr; ${escapeHtml(nextProject.title)}</strong>
-          <span>${escapeHtml(nextProject.description)}</span>
+          <span class="project-category-label">${escapeHtml(getProjectCategoryLabel(targetProject))}</span>
+          <strong>${title}</strong>
+          <span class="project-next-teaser">${escapeHtml(targetProject.description)}</span>
         </span>
-        <span class="project-next-arrow" aria-hidden="true">&rarr;</span>
+        <span class="project-next-arrow" aria-hidden="true">${arrow}</span>
       </button>
+    </div>
+  `;
+}
+
+function createProjectSequenceNavigation(project) {
+  const projectKey = getProjectKey(project);
+  const previousKey = getAdjacentProjectKey(projectKey, -1);
+  const nextKey = getAdjacentProjectKey(projectKey, 1);
+
+  return `
+    <section class="project-next-section" aria-label="Previous and next projects">
+      <div class="project-sequence-grid">
+        ${createProjectPreviewCard(previousKey, "previous")}
+        ${createProjectPreviewCard(nextKey, "next")}
+      </div>
     </section>
   `;
 }
@@ -2375,7 +2405,7 @@ function decorateProjectModal(root, project) {
   topAnchor?.insertAdjacentHTML("afterend", createProjectTopNavigation(project));
 
   article.insertAdjacentHTML("beforeend", createProjectBottomActions(project));
-  article.insertAdjacentHTML("beforeend", createNextProjectCard(project));
+  article.insertAdjacentHTML("beforeend", createProjectSequenceNavigation(project));
 }
 
 function updateProjectEdgeNavigation(modal, projectKey) {
