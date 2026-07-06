@@ -123,6 +123,8 @@ const PROJECTS = {
   }
 };
 
+const PROJECT_ORDER = Object.keys(PROJECTS);
+
 const ABOUT_DETAILS = {
   takashimaya: {
     title: "Part-Time Sales Advisor — Christofle, Takashimaya",
@@ -922,12 +924,15 @@ function initProjectModal() {
   const scrollArea = $(".modal-scroll-area", modal);
   let previousFocus = null;
   let closeFallback = null;
+  let currentProjectKey = null;
+  let touchStartX = null;
 
   if (!content || !scrollArea) return;
 
   const finishClose = () => {
     window.clearTimeout(closeFallback);
     modal.classList.remove("is-closing");
+    modal.classList.remove("show-project-prev", "show-project-next");
     modal.setAttribute("aria-hidden", "true");
     scrollArea.innerHTML = "";
     document.body.classList.remove("modal-open");
@@ -963,14 +968,18 @@ function initProjectModal() {
     }, 380);
   };
 
-  const openModal = (project) => {
-    previousFocus = document.activeElement;
+  const openModal = (project, projectKey = getProjectKey(project)) => {
+    if (!modal.classList.contains("active")) previousFocus = document.activeElement;
+    currentProjectKey = projectKey;
     clearProjectCardMotion();
     scrollArea.innerHTML = createModalMarkup(project);
+    decorateProjectModal(scrollArea, project);
     wireModalGallery(scrollArea);
     wireModalActionRipples(scrollArea);
     wireModalScrollFade(modal);
     wireModalVideoBoost(scrollArea);
+    scrollArea.scrollTop = 0;
+    updateProjectEdgeNavigation(modal, currentProjectKey);
     modal.classList.remove("is-closing");
     modal.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
@@ -980,16 +989,73 @@ function initProjectModal() {
     });
   };
 
-  $$("[data-open-project]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const project = PROJECTS[button.dataset.openProject];
-      if (project) openModal(project);
+  $$("[data-open-project]").forEach((trigger) => {
+    trigger.addEventListener("click", (event) => {
+      const nestedControl = event.target.closest("a, button");
+      if (nestedControl && nestedControl !== trigger) return;
+      const projectKey = trigger.dataset.openProject;
+      const project = PROJECTS[projectKey];
+      if (project) openModal(project, projectKey);
     });
+
+    if (trigger.matches('[role="button"]')) {
+      trigger.addEventListener("keydown", (event) => {
+        if (event.target.closest("a, button")) return;
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        const projectKey = trigger.dataset.openProject;
+        const project = PROJECTS[projectKey];
+        if (project) openModal(project, projectKey);
+      });
+    }
   });
 
   modal.addEventListener("click", (event) => {
     if (event.target.closest("[data-close-modal]")) closeModal();
+
+    const projectNav = event.target.closest("[data-project-nav]");
+    if (projectNav) {
+      const projectKey = projectNav.dataset.projectNav;
+      const project = PROJECTS[projectKey];
+      if (project) openModal(project, projectKey);
+    }
   });
+
+  $("[data-project-prev]", modal)?.addEventListener("click", () => {
+    const projectKey = getAdjacentProjectKey(currentProjectKey, -1);
+    if (projectKey) openModal(PROJECTS[projectKey], projectKey);
+  });
+
+  $("[data-project-next]", modal)?.addEventListener("click", () => {
+    const projectKey = getAdjacentProjectKey(currentProjectKey, 1);
+    if (projectKey) openModal(PROJECTS[projectKey], projectKey);
+  });
+
+  modal.addEventListener("pointermove", (event) => {
+    const edgeThreshold = window.innerWidth * 0.1;
+    modal.classList.toggle("show-project-prev", event.clientX <= edgeThreshold);
+    modal.classList.toggle("show-project-next", event.clientX >= window.innerWidth - edgeThreshold);
+  });
+  modal.addEventListener("pointerleave", () => {
+    modal.classList.remove("show-project-prev", "show-project-next");
+  });
+
+  if (!finePointer && !prefersReducedMotion) {
+    content.addEventListener("touchstart", (event) => {
+      if (event.target.closest("a, button, video")) return;
+      touchStartX = event.changedTouches[0]?.clientX ?? null;
+    }, { passive: true });
+
+    content.addEventListener("touchend", (event) => {
+      if (touchStartX === null || event.target.closest("a, button, video")) return;
+      const touchEndX = event.changedTouches[0]?.clientX ?? touchStartX;
+      const distance = touchEndX - touchStartX;
+      touchStartX = null;
+      if (Math.abs(distance) < 70) return;
+      const projectKey = getAdjacentProjectKey(currentProjectKey, distance < 0 ? 1 : -1);
+      if (projectKey) openModal(PROJECTS[projectKey], projectKey);
+    }, { passive: true });
+  }
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeModal();
@@ -1066,6 +1132,60 @@ function initAboutModal() {
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeModal();
+  });
+}
+
+function initCertificateLightbox() {
+  const certificateLinks = $$('[data-certificate-lightbox]');
+  if (!certificateLinks.length) return;
+
+  const lightbox = document.createElement("div");
+  lightbox.className = "certificate-lightbox";
+  lightbox.setAttribute("aria-hidden", "true");
+  lightbox.setAttribute("role", "dialog");
+  lightbox.setAttribute("aria-modal", "true");
+  lightbox.setAttribute("aria-label", "Certificate preview");
+  lightbox.innerHTML = `
+    <button class="certificate-lightbox-backdrop" type="button" data-close-certificate aria-label="Close certificate preview"></button>
+    <div class="certificate-lightbox-content">
+      <button class="certificate-lightbox-close" type="button" data-close-certificate aria-label="Close certificate preview">&times;</button>
+      <img src="" alt="" data-certificate-image>
+    </div>
+  `;
+  document.body.appendChild(lightbox);
+
+  const image = $("[data-certificate-image]", lightbox);
+  const closeButton = $(".certificate-lightbox-close", lightbox);
+  let previousFocus = null;
+
+  const closeLightbox = () => {
+    if (!lightbox.classList.contains("active")) return;
+    lightbox.classList.remove("active");
+    lightbox.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+    previousFocus?.focus?.();
+  };
+
+  certificateLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      const thumbnail = $("img", link);
+      previousFocus = link;
+      image.src = link.href;
+      image.alt = thumbnail?.alt || "Certificate";
+      lightbox.classList.add("active");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      closeButton?.focus();
+    });
+  });
+
+  lightbox.addEventListener("click", (event) => {
+    if (event.target.closest("[data-close-certificate]")) closeLightbox();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeLightbox();
   });
 }
 
@@ -2116,6 +2236,164 @@ function createConstructionModalMarkup(project) {
   `;
 }
 
+function getProjectKey(project) {
+  return PROJECT_ORDER.find((key) => PROJECTS[key] === project) || null;
+}
+
+function getAdjacentProjectKey(projectKey, direction) {
+  const currentIndex = PROJECT_ORDER.indexOf(projectKey);
+  if (currentIndex < 0) return null;
+  return PROJECT_ORDER[(currentIndex + direction + PROJECT_ORDER.length) % PROJECT_ORDER.length];
+}
+
+function getProjectActionDefinitions(project) {
+  const projectKey = getProjectKey(project);
+
+  const definitions = {
+    piano: [
+      { label: "View on GitHub", url: project.github, icon: "</>", primary: false },
+      { label: "Try The Game", url: project.playUrl, icon: "&#9654;", primary: true }
+    ],
+    erebus: [
+      { label: "View on GitHub", url: project.github, icon: "</>", primary: false },
+      { label: "Try The Game", url: project.playUrl, icon: "&#9654;", primary: true }
+    ],
+    mcfast: [
+      { label: "Watch Demo Video", url: project.video, icon: "&#9654;", primary: false },
+      { label: "Try App on Streamlit", url: project.streamlitUrl, icon: "&#8599;", primary: true }
+    ],
+    wheelchair: [
+      { label: "View Project Slides (PDF)", url: project.slidesUrl, icon: "PDF", primary: false },
+      { label: "View Circuit in Tinkercad", url: project.tinkercadUrl, icon: "CAD", primary: false },
+      { label: "Watch Demo", url: project.demoUrl, icon: "&#9654;", primary: true }
+    ],
+    greenhouse: [
+      { label: "View Full Report", url: project.reportUrl, icon: "PDF", primary: false },
+      { label: "Watch Demo", url: project.demoUrl, icon: "&#9654;", primary: true }
+    ],
+    keychain: [
+      { label: "View the Keychain", url: project.keychainUrl, icon: "KEY", primary: false },
+      { label: "View in Autodesk Inventor", url: project.inventorUrl, icon: "CAD", primary: false, download: "multifunctional-keychain-autodesk-inventor.ipt" },
+      { label: "View Full Report", url: project.reportUrl, icon: "PDF", primary: true }
+    ],
+    construction: []
+  };
+
+  return (definitions[projectKey] || []).filter((action) => {
+    const url = action.url?.trim();
+    return url && url !== "#" && !url.includes("REPLACE-WITH");
+  });
+}
+
+function createProjectActionButtons(project, compact = false) {
+  const actions = getProjectActionDefinitions(project);
+  if (!actions.length) return "";
+
+  return actions.map((action) => {
+    const className = action.primary ? "modal-play-button btn-primary" : "modal-github-button btn-secondary";
+    const download = action.download ? ` download="${escapeHtml(action.download)}"` : "";
+    return `
+      <a class="modal-action-button ${className}${compact ? " project-quick-action" : ""}" href="${escapeHtml(action.url)}" target="_blank" rel="noopener noreferrer"${download} data-modal-action>
+        <span aria-hidden="true">${action.icon}</span>
+        ${escapeHtml(action.label)}
+      </a>
+    `;
+  }).join("");
+}
+
+function createProjectTopNavigation(project) {
+  const actions = createProjectActionButtons(project, true);
+  return `
+    <nav class="project-modal-top-nav" aria-label="Project quick links">
+      <a class="project-all-link" href="projects.html">&larr; All Projects</a>
+      ${actions ? `<div class="project-quick-actions">${actions}</div>` : ""}
+    </nav>
+  `;
+}
+
+function createProjectBottomActions(project) {
+  const projectKey = getProjectKey(project);
+  const actions = createProjectActionButtons(project);
+  if (!actions) return "";
+
+  let supportingCopy = "";
+  if (projectKey === "mcfast") {
+    supportingCopy = `<p class="modal-link-helper modal-helper-text">Note: This app is hosted on a free tier and may take 30&ndash;60 seconds to load if it has been inactive. If you see a 'Zzzz' sleep screen, click to wake it up and wait briefly.</p>`;
+  }
+  if (projectKey === "greenhouse") {
+    supportingCopy += `<p class="modal-coauthor-note">Co-authored with Li Heng as a joint project submission.</p>`;
+  }
+
+  const helper = projectKey === "keychain"
+    ? "Opens in a new tab &mdash; this portfolio stays open here, so you can switch back anytime."
+    : "Opens in a new tab - this portfolio stays open here, so you can switch back anytime.";
+
+  return `
+    <section class="modal-action-block project-bottom-actions" aria-label="Project links">
+      <div class="modal-actions modal-action-row${getProjectActionDefinitions(project).length >= 3 ? " modal-action-row-triple" : ""}">
+        ${actions}
+      </div>
+      ${supportingCopy}
+      <p class="modal-link-helper modal-helper-text">${helper}</p>
+    </section>
+  `;
+}
+
+function createNextProjectCard(project) {
+  const projectKey = getProjectKey(project);
+  const nextKey = getAdjacentProjectKey(projectKey, 1);
+  const nextProject = PROJECTS[nextKey];
+  if (!nextProject) return "";
+
+  return `
+    <section class="project-next-section" aria-label="Next project">
+      <p class="modal-eyebrow">Next Project</p>
+      <button class="project-next-card" type="button" data-project-nav="${escapeHtml(nextKey)}" aria-label="View next project: ${escapeHtml(nextProject.title)}">
+        <span class="project-next-image"><img src="${escapeHtml(nextProject.image)}" alt="" loading="lazy"></span>
+        <span class="project-next-copy">
+          <strong>Next &rarr; ${escapeHtml(nextProject.title)}</strong>
+          <span>${escapeHtml(nextProject.description)}</span>
+        </span>
+        <span class="project-next-arrow" aria-hidden="true">&rarr;</span>
+      </button>
+    </section>
+  `;
+}
+
+function decorateProjectModal(root, project) {
+  const article = root.querySelector(".project-modal-body, .modal-project-layout");
+  if (!article) return;
+
+  article.querySelectorAll(".modal-action-block").forEach((block) => block.remove());
+
+  const projectKey = getProjectKey(project);
+  if (projectKey === "construction") article.querySelector(".modal-video-frame")?.remove();
+
+  const topAnchor = article.querySelector(".modal-role-section")
+    || article.querySelector(".modal-status-callout")
+    || article.querySelector(".modal-case-header, .modal-project-hero");
+  topAnchor?.insertAdjacentHTML("afterend", createProjectTopNavigation(project));
+
+  article.insertAdjacentHTML("beforeend", createProjectBottomActions(project));
+  article.insertAdjacentHTML("beforeend", createNextProjectCard(project));
+}
+
+function updateProjectEdgeNavigation(modal, projectKey) {
+  const previousKey = getAdjacentProjectKey(projectKey, -1);
+  const nextKey = getAdjacentProjectKey(projectKey, 1);
+  const previousButton = $("[data-project-prev]", modal);
+  const nextButton = $("[data-project-next]", modal);
+
+  if (previousButton && previousKey) {
+    previousButton.setAttribute("aria-label", `Previous project: ${PROJECTS[previousKey].title}`);
+    previousButton.title = PROJECTS[previousKey].title;
+  }
+  if (nextButton && nextKey) {
+    nextButton.setAttribute("aria-label", `Next project: ${PROJECTS[nextKey].title}`);
+    nextButton.title = PROJECTS[nextKey].title;
+  }
+}
+
 function createModalActions(project) {
   const buttons = [];
 
@@ -3123,9 +3401,9 @@ function initCinematicCanvas() {
 function initCinematicInteractions() {
   if (shouldSkipFineMotion()) return;
 
-  $$("[data-project-card], .category-card").forEach((card) => {
+  $$(".category-card").forEach((card) => {
     let frame = null;
-    const maxTilt = card.classList.contains("category-card") ? 5 : 6;
+    const maxTilt = 5;
 
     const move = (event) => {
       if (document.body.classList.contains("low-performance") || document.body.classList.contains("modal-open")) return;
@@ -3328,6 +3606,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initProjectTabs();
   initProjectModal();
   initAboutModal();
+  initCertificateLightbox();
   initContactForm();
   initStatCounters();
   initPhotoTilt();
