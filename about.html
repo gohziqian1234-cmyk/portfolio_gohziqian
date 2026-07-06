@@ -21,11 +21,11 @@
       href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.min.css?v=20260706" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-    <script src="script.js" defer></script>
+    <script src="script.min.js?v=20260706" defer></script>
   </head>
   <!--
   PHOTO ASSETS - place files at these exact paths:
@@ -51,7 +51,7 @@
     images/volunteer-citizenship.jpg
 
   DOCUMENTS (in assets/ folder):
-    assets/Ziqian-CV.pdf
+    assets/Ziqian-CV-DRAFT-DO-NOT-SHIP.pdf (draft only; direct download intentionally disabled)
     assets/ziqian-school-testimonial.pdf
   -->
   <body data-page="about">
@@ -126,10 +126,16 @@
           <h1 class="display-heading" id="about-page-title">About Ziqian</h1>
           <figure class="photo-frame" style="max-width: 220px; margin: 1.5rem 0;">
             <!-- PROFILE PHOTO: place your photo at images/profile-photo.jpg -->
-            <img
-              src="images/profile-photo.jpg"
-              alt="Zi Qian — AI and Data Engineering student at Nanyang Polytechnic"
-            />
+            <picture>
+              <source srcset="images/profile-photo.webp" type="image/webp" />
+              <img
+                src="images/profile-photo.jpg"
+                width="1000"
+                height="1000"
+                fetchpriority="high"
+                alt="Zi Qian — AI and Data Engineering student at Nanyang Polytechnic"
+              />
+            </picture>
           </figure>
           <p>
             I am Zi Qian, an AI &amp; Data Engineering student at Nanyang Polytechnic. While maintaining Director's List recognition across both semesters of AY2025/2026, I also worked part-time as a Sales Advisor at Takashimaya during holidays and non-exam periods &mdash; balancing real-world responsibility alongside my studies.
@@ -203,7 +209,7 @@
             <p><strong>MOE Edusave</strong> &bull; 2020</p>
             <p>Recognised for showing strong improvement, effort, and progress in my studies.</p>
             <a href="images/cert-good-progress-award.jpg" target="_blank" rel="noopener noreferrer">
-              <img src="images/cert-good-progress-award.jpg" alt="Good Progress Award certificate 2020" loading="lazy">
+              <picture><source srcset="images/cert-good-progress-award.webp" type="image/webp"><img src="images/cert-good-progress-award.jpg" width="1168" height="1400" alt="Good Progress Award certificate 2020" loading="lazy"></picture>
               <small>View certificate &rarr;</small>
             </a>
           </article>
@@ -213,7 +219,7 @@
             <p><strong>MOE Edusave</strong> &bull; 2022</p>
             <p>Awarded for strong academic performance and consistent effort.</p>
             <a href="images/cert-edusave-scholarship.jpg" target="_blank" rel="noopener noreferrer">
-              <img src="images/cert-edusave-scholarship.jpg" alt="Edusave Scholarship certificate 2022" loading="lazy">
+              <picture><source srcset="images/cert-edusave-scholarship.webp" type="image/webp"><img src="images/cert-edusave-scholarship.jpg" width="1019" height="1400" alt="Edusave Scholarship certificate 2022" loading="lazy"></picture>
               <small>View certificate &rarr;</small>
             </a>
           </article>
@@ -223,7 +229,7 @@
             <p><strong>MOE Edusave</strong> &bull; 2023</p>
             <p>Recognised for academic achievement during secondary school.</p>
             <a href="images/cert-edusave-academic.jpg" target="_blank" rel="noopener noreferrer">
-              <img src="images/cert-edusave-academic.jpg" alt="Edusave Certificate of Academic Achievement 2023" loading="lazy">
+              <picture><source srcset="images/cert-edusave-academic.webp" type="image/webp"><img src="images/cert-edusave-academic.jpg" width="1109" height="1400" alt="Edusave Certificate of Academic Achievement 2023" loading="lazy"></picture>
               <small>View certificate &rarr;</small>
             </a>
           </article>
@@ -233,7 +239,7 @@
             <p><strong>MOE Edusave</strong> &bull; 2023</p>
             <p>Awarded for good academic performance and progress.</p>
             <a href="images/cert-edusave-bursary.jpg" target="_blank" rel="noopener noreferrer">
-              <img src="images/cert-edusave-bursary.jpg" alt="Edusave Merit Bursary certificate 2023" loading="lazy">
+              <picture><source srcset="images/cert-edusave-bursary.webp" type="image/webp"><img src="images/cert-edusave-bursary.jpg" width="1020" height="1400" alt="Edusave Merit Bursary certificate 2023" loading="lazy"></picture>
               <small>View certificate &rarr;</small>
             </a>
           </article>
@@ -243,7 +249,7 @@
             <p><strong>Nanyang Polytechnic</strong> &bull; AY2025/2026</p>
             <p>Achieved Director's List recognition at Nanyang Polytechnic for strong academic performance across both semesters of AY2025/2026.</p>
             <a href="images/cert-directors-list.jpg" target="_blank" rel="noopener noreferrer">
-              <img src="images/cert-directors-list.jpg" alt="Director's List certificate AY2025/2026" loading="lazy">
+              <picture><source srcset="images/cert-directors-list.webp" type="image/webp"><img src="images/cert-directors-list.jpg" width="930" height="540" alt="Director's List certificate AY2025/2026" loading="lazy"></picture>
               <small>View certificate &rarr;</small>
             </a>
           </article>
@@ -284,7 +290,7 @@
                 <li>Learned to stay calm under pressure and balance work with school commitments.</li>
               </ul>
               <a href="images/work-takashimaya.jpg" target="_blank" rel="noopener noreferrer">
-                <img src="images/work-takashimaya.jpg" alt="Zi Qian working as a Sales Advisor at Takashimaya" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;">
+                <picture><source srcset="images/work-takashimaya.webp" type="image/webp"><img src="images/work-takashimaya.jpg" width="663" height="595" alt="Zi Qian working as a Sales Advisor at Takashimaya" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;"></picture>
               </a>
               <p><small>At work &mdash; Takashimaya</small></p>
               <button class="mini-button" type="button" data-open-about="takashimaya">Learn More</button>
@@ -346,7 +352,7 @@
             <p><strong>AWWA Elderly Centre</strong> &bull; 2022</p>
             <p>Helped pack Chinese New Year goodie bags for elderly beneficiaries. Contributed to the community through simple but meaningful service work.</p>
             <a href="images/volunteer-cny.jpg" target="_blank" rel="noopener noreferrer">
-              <img src="images/volunteer-cny.jpg" alt="CNY goodie bag packing for AWWA Elderly Centre 2022" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;">
+              <picture><source srcset="images/volunteer-cny.webp" type="image/webp"><img src="images/volunteer-cny.jpg" width="1400" height="1050" alt="CNY goodie bag packing for AWWA Elderly Centre 2022" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;"></picture>
             </a>
             <p><small>CNY volunteering &mdash; AWWA Elderly Centre</small></p>
             <button class="mini-button" type="button" data-open-about="cny-goodie">Learn More</button>
@@ -357,7 +363,7 @@
             <p><strong>Community Programme</strong> &bull; 2022</p>
             <p>Participated in a community volunteering activity focused on local outreach and engagement. This experience helped me understand the importance of contributing time and effort beyond school.</p>
             <a href="images/volunteer-community-heart.jpg" target="_blank" rel="noopener noreferrer">
-              <img src="images/volunteer-community-heart.jpg" alt="Community@Heart volunteering activity 2022" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;">
+              <picture><source srcset="images/volunteer-community-heart.webp" type="image/webp"><img src="images/volunteer-community-heart.jpg" width="1200" height="1400" alt="Community@Heart volunteering activity 2022" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;"></picture>
             </a>
             <p><small>Community@Heart volunteering</small></p>
             <button class="mini-button" type="button" data-open-about="community-heart">Learn More</button>
@@ -368,7 +374,7 @@
             <p><strong>Cheng San Community Club</strong> &bull; 25 April 2026</p>
             <p>Supported the Singapore Citizenship Ceremony by helping with event operations including registration, seating, gift distribution, signage, and guiding participants during the event.</p>
             <a href="images/volunteer-citizenship.jpg" target="_blank" rel="noopener noreferrer">
-              <img src="images/volunteer-citizenship.jpg" alt="Volunteering at Singapore Citizenship Ceremony, Cheng San Community Club, April 2026" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;">
+              <picture><source srcset="images/volunteer-citizenship.webp" type="image/webp"><img src="images/volunteer-citizenship.jpg" width="1400" height="788" alt="Volunteering at Singapore Citizenship Ceremony, Cheng San Community Club, April 2026" loading="lazy" style="max-width:120px; height:auto; border-radius:2px; cursor:pointer;"></picture>
             </a>
             <p><small>Citizenship Ceremony &mdash; Cheng San CC</small></p>
             <button class="mini-button" type="button" data-open-about="citizenship">Learn More</button>
@@ -458,8 +464,8 @@
         <div data-reveal>
           <h2>Ready For The Full CV?</h2>
           <div class="cta-actions">
-            <!-- CV DOWNLOAD: Place real CV PDF at assets/Ziqian-CV.pdf before going live -->
-            <a class="button button-gradient" href="assets/Ziqian-CV.pdf" target="_blank" rel="noopener noreferrer">Download Full CV</a>
+            <!-- CV TODO: Replace the draft asset with a reviewed final resume before enabling a direct download. -->
+            <a class="button button-gradient" href="mailto:gohziqian1234@gmail.com?subject=Resume%20Request%20-%20Ziqian%20Portfolio">Email Me for My Resume</a>
             <a class="button button-outline" href="index.html#hero">Back to Home</a>
           </div>
         </div>

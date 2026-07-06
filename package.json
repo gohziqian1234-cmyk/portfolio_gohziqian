@@ -1,8 +1,11 @@
 {
   "scripts": {
+    "build": "cleancss -o style.min.css style.css && terser script.js -c -m -o script.min.js",
     "qa": "node qa-runner.js"
   },
   "devDependencies": {
-    "playwright": "^1.60.0"
+    "clean-css-cli": "^5.6.3",
+    "playwright": "^1.60.0",
+    "terser": "^5.48.0"
   }
 }

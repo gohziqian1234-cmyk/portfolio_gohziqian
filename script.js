@@ -14,7 +14,7 @@ const PROJECTS = {
   piano: {
     title: "Alien Piano Tiles",
     image: "images/project-piano-tiles.svg",
-    imageAlt: "Alien Piano Tiles rhythm game placeholder graphic",
+    imageAlt: "Illustrated Alien Piano Tiles rhythm game scene",
     modalVariant: "pianoCaseStudy",
     video: "assets/videos/piano-tiles-gameplay.mp4",
     poster: "images/piano-tiles-poster.svg",
@@ -31,7 +31,7 @@ const PROJECTS = {
   },
   erebus: {
     title: "Erebus-7: Parasite Protocol",
-    image: "images/project-erebus-7.png",
+    image: "images/project-erebus-7.webp",
     imageAlt: "Erebus-7 Parasite Protocol horror corridor gameplay artwork",
     modalVariant: "erebusCaseStudy",
     video: "assets/videos/erebus-7-gameplay.mp4",
@@ -47,7 +47,7 @@ const PROJECTS = {
     github: "https://github.com/gohziqian1234-cmyk/erebus-7",
     // CONFIRM: GitHub Pages must be enabled in repo Settings > Pages, then update this URL if GitHub gives a different address.
     playUrl: "https://gohziqian1234-cmyk.github.io/erebus-7/",
-    gallery: ["images/project-erebus-7.png"]
+    gallery: ["images/project-erebus-7.webp"]
   },
   mcfast: {
     title: "McFast Ordering System",
@@ -78,7 +78,7 @@ const PROJECTS = {
   greenhouse: {
     title: "IoT-Based Smart Plant Monitoring System",
     image: "images/project-smart-greenhouse.svg",
-    imageAlt: "IoT-Based Smart Plant Monitoring System technical placeholder graphic",
+    imageAlt: "IoT-Based Smart Plant Monitoring System technical diagram",
     modalVariant: "plantCaseStudy",
     reportUrl: "assets/reports/iot-smart-plant-monitoring-report.pdf",
     demoUrl: "assets/videos/iot-smart-plant-monitoring-demo.mp4",
@@ -97,7 +97,7 @@ const PROJECTS = {
   },
   keychain: {
     title: "Multifunctional 3D-Printed Keychain",
-    image: "images/project-keychain-photo.png",
+    image: "images/project-keychain-photo.webp",
     imageAlt: "Multifunctional 3D-printed keychain with ruler, bottle opener, phone stand, and cable holder features",
     modalVariant: "keychainCaseStudy",
     keychainUrl: "images/project-keychain-photo.png",
@@ -106,7 +106,7 @@ const PROJECTS = {
     description: "A compact 3D-printed keychain designed with multiple daily-use functions, including a mini ruler, bottle-opener-style cut-out, phone stand, cable holder, bookmark clip, keyring hole, and magnet recess. This project focused on CAD modelling, 3D printing, product usability, and improving the design through print testing and refinement.",
     tags: ["Autodesk Inventor", "CAD Design", "3D Printing", "Product Design", "Prototyping", "Design Iteration"],
     github: "",
-    gallery: ["images/project-keychain-photo.png"]
+    gallery: ["images/project-keychain-photo.webp"]
   },
   construction: {
     title: "Construction Safety Fall-Risk Detection System",
@@ -1203,7 +1203,7 @@ function createPianoModalMarkup(project) {
         <!-- ADD: path to gameplay video file, e.g. /assets/videos/piano-tiles-gameplay.mp4 -->
         <!-- ADD: path to poster thumbnail image, e.g. /assets/images/piano-tiles-poster.jpg -->
         <!-- RECOMMENDED VIDEO SPECS: keep the file under ~15-20MB and ideally under 60 seconds; compress with H.264 codec at 720p or 1080p so the portfolio stays fast. -->
-        <video class="modal-video" controls poster="${escapeHtml(project.poster)}" preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
+        <video class="modal-video" controls playsinline poster="${escapeHtml(project.poster)}" preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
           <source src="${escapeHtml(project.video)}" type="video/mp4">
           <!-- OPTIONAL: <track kind="captions" src="captions.vtt" srclang="en" label="English"> -->
           Your browser does not support video playback.
@@ -1313,7 +1313,7 @@ function createErebusModalMarkup(project) {
         <!-- ADD: path to Erebus-7 gameplay video, e.g. /assets/videos/erebus-7-gameplay.mp4 -->
         <!-- ADD: path to poster thumbnail, e.g. /assets/images/erebus-7-poster.jpg -->
         <!-- RECOMMENDED VIDEO SPECS: keep under ~15-20MB, H.264, 720p/1080p, ideally under 60 seconds of representative gameplay. -->
-        <video class="modal-video" controls poster="${escapeHtml(project.poster)}" preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
+        <video class="modal-video" controls playsinline poster="${escapeHtml(project.poster)}" preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
           <source src="${escapeHtml(project.video)}" type="video/mp4">
           <!-- OPTIONAL: <track kind="captions" src="captions.vtt" srclang="en" label="English"> -->
           Your browser does not support video playback.
@@ -1886,7 +1886,7 @@ function createKeychainModalMarkup(project) {
         <p>I designed and 3D-printed a multifunctional keychain with several integrated features, including a keyring hole, mini ruler, bottle-opener-style cut-out, phone stand, cable holder, bookmark clip, magnet recess for name-tag use, rounded edges, and chamfered functional areas.</p>
         <p>The design was created to be flat and portable so it could be attached to a bag or carried in a pocket without taking up much space.</p>
         <div class="modal-photo-gallery">
-          <img src="${escapeHtml(project.gallery[0])}" alt="Finished 3D-printed keychain, full view showing ruler markings and keyring hole" loading="lazy">
+          <img src="${escapeHtml(project.gallery[0])}" width="1200" height="1600" alt="Finished 3D-printed keychain, full view showing ruler markings and keyring hole" loading="lazy">
           <!-- ACTION REQUIRED: add additional close-up photos here as they become available - e.g. bottle-opener cutout, phone stand in use, magnet recess. Currently only 1 photo is provided; gallery supports 1-4 images gracefully. -->
         </div>
         <p class="modal-media-caption">The finished, 3D-printed keychain prototype.</p>
@@ -2437,13 +2437,14 @@ function initCustomCursor() {
   const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
   const current = { x: pointer.x, y: pointer.y };
   let visible = false;
+  let animationFrame = null;
 
   const render = () => {
     current.x += (pointer.x - current.x) * 0.15;
     current.y += (pointer.y - current.y) * 0.15;
     cursor.style.opacity = visible ? "1" : "0";
     cursor.style.transform = `translate(${current.x}px, ${current.y}px) translate(-50%, -50%)`;
-    requestAnimationFrame(render);
+    animationFrame = visible ? requestAnimationFrame(render) : null;
   };
 
   document.addEventListener(
@@ -2452,6 +2453,7 @@ function initCustomCursor() {
       pointer.x = event.clientX;
       pointer.y = event.clientY;
       visible = true;
+      if (!animationFrame) animationFrame = requestAnimationFrame(render);
     },
     { passive: true }
   );
@@ -2464,8 +2466,6 @@ function initCustomCursor() {
     item.addEventListener("pointerenter", () => cursor.classList.add("is-active"));
     item.addEventListener("pointerleave", () => cursor.classList.remove("is-active"));
   });
-
-  requestAnimationFrame(render);
 }
 
 function initNeuralCanvas() {
@@ -2479,6 +2479,7 @@ function initNeuralCanvas() {
   let height = 0;
   let points = [];
   let animationFrame = null;
+  let lastDrawTime = 0;
   const pointer = { x: 0, y: 0, active: false };
 
   const resize = () => {
@@ -2489,7 +2490,7 @@ function initNeuralCanvas() {
     canvas.width = Math.floor(width * ratio);
     canvas.height = Math.floor(height * ratio);
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
-    const count = Math.max(48, Math.min(110, Math.floor(width / 14)));
+    const count = Math.max(36, Math.min(72, Math.floor(width / 18)));
     points = Array.from({ length: count }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
@@ -2498,7 +2499,12 @@ function initNeuralCanvas() {
     }));
   };
 
-  const draw = () => {
+  const draw = (time = 0) => {
+    if (!prefersReducedMotion && time - lastDrawTime < 1000 / 30) {
+      animationFrame = requestAnimationFrame(draw);
+      return;
+    }
+    lastDrawTime = time;
     context.clearRect(0, 0, width, height);
     const offsetX = pointer.active && width ? -((pointer.x / width) - 0.5) * 26 : 0;
     const offsetY = pointer.active && height ? -((pointer.y / height) - 0.5) * 18 : 0;
@@ -2532,6 +2538,7 @@ function initNeuralCanvas() {
     });
 
     for (let i = 0; i < points.length; i += 1) {
+      let connections = 0;
       for (let j = i + 1; j < points.length; j += 1) {
         const a = points[i];
         const b = points[j];
@@ -2542,13 +2549,17 @@ function initNeuralCanvas() {
           context.moveTo(a.x, a.y);
           context.lineTo(b.x, b.y);
           context.stroke();
+          connections += 1;
+          if (connections >= 3) break;
         }
       }
     }
 
     context.globalAlpha = 1;
     context.restore();
-    animationFrame = requestAnimationFrame(draw);
+    animationFrame = prefersReducedMotion || document.body.classList.contains("low-performance")
+      ? null
+      : requestAnimationFrame(draw);
   };
 
   canvas.addEventListener("pointermove", (event) => {
@@ -2758,6 +2769,12 @@ function initThreeCinematicScene() {
       animationFrame = null;
       return;
     }
+
+    if (lowPerformance && time - (render.lastRendered || 0) < 1000 / 20) {
+      animationFrame = requestAnimationFrame(render);
+      return;
+    }
+    render.lastRendered = time;
 
     const delta = time - (render.lastTime || time);
     render.lastTime = time;
@@ -3213,7 +3230,7 @@ function initMagneticButtons() {
 function initMarqueeDepth() {
   if (prefersReducedMotion) return;
 
-  const cards = $$(".quote-card");
+  const cards = $$(".marquee-wrap .quote-card");
   if (!cards.length) return;
 
   let frame = null;
