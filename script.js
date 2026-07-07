@@ -2461,6 +2461,67 @@ function getProjectActionDefinitions(project) {
   });
 }
 
+function getProjectCardAction(project) {
+  const primaryAction = getProjectActionDefinitions(project).find((action) => action.primary);
+  if (!primaryAction) return null;
+
+  if (primaryAction.label.startsWith("Play Game")) {
+    return {
+      label: "PLAY",
+      url: primaryAction.url,
+      ariaLabel: `Play ${project.title}`
+    };
+  }
+
+  if (primaryAction.label.startsWith("Try App")) {
+    return {
+      label: "TRY APP",
+      url: primaryAction.url,
+      ariaLabel: `Try ${project.title} app`
+    };
+  }
+
+  if (primaryAction.label.startsWith("Watch Demo")) {
+    return {
+      label: "WATCH DEMO",
+      url: primaryAction.url,
+      ariaLabel: `Watch ${project.title} demo`
+    };
+  }
+
+  return null;
+}
+
+function initProjectCardActions() {
+  $$("[data-project-card]").forEach((card) => {
+    const project = PROJECTS[card.dataset.openProject];
+    const action = project ? getProjectCardAction(project) : null;
+    let link = $(".project-play-button", card);
+
+    if (!action) {
+      link?.remove();
+      return;
+    }
+
+    if (!link) {
+      link = document.createElement("a");
+      link.className = "game-chip project-play-button";
+      const statusBadge = $(".status-badge", card);
+      if (statusBadge) {
+        statusBadge.insertAdjacentElement("afterend", link);
+      } else {
+        card.prepend(link);
+      }
+    }
+
+    link.href = action.url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = action.label;
+    link.setAttribute("aria-label", action.ariaLabel);
+  });
+}
+
 function createProjectActionButtons(project, compact = false) {
   const actions = getProjectActionDefinitions(project);
   if (!actions.length) return "";
@@ -3803,6 +3864,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initRevealAnimations();
   initSceneDirector();
   initProjectTabs();
+  initProjectCardActions();
   initProjectModal();
   initAboutModal();
   initCertificateLightbox();
