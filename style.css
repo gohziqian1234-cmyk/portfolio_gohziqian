@@ -4160,6 +4160,149 @@ button.button:hover,
   text-align: center;
 }
 
+.modal-case-figure {
+  width: 100%;
+  margin: 24px 0 0;
+}
+
+.modal-case-figure.is-portrait {
+  width: min(100%, 520px);
+  margin-inline: auto;
+}
+
+.modal-case-figure.is-compact {
+  width: min(100%, 640px);
+}
+
+.modal-case-image-link {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 140px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  background: rgba(13, 13, 13, 0.04);
+}
+
+.modal-case-image-link img {
+  display: block;
+  width: 100%;
+  max-height: 720px;
+  object-fit: contain;
+  transition: transform 220ms var(--ease-smooth), filter 220ms var(--ease-smooth);
+}
+
+.modal-case-image-link:hover img,
+.modal-case-image-link:focus-visible img {
+  filter: brightness(1.04);
+  transform: scale(1.01);
+}
+
+.modal-case-figure figcaption,
+.modal-code-block figcaption {
+  margin-top: 10px;
+  color: rgba(13, 13, 13, 0.58);
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.modal-case-media-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.modal-case-media-grid .modal-case-figure {
+  margin-top: 0;
+}
+
+.modal-evidence-pending {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  padding: 14px 16px;
+  border: 1px dashed rgba(13, 13, 13, 0.24);
+  border-radius: 8px;
+  color: rgba(13, 13, 13, 0.64);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.modal-evidence-pending span {
+  display: grid;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(61, 90, 254, 0.12);
+  color: var(--accent-blue);
+  font-weight: 800;
+}
+
+.modal-code-block {
+  position: relative;
+  margin: 24px 0 0;
+  overflow: hidden;
+  border: 1px solid rgba(13, 13, 13, 0.14);
+  border-radius: 10px;
+  background: #101217;
+}
+
+.modal-code-block::before {
+  content: attr(data-language);
+  display: block;
+  padding: 9px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(244, 241, 234, 0.62);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.modal-code-block pre {
+  margin: 0;
+  padding: 18px;
+  overflow-x: auto;
+  color: #e7e9ee;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.65;
+  tab-size: 2;
+}
+
+.modal-code-block code {
+  font: inherit;
+}
+
+.modal-code-block figcaption {
+  margin: 0;
+  padding: 12px 14px 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(244, 241, 234, 0.62);
+}
+
+.code-keyword { color: #8fa3ff; }
+.code-string { color: #79e6c7; }
+.code-number { color: #ffca74; }
+.code-comment { color: #89909c; }
+
+@media (max-width: 680px) {
+  .modal-case-media-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-code-block pre {
+    padding: 14px;
+    font-size: 12px;
+  }
+}
+
 .project-modal-body-long .modal-section {
   margin-top: 32px;
   padding: 24px 0 0;
@@ -7349,6 +7492,32 @@ body[data-page="projects"] .modal-table-wrapper {
   border-color: var(--color-border);
   border-radius: 2px;
   background: var(--color-bg);
+}
+
+body[data-page="projects"] .modal-case-image-link,
+body[data-page="projects"] .modal-code-block {
+  border-color: var(--color-border);
+  border-radius: 2px;
+  background: var(--color-bg);
+}
+
+body[data-page="projects"] .modal-case-figure figcaption,
+body[data-page="projects"] .modal-code-block figcaption {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
+
+body[data-page="projects"] .modal-evidence-pending {
+  border-color: var(--color-border);
+  border-radius: 2px;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
+
+body[data-page="projects"] .modal-evidence-pending span {
+  border-radius: 2px;
+  background: var(--color-accent-dim);
+  color: var(--color-accent);
 }
 
 body[data-page="projects"] .modal-data-table thead {

@@ -32,9 +32,9 @@ const PROJECTS = {
   },
   erebus: {
     category: "software",
-    title: "Erebus-7: Parasite Protocol",
+    title: "Erebus-7: First Skin",
     image: "images/project-erebus-7.webp",
-    imageAlt: "Erebus-7 Parasite Protocol horror corridor gameplay artwork",
+    imageAlt: "Erebus-7 First Skin horror corridor gameplay artwork",
     modalVariant: "erebusCaseStudy",
     video: "assets/videos/erebus-7-gameplay.mp4",
     poster: "images/erebus-7-poster.svg",
@@ -60,8 +60,8 @@ const PROJECTS = {
     video: "videos/mcfast-demo.mp4",
     poster: "images/project-mcfast-ordering.svg",
     description: "A Streamlit-based fast-food ordering app that allows users to browse menu categories, add items to a cart, update or remove items, apply discounts, calculate 9% GST, and generate a final receipt. This project demonstrates Python application logic, cart management, calculation flow, and browser-based app deployment.",
-    tags: ["Python", "Streamlit", "Cart System", "Session State", "Discount Logic", "GST Calculation", "Receipt Generation"],
-    github: "https://github.com/gohziqian1234-cmyk/portfolio_gohziqian",
+    tags: ["Python", "Streamlit", "Cart System", "Session State", "Discount Logic", "GST Calculation", "Receipt Generation", "Testing"],
+    github: "https://github.com/gohziqian1234-cmyk/mcfast_app",
     streamlitUrl: "https://gohziqian1234-cmyk-mcfast-app-app-hrwj7l.streamlit.app/",
     gallery: ["images/project-mcfast-ordering.svg"]
   },
@@ -1315,6 +1315,66 @@ function createPianoModalMarkup(project) {
     "Game Developer / Front-End Developer",
     "I designed and developed the game logic, tile spawning system, keyboard input controls, scoring system, streak multiplier, lives system, and game state flow. I also worked on the visual feedback, difficulty progression, testing, and debugging to make the game feel responsive and playable."
   );
+  const hitDetectionCode = `function tapLane(lane) {
+  if (!game || game.mode !== "running") return;
+  const candidates = game.tiles
+    .filter(tile => !tile.hit && tile.lane === lane)
+    .sort((a, b) => b.y - a.y);
+  let selected = null;
+  for (const tile of candidates) {
+    const top = tile.y;
+    const bottom = tile.y + tile.h;
+    if (bottom >= hitLineY - 118 && top <= H - 34) {
+      selected = tile;
+      break;
+    }
+  }
+  if (!selected) {
+    wrongTap(lane);
+    return;
+  }
+  selected.hit = true;
+  game.combo += 1;
+  game.bestCombo = Math.max(game.bestCombo, game.combo);
+  game.tilesHit += 1;
+  let gain = 100 + game.combo * 7 + game.level * 6;
+  if (selected.type === "bonus") gain *= 2;
+  game.score += gain;
+  updateLevel();
+}`;
+  const progressionCode = `function spawnTile() {
+  let lane = Math.floor(Math.random() * laneCount);
+  if (Math.random() < 0.68) {
+    while (lane === game.nextLane) lane = Math.floor(Math.random() * laneCount);
+  }
+  game.nextLane = lane;
+
+  const specialRoll = Math.random();
+  let type = "normal";
+  if (game.level >= 3 && specialRoll > 0.86) type = "bonus";
+  if (game.level >= 5 && specialRoll < 0.11) type = "hazard";
+
+  game.tiles.push({
+    lane,
+    y: -tileH - 8,
+    h: tileH,
+    type,
+    hit: false,
+    glow: Math.random() * Math.PI * 2
+  });
+}
+
+function updateLevel() {
+  const newLevel = Math.min(12, Math.floor(game.tilesHit / 15) + 1);
+  if (newLevel === game.level) return;
+
+  game.level = newLevel;
+  game.speed = 268 + (game.level - 1) * 37;
+  game.spawnEvery = Math.max(0.42, 0.82 - (game.level - 1) * 0.035);
+  showMessage(\`LEVEL \${game.level}\`);
+  playTone(760, 0.18, "sawtooth", 0.035);
+  burst(W / 2, H / 2, 46, "#5eead4");
+}`;
 
   return `
     <article class="project-modal-body project-modal-body-long">
@@ -1339,50 +1399,49 @@ function createPianoModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">The Problem</h3>
-        <p>Nowadays, games are becoming more complex, competitive, and time-consuming. Many people lose the original feeling of playing games for fun - instead, they start playing mainly to win, which can make them feel more stressed or frustrated.</p>
-        <p>I wanted to create a simple browser game that is fun, interesting, and nostalgic. The target users are mainly students, polytechnic students, young adults, and the elderly who want a quick way to relax, reduce stress, and enjoy a short nostalgic game during their break time. Adults can also show their children what games were like when they were young, which can help create a bond between them.</p>
-        <p>The challenge of this project was to make the game slightly difficult but still simple at the same time, so users could understand it immediately and feel motivated to keep playing.</p>
+        <p>Nowadays, games are becoming more complex, competitive, and time-consuming. Many people lose the original feeling of playing games for fun &mdash; instead, they start playing mainly to win, which can make them feel more stressed or angry. Hence, I wanted to create a simple browser game that is fun, interesting, and nostalgic. The target users are mainly students, polytechnic students, young adults, and the elderly who want a quick way to relax, reduce stress, and enjoy a short nostalgic game during their break time. Adults can also show their children what games were like when they were young, which can help create a bond between them. The challenge of this project was to make the game slightly challenging but still simple at the same time, so users can understand it immediately and feel motivated to continue playing.</p>
+        ${createCaseStudyFigure("assets/piano-start-screen.png", "Alien Piano Tiles start screen with DFJK controls and Start Mission button", "Start screen showing the purple alien theme, DFJK controls, and Start Mission button.", "is-portrait")}
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">What I Built</h3>
-        <p>I built a rhythm game where piano tiles fall into different lanes, and the player needs to press the correct key at the right time. If the player fails to do so, they lose one life - and lose the game after missing more than two times.</p>
-        <p>The game includes tile spawning, keyboard input detection, scoring, streak multipliers, lives, pause control, and game-over logic.</p>
+        <p>I built a rhythm game where piano tiles fall into different lanes, and the player needs to press the correct key at the right time. If the player fails to do so, they will lose one life. If the player misses more than two times, they will lose the game. The game includes tile spawning, keyboard input detection, scoring, streak multipliers, lives, pause control, and game-over logic.</p>
+        ${createCaseStudyFigure("assets/piano-main-gameplay.png", "Alien Piano Tiles main gameplay with falling tiles and four keyboard lanes", "Main gameplay screen showing falling tiles, lane layout, score, streak, lives, level, and keyboard controls.", "is-portrait")}
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Key Features</h3>
         <ul class="modal-feature-list">
           <li>Simple rhythm gameplay inspired by classic piano tile games</li>
-          <li>Alien-themed visual style for a unique look and feel</li>
-          <li>Keyboard controls using the D, F, J, K keys</li>
+          <li>Alien-themed visual style</li>
+          <li>Keyboard controls using the DFJK keys</li>
           <li>Randomized tile spawning across different lanes</li>
-          <li>Speed that steadily increases for rising difficulty</li>
+          <li>Increasing speed over time</li>
           <li>Scoring system with streak multiplier rewards</li>
-          <li>Three-lives system for added challenge</li>
+          <li>Three-lives system</li>
           <li>Clear visual feedback for hits, misses, score changes, and game states</li>
         </ul>
+        ${createCaseStudyFigure("assets/piano-signal-lost.png", "Alien Piano Tiles gameplay showing Signal Lost feedback after a missed tile", "Miss feedback screen showing the \"Signal Lost\" message and lives system when the player fails to hit a tile.", "is-portrait")}
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Technologies Used</h3>
-        <p>Built with HTML, CSS, vanilla JavaScript, and HTML5 Canvas.</p>
-        <p><strong>HTML</strong> structured the game page - the canvas, start screen, game-over screen, and scoreboard display.</p>
-        <p><strong>CSS</strong> styled the purple alien theme, including effects, buttons, and layout.</p>
-        <p><strong>JavaScript</strong> powered the gameplay logic - falling tiles, keyboard and touch input, scoring, combo system, lives, levels, collision detection, and game-over handling.</p>
-        <p><strong>HTML5 Canvas</strong> rendered the live graphics - falling tiles, alien effects, the lane board, stars, particles, and animations.</p>
+        <p>I used HTML, CSS, vanilla JavaScript, and HTML5 Canvas to build this project. HTML was used to build the basic structure of the game page, such as the game canvas, start page, game-over screen, and scoreboard display. CSS was used to design the appearance of the game &mdash; I used a purple alien theme and CSS to style the game effects, buttons, and layout. JavaScript was used to make the game work: it controls the falling tiles, keyboard and touch input, scoring system, combo system, lives, levels, collision detection, and game-over logic. HTML5 Canvas was used to draw the actual game graphics &mdash; falling tiles, alien effects, lane board, stars, particles, and animations in real time.</p>
         <div class="modal-tech-tags">
           <span class="tech-tag">HTML</span>
           <span class="tech-tag">CSS</span>
           <span class="tech-tag">JavaScript</span>
           <span class="tech-tag">HTML5 Canvas</span>
         </div>
+        ${createCodeBlock("javascript", hitDetectionCode, "JavaScript hit-detection logic showing how the game checks the selected lane, detects whether a tile is within the hit window, updates combo, calculates score, handles bonus tiles, and increases difficulty through level updates.")}
+        ${createEvidenceComingSoon("Bonus-tile miss screenshot coming soon. The supplied gameplay captures do not show the teal diamond bonus tile clearly enough to label as evidence.")}
+        ${createCodeBlock("javascript", progressionCode, "Tile-spawning and difficulty-scaling logic - shows how tiles are randomly assigned to lanes, how bonus and hazard tiles are introduced, and how spawn speed increases as the player levels up.")}
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Challenges &amp; How I Overcame Them</h3>
-        <p>One challenge was making the game feel fair as the tiles became faster. Too strict a timing window felt frustrating; too loose made the game too easy and less engaging. I adjusted the hit-detection window and added clearer visual feedback so players could understand exactly when they hit or missed a tile.</p>
-        <p>Another challenge was managing different game states - ready, playing, paused, and game over. To avoid logic errors, I organized the game around a clear state system so each action only fires when the game is in the correct state.</p>
+        <p>One challenge was making the game feel fair as the tiles became faster. If the timing window was too strict, the game felt frustrating. If it was too loose, the game became too easy. To solve this, I adjusted the hit detection window and added clearer visual feedback so players could understand when they hit or missed a tile. Another challenge was managing different game states, such as ready, playing, paused, and game over. To avoid logic errors, I organised the game around a clear state system so that each action only happens when the game is in the correct state.</p>
+        ${createCaseStudyFigure("assets/piano-pause-screen.png", "Alien Piano Tiles paused state with Resume and Restart controls", "Pause screen showing the game state system with resume and restart options.", "is-portrait")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -1401,7 +1460,11 @@ function createPianoModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Outcome</h3>
-        <p>The final result is a simple but engaging rhythm game with increasing difficulty, responsive controls, scoring feedback, and a nostalgic gameplay style. This project helped me understand how real-time interaction, game loops, and user feedback shape the overall player experience.</p>
+        <p>The final result is a simple but engaging rhythm game with increasing difficulty, responsive controls, scoring feedback, and a nostalgic gameplay style. This project helped me understand how real-time interaction, game loops, and user feedback affect the overall player experience.</p>
+        ${createCaseStudyMediaGrid([
+          { src: "assets/piano-game-over.png", alt: "Alien Piano Tiles Mission Failed screen with run statistics and Try Again button", caption: "Game-over screen shown when the player runs out of lives. Displays the run's final score alongside personal best, streak, level reached, and miss count, with an immediate Try Again button - closing the loop from Start Mission to Mission Failed.", modifier: "is-portrait" },
+          { src: "assets/piano-mission-failed-summary.png", alt: "Alternate Alien Piano Tiles Mission Failed summary screen", caption: "Alternate Mission Failed summary capture confirming the same score, best-score, tile, streak, level, and miss reporting across the responsive game view.", modifier: "is-portrait" }
+        ], "Alien Piano Tiles outcome screens")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -1418,6 +1481,63 @@ function createPianoModalMarkup(project) {
   `;
 }
 
+function createCaseStudyFigure(src, alt, caption, modifier = "") {
+  const modifierClass = modifier ? ` ${escapeHtml(modifier)}` : "";
+  return `
+    <figure class="modal-case-figure${modifierClass}">
+      <a class="modal-case-image-link" href="${escapeHtml(src)}" target="_blank" rel="noopener noreferrer" aria-label="Open image: ${escapeHtml(alt)}">
+        <img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async">
+      </a>
+      <figcaption>${escapeHtml(caption)}</figcaption>
+    </figure>
+  `;
+}
+
+function createCaseStudyMediaGrid(items, label) {
+  return `
+    <div class="modal-case-media-grid" role="group" aria-label="${escapeHtml(label)}">
+      ${items.map((item) => createCaseStudyFigure(item.src, item.alt, item.caption, item.modifier || "")).join("")}
+    </div>
+  `;
+}
+
+function createEvidenceComingSoon(message) {
+  return `<div class="modal-evidence-pending" role="status"><span aria-hidden="true">+</span>${escapeHtml(message)}</div>`;
+}
+
+function highlightCode(code, language) {
+  const keywords = language === "python"
+    ? /^(def|return|for|in|if|else|elif|sum|from|import|True|False|None)$/
+    : /^(function|const|let|var|return|for|of|if|else|while|new|true|false|null)$/;
+  const tokenPattern = language === "python"
+    ? /("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|#[^\n]*|\b(?:def|return|for|in|if|else|elif|sum|from|import|True|False|None)\b|\b\d+(?:\.\d+)?\b)/g
+    : /("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\/\/[^\n]*|\b(?:function|const|let|var|return|for|of|if|else|while|new|true|false|null)\b|\b\d+(?:\.\d+)?\b)/g;
+  let highlighted = "";
+  let lastIndex = 0;
+
+  for (const match of code.matchAll(tokenPattern)) {
+    highlighted += escapeHtml(code.slice(lastIndex, match.index));
+    const token = match[0];
+    let tokenClass = "code-number";
+    if (token.startsWith("//") || token.startsWith("#")) tokenClass = "code-comment";
+    else if (token.startsWith('"') || token.startsWith("'")) tokenClass = "code-string";
+    else if (keywords.test(token)) tokenClass = "code-keyword";
+    highlighted += `<span class="${tokenClass}">${escapeHtml(token)}</span>`;
+    lastIndex = match.index + token.length;
+  }
+  highlighted += escapeHtml(code.slice(lastIndex));
+  return highlighted;
+}
+
+function createCodeBlock(language, code, caption) {
+  return `
+    <figure class="modal-code-block" data-language="${escapeHtml(language.toUpperCase())}">
+      <pre tabindex="0"><code>${highlightCode(code, language)}</code></pre>
+      <figcaption>${escapeHtml(caption)}</figcaption>
+    </figure>
+  `;
+}
+
 function createErebusModalMarkup(project) {
   const actions = createModalActions(project);
   const roleSection = createRoleSection(
@@ -1425,6 +1545,20 @@ function createErebusModalMarkup(project) {
     "Game Developer / Narrative Systems Developer",
     "I designed and developed the core gameplay systems, including player progression, detection logic, difficulty scaling, resource management, story flow, and game state control. I also worked on the narrative structure, interaction design, testing, and balancing so that the game felt tense but still fair for the player."
   );
+  const inputHandlingCode = `if(k==="v")talk();
+if(k==="e")tryInfect();
+if(k==="q")hide();
+if(k==="f")terror();
+if(k==="r")vent();
+if(k==="c")commandHosts();
+if(k==="z")decoy();
+if(k==="b")blindPulse();
+if(k==="g")sacrificeHost();
+if(k==="t")sabotageTerminal();
+if(k==="x")openEvolve();
+if(k==="m")openTacticalMap();
+if(k==="j")openCodex();
+if(k==="escape"||k==="p")openPause();`;
 
   return `
     <article class="project-modal-body project-modal-body-long">
@@ -1449,52 +1583,54 @@ function createErebusModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">The Problem</h3>
-        <p>Among Us is usually a multiplayer game, but not every player wants to play with random people online - some don't have friends to play with, or simply prefer to play alone without depending on anyone else.</p>
-        <p>This project set out to redesign the Among Us-style experience as a single-player game, built around solo gameplay, tasks, decision-making, and suspense rather than real players. The challenge was making the game genuinely interesting without any multiplayer interaction to fall back on.</p>
+        <p>Among Us is usually a multiplayer game, but not every player wants to play with random people online. Some players may not have friends available to play with, while others may simply prefer a single-player experience where they can progress alone without depending on other players. This project was intended to redesign an Among Us-style experience into a single-player horror stealth game. Instead of relying on real players, the game focuses on solo gameplay, tasks, decision-making, suspense, and survival. The main challenge was making the game interesting without multiplayer interaction.</p>
+        ${createCaseStudyFigure("assets/erebus-intro-story.png", "Erebus-7 clear story brief introducing what happened on the station", "Opening story brief establishing what happened on Erebus-7 and introducing the research-station narrative.")}
+        ${createCaseStudyFigure("assets/erebus-story-scene.png", "Erebus-7 tutorial story step explaining the premise", "Narrative tutorial scene summarising the story in one sentence and guiding the player through the opening sequence.")}
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">What I Built</h3>
-        <p>I built a single-player social-horror stealth game called <strong>Erebus-7: Parasite Protocol</strong>. Players take on the role of an alien parasite confined within a space station, controlling a human host who must infect crew members, evade detection, and gradually take over the station.</p>
-        <p>The primary objective is to navigate through the station's various sections and reach SELENE, the station's AI. To succeed, players must complete tasks, use infected hosts as allies, avoid guards and surveillance systems, and survive until the final chapter at the AI Core.</p>
-        <p>The game features movement mechanics, enemy patrols, detection systems, infection mechanics, a clone respawn option, varying difficulty levels, narrative scenes, sound effects, a tactical map, tutorials, save/load functionality, and multiple chapters.</p>
+        <p>I built a single-player social-horror stealth game called <strong>Erebus-7: First Skin</strong>. In this game, players take on the role of an alien parasite confined within a space station. The player controls a human host and must infect crew members, evade detection, and gradually take control of the station. The main objective is to navigate through different sections of the station and reach SELENE, the station AI. To succeed, players must complete tasks, use infected hosts as allies, avoid guards and surveillance systems, and survive until the final AI Core chapter. The game includes movement mechanics, enemy patrols, detection systems, infection mechanics, clone respawn options, difficulty levels, narrative scenes, sound effects, a tactical map, tutorials, save/load functionality, and multiple chapters.</p>
+        ${createCaseStudyFigure("assets/erebus-main-hud.png", "Erebus-7 main gameplay HUD in Crew Quarters", "Main gameplay screen showing the player, station environment, mission objective, detection meter, alert meter, abilities, and HUD elements.")}
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Key Features</h3>
         <ul class="modal-feature-list">
           <li>Single-player horror stealth gameplay</li>
-          <li>Branching storyline with narrative progression</li>
-          <li>Detection bar that rises when guards or cameras spot the player</li>
+          <li>Story-driven mission flow with narrative scenes and blackbox logs</li>
+          <li>Detection bar that increases when guards, cameras, or scanners notice the player</li>
           <li>Easy, Medium, and Hard difficulty modes</li>
-          <li>Clone system letting the player respawn at a planted backup body</li>
+          <li>Clone system that lets the player respawn at a planted backup body</li>
           <li>Tactical map showing rooms, people, danger, objectives, and routes</li>
-          <li>Distinct station zones - Crew Quarters, Med Bay, Security Hub, Command Deck, and AI Core</li>
-          <li>Story scenes and blackbox logs revealing what happened on the station</li>
+          <li>Different station zones, including Crew Quarters, Med Bay, Security Hub, Command Deck, and AI Core</li>
           <li>Sound design with alarms, footsteps, whispers, scanner sounds, and horror music</li>
           <li>Pause menu, settings, save/load, tutorial, and game-over screens</li>
         </ul>
+        ${createCaseStudyFigure("assets/erebus-tactical-map.png", "Erebus-7 tactical map showing Crew Quarters rooms and route information", "Tactical map showing Crew Quarters zone layout - rooms, routes, danger indicators, and mission objectives available for route planning.")}
+        ${createCaseStudyMediaGrid([
+          { src: "assets/erebus-instinct-choice.png", alt: "Erebus-7 parasite instinct choice screen", caption: "Parasite-instinct choice screen showing how the player's opening decision changes the first gameplay advantage." },
+          { src: "assets/erebus-difficulty-selection.png", alt: "Erebus-7 Easy Medium and Hard difficulty selection", caption: "Difficulty selection showing the Easy, Medium, and Hard modes used to tune detection, resources, and campaign pressure." }
+        ], "Erebus-7 player setup screens")}
+        ${createCaseStudyFigure("assets/erebus-interaction-infection.png", "Erebus-7 gameplay showing an infection target and interaction controls", "Live interaction and infection state showing the current host, nearby crew, infection objective, detection cones, and ability controls.")}
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Technologies Used</h3>
-        <p>Built with HTML, CSS, JavaScript, and HTML5 Canvas.</p>
-        <p><strong>HTML</strong> established the framework of the game page - the canvas, intro screen, tutorial, HUD, pause menu, tactical map, story scenes, and game-over screens.</p>
-        <p><strong>CSS</strong> shaped the visual style - a dark horror aesthetic in teal, red, green, and blue tones to match the space station and parasite theme.</p>
-        <p><strong>JavaScript</strong> powered the game's functionality - player movement, enemy AI, the detection bar, infection system, abilities, map system, story progression, sound, save/load, and game rules.</p>
-        <p><strong>HTML5 Canvas</strong> rendered the live game environment - the map, rooms, characters, vision cones, effects, lighting, particles, objectives, and animations in real time.</p>
+        <p>I used HTML, CSS, JavaScript, and HTML5 Canvas to develop this project. HTML was used to structure the game page, including the canvas, introduction screen, tutorial, HUD, pause menu, tactical map, story scenes, and game-over screens. CSS was used to design the visual appearance of the game &mdash; I used a dark horror aesthetic with teal, red, green, and blue tones to match the space-station and parasite theme. JavaScript was used to power the game functionality: it manages player movement, enemy AI, detection, infection, abilities, map logic, story progression, sound, save/load features, and game rules. HTML5 Canvas was used to render the actual game environment, including the map, rooms, characters, vision cones, lighting, effects, particles, objectives, and animations in real time.</p>
         <div class="modal-tech-tags">
           <span class="tech-tag">HTML</span>
           <span class="tech-tag">CSS</span>
           <span class="tech-tag">JavaScript</span>
           <span class="tech-tag">HTML5 Canvas</span>
         </div>
+        ${createCodeBlock("javascript", inputHandlingCode, "JavaScript input-handling logic showing how the player activates core gameplay actions - talking, infecting, hiding, using abilities, opening the tactical map, opening the codex, and pausing - all mapped to distinct keys in a single-player stealth-horror system.")}
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Challenges &amp; Solutions</h3>
-        <p>One challenge was creating a genuinely scary atmosphere rather than just a dark one. Early on, the game felt too simplistic - players were just navigating a map. To fix this, I added more detailed room art, horror effects, sound design, story scenes, and frightening events triggered when the player entered certain areas.</p>
-        <p>Another challenge was balancing the detection system. If it filled too slowly, the game became too easy; too quickly, and it felt unfair. I addressed this by introducing difficulty levels and tuning the detection range, speed, and cooldown for each mode.</p>
+        <p>One challenge was creating a genuinely scary atmosphere rather than simply making the screen dark. Early versions felt too simple because the player was mostly navigating a map. To improve this, I added detailed room art, horror effects, sound design, story scenes, and frightening events triggered by the player entering certain areas. Another challenge was balancing the detection system. If detection filled too slowly, the game became too easy. If it filled too quickly, the game felt unfair. To solve this, I introduced difficulty modes and adjusted detection range, speed, and cooldown according to the selected mode.</p>
+        ${createCaseStudyFigure("assets/erebus-detection-alert.png", "Erebus-7 detection report showing You Were Identified", "Detection and alert system showing a You Were Identified tension moment - the game's response when guards, cameras, or scanners notice the player.")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -1518,9 +1654,8 @@ function createErebusModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Outcome</h3>
-        <p>The outcome is a playable horror game with a full story theme, multiple levels, enemies, objectives, sound, and a clear mission flow.</p>
-        <p>This project opened my eyes to how much work goes into making a game actually feel good - gameplay is so much more than controls and rules. A good game also needs feedback, sound, pacing, story, balance, and clear instructions for the player.</p>
-        <p>All in all, Erebus-7: Parasite Protocol became much more than a simple prototype - a full-fledged browser game, playable on the web and shareable with others.</p>
+        <p>The outcome is a playable horror stealth game with a full story theme, several levels, enemies, objectives, sound, and a clear mission flow. This project helped me understand that gameplay is more than controls and rules &mdash; a good game also needs feedback, sound, pacing, story, balance, and clear instructions for the player. Overall, Erebus-7: First Skin became more than a simple prototype. It became a full browser game that is playable on the web and shareable with others.</p>
+        ${createCaseStudyFigure("assets/erebus-ending-detected.png", "Erebus-7 DETECTED failure state with checkpoint and restart options", "DETECTED failure-state screen showing the detection bar filled to maximum, last objective, current zone and alert level, a next-step tip, and Load Checkpoint and Restart Run options - closing the loop on the stealth-detection system described above.")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -1536,6 +1671,42 @@ function createErebusModalMarkup(project) {
 
 function createMcfastModalMarkup(project) {
   const tags = project.tags.map((tag) => `<span class="tech-tag">${escapeHtml(tag)}</span>`).join("");
+  const roleSection = createRoleSection(
+    "Solo Supporting Software Project",
+    "Python / Streamlit App Developer",
+    "I developed the application logic and Streamlit interface, including menu data, cart management, discount rules, GST calculation, receipt generation, and end-to-end testing."
+  );
+  const calculationCode = `GST_RATE = 0.09
+
+def calculate_totals(cart, discount_name):
+    subtotal = sum(MENU_BY_CODE[item_code].price * quantity for item_code, quantity in cart.items())
+    discount_amount = subtotal * DISCOUNTS.get(discount_name, 0.00)
+    discounted_subtotal = subtotal - discount_amount
+    gst = discounted_subtotal * GST_RATE
+    total = discounted_subtotal + gst
+    return subtotal, discount_amount, gst, total
+
+
+def build_receipt(cart, discount_name):
+    subtotal, discount_amount, gst, total = calculate_totals(cart, discount_name)
+    lines = [
+        "McFast Ordering System",
+        datetime.now().strftime("%Y-%m-%d %H:%M"),
+        "-" * 42,
+    ]
+    for item_code, quantity in cart.items():
+        item = MENU_BY_CODE[item_code]
+        lines.append(f"{item.name}")
+        lines.append(f"  {money(item.price)} x {quantity} = {money(item.price * quantity)}")
+    lines.extend([
+        "-" * 42,
+        f"Subtotal: {money(subtotal)}",
+        f"Discount ({discount_name}): -{money(discount_amount)}",
+        f"GST 9%: {money(gst)}",
+        f"Total: {money(total)}",
+        "",
+        "Thank you. Please come again.",
+    ])`;
 
   return `
     <article class="project-modal-body project-modal-body-long">
@@ -1544,11 +1715,7 @@ function createMcfastModalMarkup(project) {
         <h2 class="modal-title" id="modal-title">PROJECT: MCFAST ORDERING SYSTEM</h2>
       </header>
 
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Overview</h3>
-        <p>McFast Ordering System is a Python-based food ordering app built with Streamlit. The app simulates a fast-food ordering flow where users can browse menu categories, add items to a cart, update quantities, apply discounts, calculate GST, and generate a final receipt.</p>
-        <p>This project is a supporting software project that demonstrates my ability to build a functional Python application with a browser-based interface.</p>
-      </section>
+      ${roleSection}
 
       <div class="modal-media modal-video-frame">
         <!-- Demo video file provided by Ziqian and placed at /videos/mcfast-demo.mp4. -->
@@ -1557,6 +1724,13 @@ function createMcfastModalMarkup(project) {
           Your browser does not support video playback.
         </video>
       </div>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Overview</h3>
+        <p>McFast Ordering System is a Python-based food ordering app built with Streamlit. The app simulates a fast-food ordering flow where users can browse menu categories, add items to a cart, update quantities, apply discounts, calculate GST, and generate a final receipt.</p>
+        <p>This project is a supporting software project that demonstrates my ability to build a functional Python application with a browser-based interface.</p>
+        ${createCaseStudyFigure("assets/mcfast-menu-browsing.png", "McFast menu browsing interface with food items quantity controls and empty cart", "Menu browsing screen showing food items, item names, prices, quantity controls, Add buttons, discount selection, and empty cart state.")}
+      </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Problem / Brief</h3>
@@ -1582,10 +1756,12 @@ function createMcfastModalMarkup(project) {
           <li>Cart display with itemised order summary</li>
           <li>Update or remove cart items</li>
           <li>Discount options for Student, Staff, Loyalty Member, or None</li>
-          <li>9% GST calculation</li>
+          <li>9 percent GST calculation</li>
           <li>Final receipt generation</li>
           <li>Browser-based interface using Streamlit</li>
         </ul>
+        ${createCaseStudyFigure("assets/mcfast-cart-management.png", "McFast cart with itemised order controls and calculated totals", "Cart management screen showing itemised order details, quantity update buttons, remove options, subtotal, GST, discount, and final total.")}
+        ${createCaseStudyFigure("assets/mcfast-discount-dropdown.png", "McFast discount dropdown showing None Student Staff and Loyalty Member", "Discount type dropdown expanded, showing all available options - None, Student, Staff, and Loyalty Member - selected here on Staff, which is applied before GST.")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -1593,6 +1769,7 @@ function createMcfastModalMarkup(project) {
         <p>The project uses Python for the main application logic and Streamlit for the web interface. Menu items and prices are handled in the app so the system can calculate item subtotals, discounts, GST, and the final total.</p>
         <p>The cart logic keeps track of selected items and quantities before checkout. The checkout flow applies the selected discount first, then calculates GST, and finally generates the receipt.</p>
         <div class="modal-tech-tags">${tags}</div>
+        ${createCodeBlock("python", calculationCode, "Python logic showing how the cart's subtotal, discount, and 9% GST are calculated in sequence - discount applied first, then GST on the discounted amount - before the final receipt is generated line by line.")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -1612,26 +1789,15 @@ function createMcfastModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Testing Evidence</h3>
-        <ul class="modal-feature-list">
-          <li>Tested adding different items and quantities into the cart</li>
-          <li>Tested updating and removing cart items</li>
-          <li>Tested checkout with different discount types</li>
-          <li>Tested 9% GST calculation after discount</li>
-          <li>Tested receipt generation after checkout</li>
-        </ul>
+        <p>Tested adding different items and quantities into the cart. Tested updating and removing cart items. Tested checkout with different discount types. Tested 9 percent GST calculation after discount. Tested receipt generation after checkout.</p>
+        ${createCaseStudyFigure("assets/mcfast-empty-cart.png", "McFast cleared cart empty state", "Cleared cart screen showing that the app can reset the order and return the user to an empty-cart state.", "is-compact")}
+        ${createCaseStudyFigure("assets/mcfast-final-receipt.png", "McFast final receipt with subtotal discount GST and total", "Final receipt screen showing selected items, subtotal, discount type, GST calculation, final total, and receipt output.", "is-compact")}
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Outcome</h3>
+        <h3 class="modal-section-heading">Outcome and Future Improvements</h3>
         <p>The final app demonstrates a working food ordering system with a clear user flow from menu selection to final receipt. It helped me practise Python application logic, Streamlit interface design, cart management, and calculation accuracy.</p>
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Future Improvements</h3>
-        <p>Future versions can include a database to store menu items, prices, customer orders, and order history instead of keeping the data only inside the app code.</p>
-        <p>An admin panel can also be added so menu items, prices, and discounts can be updated without editing the source code directly.</p>
-        <p>The receipt system can be improved by allowing users to download the final receipt as a PDF or text file.</p>
-        <p>The app interface can also be improved with food images, order numbers, a cleaner checkout page, and better visual styling.</p>
+        <p>Future improvements: add a database to store menu items, prices, customer orders, and order history instead of keeping the data only inside the app code; add an admin panel so menu items, prices, and discounts can be updated without editing the source code directly; improve the receipt system by allowing users to download the final receipt as a PDF or text file; improve the app interface with food images, order numbers, a cleaner checkout page, and stronger visual styling.</p>
       </section>
 
       <section class="modal-action-block" aria-label="McFast project links">
@@ -2258,16 +2424,19 @@ function getProjectActionDefinitions(project) {
 
   const definitions = {
     piano: [
-      { label: "View on GitHub", url: project.github, icon: "</>", primary: false },
-      { label: "Try The Game", url: project.playUrl, icon: "&#9654;", primary: true }
+      { label: "Play Game", url: project.playUrl, icon: "&#9654;", primary: true },
+      { label: "View Code", url: project.github, icon: "</>", primary: false },
+      { label: "Watch Gameplay Video", url: project.video, icon: "VIDEO", primary: false }
     ],
     erebus: [
-      { label: "View on GitHub", url: project.github, icon: "</>", primary: false },
-      { label: "Try The Game", url: project.playUrl, icon: "&#9654;", primary: true }
+      { label: "Play Game", url: project.playUrl, icon: "&#9654;", primary: true },
+      { label: "View Code", url: project.github, icon: "</>", primary: false },
+      { label: "Watch Gameplay Video", url: project.video, icon: "VIDEO", primary: false }
     ],
     mcfast: [
-      { label: "Watch Demo Video", url: project.video, icon: "&#9654;", primary: false },
-      { label: "Try App on Streamlit", url: project.streamlitUrl, icon: "&#8599;", primary: true }
+      { label: "Try App on Streamlit", url: project.streamlitUrl, icon: "&#8599;", primary: true },
+      { label: "View Code on GitHub", url: project.github, icon: "</>", primary: false },
+      { label: "Watch Project Video", url: project.video, icon: "VIDEO", primary: false }
     ],
     wheelchair: [
       { label: "View Project Slides (PDF)", url: project.slidesUrl, icon: "PDF", primary: false },
