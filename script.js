@@ -543,26 +543,34 @@ function initAutoHideNav() {
     { passive: true }
   );
 
+  const handlePointerReveal = (event) => {
+    if (document.body.classList.contains("menu-open") || document.body.classList.contains("modal-open") || window.scrollY <= 50) {
+      forceShow();
+      return;
+    }
+
+    window.clearTimeout(hideTimer);
+
+    if (event.clientY < 100 && navbar.classList.contains("nav-hidden")) {
+      navbar.classList.remove("nav-hidden");
+      navbar.classList.add("nav-revealed-by-mouse");
+      revealedByMouse = true;
+      mouseRevealUntil = Date.now() + 800;
+      hideTimer = window.setTimeout(hide, 800);
+    } else if (event.clientY >= 100 && revealedByMouse) {
+      hideTimer = window.setTimeout(hide, 800);
+    }
+  };
+
+  document.addEventListener(
+    "pointermove",
+    handlePointerReveal,
+    { passive: true }
+  );
+
   document.addEventListener(
     "mousemove",
-    (event) => {
-      if (document.body.classList.contains("menu-open") || document.body.classList.contains("modal-open") || window.scrollY <= 50) {
-        forceShow();
-        return;
-      }
-
-      window.clearTimeout(hideTimer);
-
-      if (event.clientY < 100 && navbar.classList.contains("nav-hidden")) {
-        navbar.classList.remove("nav-hidden");
-        navbar.classList.add("nav-revealed-by-mouse");
-        revealedByMouse = true;
-        mouseRevealUntil = Date.now() + 800;
-        hideTimer = window.setTimeout(hide, 800);
-      } else if (event.clientY >= 100 && revealedByMouse) {
-        hideTimer = window.setTimeout(hide, 800);
-      }
-    },
+    handlePointerReveal,
     { passive: true }
   );
 }

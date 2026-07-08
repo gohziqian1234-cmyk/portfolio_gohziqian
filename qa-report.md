@@ -1,8 +1,8 @@
 # Portfolio QA Report
 
-Generated: 2026-06-17T13:13:20.992Z
-Total configurations: 82
-Passed: 82
+Generated: 2026-07-08T02:51:10.534Z
+Total configurations: 85
+Passed: 85
 Failed: 0
 Pass rate: 100.0%
 
@@ -11,6 +11,9 @@ Pass rate: 100.0%
 - Contact heading nav overlap: covered by `index.html` scroll sequences and `index-ctas` interactions.
 - Projects breadcrumb nav overlap: covered by all `projects.html` viewport/scroll splits.
 - Mid-page scroll-up nav reveal: covered by `scroll-down-then-up` splits and `mouse-top-reveal` interactions.
+- Previous/Next project cards and category labels: covered by `projects-sequence-navigation`.
+- Grid quick-action labels and click isolation: covered by `projects-quick-actions`.
+- Certificate lightbox open/close behavior: covered by `certificate-lightbox`.
 
 ## Matrix Results
 
@@ -92,6 +95,9 @@ Pass rate: 100.0%
 | PASS | interaction | index.html | mobile | index-ctas |  |  |
 | PASS | interaction | projects.html | desktop | projects-tabs-modals |  |  |
 | PASS | interaction | projects.html | mobile | projects-tabs-modals |  |  |
+| PASS | interaction | projects.html | desktop | projects-sequence-navigation |  |  |
+| PASS | interaction | projects.html | desktop | projects-quick-actions |  |  |
+| PASS | interaction | about.html | desktop | certificate-lightbox |  |  |
 | PASS | interaction | index.html | tablet | index-to-about-journey |  |  |
 | PASS | interaction | about.html | desktop | continue-exploring |  |  |
 | PASS | interaction | projects.html | desktop | continue-exploring |  |  |

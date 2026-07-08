@@ -51,6 +51,7 @@ const MIME_TYPES = {
   ".jpeg": "image/jpeg",
   ".png": "image/png",
   ".webp": "image/webp",
+  ".mp4": "video/mp4",
   ".pdf": "application/pdf"
 };
 
@@ -432,6 +433,18 @@ async function runInteractionConfig(browser, config) {
       await checkModal(page, result, "greenhouse", "backdrop");
     }
 
+    if (config.name === "projects-sequence-navigation") {
+      await checkProjectSequenceNavigation(page, result);
+    }
+
+    if (config.name === "projects-quick-actions") {
+      await checkProjectQuickActions(page, result);
+    }
+
+    if (config.name === "certificate-lightbox") {
+      await checkCertificateLightbox(page, result);
+    }
+
     if (config.name === "index-to-about-journey") {
       await page.click('.learn-more-block a[href="about.html"]');
       await page.waitForTimeout(900);
@@ -456,7 +469,12 @@ async function runInteractionConfig(browser, config) {
       await page.mouse.move(8, 160);
       await page.waitForTimeout(50);
       await page.mouse.move(8, 8);
-      await page.waitForTimeout(450);
+      await page.waitForFunction(() => {
+        const nav = document.querySelector(".navbar");
+        if (!nav) return false;
+        const style = getComputedStyle(nav);
+        return Number(style.opacity) >= 0.5 && !nav.classList.contains("nav-hidden");
+      }, { timeout: 1200 }).catch(() => {});
       const nav = await getPageMetrics(page).then((metrics) => metrics.nav);
       if (!nav || Number(nav.opacity) < 0.5) result.failures.push("Mouse-near-top did not reveal hidden nav");
     }
@@ -511,7 +529,11 @@ async function checkModal(page, result, project, closeMode) {
   if (closeMode === "escape") {
     await page.keyboard.press("Escape");
   } else if (closeMode === "backdrop") {
-    await page.click(".modal-backdrop", { position: { x: 10, y: 10 } });
+    const point = await page.evaluate(() => ({
+      x: Math.floor(window.innerWidth / 2),
+      y: 24
+    }));
+    await page.mouse.click(point.x, point.y);
   } else {
     await page.click(".modal-close");
   }
@@ -533,6 +555,144 @@ async function checkModal(page, result, project, closeMode) {
   if (!closed.navClickable) result.failures.push(`${project} modal: nav stayed disabled after close`);
 }
 
+async function checkProjectSequenceNavigation(page, result) {
+  await page.click('[data-project-tab="software"]');
+  await page.waitForTimeout(350);
+  await page.click('[data-open-project="mcfast"]');
+  await page.waitForTimeout(550);
+
+  const sequenceState = await page.evaluate(() => {
+    const overlay = document.querySelector("#project-modal");
+    const labels = Array.from(overlay.querySelectorAll(".project-category-label")).map((label) => label.textContent.trim());
+    const cards = Array.from(overlay.querySelectorAll("[data-project-nav]")).map((card) => ({
+      target: card.dataset.projectNav,
+      text: card.textContent.replace(/\s+/g, " ").trim()
+    }));
+    return { labels, cards };
+  });
+
+  if (sequenceState.cards.length !== 2) result.failures.push(`McFast sequence nav expected 2 cards, saw ${sequenceState.cards.length}`);
+  if (!sequenceState.labels.includes("Software Project")) result.failures.push("McFast sequence nav missing Software Project label");
+  if (!sequenceState.labels.includes("Hardware Project")) result.failures.push("McFast sequence nav missing Hardware Project label");
+  if (!sequenceState.cards.some((card) => card.target === "erebus")) result.failures.push("McFast sequence nav missing previous Erebus card");
+  if (!sequenceState.cards.some((card) => card.target === "wheelchair")) result.failures.push("McFast sequence nav missing next Wheelchair card");
+
+  await page.click('[data-project-nav="wheelchair"]');
+  await page.waitForTimeout(550);
+  const titleAfterNext = await page.locator("#modal-title").innerText();
+  if (!titleAfterNext.includes("Motor-Assisted Wheelchair Support Prototype")) {
+    result.failures.push(`Sequence Next card did not open Wheelchair modal; saw "${titleAfterNext}"`);
+  }
+
+  await page.click('[data-project-nav="mcfast"]');
+  await page.waitForTimeout(550);
+  const titleAfterPrevious = await page.locator("#modal-title").innerText();
+  if (!titleAfterPrevious.includes("MCFAST ORDERING SYSTEM")) {
+    result.failures.push(`Sequence Previous card did not return to McFast modal; saw "${titleAfterPrevious}"`);
+  }
+
+  await page.keyboard.press("Escape");
+  await page.waitForTimeout(450);
+}
+
+async function checkProjectQuickActions(page, result) {
+  const expected = {
+    piano: { label: "PLAY", href: "https://gohziqian1234-cmyk.github.io/piano-tiles-alien-/" },
+    erebus: { label: "PLAY", href: "https://gohziqian1234-cmyk.github.io/erebus-7/" },
+    mcfast: { label: "TRY APP", href: "https://gohziqian1234-cmyk-mcfast-app-app-hrwj7l.streamlit.app/" },
+    wheelchair: { label: "WATCH DEMO", href: `${BASE_URL}/assets/videos/wheelchair-prototype-demo.mp4` },
+    greenhouse: { label: "WATCH DEMO", href: `${BASE_URL}/assets/videos/iot-smart-plant-monitoring-demo.mp4` }
+  };
+
+  await page.click('[data-project-tab="software"]');
+  await page.waitForTimeout(350);
+  for (const project of ["piano", "erebus", "mcfast"]) {
+    await assertProjectQuickAction(page, result, project, expected[project]);
+  }
+
+  await page.click('[data-project-tab="hardware"]');
+  await page.waitForTimeout(350);
+  for (const project of ["wheelchair", "greenhouse"]) {
+    await assertProjectQuickAction(page, result, project, expected[project]);
+  }
+
+  for (const project of ["keychain", "construction"]) {
+    const count = await page.locator(`[data-open-project="${project}"] .project-play-button`).count();
+    if (count !== 0) result.failures.push(`${project} should not render a quick-action button`);
+  }
+
+  await page.click('[data-project-tab="software"]');
+  await page.waitForTimeout(350);
+  const mcfastAction = page.locator('[data-open-project="mcfast"] .project-play-button').first();
+  const popupPromise = page.context().waitForEvent("page", { timeout: 2500 }).catch(() => null);
+  await mcfastAction.click();
+  const popup = await popupPromise;
+  if (popup) await popup.close();
+  const modalHidden = await page.locator("#project-modal").getAttribute("aria-hidden");
+  if (modalHidden !== "true") result.failures.push("McFast TRY APP quick action also opened the detail modal");
+}
+
+async function assertProjectQuickAction(page, result, project, expected) {
+  const action = page.locator(`[data-open-project="${project}"] .project-play-button`).first();
+  const count = await action.count();
+  if (count !== 1) {
+    result.failures.push(`${project} quick action expected 1 button, saw ${count}`);
+    return;
+  }
+
+  const label = (await action.innerText()).trim();
+  if (label !== expected.label) result.failures.push(`${project} quick action label expected ${expected.label}, saw ${label}`);
+
+  const href = await action.getAttribute("href");
+  if (href !== expected.href && `${BASE_URL}/${href}` !== expected.href) {
+    result.failures.push(`${project} quick action href expected ${expected.href}, saw ${href}`);
+  }
+
+  if (!(await action.isVisible())) result.failures.push(`${project} quick action is not visible`);
+}
+
+async function checkCertificateLightbox(page, result) {
+  const firstCertificate = page.locator("[data-certificate-lightbox]").first();
+  const count = await firstCertificate.count();
+  if (!count) {
+    result.failures.push("No certificate lightbox links found");
+    return;
+  }
+
+  await firstCertificate.scrollIntoViewIfNeeded();
+  await firstCertificate.click();
+  await page.waitForTimeout(400);
+
+  const openState = await page.evaluate(() => {
+    const lightbox = document.querySelector(".certificate-lightbox");
+    const image = document.querySelector("[data-certificate-image]");
+    return {
+      active: lightbox?.classList.contains("active") || false,
+      hidden: lightbox?.getAttribute("aria-hidden"),
+      imageSrc: image?.getAttribute("src") || "",
+      bodyLocked: getComputedStyle(document.body).overflow === "hidden"
+    };
+  });
+
+  if (!openState.active || openState.hidden !== "false") result.failures.push("Certificate lightbox did not open");
+  if (!openState.imageSrc.includes("cert-good-progress-award.jpg")) result.failures.push(`Certificate lightbox image src unexpected: ${openState.imageSrc}`);
+  if (!openState.bodyLocked) result.failures.push("Certificate lightbox did not lock body scroll");
+
+  await page.keyboard.press("Escape");
+  await page.waitForTimeout(350);
+  const closed = await page.evaluate(() => {
+    const lightbox = document.querySelector(".certificate-lightbox");
+    return {
+      active: lightbox?.classList.contains("active") || false,
+      hidden: lightbox?.getAttribute("aria-hidden"),
+      bodyUnlocked: getComputedStyle(document.body).overflow !== "hidden"
+    };
+  });
+
+  if (closed.active || closed.hidden !== "true") result.failures.push("Certificate lightbox did not close with Escape");
+  if (!closed.bodyUnlocked) result.failures.push("Certificate lightbox left body scroll locked");
+}
+
 function buildInteractionConfigs() {
   const desktop = VIEWPORTS.find((viewport) => viewport.name === "desktop");
   const mobile = VIEWPORTS.find((viewport) => viewport.name === "mobile");
@@ -543,6 +703,9 @@ function buildInteractionConfigs() {
     { name: "index-ctas", page: "index.html", viewport: mobile },
     { name: "projects-tabs-modals", page: "projects.html", viewport: desktop },
     { name: "projects-tabs-modals", page: "projects.html", viewport: mobile },
+    { name: "projects-sequence-navigation", page: "projects.html", viewport: desktop },
+    { name: "projects-quick-actions", page: "projects.html", viewport: desktop },
+    { name: "certificate-lightbox", page: "about.html", viewport: desktop },
     { name: "index-to-about-journey", page: "index.html", viewport: tablet },
     { name: "continue-exploring", page: "about.html", viewport: desktop },
     { name: "continue-exploring", page: "projects.html", viewport: desktop },
@@ -570,6 +733,9 @@ function buildMarkdownReport(results) {
   lines.push("- Contact heading nav overlap: covered by `index.html` scroll sequences and `index-ctas` interactions.");
   lines.push("- Projects breadcrumb nav overlap: covered by all `projects.html` viewport/scroll splits.");
   lines.push("- Mid-page scroll-up nav reveal: covered by `scroll-down-then-up` splits and `mouse-top-reveal` interactions.");
+  lines.push("- Previous/Next project cards and category labels: covered by `projects-sequence-navigation`.");
+  lines.push("- Grid quick-action labels and click isolation: covered by `projects-quick-actions`.");
+  lines.push("- Certificate lightbox open/close behavior: covered by `certificate-lightbox`.");
   lines.push("");
   lines.push("## Matrix Results");
   lines.push("");

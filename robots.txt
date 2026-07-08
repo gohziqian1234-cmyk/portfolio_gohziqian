@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gohziqian1234-cmyk.github.io/portfolio_gohziqian/sitemap.xml
