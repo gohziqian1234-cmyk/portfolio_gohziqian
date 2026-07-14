@@ -10,6 +10,13 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 const finePointer = window.matchMedia("(pointer: fine)").matches && !("ontouchstart" in window);
 const MODAL_VIDEO_GAIN = 2.2;
 
+/*
+  Project image pipeline: keep raster assets flat in /images/ with a
+  project-prefixed filename. Every raster image requires a WebP source,
+  a PNG/JPG fallback, and real width/height attributes. Reuse an image only
+  when the repeated placement has a deliberate narrative purpose.
+*/
+
 const PROJECTS = {
   piano: {
     category: "software",
@@ -1984,6 +1991,100 @@ function createPlantModalMarkup(project) {
   `;
 }
 
+const WHEELCHAIR_MEDIA = Object.freeze({
+  overviewAssembly: {
+    file: "wheelchair-hardware-assembly-process", width: 1066, height: 338,
+    alt: "Wheelchair prototype parts arranged beside the assembled chain drive mechanism",
+    caption: "Overall prototype setup showing the motor-assisted wheelchair support concept and the main hardware components used in the system. Parts were selected and arranged before being assembled into the final mechanism."
+  },
+  flowchart: {
+    file: "wheelchair-software-flowchart", width: 1434, height: 1011,
+    alt: "Flowchart showing ultrasonic sensor, buzzer, switch, motor, and potentiometer logic",
+    caption: "System flow showing how the switch, potentiometer, DC motor, ultrasonic sensor, and buzzer work together in the prototype."
+  },
+  ultrasonicBuzzer: {
+    file: "wheelchair-component-ultrasonic-buzzer", width: 947, height: 413,
+    alt: "Ultrasonic sensor input linked to piezo buzzer output",
+    caption: "Ultrasonic sensor input and piezo buzzer obstacle-alert output."
+  },
+  potentiometer: {
+    file: "wheelchair-component-potentiometer", width: 976, height: 411,
+    alt: "Potentiometer input used to control wheelchair motor speed",
+    caption: "Potentiometer input used to adjust the motor-assist speed."
+  },
+  switchControl: {
+    file: "wheelchair-component-switch", width: 1008, height: 390,
+    alt: "Slide switch used to turn the wheelchair support system on and off",
+    caption: "Manual switch input for direct system on/off control."
+  },
+  dcMotor: {
+    file: "wheelchair-component-dc-motor", width: 232, height: 227,
+    alt: "DC motor used for the wheelchair movement-assistance output",
+    caption: "DC motor output used to demonstrate assisted movement."
+  },
+  arduino: {
+    file: "wheelchair-component-arduino", width: 312, height: 177,
+    alt: "Arduino Uno used as the controller for the wheelchair prototype",
+    caption: "Arduino Uno controller coordinating the sensor, controls, buzzer, and motor."
+  },
+  crazyEight: {
+    file: "wheelchair-crazy-8-brainstorming", width: 1944, height: 886,
+    alt: "Crazy 8 brainstorming sketches for wheelchair support ideas",
+    caption: "Crazy 8 brainstorming generated multiple possible assistive wheelchair concepts."
+  },
+  valueEffort: {
+    file: "wheelchair-value-effort-map", width: 950, height: 618,
+    alt: "Value effort map comparing wheelchair support prototype ideas",
+    caption: "Design process evidence showing how different ideas were compared before selecting the motor-assisted wheelchair support concept."
+  },
+  tinkercad: {
+    file: "wheelchair-tinkercad-circuit", width: 1830, height: 1007,
+    alt: "Tinkercad circuit showing Arduino, ultrasonic sensor, potentiometer, buzzer, switch, motor, and wiring",
+    caption: "Tinkercad circuit design showing the Arduino, ultrasonic sensor, potentiometer, buzzer, switch, motor, and wiring used in the wheelchair support prototype."
+  },
+  comparison: {
+    file: "wheelchair-design-comparison", width: 1097, height: 607,
+    alt: "Design comparison table showing button, switch, LED, buzzer, ultrasonic sensor, and potentiometer decisions",
+    caption: "Prototype refinement evidence showing how the LED was removed, switch control was added, and ultrasonic sensor placement was improved after testing."
+  },
+  outcome: {
+    file: "wheelchair-final-hardware-prototype", width: 1028, height: 665,
+    alt: "Final chain and wheel prototype for the motor-assisted wheelchair support project",
+    caption: "Final version of the prototype showing the refined hardware setup after testing and improvement. The completed hardware prototype shows the final chain, wheel, and support structure."
+  },
+  hardwareSketch: {
+    file: "wheelchair-hardware-sketch", width: 1313, height: 889,
+    alt: "Hand-drawn sketch of the motor and chain drive concept",
+    caption: "Initial sketch used to plan the drive layout and movement transfer."
+  },
+  softwareComponents: {
+    file: "wheelchair-software-components", width: 1102, height: 607,
+    alt: "Software design component list for the Arduino wheelchair support prototype",
+    caption: "Component logic showing the inputs and outputs used by the software control system."
+  },
+  softwareCircuit: {
+    file: "wheelchair-software-circuit-build", width: 893, height: 450,
+    alt: "Arduino circuit build with ultrasonic sensor, DC motor, potentiometer, buzzer, and switch wiring",
+    caption: "The final circuit build connects the Arduino logic to the physical motor, sensor, buzzer, switch, and speed control components."
+  }
+});
+
+function createProjectCaseFigure(media) {
+  const pngPath = `images/${media.file}.png`;
+  const webpPath = `images/${media.file}.webp`;
+  return `
+    <figure class="modal-case-figure">
+      <a class="modal-case-image-link" href="${pngPath}" target="_blank" rel="noopener noreferrer">
+        <picture>
+          <source srcset="${webpPath}" type="image/webp">
+          <img src="${pngPath}" width="${media.width}" height="${media.height}" alt="${escapeHtml(media.alt)}" loading="lazy">
+        </picture>
+      </a>
+      <figcaption>${escapeHtml(media.caption)}</figcaption>
+    </figure>
+  `;
+}
+
 function createWheelchairModalMarkup(project) {
   const roleSection = createRoleSection(
     "Team Project",
@@ -2015,12 +2116,7 @@ function createWheelchairModalMarkup(project) {
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Overview</h3>
         <p>An assistive hardware prototype designed to support self-propelled wheelchair users when travelling on slopes. The system combines motor assistance, adjustable speed control, ultrasonic obstacle detection, buzzer feedback, and switch control to reduce user effort and improve safety awareness.</p>
-        <figure class="modal-case-figure">
-          <a class="modal-case-image-link" href="images/wheelchair-case-study/wheelchair-final-hardware-prototype.png" target="_blank" rel="noopener noreferrer">
-            <img src="images/wheelchair-case-study/wheelchair-final-hardware-prototype.png" alt="Final motor-assisted wheelchair support prototype using a chain and wheel assembly" loading="lazy">
-          </a>
-          <figcaption>Overall prototype setup showing the motor-assisted wheelchair support concept and the main hardware components used in the system.</figcaption>
-        </figure>
+        ${createProjectCaseFigure(WHEELCHAIR_MEDIA.overviewAssembly)}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2040,12 +2136,7 @@ function createWheelchairModalMarkup(project) {
         <h3 class="modal-section-heading">What I Built</h3>
         <p>The prototype uses a DC motor to support forward movement, a potentiometer to control motor speed, an ultrasonic sensor to detect nearby obstacles, a buzzer to alert the user, and a switch to turn the system on or off.</p>
         <p>The goal was not to build a commercial wheelchair product, but to demonstrate a practical assistive concept that could reduce user effort and improve safety awareness.</p>
-        <figure class="modal-case-figure">
-          <a class="modal-case-image-link" href="images/wheelchair-case-study/wheelchair-software-flowchart.png" target="_blank" rel="noopener noreferrer">
-            <img src="images/wheelchair-case-study/wheelchair-software-flowchart.png" alt="Flowchart showing ultrasonic sensor, buzzer, switch, motor, and potentiometer logic" loading="lazy">
-          </a>
-          <figcaption>System flow showing how the switch, potentiometer, DC motor, ultrasonic sensor, and buzzer work together in the prototype.</figcaption>
-        </figure>
+        ${createProjectCaseFigure(WHEELCHAIR_MEDIA.flowchart)}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2059,36 +2150,11 @@ function createWheelchairModalMarkup(project) {
           <li>Prototype refinement through testing</li>
         </ul>
         <div class="modal-case-media-grid">
-          <figure class="modal-case-figure">
-            <a class="modal-case-image-link" href="images/wheelchair-case-study/wheelchair-component-ultrasonic-buzzer.png" target="_blank" rel="noopener noreferrer">
-              <img src="images/wheelchair-case-study/wheelchair-component-ultrasonic-buzzer.png" alt="Ultrasonic sensor input linked to piezo buzzer output" loading="lazy">
-            </a>
-            <figcaption>Ultrasonic sensor input and piezo buzzer obstacle-alert output.</figcaption>
-          </figure>
-          <figure class="modal-case-figure">
-            <a class="modal-case-image-link" href="images/wheelchair-case-study/wheelchair-component-potentiometer.png" target="_blank" rel="noopener noreferrer">
-              <img src="images/wheelchair-case-study/wheelchair-component-potentiometer.png" alt="Potentiometer input used to control wheelchair motor speed" loading="lazy">
-            </a>
-            <figcaption>Potentiometer input used to adjust the motor-assist speed.</figcaption>
-          </figure>
-          <figure class="modal-case-figure">
-            <a class="modal-case-image-link" href="images/wheelchair-case-study/wheelchair-component-switch.png" target="_blank" rel="noopener noreferrer">
-              <img src="images/wheelchair-case-study/wheelchair-component-switch.png" alt="Slide switch used to turn the wheelchair support system on and off" loading="lazy">
-            </a>
-            <figcaption>Manual switch input for direct system on/off control.</figcaption>
-          </figure>
-          <figure class="modal-case-figure">
-            <a class="modal-case-image-link" href="images/wheelchair-case-study/wheelchair-component-dc-motor.png" target="_blank" rel="noopener noreferrer">
-              <img src="images/wheelchair-case-study/wheelchair-component-dc-motor.png" alt="DC motor used for the wheelchair movement-assistance output" loading="lazy">
-            </a>
-            <figcaption>DC motor output used to demonstrate assisted movement.</figcaption>
-          </figure>
-          <figure class="modal-case-figure">
-            <a class="modal-case-image-link" href="images/wheelchair-case-study/wheelchair-component-arduino.png" target="_blank" rel="noopener noreferrer">
-              <img src="images/wheelchair-case-study/wheelchair-component-arduino.png" alt="Arduino Uno used as the controller for the wheelchair prototype" loading="lazy">
-            </a>
-            <figcaption>Arduino Uno controller coordinating the sensor, controls, buzzer, and motor.</figcaption>
-          </figure>
+          ${createProjectCaseFigure(WHEELCHAIR_MEDIA.ultrasonicBuzzer)}
+          ${createProjectCaseFigure(WHEELCHAIR_MEDIA.potentiometer)}
+          ${createProjectCaseFigure(WHEELCHAIR_MEDIA.switchControl)}
+          ${createProjectCaseFigure(WHEELCHAIR_MEDIA.dcMotor)}
+          ${createProjectCaseFigure(WHEELCHAIR_MEDIA.arduino)}
         </div>
         <p class="modal-media-caption">Key hardware components used in the prototype, including motor assistance, obstacle detection, speed control, alert feedback, and manual system control.</p>
       </section>
@@ -2097,29 +2163,14 @@ function createWheelchairModalMarkup(project) {
         <h3 class="modal-section-heading">Design Process</h3>
         <p>The project started with Crazy 8 brainstorming to generate multiple possible solutions. The team then used a value-effort map to compare ideas and selected the motor-assist wheelchair concept because it provided high user value while still being achievable within the project constraints.</p>
         <div class="modal-case-media-grid">
-          <figure class="modal-case-figure">
-            <a class="modal-case-image-link" href="images/wheelchair-case-study/wheelchair-crazy-8-brainstorming.png" target="_blank" rel="noopener noreferrer">
-              <img src="images/wheelchair-case-study/wheelchair-crazy-8-brainstorming.png" alt="Crazy 8 brainstorming sketches for wheelchair support ideas" loading="lazy">
-            </a>
-            <figcaption>Crazy 8 brainstorming generated multiple possible assistive wheelchair concepts.</figcaption>
-          </figure>
-          <figure class="modal-case-figure">
-            <a class="modal-case-image-link" href="images/wheelchair-case-study/wheelchair-value-effort-map.png" target="_blank" rel="noopener noreferrer">
-              <img src="images/wheelchair-case-study/wheelchair-value-effort-map.png" alt="Value effort map comparing wheelchair support prototype ideas" loading="lazy">
-            </a>
-            <figcaption>Design process evidence showing how different ideas were compared before selecting the motor-assisted wheelchair support concept.</figcaption>
-          </figure>
+          ${createProjectCaseFigure(WHEELCHAIR_MEDIA.crazyEight)}
+          ${createProjectCaseFigure(WHEELCHAIR_MEDIA.valueEffort)}
         </div>
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Technologies / Technical Implementation</h3>
-        <figure class="modal-case-figure">
-          <a class="modal-case-image-link" href="images/wheelchair-case-study/wheelchair-tinkercad-circuit.png" target="_blank" rel="noopener noreferrer">
-            <img src="images/wheelchair-case-study/wheelchair-tinkercad-circuit.png" alt="Tinkercad circuit showing Arduino, ultrasonic sensor, potentiometer, buzzer, switch, motor, and wiring" loading="lazy">
-          </a>
-          <figcaption>Tinkercad circuit design showing the Arduino, ultrasonic sensor, potentiometer, buzzer, switch, motor, and wiring used in the wheelchair support prototype.</figcaption>
-        </figure>
+        ${createProjectCaseFigure(WHEELCHAIR_MEDIA.tinkercad)}
         <div class="modal-actions modal-action-row modal-inline-action-row">
           <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.tinkercadUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
             <span aria-hidden="true">CAD</span>
@@ -2182,48 +2233,21 @@ function createWheelchairModalMarkup(project) {
             </tbody>
           </table>
         </div>
-        <figure class="modal-case-figure">
-          <a class="modal-case-image-link" href="images/wheelchair-case-study/wheelchair-design-comparison.png" target="_blank" rel="noopener noreferrer">
-            <img src="images/wheelchair-case-study/wheelchair-design-comparison.png" alt="Design comparison table showing button, switch, LED, buzzer, ultrasonic sensor, and potentiometer decisions" loading="lazy">
-          </a>
-          <figcaption>Prototype refinement evidence showing how the LED was removed, switch control was added, and ultrasonic sensor placement was improved after testing.</figcaption>
-        </figure>
+        ${createProjectCaseFigure(WHEELCHAIR_MEDIA.comparison)}
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Outcome</h3>
         <p>The final prototype demonstrated a functional assistive concept that combines motor support, speed control, and obstacle alert feedback. The strongest part of this project was the refinement process: removing unnecessary LED feedback, adding manual switch control, and improving ultrasonic sensor placement based on testing.</p>
         <p>Each decision directly improved the user experience - simpler feedback, safer control, and more reliable obstacle detection without adding unnecessary cost or complexity.</p>
-        <figure class="modal-case-figure">
-          <a class="modal-case-image-link" href="images/wheelchair-case-study/wheelchair-final-hardware-prototype.png" target="_blank" rel="noopener noreferrer">
-            <img src="images/wheelchair-case-study/wheelchair-final-hardware-prototype.png" alt="Final chain and wheel prototype for the motor-assisted wheelchair support project" loading="lazy">
-          </a>
-          <figcaption>Final version of the prototype showing the refined hardware setup after testing and improvement.</figcaption>
-        </figure>
+        ${createProjectCaseFigure(WHEELCHAIR_MEDIA.outcome)}
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Final Hardware Design</h3>
         <p>The final hardware design was developed by moving from a simple mechanical sketch into a physical prototype that could show the motor-assist idea clearly. The sketch helped define the main drive logic: a motor would transfer movement through a wheel-and-chain mechanism, while the assembled prototype used available structural parts, gears, wheels, and a chain to demonstrate how assisted movement could be supported in a real wheelchair concept.</p>
         <div class="modal-case-media-grid">
-          <figure class="modal-case-figure">
-            <a class="modal-case-image-link" href="images/wheelchair-case-study/wheelchair-hardware-sketch.png" target="_blank" rel="noopener noreferrer">
-              <img src="images/wheelchair-case-study/wheelchair-hardware-sketch.png" alt="Hand-drawn sketch of the motor and chain drive concept" loading="lazy">
-            </a>
-            <figcaption>Initial sketch used to plan the drive layout and movement transfer.</figcaption>
-          </figure>
-          <figure class="modal-case-figure">
-            <a class="modal-case-image-link" href="images/wheelchair-case-study/wheelchair-hardware-assembly-process.png" target="_blank" rel="noopener noreferrer">
-              <img src="images/wheelchair-case-study/wheelchair-hardware-assembly-process.png" alt="Hardware parts arranged before being assembled into the chain drive prototype" loading="lazy">
-            </a>
-            <figcaption>Parts were selected and arranged before being assembled into the final mechanism.</figcaption>
-          </figure>
-          <figure class="modal-case-figure">
-            <a class="modal-case-image-link" href="images/wheelchair-case-study/wheelchair-final-hardware-prototype.png" target="_blank" rel="noopener noreferrer">
-              <img src="images/wheelchair-case-study/wheelchair-final-hardware-prototype.png" alt="Completed hardware prototype with chain, gears, and wheels" loading="lazy">
-            </a>
-            <figcaption>The completed hardware prototype shows the final chain, wheel, and support structure.</figcaption>
-          </figure>
+          ${createProjectCaseFigure(WHEELCHAIR_MEDIA.hardwareSketch)}
         </div>
       </section>
 
@@ -2231,18 +2255,8 @@ function createWheelchairModalMarkup(project) {
         <h3 class="modal-section-heading">Final Software Design</h3>
         <p>The final software design was based on separating the prototype into clear input and output logic. The switch decides whether the system is active, the potentiometer controls the motor speed, and the ultrasonic sensor checks for obstacles. The Arduino then controls the motor and buzzer based on those readings, which made the system easier to test because each component had a clear role in the final control flow.</p>
         <div class="modal-case-media-grid">
-          <figure class="modal-case-figure">
-            <a class="modal-case-image-link" href="images/wheelchair-case-study/wheelchair-software-components.png" target="_blank" rel="noopener noreferrer">
-              <img src="images/wheelchair-case-study/wheelchair-software-components.png" alt="Software design component list for the Arduino wheelchair support prototype" loading="lazy">
-            </a>
-            <figcaption>Component logic showing the inputs and outputs used by the software control system.</figcaption>
-          </figure>
-          <figure class="modal-case-figure">
-            <a class="modal-case-image-link" href="images/wheelchair-case-study/wheelchair-software-circuit-build.png" target="_blank" rel="noopener noreferrer">
-              <img src="images/wheelchair-case-study/wheelchair-software-circuit-build.png" alt="Arduino circuit build with ultrasonic sensor, DC motor, potentiometer, buzzer, and switch wiring" loading="lazy">
-            </a>
-            <figcaption>The final circuit build connects the Arduino logic to the physical motor, sensor, buzzer, switch, and speed control components.</figcaption>
-          </figure>
+          ${createProjectCaseFigure(WHEELCHAIR_MEDIA.softwareComponents)}
+          ${createProjectCaseFigure(WHEELCHAIR_MEDIA.softwareCircuit)}
         </div>
       </section>
 
