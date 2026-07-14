@@ -4000,17 +4000,30 @@ button.button:hover,
 }
 
 .project-modal-body-long .modal-media {
-  margin: 24px 0 32px;
+  margin: 24px auto 32px;
   overflow: hidden;
   border-radius: 16px;
   background: #000;
-  aspect-ratio: 16 / 9;
+}
+
+.project-modal-body-long .modal-video-frame {
+  display: grid;
+  width: 100%;
+  max-width: 100%;
+  min-height: 0;
+  place-items: center;
+  overflow: visible;
+  background: transparent;
 }
 
 .project-modal-body-long .modal-video {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 70vh;
+  aspect-ratio: var(--modal-video-aspect, auto);
+  border-radius: 16px;
   background: #000;
   object-fit: contain;
 }
@@ -4067,7 +4080,7 @@ button.button:hover,
   display: grid;
   place-items: center;
   width: 100%;
-  min-height: 140px;
+  min-height: 0;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 12px;
@@ -4077,9 +4090,15 @@ button.button:hover,
 .modal-case-image-link img {
   display: block;
   width: 100%;
+  height: auto;
   max-height: 720px;
   object-fit: contain;
   transition: transform 220ms var(--ease-smooth), filter 220ms var(--ease-smooth);
+}
+
+.modal-case-image-link picture {
+  display: block;
+  width: 100%;
 }
 
 .modal-case-image-link:hover img,
@@ -4100,6 +4119,7 @@ button.button:hover,
 .modal-case-media-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
   gap: 18px;
   margin-top: 24px;
 }
@@ -7382,6 +7402,10 @@ body[data-page="projects"] .modal-table-wrapper {
   border-color: var(--color-border);
   border-radius: 2px;
   background: var(--color-bg);
+}
+
+body[data-page="projects"] .modal-content {
+  z-index: 10004;
 }
 
 body[data-page="projects"] .modal-case-image-link,

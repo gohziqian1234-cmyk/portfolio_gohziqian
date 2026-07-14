@@ -81,7 +81,9 @@ const PROJECTS = {
     slidesUrl: "assets/reports/wheelchair-prototype-slides.pdf",
     tinkercadUrl: "https://www.tinkercad.com/things/3lyqhQ6I2kl-terrific-wolt-kup/editel?returnTo=https%3A%2F%2Fwww.tinkercad.com%2Fdashboard%2Fdesigns%2Fall&sharecode=3Qn25QWAI689o87zddpgFPoEakVv2-UABNXr-nJq8bE",
     demoUrl: "assets/videos/wheelchair-prototype-demo.mp4",
+    demoPoster: "images/wheelchair-demo-poster.jpg",
     pitchUrl: "assets/videos/wheelchair-pitch.mp4",
+    pitchPoster: "images/wheelchair-pitch-poster.jpg",
     description: "An assistive hardware prototype designed to support self-propelled wheelchair users on slopes using motor assistance, adjustable speed control, ultrasonic obstacle detection, buzzer feedback, and switch control.",
     tags: ["Arduino", "DC Motor", "Ultrasonic Sensor", "Potentiometer", "Buzzer", "Tinkercad"],
     github: "",
@@ -95,6 +97,7 @@ const PROJECTS = {
     modalVariant: "plantCaseStudy",
     reportUrl: "assets/reports/iot-smart-plant-monitoring-report.pdf",
     demoUrl: "assets/videos/iot-smart-plant-monitoring-demo.mp4",
+    demoPoster: "images/iot-plant-monitoring-demo-poster.jpg",
     diagram: "images/iot-plant-monitoring-architecture.png",
     description: "Automated indoor farming system using Arduino, Raspberry Pi, sensors, MariaDB, and Flask to monitor plant conditions and alert users when the environment is unsuitable.",
     // CONFIRM/EXPAND: specific goals, e.g. automated watering, temperature alerts.
@@ -952,6 +955,41 @@ function initProjectModal() {
 
   if (!content || !scrollArea) return;
 
+  const getFocusableElements = () => $$([
+    "a[href]",
+    "button:not([disabled])",
+    "input:not([disabled])",
+    "select:not([disabled])",
+    "textarea:not([disabled])",
+    "video[controls]",
+    "[tabindex]:not([tabindex='-1'])"
+  ].join(","), modal).filter((element) => (
+    element.getAttribute("aria-hidden") !== "true"
+    && !element.hasAttribute("hidden")
+    && element.tabIndex >= 0
+    && (element.offsetWidth > 0 || element.offsetHeight > 0 || element.getClientRects().length > 0)
+  ));
+
+  const trapFocus = (event) => {
+    if (event.key !== "Tab" || !modal.classList.contains("active")) return;
+    const focusable = getFocusableElements();
+    if (!focusable.length) {
+      event.preventDefault();
+      content.focus();
+      return;
+    }
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && (document.activeElement === first || !modal.contains(document.activeElement))) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && (document.activeElement === last || !modal.contains(document.activeElement))) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
+
   const finishClose = () => {
     window.clearTimeout(closeFallback);
     modal.classList.remove("is-closing");
@@ -1081,7 +1119,12 @@ function initProjectModal() {
   }
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeModal();
+    if (!modal.classList.contains("active")) return;
+    if (event.key === "Escape") {
+      closeModal();
+      return;
+    }
+    trapFocus(event);
   });
 }
 
@@ -1858,6 +1901,17 @@ function createPlantModalMarkup(project) {
       ${roleSection}
 
       <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Demo Video</h3>
+        <div class="modal-media modal-video-frame">
+          <video class="modal-video" controls playsinline poster="${escapeHtml(project.demoPoster)}" preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
+            <source src="${escapeHtml(project.demoUrl)}" type="video/mp4">
+            Your browser does not support video playback.
+          </video>
+        </div>
+        <p class="modal-media-caption">Project demo showing sensor readings, hardware responses, database storage, and the web monitoring workflow.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">The Problem</h3>
         <p>Singapore has limited land for agriculture and aims to strengthen food security by increasing local food production. Indoor farming and vertical farming can help, but they require stable growing conditions - suitable temperature, sufficient light, and enough water.</p>
         <p>In many indoor farming setups, these conditions are still checked manually. This can lead to delayed responses, inconsistent plant care, inefficient resource use, and weaker plant growth. Vertical farming can also create uneven lighting, where upper plants block light from reaching lower plants.</p>
@@ -2105,7 +2159,7 @@ function createWheelchairModalMarkup(project) {
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Demo Video</h3>
         <div class="modal-media modal-video-frame">
-          <video class="modal-video" controls playsinline preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
+          <video class="modal-video" controls playsinline poster="${escapeHtml(project.demoPoster)}" preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
             <source src="${escapeHtml(project.demoUrl)}" type="video/mp4">
             Your browser does not support video playback.
           </video>
@@ -2124,7 +2178,7 @@ function createWheelchairModalMarkup(project) {
         <p>Self-propelled wheelchair users face greater difficulty when moving up slopes because more physical effort is required compared to flat ground. Moving down slopes can also be harder to control and may increase the risk of collision, tipping, or falling.</p>
         <p>This project aimed to create a low-cost assistive prototype that demonstrates three core functions: motor assistance, user-adjustable speed control, and obstacle alert feedback.</p>
         <div class="modal-media modal-video-frame">
-          <video class="modal-video" controls playsinline preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
+          <video class="modal-video" controls playsinline poster="${escapeHtml(project.pitchPoster)}" preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
             <source src="${escapeHtml(project.pitchUrl)}" type="video/mp4">
             Your browser does not support video playback.
           </video>
@@ -2913,6 +2967,13 @@ function wireModalVideoBoost(root) {
 
   $$(".modal-video", root).forEach((video) => {
     video.volume = 1;
+
+    const syncIntrinsicAspect = () => {
+      if (!video.videoWidth || !video.videoHeight) return;
+      video.style.setProperty("--modal-video-aspect", `${video.videoWidth} / ${video.videoHeight}`);
+    };
+    if (video.readyState >= 1) syncIntrinsicAspect();
+    else video.addEventListener("loadedmetadata", syncIntrinsicAspect, { once: true });
 
     if (!AudioContextClass) return;
 
