@@ -669,6 +669,17 @@ async function checkProjectNavigationArrows(page, result, isMobile) {
 
   for (const pair of pairs) {
     await openProjectForQa(page, pair.from);
+    const nextCardBeforeNavigation = page.locator("#project-modal .project-sequence-next .project-next-card");
+    await nextCardBeforeNavigation.scrollIntoViewIfNeeded();
+    await nextCardBeforeNavigation.hover();
+    await nextCardBeforeNavigation.locator(".project-next-arrow").evaluate((arrow) => {
+      arrow.getAnimations().forEach((animation) => animation.finish());
+    });
+    const hoverOpacity = Number(await nextCardBeforeNavigation.locator(".project-next-arrow").evaluate((arrow) => getComputedStyle(arrow).opacity));
+    if (hoverOpacity < 0.95) {
+      result.failures.push(`${pair.fromTitle} next arrow did not highlight on hover (${hoverOpacity})`);
+    }
+
     const nextArrow = page.locator("#project-modal .project-sequence-next .project-next-arrow");
     await nextArrow.scrollIntoViewIfNeeded();
     await nextArrow.click();
@@ -679,10 +690,13 @@ async function checkProjectNavigationArrows(page, result, isMobile) {
     await previousArrow.click();
     await expectProjectModalTitle(page, result, pair.fromTitle, `${pair.toTitle} previous arrow opened the wrong project`);
 
+    await openProjectForQa(page, pair.from);
+    const previousCard = page.locator("#project-modal .project-sequence-previous .project-next-card");
     const nextCard = page.locator("#project-modal .project-sequence-next .project-next-card");
-    await nextCard.scrollIntoViewIfNeeded();
+    await previousCard.scrollIntoViewIfNeeded();
+    await previousCard.focus();
     await page.keyboard.press("Tab");
-    await nextCard.focus();
+    await page.waitForTimeout(20);
     await nextCard.locator(".project-next-arrow").evaluate((arrow) => {
       arrow.getAnimations().forEach((animation) => animation.finish());
     });
@@ -707,17 +721,22 @@ async function checkProjectNavigationArrows(page, result, isMobile) {
     if (nextFocusState.opacity < 0.95) {
       result.failures.push(`${pair.fromTitle} next arrow did not highlight on keyboard focus (${JSON.stringify(nextFocusState)})`);
     }
+    if (!nextFocusState.active) {
+      result.failures.push(`${pair.fromTitle} next card was not reached naturally by Tab from the previous card`);
+    }
     await page.keyboard.press("Enter");
     await expectProjectModalTitle(page, result, pair.toTitle, `${pair.fromTitle} next card failed with Enter`);
 
-    const previousCard = page.locator("#project-modal .project-sequence-previous .project-next-card");
-    await previousCard.scrollIntoViewIfNeeded();
-    await page.keyboard.press("Tab");
-    await previousCard.focus();
-    await previousCard.locator(".project-next-arrow").evaluate((arrow) => {
+    const previousCardAfterNavigation = page.locator("#project-modal .project-sequence-previous .project-next-card");
+    const nextCardAfterNavigation = page.locator("#project-modal .project-sequence-next .project-next-card");
+    await nextCardAfterNavigation.scrollIntoViewIfNeeded();
+    await nextCardAfterNavigation.focus();
+    await page.keyboard.press("Shift+Tab");
+    await page.waitForTimeout(20);
+    await previousCardAfterNavigation.locator(".project-next-arrow").evaluate((arrow) => {
       arrow.getAnimations().forEach((animation) => animation.finish());
     });
-    const previousFocusState = await previousCard.evaluate((card) => ({
+    const previousFocusState = await previousCardAfterNavigation.evaluate((card) => ({
       active: document.activeElement === card,
       focused: card.matches(":focus"),
       focusVisible: card.matches(":focus-visible"),
@@ -725,6 +744,9 @@ async function checkProjectNavigationArrows(page, result, isMobile) {
     }));
     if (previousFocusState.opacity < 0.95) {
       result.failures.push(`${pair.toTitle} previous arrow did not highlight on keyboard focus (${JSON.stringify(previousFocusState)})`);
+    }
+    if (!previousFocusState.active) {
+      result.failures.push(`${pair.toTitle} previous card was not reached naturally by Shift+Tab from the next card`);
     }
     await page.keyboard.press("Space");
     await expectProjectModalTitle(page, result, pair.fromTitle, `${pair.toTitle} previous card failed with Space`);
@@ -772,6 +794,7 @@ async function checkProjectModalAccessibility(page, result) {
   if (focusableCount < 2) result.failures.push(`Project modal expected multiple focus targets, saw ${focusableCount}`);
 
   await page.keyboard.press("Tab");
+  await page.waitForTimeout(20);
   const wrappedForward = await page.locator("#project-modal").evaluate((modal) => {
     const focusable = Array.from(modal.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), video[controls], [tabindex]:not([tabindex='-1'])")).filter((element) => (
       element.getAttribute("aria-hidden") !== "true"
@@ -784,6 +807,7 @@ async function checkProjectModalAccessibility(page, result) {
   if (!wrappedForward) result.failures.push("Project modal Tab focus did not wrap from last to first control");
 
   await page.keyboard.press("Shift+Tab");
+  await page.waitForTimeout(20);
   const wrappedBackward = await page.locator("#project-modal").evaluate((modal) => {
     const focusable = Array.from(modal.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), video[controls], [tabindex]:not([tabindex='-1'])")).filter((element) => (
       element.getAttribute("aria-hidden") !== "true"
@@ -816,11 +840,50 @@ async function checkProjectMediaGrids(page, result, isMobile) {
 
   for (const projectKey of projectKeys) {
     await openProjectForQa(page, projectKey);
+    const missingDimensions = await page.locator("#project-modal img").evaluateAll((images) => images
+      .filter((image) => !image.hasAttribute("width") || !image.hasAttribute("height"))
+      .map((image) => image.getAttribute("src") || image.getAttribute("alt") || "unnamed image"));
+    if (missingDimensions.length) {
+      result.failures.push(`${projectKey} modal images missing intrinsic dimensions: ${missingDimensions.join(", ")}`);
+    }
+
     const grids = page.locator("#project-modal .modal-case-media-grid, #project-modal .modal-photo-gallery");
 
     for (let index = 0; index < await grids.count(); index += 1) {
       const grid = grids.nth(index);
       const imageCount = await grid.locator("img").count();
+
+      if (imageCount === 1) {
+        const image = grid.locator("img").first();
+        await image.scrollIntoViewIfNeeded();
+        await image.evaluate((element) => element.decode ? element.decode().catch(() => {}) : Promise.resolve());
+        const singleState = await image.evaluate((element) => {
+          const rect = element.getBoundingClientRect();
+          const style = getComputedStyle(element);
+          return {
+            gallery: Boolean(element.closest(".modal-photo-gallery")),
+            loaded: element.complete && element.naturalWidth > 0 && element.naturalHeight > 0,
+            naturalRatio: element.naturalWidth / element.naturalHeight,
+            renderedRatio: rect.width / rect.height,
+            aspectRatio: style.aspectRatio,
+            objectFit: style.objectFit
+          };
+        });
+        if (!singleState.loaded) result.failures.push(`${projectKey} single gallery image did not load`);
+        if (singleState.gallery) {
+          if (singleState.aspectRatio !== "auto") {
+            result.failures.push(`${projectKey} single gallery image still has forced aspect ratio ${singleState.aspectRatio}`);
+          }
+          if (singleState.objectFit !== "contain") {
+            result.failures.push(`${projectKey} single gallery image should preserve its content with object-fit contain, saw ${singleState.objectFit}`);
+          }
+          if (Math.abs(singleState.naturalRatio - singleState.renderedRatio) > 0.03) {
+            result.failures.push(`${projectKey} single gallery image is visibly cropped (${singleState.naturalRatio.toFixed(3)} natural vs ${singleState.renderedRatio.toFixed(3)} rendered)`);
+          }
+        }
+        continue;
+      }
+
       if (imageCount < 2) continue;
 
       for (let imageIndex = 0; imageIndex < imageCount; imageIndex += 1) {
@@ -836,8 +899,14 @@ async function checkProjectMediaGrids(page, result, isMobile) {
         return {
           classes: element.className,
           equal: element.classList.contains("is-equal-media"),
+          documentSafe: element.classList.contains("is-document-safe"),
           frameHeights: frames.map((frame) => frame.getBoundingClientRect().height),
           imageHeights: frames.map((frame) => frame.querySelector("img")?.getBoundingClientRect().height || 0),
+          objectFits: frames.map((frame) => getComputedStyle(frame.querySelector("img")).objectFit),
+          frameRatios: frames.map((frame) => {
+            const rect = frame.getBoundingClientRect();
+            return rect.width / rect.height;
+          }),
           loaded: Array.from(element.querySelectorAll("img")).every((image) => image.complete && image.naturalWidth > 0 && image.naturalHeight > 0)
         };
       });
@@ -849,6 +918,13 @@ async function checkProjectMediaGrids(page, result, isMobile) {
       }
       if (state.imageHeights.length && Math.max(...state.imageHeights) - Math.min(...state.imageHeights) > 1) {
         result.failures.push(`${projectKey} multi-image grid has uneven rendered image heights: ${state.imageHeights.join(", ")}`);
+      }
+      if (state.frameRatios.length && Math.max(...state.frameRatios) - Math.min(...state.frameRatios) > 0.02) {
+        result.failures.push(`${projectKey} multi-image grid has inconsistent frame ratios: ${state.frameRatios.join(", ")}`);
+      }
+      const expectedFit = state.documentSafe ? "contain" : "cover";
+      if (state.objectFits.some((fit) => fit !== expectedFit)) {
+        result.failures.push(`${projectKey} multi-image grid should use ${expectedFit} for this evidence type, saw ${state.objectFits.join(", ")}`);
       }
     }
 
@@ -926,6 +1002,29 @@ async function checkIoTCaseStudy(page, result) {
     if (!match) result.failures.push(`IoT case study is missing media: ${name}`);
     else if (!match.loaded) result.failures.push(`IoT media failed to load: ${name}`);
   });
+
+  const annotationLabels = await page.locator("#project-modal .modal-media-annotation").allInnerTexts();
+  ["Arduino Uno", "Ultrasonic sensor", "Breadboard", "LED + buzzer", "Rotary / sensor module"].forEach((label) => {
+    if (!annotationLabels.includes(label)) result.failures.push(`IoT component evidence is missing annotation: ${label}`);
+  });
+
+  const modalText = await page.locator("#project-modal .project-modal-body").innerText();
+  if (!modalText.includes("does not contain one wide frame showing the Raspberry Pi")) {
+    result.failures.push("IoT overview does not disclose the verified Raspberry Pi wide-shot limitation");
+  }
+
+  const expectedTests = [
+    "Buzzer stayed off when all conditions suitable",
+    "Buzzer activated when temperature/light/water unsuitable",
+    "LED brightness increased in darker conditions",
+    "LED brightness decreased in brighter conditions",
+    "Low water level detected correctly",
+    "Manual LED control overrode automatic brightness adjustment"
+  ];
+  const testingRows = await page.locator("#project-modal .modal-data-table tbody tr td:first-child").allInnerTexts();
+  expectedTests.forEach((test) => {
+    if (!testingRows.includes(test)) result.failures.push(`IoT testing table is missing locked test label: ${test}`);
+  });
 }
 
 async function checkModernProjectRegressions(page, result, isMobile) {
@@ -943,7 +1042,7 @@ async function checkProjectQuickActions(page, result) {
     erebus: { label: "PLAY", href: "https://gohziqian1234-cmyk.github.io/erebus-7/" },
     mcfast: { label: "TRY APP", href: "https://gohziqian1234-cmyk-mcfast-app-app-hrwj7l.streamlit.app/" },
     wheelchair: { label: "WATCH DEMO", href: `${BASE_URL}/assets/videos/wheelchair-prototype-demo.mp4` },
-    greenhouse: { label: "WATCH DEMO", href: `${BASE_URL}/assets/videos/iot-smart-plant-monitoring-demo.mp4` }
+    greenhouse: null
   };
 
   await page.click('[data-project-tab="software"]');
@@ -977,6 +1076,10 @@ async function checkProjectQuickActions(page, result) {
 async function assertProjectQuickAction(page, result, project, expected) {
   const action = page.locator(`[data-open-project="${project}"] .project-play-button`).first();
   const count = await action.count();
+  if (!expected) {
+    if (count !== 0) result.failures.push(`${project} should not render a duplicate quick-action button`);
+    return;
+  }
   if (count !== 1) {
     result.failures.push(`${project} quick action expected 1 button, saw ${count}`);
     return;

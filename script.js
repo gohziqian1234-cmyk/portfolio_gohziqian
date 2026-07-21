@@ -22,6 +22,8 @@ const PROJECTS = {
     category: "software",
     title: "Alien Piano Tiles",
     image: "images/project-piano-tiles.svg",
+    imageWidth: 960,
+    imageHeight: 600,
     imageAlt: "Illustrated Alien Piano Tiles rhythm game scene",
     modalVariant: "pianoCaseStudy",
     video: "assets/videos/piano-tiles-gameplay.mp4",
@@ -41,6 +43,8 @@ const PROJECTS = {
     category: "software",
     title: "Erebus-7: First Skin",
     image: "images/project-erebus-7.webp",
+    imageWidth: 1024,
+    imageHeight: 1536,
     imageAlt: "Erebus-7 First Skin horror corridor gameplay artwork",
     modalVariant: "erebusCaseStudy",
     video: "assets/videos/erebus-7-gameplay.mp4",
@@ -62,6 +66,8 @@ const PROJECTS = {
     category: "software",
     title: "McFast Ordering System",
     image: "images/project-mcfast-ordering.svg",
+    imageWidth: 960,
+    imageHeight: 600,
     imageAlt: "McFast Ordering System fast-food ordering app interface graphic",
     modalVariant: "mcfastCaseStudy",
     video: "videos/mcfast-demo.mp4",
@@ -76,6 +82,8 @@ const PROJECTS = {
     category: "hardware",
     title: "Motor-Assisted Wheelchair Support Prototype",
     image: "images/project-smart-wheelchair.svg",
+    imageWidth: 960,
+    imageHeight: 600,
     imageAlt: "Motor-Assisted Wheelchair Support Prototype wireframe thumbnail",
     modalVariant: "wheelchairCaseStudy",
     slidesUrl: "assets/reports/wheelchair-prototype-slides.pdf",
@@ -93,6 +101,8 @@ const PROJECTS = {
     category: "hardware",
     title: "IoT-Based Smart Plant Monitoring System",
     image: "images/project-smart-greenhouse.svg",
+    imageWidth: 960,
+    imageHeight: 600,
     imageAlt: "IoT-Based Smart Plant Monitoring System technical diagram",
     modalVariant: "plantCaseStudy",
     reportUrl: "assets/reports/iot-smart-plant-monitoring-report.pdf",
@@ -115,6 +125,8 @@ const PROJECTS = {
     category: "hardware",
     title: "Multifunctional 3D-Printed Keychain",
     image: "images/project-keychain-photo.webp",
+    imageWidth: 900,
+    imageHeight: 1200,
     imageAlt: "Multifunctional 3D-printed keychain with ruler, bottle opener, phone stand, and cable holder features",
     modalVariant: "keychainCaseStudy",
     keychainUrl: "images/project-keychain-photo.png",
@@ -129,6 +141,8 @@ const PROJECTS = {
     category: "hardware",
     title: "Construction Safety Fall-Risk Detection System",
     image: "images/project-construction-safety.svg",
+    imageWidth: 960,
+    imageHeight: 600,
     imageAlt: "Construction Safety Fall-Risk Detection System construction site safety monitoring schematic",
     modalVariant: "constructionCaseStudy",
     video: "videos/construction-safety-demo.mp4",
@@ -1560,12 +1574,37 @@ function updateLevel() {
   `;
 }
 
+const CASE_STUDY_MEDIA_DIMENSIONS = Object.freeze({
+  "assets/erebus-detection-alert.png": [1722, 908],
+  "assets/erebus-difficulty-selection.png": [1628, 458],
+  "assets/erebus-ending-detected.png": [1135, 702],
+  "assets/erebus-instinct-choice.png": [1592, 767],
+  "assets/erebus-interaction-infection.png": [1907, 902],
+  "assets/erebus-intro-story.png": [1722, 898],
+  "assets/erebus-main-hud.png": [1907, 902],
+  "assets/erebus-story-scene.png": [1291, 566],
+  "assets/erebus-tactical-map.png": [1545, 881],
+  "assets/mcfast-cart-management.png": [798, 707],
+  "assets/mcfast-discount-dropdown.png": [767, 257],
+  "assets/mcfast-empty-cart.png": [840, 300],
+  "assets/mcfast-final-receipt.png": [257, 215],
+  "assets/mcfast-menu-browsing.png": [1877, 815],
+  "assets/piano-game-over.png": [522, 822],
+  "assets/piano-main-gameplay.png": [535, 866],
+  "assets/piano-mission-failed-summary.png": [510, 870],
+  "assets/piano-pause-screen.png": [516, 822],
+  "assets/piano-signal-lost.png": [536, 822],
+  "assets/piano-start-screen.png": [518, 750]
+});
+
 function createCaseStudyFigure(src, alt, caption, modifier = "") {
   const modifierClass = modifier ? ` ${escapeHtml(modifier)}` : "";
+  const dimensions = CASE_STUDY_MEDIA_DIMENSIONS[src];
+  const dimensionAttributes = dimensions ? ` width="${dimensions[0]}" height="${dimensions[1]}"` : "";
   return `
     <figure class="modal-case-figure${modifierClass}">
       <a class="modal-case-image-link" href="${escapeHtml(src)}" target="_blank" rel="noopener noreferrer" aria-label="Open image: ${escapeHtml(alt)}">
-        <img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async">
+        <img src="${escapeHtml(src)}"${dimensionAttributes} alt="${escapeHtml(alt)}" loading="lazy" decoding="async">
       </a>
       <figcaption>${escapeHtml(caption)}</figcaption>
     </figure>
@@ -1664,8 +1703,8 @@ if(k==="escape"||k==="p")openPause();`;
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">The Problem</h3>
         <p>Among Us is usually a multiplayer game, but not every player wants to play with random people online. Some players may not have friends available to play with, while others may simply prefer a single-player experience where they can progress alone without depending on other players. This project was intended to redesign an Among Us-style experience into a single-player horror stealth game. Instead of relying on real players, the game focuses on solo gameplay, tasks, decision-making, suspense, and survival. The main challenge was making the game interesting without multiplayer interaction.</p>
-        ${createCaseStudyFigure("assets/erebus-intro-story.png", "Erebus-7 clear story brief introducing what happened on the station", "Opening story brief establishing what happened on Erebus-7 and introducing the research-station narrative.")}
-        ${createCaseStudyFigure("assets/erebus-story-scene.png", "Erebus-7 tutorial story step explaining the premise", "Narrative tutorial scene summarising the story in one sentence and guiding the player through the opening sequence.")}
+        ${createCaseStudyFigure("assets/erebus-intro-story.png", "Erebus-7 clear story brief introducing what happened on the station", "Intro screen showing the dark space-station horror atmosphere and narrative setup for Erebus-7: First Skin - \"Erebus-7 is a research station\" title card with Start Audio / Start Transmission options.")}
+        ${createCaseStudyFigure("assets/erebus-story-scene.png", "Erebus-7 tutorial story step explaining the premise", "Narrative story-log scene (\"What Happened on Erebus-7\") showing how mission lore and blackbox logs are presented to the player between gameplay segments.")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -1692,7 +1731,7 @@ if(k==="escape"||k==="p")openPause();`;
           { src: "assets/erebus-instinct-choice.png", alt: "Erebus-7 parasite instinct choice screen", caption: "Parasite-instinct choice screen showing how the player's opening decision changes the first gameplay advantage." },
           { src: "assets/erebus-difficulty-selection.png", alt: "Erebus-7 Easy Medium and Hard difficulty selection", caption: "Difficulty selection showing the Easy, Medium, and Hard modes used to tune detection, resources, and campaign pressure.", modifier: "is-position-left" }
         ], "Erebus-7 player setup screens", "is-ultrawide-pair")}
-        ${createCaseStudyFigure("assets/erebus-interaction-infection.png", "Erebus-7 gameplay showing an infection target and interaction controls", "Live interaction and infection state showing the current host, nearby crew, infection objective, detection cones, and ability controls.")}
+        ${createCaseStudyFigure("assets/erebus-interaction-infection.png", "Erebus-7 gameplay showing an infection target and interaction controls", "Interaction screen showing how the player communicates with crew members, infects targets, or manages detection risk.")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -1710,7 +1749,7 @@ if(k==="escape"||k==="p")openPause();`;
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Challenges &amp; Solutions</h3>
         <p>One challenge was creating a genuinely scary atmosphere rather than simply making the screen dark. Early versions felt too simple because the player was mostly navigating a map. To improve this, I added detailed room art, horror effects, sound design, story scenes, and frightening events triggered by the player entering certain areas. Another challenge was balancing the detection system. If detection filled too slowly, the game became too easy. If it filled too quickly, the game felt unfair. To solve this, I introduced difficulty modes and adjusted detection range, speed, and cooldown according to the selected mode.</p>
-        ${createCaseStudyFigure("assets/erebus-detection-alert.png", "Erebus-7 detection report showing You Were Identified", "Detection and alert system showing a You Were Identified tension moment - the game's response when guards, cameras, or scanners notice the player.")}
+        ${createCaseStudyFigure("assets/erebus-detection-alert.png", "Erebus-7 detection report showing You Were Identified", "Detection and alert system showing \"You Were Identified\" tension moment - the game's response when guards, cameras, or scanners notice the player, with retreat/hide options presented.")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -1735,7 +1774,7 @@ if(k==="escape"||k==="p")openPause();`;
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Outcome</h3>
         <p>The outcome is a playable horror stealth game with a full story theme, several levels, enemies, objectives, sound, and a clear mission flow. This project helped me understand that gameplay is more than controls and rules &mdash; a good game also needs feedback, sound, pacing, story, balance, and clear instructions for the player. Overall, Erebus-7: First Skin became more than a simple prototype. It became a full browser game that is playable on the web and shareable with others.</p>
-        ${createCaseStudyFigure("assets/erebus-ending-detected.png", "Erebus-7 DETECTED failure state with checkpoint and restart options", "DETECTED failure-state screen showing the detection bar filled to maximum, last objective, current zone and alert level, a next-step tip, and Load Checkpoint and Restart Run options - closing the loop on the stealth-detection system described above.")}
+        ${createCaseStudyFigure("assets/erebus-ending-detected.png", "Erebus-7 DETECTED failure state with checkpoint and restart options", "\"DETECTED\" failure-state screen showing the detection bar filled to maximum, last objective, current zone/alert level, a next-step tip, and Load Checkpoint / Restart Run options - closing the loop on the stealth-detection system described above.")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -1906,8 +1945,8 @@ const IOT_MEDIA = Object.freeze({
   },
   labelledComponents: {
     file: "iot-labelled-components", extension: "jpg", width: 464, height: 832, modifier: "is-portrait",
-    alt: "IoT plant monitoring components connected around an Arduino and breadboard",
-    caption: "Component overview showing the Arduino Uno, ultrasonic sensor, breadboard-mounted LED and buzzer, rotary control, and connected sensor modules visible in the selected video frame."
+    alt: "Labelled IoT plant monitoring components connected around an Arduino and breadboard",
+    caption: "Labelled component overview identifying the Arduino Uno, ultrasonic sensor, breadboard, LED and buzzer, rotary control, and connected sensor modules visible in the selected video frame."
   },
   lcdCloseup: {
     file: "iot-lcd-closeup", extension: "jpg", width: 464, height: 832, modifier: "is-portrait",
@@ -1984,6 +2023,7 @@ function createPlantCaseStudyMarkup(project) {
         <p>An automated indoor farming monitoring system designed to track plant-growing conditions in real time. The system monitors temperature, light intensity, and water level using sensors, then provides alerts, automatic LED control, database storage, and web-based monitoring.</p>
         <p>This project connects hardware, software, database management, and web development into one complete IoT solution for sustainable indoor farming.</p>
         ${createProjectCaseFigure(IOT_MEDIA.hardwareSetup)}
+        ${createEvidenceComingSoon("The supplied demo does not contain one wide frame showing the Raspberry Pi beside the complete Arduino circuit. This genuine frame therefore documents the Arduino-side setup; the Raspberry Pi data-receipt evidence is shown later under Technical Implementation.")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2009,7 +2049,13 @@ function createPlantCaseStudyMarkup(project) {
           <li>MariaDB to store sensor readings</li>
           <li>Flask to display recorded data on a web interface</li>
         </ul>
-        ${createProjectCaseFigure(IOT_MEDIA.labelledComponents)}
+        ${createAnnotatedProjectCaseFigure(IOT_MEDIA.labelledComponents, [
+          { label: "Arduino Uno", x: 29, y: 39 },
+          { label: "Ultrasonic sensor", x: 62, y: 38 },
+          { label: "Breadboard", x: 49, y: 52 },
+          { label: "LED + buzzer", x: 80, y: 48 },
+          { label: "Rotary / sensor module", x: 58, y: 68 }
+        ])}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2085,11 +2131,11 @@ function createPlantCaseStudyMarkup(project) {
           <table class="modal-data-table">
             <thead><tr><th>Test</th><th>Checked</th><th>Result</th></tr></thead>
             <tbody>
-              <tr><td>The buzzer stayed off when all conditions were suitable</td><td>&#10003;</td><td>Passed</td></tr>
-              <tr><td>The buzzer activated when temperature, light, or water level was unsuitable</td><td>&#10003;</td><td>Passed</td></tr>
+              <tr><td>Buzzer stayed off when all conditions suitable</td><td>&#10003;</td><td>Passed</td></tr>
+              <tr><td>Buzzer activated when temperature/light/water unsuitable</td><td>&#10003;</td><td>Passed</td></tr>
               <tr><td>LED brightness increased in darker conditions</td><td>&#10003;</td><td>Passed</td></tr>
               <tr><td>LED brightness decreased in brighter conditions</td><td>&#10003;</td><td>Passed</td></tr>
-              <tr><td>Low water level was detected correctly</td><td>&#10003;</td><td>Passed</td></tr>
+              <tr><td>Low water level detected correctly</td><td>&#10003;</td><td>Passed</td></tr>
               <tr><td>Manual LED control overrode automatic brightness adjustment</td><td>&#10003;</td><td>Passed</td></tr>
             </tbody>
           </table>
@@ -2405,6 +2451,25 @@ function createProjectCaseFigure(media) {
   `;
 }
 
+function createAnnotatedProjectCaseFigure(media, annotations) {
+  const fallbackExtension = media.extension || "png";
+  const fallbackPath = `images/${media.file}.${fallbackExtension}`;
+  const webpPath = `images/${media.file}.webp`;
+  const modifierClass = media.modifier ? ` ${escapeHtml(media.modifier)}` : "";
+  return `
+    <figure class="modal-case-figure${modifierClass}">
+      <a class="modal-case-image-link modal-annotated-media" href="${fallbackPath}" target="_blank" rel="noopener noreferrer">
+        <picture>
+          <source srcset="${webpPath}" type="image/webp">
+          <img src="${fallbackPath}" width="${media.width}" height="${media.height}" alt="${escapeHtml(media.alt)}" loading="lazy" decoding="async">
+        </picture>
+        ${annotations.map(({ label, x, y }) => `<span class="modal-media-annotation" style="--annotation-x:${Number(x)}%;--annotation-y:${Number(y)}%">${escapeHtml(label)}</span>`).join("")}
+      </a>
+      <figcaption>${escapeHtml(media.caption)}</figcaption>
+    </figure>
+  `;
+}
+
 function createWheelchairModalMarkup(project) {
   const roleSection = createRoleSection(
     "Team Project",
@@ -2673,7 +2738,7 @@ function createKeychainModalMarkup(project) {
         <p>I designed and 3D-printed a multifunctional keychain with several integrated features, including a keyring hole, mini ruler, bottle-opener-style cut-out, phone stand, cable holder, bookmark clip, magnet recess for name-tag use, rounded edges, and chamfered functional areas.</p>
         <p>The design was created to be flat and portable so it could be attached to a bag or carried in a pocket without taking up much space.</p>
         <div class="modal-photo-gallery">
-          <img src="${escapeHtml(project.gallery[0])}" width="1200" height="1600" alt="Finished 3D-printed keychain, full view showing ruler markings and keyring hole" loading="lazy">
+          <img src="${escapeHtml(project.gallery[0])}" width="900" height="1200" alt="Finished 3D-printed keychain, full view showing ruler markings and keyring hole" loading="lazy" decoding="async">
           <!-- ACTION REQUIRED: add additional close-up photos here as they become available - e.g. bottle-opener cutout, phone stand in use, magnet recess. Currently only 1 photo is provided; gallery supports 1-4 images gracefully. -->
         </div>
         <p class="modal-media-caption">The finished, 3D-printed keychain prototype.</p>
@@ -2956,6 +3021,10 @@ function getProjectActionDefinitions(project) {
 }
 
 function getProjectCardAction(project) {
+  // The IoT case study embeds its demo directly after the role metadata, so its
+  // project-specific media plan intentionally omits a duplicate grid shortcut.
+  if (getProjectKey(project) === "greenhouse") return null;
+
   const primaryAction = getProjectActionDefinitions(project).find((action) => action.primary);
   if (!primaryAction) return null;
 
@@ -3087,7 +3156,7 @@ function createProjectPreviewCard(projectKey, direction) {
     <div class="project-sequence-item project-sequence-${direction}">
       <p class="modal-eyebrow">${directionLabel} Project</p>
       <button class="project-next-card project-${direction}-card" type="button" data-project-nav="${escapeHtml(projectKey)}" aria-label="View ${direction} project: ${escapeHtml(targetProject.title)}">
-        <span class="project-next-image"><img src="${escapeHtml(targetProject.image)}" alt="" loading="lazy"></span>
+        <span class="project-next-image"><img src="${escapeHtml(targetProject.image)}" width="${targetProject.imageWidth}" height="${targetProject.imageHeight}" alt="" loading="lazy" decoding="async"></span>
         <span class="project-next-copy">
           <span class="project-category-label">${escapeHtml(getProjectCategoryLabel(targetProject))}</span>
           <strong>${title}</strong>
