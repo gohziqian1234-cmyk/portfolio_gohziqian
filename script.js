@@ -98,7 +98,7 @@ const PROJECTS = {
     reportUrl: "assets/reports/iot-smart-plant-monitoring-report.pdf",
     demoUrl: "assets/videos/iot-smart-plant-monitoring-demo.mp4",
     demoPoster: "images/iot-plant-monitoring-demo-poster.jpg",
-    diagram: "images/iot-plant-monitoring-architecture.png",
+    diagram: "images/iot-system-architecture.svg",
     description: "Automated indoor farming system using Arduino, Raspberry Pi, sensors, MariaDB, and Flask to monitor plant conditions and alert users when the environment is unsuitable.",
     // CONFIRM/EXPAND: specific goals, e.g. automated watering, temperature alerts.
     problem: "Reduce manual indoor farming monitoring by using IoT technology to provide real-time feedback, automatic light adjustment, and alerts when plant conditions are unsuitable.",
@@ -1145,6 +1145,7 @@ function initAboutModal() {
     modal.setAttribute("aria-hidden", "true");
     scrollArea.innerHTML = "";
     document.body.classList.remove("modal-open");
+    $(".navbar")?.classList.remove("nav-hidden", "nav-revealed-by-mouse");
     previousFocus?.focus?.();
   };
 
@@ -1302,7 +1303,7 @@ function createModalMarkup(project) {
   if (project.modalVariant === "pianoCaseStudy") return createPianoModalMarkup(project);
   if (project.modalVariant === "erebusCaseStudy") return createErebusModalMarkup(project);
   if (project.modalVariant === "mcfastCaseStudy") return createMcfastModalMarkup(project);
-  if (project.modalVariant === "plantCaseStudy") return createPlantModalMarkup(project);
+  if (project.modalVariant === "plantCaseStudy") return createPlantCaseStudyMarkup(project);
   if (project.modalVariant === "wheelchairCaseStudy") return createWheelchairModalMarkup(project);
   if (project.modalVariant === "keychainCaseStudy") return createKeychainModalMarkup(project);
   if (project.modalVariant === "constructionCaseStudy") return createConstructionModalMarkup(project);
@@ -1523,7 +1524,7 @@ function updateLevel() {
         ${createCaseStudyMediaGrid([
           { src: "assets/piano-game-over.png", alt: "Alien Piano Tiles Mission Failed screen with run statistics and Try Again button", caption: "Game-over screen shown when the player runs out of lives. Displays the run's final score alongside personal best, streak, level reached, and miss count, with an immediate Try Again button - closing the loop from Start Mission to Mission Failed.", modifier: "is-portrait" },
           { src: "assets/piano-mission-failed-summary.png", alt: "Alternate Alien Piano Tiles Mission Failed summary screen", caption: "Alternate Mission Failed summary capture confirming the same score, best-score, tile, streak, level, and miss reporting across the responsive game view.", modifier: "is-portrait" }
-        ], "Alien Piano Tiles outcome screens")}
+        ], "Alien Piano Tiles outcome screens", "is-portrait-pair")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -1552,9 +1553,10 @@ function createCaseStudyFigure(src, alt, caption, modifier = "") {
   `;
 }
 
-function createCaseStudyMediaGrid(items, label) {
+function createCaseStudyMediaGrid(items, label, variant = "is-landscape-pair") {
+  const variantClass = variant ? ` ${escapeHtml(variant)}` : "";
   return `
-    <div class="modal-case-media-grid" role="group" aria-label="${escapeHtml(label)}">
+    <div class="modal-case-media-grid is-equal-media${variantClass}" role="group" aria-label="${escapeHtml(label)}">
       ${items.map((item) => createCaseStudyFigure(item.src, item.alt, item.caption, item.modifier || "")).join("")}
     </div>
   `;
@@ -1669,8 +1671,8 @@ if(k==="escape"||k==="p")openPause();`;
         ${createCaseStudyFigure("assets/erebus-tactical-map.png", "Erebus-7 tactical map showing Crew Quarters rooms and route information", "Tactical map showing Crew Quarters zone layout - rooms, routes, danger indicators, and mission objectives available for route planning.")}
         ${createCaseStudyMediaGrid([
           { src: "assets/erebus-instinct-choice.png", alt: "Erebus-7 parasite instinct choice screen", caption: "Parasite-instinct choice screen showing how the player's opening decision changes the first gameplay advantage." },
-          { src: "assets/erebus-difficulty-selection.png", alt: "Erebus-7 Easy Medium and Hard difficulty selection", caption: "Difficulty selection showing the Easy, Medium, and Hard modes used to tune detection, resources, and campaign pressure." }
-        ], "Erebus-7 player setup screens")}
+          { src: "assets/erebus-difficulty-selection.png", alt: "Erebus-7 Easy Medium and Hard difficulty selection", caption: "Difficulty selection showing the Easy, Medium, and Hard modes used to tune detection, resources, and campaign pressure.", modifier: "is-position-left" }
+        ], "Erebus-7 player setup screens", "is-ultrawide-pair")}
         ${createCaseStudyFigure("assets/erebus-interaction-infection.png", "Erebus-7 gameplay showing an infection target and interaction controls", "Live interaction and infection state showing the current host, nearby crew, infection objective, detection cones, and ability controls.")}
       </section>
 
@@ -1871,6 +1873,249 @@ def build_receipt(cart, discount_name):
           </a>
         </div>
         <p class="modal-link-helper modal-helper-text">Note: This app is hosted on a free tier and may take 30&ndash;60 seconds to load if it has been inactive. If you see a 'Zzzz' sleep screen, click to wake it up and wait briefly.</p>
+        <p class="modal-link-helper modal-helper-text">Opens in a new tab - this portfolio stays open here, so you can switch back anytime.</p>
+      </section>
+    </article>
+  `;
+}
+
+const IOT_MEDIA = Object.freeze({
+  hardwareSetup: {
+    file: "iot-hardware-setup", extension: "jpg", width: 464, height: 832, modifier: "is-portrait",
+    alt: "Arduino-side hardware setup for the IoT plant monitoring prototype",
+    caption: "Overall Arduino-side hardware setup showing the controller, connected sensors, LCD display, LED, buzzer, breadboard, and wiring used in the plant monitoring prototype."
+  },
+  labelledComponents: {
+    file: "iot-labelled-components", extension: "jpg", width: 464, height: 832, modifier: "is-portrait",
+    alt: "IoT plant monitoring components connected around an Arduino and breadboard",
+    caption: "Component overview showing the Arduino Uno, ultrasonic sensor, breadboard-mounted LED and buzzer, rotary control, and connected sensor modules visible in the selected video frame."
+  },
+  lcdCloseup: {
+    file: "iot-lcd-closeup", extension: "jpg", width: 464, height: 832, modifier: "is-portrait",
+    alt: "LCD display showing live temperature light water and LED readings",
+    caption: "LCD display showing legible real-time temperature, light, water-level, and LED status feedback from the sensors."
+  },
+  pinMap: {
+    file: "iot-arduino-pin-map", width: 672, height: 538,
+    alt: "Arduino Uno pin map for the IoT plant monitoring system",
+    caption: "Hardware pin map documenting temperature on A0, light on A1, rotary angle on A2, LCD SDA and SCL on A4 and A5, ultrasonic signal on D7, buzzer on D4, and LED on D3."
+  },
+  arduinoSerial: {
+    file: "iot-arduino-serial-monitor", width: 755, height: 366,
+    alt: "Arduino Serial Monitor showing temperature light water LED and alert readings",
+    caption: "Arduino Serial Monitor evidence showing live sensor values, LED output, and alert-state messages before transmission to the Raspberry Pi."
+  },
+  raspberryPiData: {
+    file: "iot-raspberry-pi-data-received", width: 910, height: 359,
+    alt: "Raspberry Pi terminal showing sensor data received from Arduino",
+    caption: "Raspberry Pi processing evidence showing temperature, light, water, LED, and alert values received from the Arduino."
+  },
+  flaskInterface: {
+    file: "iot-flask-web-interface", width: 894, height: 318,
+    alt: "Flask web interface displaying recorded IoT plant monitoring data",
+    caption: "Flask web interface showing recorded plant monitoring data collected from the IoT system."
+  },
+  flaskServer: {
+    file: "iot-flask-server-running", width: 888, height: 343,
+    alt: "Python shell showing the IoT Flask development server running locally",
+    caption: "Flask server running on the Raspberry Pi development environment before the monitoring page is opened in the browser."
+  },
+  databaseUpdate: {
+    file: "iot-database-update-confirmation", width: 820, height: 346,
+    alt: "Python shell confirming IoT sensor readings were stored in the database",
+    caption: "Database update evidence showing processed sensor readings followed by successful MariaDB insert confirmations."
+  },
+  databaseStructure: {
+    file: "iot-database-table-structure", width: 871, height: 252,
+    alt: "MariaDB table structure for stored plant monitoring records",
+    caption: "MariaDB table structure showing fields for identity, timestamp, temperature, light, water, LED, and alert records."
+  }
+});
+
+function createPlantCaseStudyMarkup(project) {
+  const roleSection = createRoleSection(
+    "Team Project",
+    "Co-developer / IoT System Developer",
+    "I contributed to the development of the IoT plant monitoring system, including sensor integration, Arduino logic, Raspberry Pi data handling, MariaDB database implementation, Flask web monitoring, testing, troubleshooting, and system documentation."
+  );
+
+  return `
+    <article class="project-modal-body project-modal-body-long">
+      <header class="modal-project-hero modal-case-header">
+        <p class="modal-eyebrow section-kicker dark">Project</p>
+        <h2 class="modal-title" id="modal-title">${escapeHtml(project.title)}</h2>
+        <p>${escapeHtml(project.description)}</p>
+      </header>
+
+      ${roleSection}
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Demo Video</h3>
+        <div class="modal-media modal-video-frame">
+          <video class="modal-video" controls playsinline poster="${escapeHtml(project.demoPoster)}" preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
+            <source src="${escapeHtml(project.demoUrl)}" type="video/mp4">
+            Your browser does not support video playback.
+          </video>
+        </div>
+        <p class="modal-media-caption">Project demo showing sensor readings, hardware responses, database storage, and the web monitoring workflow.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Overview</h3>
+        <p>An automated indoor farming monitoring system designed to track plant-growing conditions in real time. The system monitors temperature, light intensity, and water level using sensors, then provides alerts, automatic LED control, database storage, and web-based monitoring.</p>
+        <p>This project connects hardware, software, database management, and web development into one complete IoT solution for sustainable indoor farming.</p>
+        ${createProjectCaseFigure(IOT_MEDIA.hardwareSetup)}
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">The Problem</h3>
+        <p>Singapore has limited land for agriculture and aims to strengthen food security by increasing local food production. Indoor farming and vertical farming can help, but they require stable growing conditions &mdash; suitable temperature, sufficient light, and enough water.</p>
+        <p>In many indoor farming setups, these conditions are still checked manually. This can lead to delayed responses, inconsistent plant care, inefficient resource use, and weaker plant growth. Vertical farming can also create uneven lighting, where upper plants block light from reaching lower plants.</p>
+        <p>This project was built to reduce manual monitoring by using IoT technology to provide real-time feedback, automatic light adjustment, and alerts when plant conditions are unsuitable.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">What I Built</h3>
+        <p>I built an automated plant monitoring and alert system that uses sensors to check whether the plant environment is suitable for growth. The system uses:</p>
+        <ul class="modal-feature-list">
+          <li>A Grove temperature sensor to monitor whether the temperature is within the 20&deg;C&ndash;35&deg;C suitable range</li>
+          <li>A Grove light sensor to measure ambient light intensity</li>
+          <li>An ultrasonic sensor to estimate water level by measuring distance to the water surface</li>
+          <li>A rotary angle sensor to allow manual LED brightness control</li>
+          <li>An LED to simulate grow-light adjustment</li>
+          <li>A buzzer to alert users when conditions are not suitable</li>
+          <li>A 16x2 LCD display to show real-time readings and status</li>
+          <li>Arduino to collect sensor data and control outputs</li>
+          <li>Raspberry Pi to receive and process data</li>
+          <li>MariaDB to store sensor readings</li>
+          <li>Flask to display recorded data on a web interface</li>
+        </ul>
+        ${createProjectCaseFigure(IOT_MEDIA.labelledComponents)}
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Key Features</h3>
+        <ul class="modal-feature-list">
+          <li>Real-time temperature monitoring</li>
+          <li>Light intensity monitoring</li>
+          <li>Water level detection</li>
+          <li>Automatic LED brightness adjustment</li>
+          <li>Manual LED brightness override</li>
+          <li>LCD display for live plant condition feedback</li>
+          <li>Buzzer alert for unsuitable conditions</li>
+          <li>Serial communication between Arduino and Raspberry Pi</li>
+          <li>MariaDB database storage</li>
+          <li>Flask web interface for monitoring recorded data</li>
+        </ul>
+        ${createProjectCaseFigure(IOT_MEDIA.lcdCloseup)}
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">System Architecture</h3>
+        <div class="modal-diagram">
+          <img src="${escapeHtml(project.diagram)}" alt="System architecture flowchart showing data flow from sensors through Arduino, serial communication, Raspberry Pi, MariaDB, the Flask web interface, and user monitoring" loading="lazy" width="1440" height="780">
+        </div>
+        <p class="modal-media-caption">System architecture flowchart showing how sensor data moves from the hardware layer through Arduino and Raspberry Pi into MariaDB and the Flask web interface.</p>
+        <p>The Arduino collects data from the temperature sensor, light sensor, ultrasonic sensor, and rotary angle sensor. It processes the readings, controls the LED and buzzer, and displays the status on the LCD screen.</p>
+        <p>The processed data is then sent to the Raspberry Pi through serial communication. The Raspberry Pi stores the readings in a MariaDB database and displays the data through a Flask web page, allowing users to view plant condition data more clearly and use it for future analysis.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Technical Implementation</h3>
+        <p>The system uses predefined thresholds to decide whether the environment is suitable for plant growth.</p>
+        <p>The temperature condition is suitable when the reading is between 20&deg;C and 35&deg;C. The light condition is evaluated using effective light, which combines ambient light and LED brightness &mdash; if the light level is too low, LED brightness increases automatically; if there is enough light, brightness decreases to save energy.</p>
+        <p>The ultrasonic sensor measures the distance between the sensor and the water surface. If the distance is too high, the system treats the water level as low and activates an alert. The rotary angle sensor allows the user to manually override the automatic LED control when needed.</p>
+        <div class="modal-tech-tags">
+          <span class="tech-tag">Arduino</span>
+          <span class="tech-tag">Raspberry Pi</span>
+          <span class="tech-tag">IoT</span>
+          <span class="tech-tag">Sensors</span>
+          <span class="tech-tag">MariaDB</span>
+          <span class="tech-tag">Flask</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Sustainability</span>
+        </div>
+        ${createProjectCaseFigure(IOT_MEDIA.pinMap)}
+        <div class="modal-case-media-grid is-equal-media is-document-safe is-landscape-pair" role="group" aria-label="Arduino to Raspberry Pi data transfer evidence">
+          ${createProjectCaseFigure(IOT_MEDIA.arduinoSerial)}
+          ${createProjectCaseFigure(IOT_MEDIA.raspberryPiData)}
+        </div>
+        ${createEvidenceComingSoon("Source code evidence is pending because no public IoT repository or local source file was supplied. No code has been reconstructed or invented from the screenshots.")}
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Flask Web Interface</h3>
+        <div class="modal-case-media-grid is-equal-media is-flask-pair" role="group" aria-label="Flask monitoring interface evidence">
+          ${createProjectCaseFigure(IOT_MEDIA.flaskInterface)}
+          ${createProjectCaseFigure(IOT_MEDIA.flaskServer)}
+        </div>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">MariaDB Database</h3>
+        <div class="modal-case-media-grid is-equal-media is-document-safe is-landscape-pair" role="group" aria-label="MariaDB storage evidence">
+          ${createProjectCaseFigure(IOT_MEDIA.databaseUpdate)}
+          ${createProjectCaseFigure(IOT_MEDIA.databaseStructure)}
+        </div>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Testing &amp; Results</h3>
+        <p>The system was tested under different environmental conditions to verify each function worked correctly. Test cases checked whether:</p>
+        <div class="modal-table-wrapper">
+          <table class="modal-data-table">
+            <thead><tr><th>Test</th><th>Checked</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td>The buzzer stayed off when all conditions were suitable</td><td>&#10003;</td><td>Passed</td></tr>
+              <tr><td>The buzzer activated when temperature, light, or water level was unsuitable</td><td>&#10003;</td><td>Passed</td></tr>
+              <tr><td>LED brightness increased in darker conditions</td><td>&#10003;</td><td>Passed</td></tr>
+              <tr><td>LED brightness decreased in brighter conditions</td><td>&#10003;</td><td>Passed</td></tr>
+              <tr><td>Low water level was detected correctly</td><td>&#10003;</td><td>Passed</td></tr>
+              <tr><td>Manual LED control overrode automatic brightness adjustment</td><td>&#10003;</td><td>Passed</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The system successfully responded to these test conditions, showing that the hardware, software, database, and web interface could work together as one complete IoT system.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Outcome</h3>
+        <p>The final system successfully monitored temperature, light intensity, and water level in real time. It could automatically adjust LED brightness, alert users when plant conditions were unsuitable, store sensor data in a database, and display the readings through a Flask web interface.</p>
+        <p>This project helped me understand how hardware, software, databases, and web technologies can be integrated into a practical IoT solution &mdash; and how technology can support more efficient and sustainable indoor farming.</p>
+        <div class="modal-case-media-grid is-equal-media is-document-safe is-landscape-pair" role="group" aria-label="Final IoT system evidence">
+          ${createProjectCaseFigure(IOT_MEDIA.hardwareSetup)}
+          ${createProjectCaseFigure(IOT_MEDIA.flaskInterface)}
+        </div>
+        <p class="modal-media-caption">Final system evidence showing the completed IoT workflow from sensor monitoring to web-based data display.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Future Improvements</h3>
+        <p>Although the system successfully monitors temperature, light intensity, and water level in real time, the current version mainly provides alerts when conditions are not suitable. A stronger future version could respond automatically instead of only notifying the user.</p>
+        <p>The first improvement would be an automatic watering system. At the moment, the ultrasonic sensor can detect when the water level is low and trigger an alert, but the user still needs to refill the water manually. A future version could include a water pump that automatically adds water when the level falls below the acceptable range.</p>
+        <p>The second improvement would be automatic temperature control. The current system can detect when the temperature is below 20&deg;C or above 35&deg;C and activate the buzzer, but it does not directly control the temperature. A future version could include a fan, heater, or cooling system to automatically adjust the temperature and keep the plant environment within the suitable range.</p>
+        <p>The third improvement would be a stronger web dashboard. The current Flask web interface displays recorded sensor data in a table format. A future version could improve this by adding charts, trend analysis, and warning history so users can understand how the plant environment changes over time.</p>
+        <p>Overall, the next version should move from a monitoring-and-alert system to a more complete automated control system. This would reduce manual work further, improve plant growth consistency, and make the system more useful for real indoor farming.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Skills Demonstrated</h3>
+        <ul class="modal-feature-list modal-skills-list">
+          <li>IoT system design</li><li>Sensor integration</li><li>Arduino programming</li>
+          <li>Raspberry Pi data processing</li><li>Serial communication</li><li>Python scripting</li>
+          <li>MariaDB database implementation</li><li>Flask web development</li><li>Real-time monitoring</li>
+          <li>Testing and troubleshooting</li><li>Sustainability-focused engineering</li>
+        </ul>
+      </section>
+
+      <section class="modal-action-block" aria-label="Project report and demo">
+        <!-- REPORT: converted from the co-authored DOCX project report to a web-friendly PDF. -->
+        <!-- DEMO: linked to the provided project demo MP4. -->
+        <div class="modal-actions modal-action-row">
+          <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.reportUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action><span aria-hidden="true">PDF</span>View Full Report</a>
+          <a class="modal-action-button modal-play-button btn-primary" href="${escapeHtml(project.demoUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action><span aria-hidden="true">&#9654;</span>Watch Demo</a>
+        </div>
+        <p class="modal-coauthor-note">Co-authored with Li Heng as a joint project submission.</p>
         <p class="modal-link-helper modal-helper-text">Opens in a new tab - this portfolio stays open here, so you can switch back anytime.</p>
       </section>
     </article>
@@ -2124,14 +2369,16 @@ const WHEELCHAIR_MEDIA = Object.freeze({
 });
 
 function createProjectCaseFigure(media) {
-  const pngPath = `images/${media.file}.png`;
+  const fallbackExtension = media.extension || "png";
+  const fallbackPath = `images/${media.file}.${fallbackExtension}`;
   const webpPath = `images/${media.file}.webp`;
+  const modifierClass = media.modifier ? ` ${escapeHtml(media.modifier)}` : "";
   return `
-    <figure class="modal-case-figure">
-      <a class="modal-case-image-link" href="${pngPath}" target="_blank" rel="noopener noreferrer">
+    <figure class="modal-case-figure${modifierClass}">
+      <a class="modal-case-image-link" href="${fallbackPath}" target="_blank" rel="noopener noreferrer">
         <picture>
           <source srcset="${webpPath}" type="image/webp">
-          <img src="${pngPath}" width="${media.width}" height="${media.height}" alt="${escapeHtml(media.alt)}" loading="lazy">
+          <img src="${fallbackPath}" width="${media.width}" height="${media.height}" alt="${escapeHtml(media.alt)}" loading="lazy" decoding="async">
         </picture>
       </a>
       <figcaption>${escapeHtml(media.caption)}</figcaption>
@@ -2203,7 +2450,7 @@ function createWheelchairModalMarkup(project) {
           <li>Switch control for manual system on/off</li>
           <li>Prototype refinement through testing</li>
         </ul>
-        <div class="modal-case-media-grid">
+        <div class="modal-case-media-grid is-equal-media is-document-safe is-landscape-pair">
           ${createProjectCaseFigure(WHEELCHAIR_MEDIA.ultrasonicBuzzer)}
           ${createProjectCaseFigure(WHEELCHAIR_MEDIA.potentiometer)}
           ${createProjectCaseFigure(WHEELCHAIR_MEDIA.switchControl)}
@@ -2216,7 +2463,7 @@ function createWheelchairModalMarkup(project) {
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Design Process</h3>
         <p>The project started with Crazy 8 brainstorming to generate multiple possible solutions. The team then used a value-effort map to compare ideas and selected the motor-assist wheelchair concept because it provided high user value while still being achievable within the project constraints.</p>
-        <div class="modal-case-media-grid">
+        <div class="modal-case-media-grid is-equal-media is-document-safe is-document-pair">
           ${createProjectCaseFigure(WHEELCHAIR_MEDIA.crazyEight)}
           ${createProjectCaseFigure(WHEELCHAIR_MEDIA.valueEffort)}
         </div>
@@ -2308,7 +2555,7 @@ function createWheelchairModalMarkup(project) {
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Final Software Design</h3>
         <p>The final software design was based on separating the prototype into clear input and output logic. The switch decides whether the system is active, the potentiometer controls the motor speed, and the ultrasonic sensor checks for obstacles. The Arduino then controls the motor and buzzer based on those readings, which made the system easier to test because each component had a clear role in the final control flow.</p>
-        <div class="modal-case-media-grid">
+        <div class="modal-case-media-grid is-equal-media is-landscape-pair">
           ${createProjectCaseFigure(WHEELCHAIR_MEDIA.softwareComponents)}
           ${createProjectCaseFigure(WHEELCHAIR_MEDIA.softwareCircuit)}
         </div>

@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="780" viewBox="0 0 1440 780" role="img" aria-labelledby="title desc">
+  <title id="title">IoT smart plant monitoring system architecture</title>
+  <desc id="desc">Temperature, light, ultrasonic, and rotary-angle sensors send readings to an Arduino. The Arduino controls the LED, buzzer, and LCD, then sends processed readings over serial communication to a Raspberry Pi. The Raspberry Pi stores readings in MariaDB, which feeds a Flask web interface for user monitoring.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0e1113"/>
+      <stop offset="1" stop-color="#15191c"/>
+    </linearGradient>
+    <linearGradient id="nodeStroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3d5afe"/>
+      <stop offset="1" stop-color="#7b61ff"/>
+    </linearGradient>
+    <marker id="arrowBlue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#6f7dff"/>
+    </marker>
+    <marker id="arrowAmber" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#ffb020"/>
+    </marker>
+    <style>
+      .node { fill: #15191c; stroke: url(#nodeStroke); stroke-width: 2; }
+      .node-secondary { fill: #111519; stroke: #4b535b; stroke-width: 1.5; }
+      .node-title { fill: #f3f1ec; font: 700 26px Inter, Arial, sans-serif; }
+      .node-copy { fill: #9ca3aa; font: 500 17px "IBM Plex Mono", Consolas, monospace; }
+      .kicker { fill: #ffb020; font: 700 15px "IBM Plex Mono", Consolas, monospace; letter-spacing: 2px; }
+      .flow { fill: none; stroke: #6f7dff; stroke-width: 4; marker-end: url(#arrowBlue); }
+      .control-flow { fill: none; stroke: #ffb020; stroke-width: 3; marker-end: url(#arrowAmber); }
+      .flow-label { fill: #9ca3aa; font: 600 14px "IBM Plex Mono", Consolas, monospace; letter-spacing: 1px; }
+    </style>
+  </defs>
+
+  <rect width="1440" height="780" rx="24" fill="url(#background)"/>
+  <path d="M0 96H1440 M0 390H1440 M0 684H1440" stroke="#2a2f33" stroke-width="1" opacity="0.55"/>
+
+  <text x="54" y="58" class="kicker">SENSOR-TO-WEB DATA FLOW</text>
+
+  <rect x="54" y="188" width="286" height="318" rx="16" class="node"/>
+  <text x="84" y="232" class="node-title">Sensors</text>
+  <text x="84" y="275" class="node-copy">Temperature</text>
+  <text x="84" y="319" class="node-copy">Light</text>
+  <text x="84" y="363" class="node-copy">Ultrasonic</text>
+  <text x="84" y="407" class="node-copy">Rotary Angle</text>
+  <text x="84" y="466" class="kicker">INPUT LAYER</text>
+
+  <rect x="414" y="260" width="228" height="156" rx="16" class="node"/>
+  <text x="444" y="316" class="node-title">Arduino</text>
+  <text x="444" y="354" class="node-copy">read + process</text>
+  <text x="444" y="384" class="node-copy">sensor values</text>
+
+  <rect x="414" y="84" width="228" height="112" rx="16" class="node-secondary"/>
+  <text x="444" y="128" class="node-title">Controls</text>
+  <text x="444" y="164" class="node-copy">LED / Buzzer / LCD</text>
+
+  <rect x="730" y="260" width="244" height="156" rx="16" class="node"/>
+  <text x="760" y="308" class="node-title">Serial</text>
+  <text x="760" y="344" class="node-title">Communication</text>
+  <text x="760" y="382" class="node-copy">processed readings</text>
+
+  <rect x="1060" y="260" width="248" height="156" rx="16" class="node"/>
+  <text x="1090" y="316" class="node-title">Raspberry Pi</text>
+  <text x="1090" y="354" class="node-copy">receive + route</text>
+  <text x="1090" y="384" class="node-copy">monitoring data</text>
+
+  <rect x="1060" y="534" width="248" height="132" rx="16" class="node"/>
+  <text x="1090" y="586" class="node-title">MariaDB</text>
+  <text x="1090" y="624" class="node-copy">store readings</text>
+
+  <rect x="730" y="534" width="244" height="132" rx="16" class="node"/>
+  <text x="760" y="586" class="node-title">Flask Web</text>
+  <text x="760" y="624" class="node-copy">display records</text>
+
+  <rect x="414" y="534" width="228" height="132" rx="16" class="node"/>
+  <text x="444" y="586" class="node-title">User Monitoring</text>
+  <text x="444" y="624" class="node-copy">review conditions</text>
+
+  <path d="M340 338H394" class="flow"/>
+  <path d="M642 338H710" class="flow"/>
+  <path d="M974 338H1040" class="flow"/>
+  <path d="M1184 416V514" class="flow"/>
+  <path d="M1060 600H994" class="flow"/>
+  <path d="M730 600H662" class="flow"/>
+  <path d="M528 260V216" class="control-flow"/>
+
+  <text x="348" y="321" class="flow-label">READINGS</text>
+  <text x="648" y="321" class="flow-label">SERIAL</text>
+  <text x="983" y="321" class="flow-label">USB</text>
+  <text x="1202" y="472" class="flow-label">STORE</text>
+  <text x="995" y="583" class="flow-label">QUERY</text>
+  <text x="658" y="583" class="flow-label">VIEW</text>
+  <text x="548" y="236" class="flow-label">OUTPUT</text>
+</svg>
