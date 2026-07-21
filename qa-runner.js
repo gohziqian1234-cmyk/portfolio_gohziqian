@@ -25,6 +25,7 @@ const REPORT_PATH = path.join(ROOT, "qa-report.md");
 const JSON_REPORT_PATH = path.join(ROOT, "qa-results.json");
 const PORT = Number(process.env.QA_PORT || 4177);
 const BASE_URL = `http://127.0.0.1:${PORT}`;
+const QA_MATCH = (process.env.QA_MATCH || "").trim().toLowerCase();
 
 const VIEWPORTS = [
   { name: "mobile", width: 375, height: 812 },
@@ -269,6 +270,11 @@ async function sample(page, result, label) {
 }
 
 async function performScrollSequence(page, sequence, result) {
+  // QA samples fixed positions; disable the site's smooth-scroll interpolation
+  // so measurements are not taken halfway through a scripted jump.
+  await page.evaluate(() => {
+    document.documentElement.style.scrollBehavior = "auto";
+  });
   const maxScroll = await page.evaluate(() => Math.max(0, document.documentElement.scrollHeight - window.innerHeight));
 
   if (sequence === "top") {
@@ -441,6 +447,10 @@ async function runInteractionConfig(browser, config) {
       await checkProjectQuickActions(page, result);
     }
 
+    if (config.name === "projects-modern-regressions") {
+      await checkModernProjectRegressions(page, result, config.viewport.name === "mobile");
+    }
+
     if (config.name === "certificate-lightbox") {
       await checkCertificateLightbox(page, result);
     }
@@ -595,6 +605,338 @@ async function checkProjectSequenceNavigation(page, result) {
   await page.waitForTimeout(450);
 }
 
+function matchesQaFilter(config) {
+  if (!QA_MATCH) return true;
+  return [config.name, config.page, config.viewport?.name, config.sequence]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase()
+    .includes(QA_MATCH);
+}
+
+async function openProjectForQa(page, projectKey) {
+  await page.locator(`[data-open-project="${projectKey}"]`).evaluate((card) => card.click());
+  await page.locator("#project-modal.active").waitFor({ state: "visible" });
+  await page.waitForTimeout(450);
+}
+
+async function expectProjectModalTitle(page, result, expected, context) {
+  const title = await page.locator("#project-modal .modal-title").first().innerText();
+  if (!title.toLowerCase().includes(expected.toLowerCase())) {
+    result.failures.push(`${context}; saw "${title}"`);
+  }
+}
+
+async function getProjectArrowState(page) {
+  return page.locator("#project-modal .project-next-arrow").evaluateAll((arrows) => arrows.map((arrow) => {
+    const rect = arrow.getBoundingClientRect();
+    const style = getComputedStyle(arrow);
+    return {
+      opacity: Number(style.opacity),
+      display: style.display,
+      width: rect.width,
+      height: rect.height
+    };
+  }));
+}
+
+async function checkProjectNavigationArrows(page, result, isMobile) {
+  await openProjectForQa(page, "piano");
+  const arrows = await getProjectArrowState(page);
+  if (arrows.length !== 2) result.failures.push(`Expected two bottom project arrows, saw ${arrows.length}`);
+  arrows.forEach((arrow, index) => {
+    if (arrow.display === "none" || arrow.width < 40 || arrow.height < 40) {
+      result.failures.push(`Bottom project arrow ${index + 1} is not visibly sized`);
+    }
+    if (arrow.opacity < 0.5 || arrow.opacity > 0.6) {
+      result.failures.push(`Bottom project arrow ${index + 1} default opacity should be about 55%, saw ${arrow.opacity}`);
+    }
+  });
+
+  if (isMobile) {
+    const nextArrow = page.locator("#project-modal .project-sequence-next .project-next-arrow");
+    await nextArrow.scrollIntoViewIfNeeded();
+    await nextArrow.click();
+    await expectProjectModalTitle(page, result, "Erebus", "Mobile Piano next arrow did not open Erebus");
+    return;
+  }
+
+  const pairs = [
+    { from: "piano", fromTitle: "Alien Piano", toTitle: "Erebus" },
+    { from: "mcfast", fromTitle: "McFast", toTitle: "Wheelchair" },
+    { from: "construction", fromTitle: "Construction", toTitle: "Alien Piano" }
+  ];
+
+  for (const pair of pairs) {
+    await openProjectForQa(page, pair.from);
+    const nextArrow = page.locator("#project-modal .project-sequence-next .project-next-arrow");
+    await nextArrow.scrollIntoViewIfNeeded();
+    await nextArrow.click();
+    await expectProjectModalTitle(page, result, pair.toTitle, `${pair.fromTitle} next arrow opened the wrong project`);
+
+    const previousArrow = page.locator("#project-modal .project-sequence-previous .project-next-arrow");
+    await previousArrow.scrollIntoViewIfNeeded();
+    await previousArrow.click();
+    await expectProjectModalTitle(page, result, pair.fromTitle, `${pair.toTitle} previous arrow opened the wrong project`);
+
+    const nextCard = page.locator("#project-modal .project-sequence-next .project-next-card");
+    await nextCard.scrollIntoViewIfNeeded();
+    await page.keyboard.press("Tab");
+    await nextCard.focus();
+    await nextCard.locator(".project-next-arrow").evaluate((arrow) => {
+      arrow.getAnimations().forEach((animation) => animation.finish());
+    });
+    const nextFocusState = await nextCard.evaluate((card) => {
+      const arrow = card.querySelector(".project-next-arrow");
+      const style = getComputedStyle(arrow);
+      return {
+        active: document.activeElement === card,
+        focused: card.matches(":focus"),
+        focusVisible: card.matches(":focus-visible"),
+        fullSelector: arrow.matches('body[data-page="projects"] .project-next-card:focus .project-next-arrow'),
+        opacity: Number(style.opacity),
+        inlineStyle: arrow.getAttribute("style"),
+        transitionDuration: style.transitionDuration,
+        animations: arrow.getAnimations().map((animation) => ({
+          playState: animation.playState,
+          currentTime: animation.currentTime,
+          duration: animation.effect?.getTiming().duration
+        }))
+      };
+    });
+    if (nextFocusState.opacity < 0.95) {
+      result.failures.push(`${pair.fromTitle} next arrow did not highlight on keyboard focus (${JSON.stringify(nextFocusState)})`);
+    }
+    await page.keyboard.press("Enter");
+    await expectProjectModalTitle(page, result, pair.toTitle, `${pair.fromTitle} next card failed with Enter`);
+
+    const previousCard = page.locator("#project-modal .project-sequence-previous .project-next-card");
+    await previousCard.scrollIntoViewIfNeeded();
+    await page.keyboard.press("Tab");
+    await previousCard.focus();
+    await previousCard.locator(".project-next-arrow").evaluate((arrow) => {
+      arrow.getAnimations().forEach((animation) => animation.finish());
+    });
+    const previousFocusState = await previousCard.evaluate((card) => ({
+      active: document.activeElement === card,
+      focused: card.matches(":focus"),
+      focusVisible: card.matches(":focus-visible"),
+      opacity: Number(getComputedStyle(card.querySelector(".project-next-arrow")).opacity)
+    }));
+    if (previousFocusState.opacity < 0.95) {
+      result.failures.push(`${pair.toTitle} previous arrow did not highlight on keyboard focus (${JSON.stringify(previousFocusState)})`);
+    }
+    await page.keyboard.press("Space");
+    await expectProjectModalTitle(page, result, pair.fromTitle, `${pair.toTitle} previous card failed with Space`);
+  }
+}
+
+async function checkProjectModalAccessibility(page, result) {
+  await page.keyboard.press("Escape");
+  await page.waitForTimeout(450);
+
+  const trigger = page.locator('[data-open-project="piano"]');
+  await trigger.focus();
+  await page.keyboard.press("Enter");
+  await page.locator("#project-modal.active").waitFor({ state: "visible" });
+
+  const semantics = await page.locator("#project-modal").evaluate((modal) => ({
+    role: modal.getAttribute("role"),
+    ariaModal: modal.getAttribute("aria-modal"),
+    labelledBy: modal.getAttribute("aria-labelledby"),
+    hasLabelTarget: Boolean(document.getElementById(modal.getAttribute("aria-labelledby") || ""))
+  }));
+  if (semantics.role !== "dialog") result.failures.push(`Project modal role should be dialog, saw ${semantics.role}`);
+  if (semantics.ariaModal !== "true") result.failures.push(`Project modal aria-modal should be true, saw ${semantics.ariaModal}`);
+  if (!semantics.labelledBy || !semantics.hasLabelTarget) result.failures.push("Project modal aria-labelledby does not resolve to its title");
+
+  const focusableCount = await page.locator("#project-modal").evaluate((modal) => {
+    const selector = [
+      "a[href]",
+      "button:not([disabled])",
+      "input:not([disabled])",
+      "select:not([disabled])",
+      "textarea:not([disabled])",
+      "video[controls]",
+      "[tabindex]:not([tabindex='-1'])"
+    ].join(",");
+    const focusable = Array.from(modal.querySelectorAll(selector)).filter((element) => (
+      element.getAttribute("aria-hidden") !== "true"
+      && !element.hasAttribute("hidden")
+      && element.tabIndex >= 0
+      && (element.offsetWidth > 0 || element.offsetHeight > 0 || element.getClientRects().length > 0)
+    ));
+    focusable.at(-1)?.focus();
+    return focusable.length;
+  });
+  if (focusableCount < 2) result.failures.push(`Project modal expected multiple focus targets, saw ${focusableCount}`);
+
+  await page.keyboard.press("Tab");
+  const wrappedForward = await page.locator("#project-modal").evaluate((modal) => {
+    const focusable = Array.from(modal.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), video[controls], [tabindex]:not([tabindex='-1'])")).filter((element) => (
+      element.getAttribute("aria-hidden") !== "true"
+      && !element.hasAttribute("hidden")
+      && element.tabIndex >= 0
+      && (element.offsetWidth > 0 || element.offsetHeight > 0 || element.getClientRects().length > 0)
+    ));
+    return document.activeElement === focusable[0] && modal.contains(document.activeElement);
+  });
+  if (!wrappedForward) result.failures.push("Project modal Tab focus did not wrap from last to first control");
+
+  await page.keyboard.press("Shift+Tab");
+  const wrappedBackward = await page.locator("#project-modal").evaluate((modal) => {
+    const focusable = Array.from(modal.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), video[controls], [tabindex]:not([tabindex='-1'])")).filter((element) => (
+      element.getAttribute("aria-hidden") !== "true"
+      && !element.hasAttribute("hidden")
+      && element.tabIndex >= 0
+      && (element.offsetWidth > 0 || element.offsetHeight > 0 || element.getClientRects().length > 0)
+    ));
+    return document.activeElement === focusable.at(-1) && modal.contains(document.activeElement);
+  });
+  if (!wrappedBackward) result.failures.push("Project modal Shift+Tab focus did not wrap from first to last control");
+
+  await page.keyboard.press("Escape");
+  await page.waitForTimeout(450);
+  const closeState = await page.evaluate(() => ({
+    restoredProject: document.activeElement?.getAttribute("data-open-project") || "",
+    bodyUnlocked: getComputedStyle(document.body).overflow !== "hidden",
+    navClickable: getComputedStyle(document.querySelector(".navbar")).pointerEvents !== "none",
+    navClasses: document.querySelector(".navbar")?.className || ""
+  }));
+  if (closeState.restoredProject !== "piano") result.failures.push("Project modal did not return focus to the opening card");
+  if (!closeState.bodyUnlocked) result.failures.push("Project modal left body scroll locked after Escape");
+  if (!closeState.navClickable || /nav-hidden|nav-revealed-by-mouse/.test(closeState.navClasses)) {
+    result.failures.push("Project modal left the navbar hidden or disabled after Escape");
+  }
+}
+
+async function checkProjectMediaGrids(page, result, isMobile) {
+  const projectKeys = ["piano", "erebus", "mcfast", "wheelchair", "greenhouse", "keychain", "construction"];
+  const expectedVideoCounts = { piano: 1, erebus: 1, mcfast: 1, wheelchair: 2, greenhouse: 1 };
+
+  for (const projectKey of projectKeys) {
+    await openProjectForQa(page, projectKey);
+    const grids = page.locator("#project-modal .modal-case-media-grid, #project-modal .modal-photo-gallery");
+
+    for (let index = 0; index < await grids.count(); index += 1) {
+      const grid = grids.nth(index);
+      const imageCount = await grid.locator("img").count();
+      if (imageCount < 2) continue;
+
+      for (let imageIndex = 0; imageIndex < imageCount; imageIndex += 1) {
+        const image = grid.locator("img").nth(imageIndex);
+        await image.scrollIntoViewIfNeeded();
+        await image.evaluate((element) => element.decode ? element.decode().catch(() => {}) : Promise.resolve());
+      }
+      await page.mouse.move(1, 1);
+      await page.waitForTimeout(250);
+
+      const state = await grid.evaluate((element) => {
+        const frames = Array.from(element.querySelectorAll(".modal-case-image-link"));
+        return {
+          classes: element.className,
+          equal: element.classList.contains("is-equal-media"),
+          frameHeights: frames.map((frame) => frame.getBoundingClientRect().height),
+          imageHeights: frames.map((frame) => frame.querySelector("img")?.getBoundingClientRect().height || 0),
+          loaded: Array.from(element.querySelectorAll("img")).every((image) => image.complete && image.naturalWidth > 0 && image.naturalHeight > 0)
+        };
+      });
+
+      if (!state.equal) result.failures.push(`${projectKey} has an unstandardized multi-image grid: ${state.classes}`);
+      if (!state.loaded) result.failures.push(`${projectKey} multi-image grid contains an image that did not load`);
+      if (state.frameHeights.length && Math.max(...state.frameHeights) - Math.min(...state.frameHeights) > 1) {
+        result.failures.push(`${projectKey} multi-image grid has uneven frame heights: ${state.frameHeights.join(", ")}`);
+      }
+      if (state.imageHeights.length && Math.max(...state.imageHeights) - Math.min(...state.imageHeights) > 1) {
+        result.failures.push(`${projectKey} multi-image grid has uneven rendered image heights: ${state.imageHeights.join(", ")}`);
+      }
+    }
+
+    if (!isMobile && expectedVideoCounts[projectKey]) {
+      const videoState = await page.locator("#project-modal .modal-video-frame").evaluateAll((frames) => frames.map((frame) => {
+        const video = frame.querySelector("video");
+        const frameStyle = getComputedStyle(frame);
+        const videoStyle = video ? getComputedStyle(video) : null;
+        return {
+          frameAspectRatio: frameStyle.aspectRatio,
+          videoAspectRatio: videoStyle?.aspectRatio || "",
+          videoMaxHeight: videoStyle?.maxHeight || "",
+          poster: video?.getAttribute("poster") || ""
+        };
+      }));
+      if (videoState.length !== expectedVideoCounts[projectKey]) {
+        result.failures.push(`${projectKey} expected ${expectedVideoCounts[projectKey]} video frame(s), saw ${videoState.length}`);
+      }
+      videoState.forEach((video, index) => {
+        if (video.frameAspectRatio !== "auto") result.failures.push(`${projectKey} video ${index + 1} still uses forced frame aspect ratio ${video.frameAspectRatio}`);
+        if (video.videoMaxHeight === "none" || !video.videoMaxHeight) result.failures.push(`${projectKey} video ${index + 1} has no responsive max-height`);
+        if (!video.poster) result.failures.push(`${projectKey} video ${index + 1} is missing a poster image`);
+      });
+    }
+  }
+}
+
+async function checkIoTCaseStudy(page, result) {
+  await openProjectForQa(page, "greenhouse");
+  const requiredSections = [
+    "Demo Video",
+    "Overview",
+    "The Problem",
+    "What I Built",
+    "Key Features",
+    "System Architecture",
+    "Technical Implementation",
+    "Flask Web Interface",
+    "MariaDB Database",
+    "Testing & Results",
+    "Outcome",
+    "Future Improvements",
+    "Skills Demonstrated"
+  ];
+  const headings = await page.locator("#project-modal .modal-section-heading").allInnerTexts();
+  requiredSections.forEach((heading) => {
+    if (!headings.includes(heading)) result.failures.push(`IoT case study is missing section: ${heading}`);
+  });
+
+  const requiredMedia = [
+    "iot-hardware-setup",
+    "iot-labelled-components",
+    "iot-lcd-closeup",
+    "iot-system-architecture.svg",
+    "iot-arduino-pin-map",
+    "iot-arduino-serial-monitor",
+    "iot-raspberry-pi-data-received",
+    "iot-flask-web-interface",
+    "iot-flask-server-running",
+    "iot-database-update-confirmation",
+    "iot-database-table-structure"
+  ];
+  const media = page.locator("#project-modal img");
+  for (let index = 0; index < await media.count(); index += 1) {
+    const image = media.nth(index);
+    await image.scrollIntoViewIfNeeded();
+    await image.evaluate((element) => element.decode ? element.decode().catch(() => {}) : Promise.resolve());
+  }
+  const mediaState = await page.locator("#project-modal img").evaluateAll((images) => images.map((image) => ({
+    source: image.currentSrc || image.src,
+    loaded: image.complete && image.naturalWidth > 0 && image.naturalHeight > 0
+  })));
+  requiredMedia.forEach((name) => {
+    const match = mediaState.find((image) => image.source.includes(name));
+    if (!match) result.failures.push(`IoT case study is missing media: ${name}`);
+    else if (!match.loaded) result.failures.push(`IoT media failed to load: ${name}`);
+  });
+}
+
+async function checkModernProjectRegressions(page, result, isMobile) {
+  await checkProjectNavigationArrows(page, result, isMobile);
+  if (!isMobile) await checkProjectModalAccessibility(page, result);
+  await checkProjectMediaGrids(page, result, isMobile);
+  await checkIoTCaseStudy(page, result);
+  await page.keyboard.press("Escape");
+  await page.waitForTimeout(120);
+}
+
 async function checkProjectQuickActions(page, result) {
   const expected = {
     piano: { label: "PLAY", href: "https://gohziqian1234-cmyk.github.io/piano-tiles-alien-/" },
@@ -705,6 +1047,8 @@ function buildInteractionConfigs() {
     { name: "projects-tabs-modals", page: "projects.html", viewport: mobile },
     { name: "projects-sequence-navigation", page: "projects.html", viewport: desktop },
     { name: "projects-quick-actions", page: "projects.html", viewport: desktop },
+    { name: "projects-modern-regressions", page: "projects.html", viewport: desktop },
+    { name: "projects-modern-regressions", page: "projects.html", viewport: mobile },
     { name: "certificate-lightbox", page: "about.html", viewport: desktop },
     { name: "index-to-about-journey", page: "index.html", viewport: tablet },
     { name: "continue-exploring", page: "about.html", viewport: desktop },
@@ -734,7 +1078,9 @@ function buildMarkdownReport(results) {
   lines.push("- Projects breadcrumb nav overlap: covered by all `projects.html` viewport/scroll splits.");
   lines.push("- Mid-page scroll-up nav reveal: covered by `scroll-down-then-up` splits and `mouse-top-reveal` interactions.");
   lines.push("- Previous/Next project cards and category labels: covered by `projects-sequence-navigation`.");
+  lines.push("- Always-visible Previous/Next arrows, keyboard activation, wrapping, modal semantics, focus trapping, and focus return: covered by `projects-modern-regressions`.");
   lines.push("- Grid quick-action labels and click isolation: covered by `projects-quick-actions`.");
+  lines.push("- Flexible project-video sizing, video posters, equal-height multi-image grids, and complete IoT evidence: covered by `projects-modern-regressions` on desktop and mobile.");
   lines.push("- Certificate lightbox open/close behavior: covered by `certificate-lightbox`.");
   lines.push("");
   lines.push("## Matrix Results");
@@ -767,11 +1113,11 @@ async function main() {
       }
     }
 
-    for (const config of baseConfigs) {
+    for (const config of baseConfigs.filter(matchesQaFilter)) {
       results.push(await runBaseConfig(browser, config));
     }
 
-    for (const config of buildInteractionConfigs()) {
+    for (const config of buildInteractionConfigs().filter(matchesQaFilter)) {
       results.push(await runInteractionConfig(browser, config));
     }
   } finally {

@@ -7156,6 +7156,7 @@ body[data-page="projects"] .project-next-arrow {
 }
 
 body[data-page="projects"] .project-next-card:hover .project-next-arrow,
+body[data-page="projects"] .project-next-card:focus .project-next-arrow,
 body[data-page="projects"] .project-next-card:focus-visible .project-next-arrow,
 body[data-page="projects"] .project-next-card:active .project-next-arrow {
   border-color: var(--color-accent);
@@ -7165,6 +7166,7 @@ body[data-page="projects"] .project-next-card:active .project-next-arrow {
 }
 
 body[data-page="projects"] .project-previous-card:hover .project-next-arrow,
+body[data-page="projects"] .project-previous-card:focus .project-next-arrow,
 body[data-page="projects"] .project-previous-card:focus-visible .project-next-arrow,
 body[data-page="projects"] .project-previous-card:active .project-next-arrow {
   transform: translateX(-2px);

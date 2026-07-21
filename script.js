@@ -950,6 +950,7 @@ function initProjectModal() {
   const scrollArea = $(".modal-scroll-area", modal);
   let previousFocus = null;
   let closeFallback = null;
+  let closeTransitionHandler = null;
   let currentProjectKey = null;
   let touchStartX = null;
 
@@ -992,12 +993,17 @@ function initProjectModal() {
 
   const finishClose = () => {
     window.clearTimeout(closeFallback);
+    if (closeTransitionHandler) {
+      content.removeEventListener("transitionend", closeTransitionHandler);
+      closeTransitionHandler = null;
+    }
     modal.classList.remove("is-closing");
     modal.classList.remove("show-project-prev", "show-project-next");
     modal.setAttribute("aria-hidden", "true");
     scrollArea.innerHTML = "";
     document.body.classList.remove("modal-open");
-    previousFocus?.focus?.();
+    previousFocus?.focus?.({ preventScroll: true });
+    $(".navbar")?.classList.remove("nav-hidden", "nav-revealed-by-mouse");
   };
 
   const closeModal = () => {
@@ -1016,21 +1022,25 @@ function initProjectModal() {
       return;
     }
 
-    const onTransitionEnd = (event) => {
+    if (closeTransitionHandler) content.removeEventListener("transitionend", closeTransitionHandler);
+    closeTransitionHandler = (event) => {
       if (event.target !== content) return;
-      content.removeEventListener("transitionend", onTransitionEnd);
       finishClose();
     };
 
-    content.addEventListener("transitionend", onTransitionEnd);
+    content.addEventListener("transitionend", closeTransitionHandler);
     closeFallback = window.setTimeout(() => {
-      content.removeEventListener("transitionend", onTransitionEnd);
       finishClose();
     }, 380);
   };
 
-  const openModal = (project, projectKey = getProjectKey(project)) => {
-    if (!modal.classList.contains("active")) previousFocus = document.activeElement;
+  const openModal = (project, projectKey = getProjectKey(project), opener = null) => {
+    if (!modal.classList.contains("active")) previousFocus = opener || document.activeElement;
+    window.clearTimeout(closeFallback);
+    if (closeTransitionHandler) {
+      content.removeEventListener("transitionend", closeTransitionHandler);
+      closeTransitionHandler = null;
+    }
     currentProjectKey = projectKey;
     clearProjectCardMotion();
     scrollArea.innerHTML = createModalMarkup(project);
@@ -1056,7 +1066,7 @@ function initProjectModal() {
       if (nestedControl && nestedControl !== trigger) return;
       const projectKey = trigger.dataset.openProject;
       const project = PROJECTS[projectKey];
-      if (project) openModal(project, projectKey);
+      if (project) openModal(project, projectKey, trigger);
     });
 
     if (trigger.matches('[role="button"]')) {
@@ -1066,7 +1076,7 @@ function initProjectModal() {
         event.preventDefault();
         const projectKey = trigger.dataset.openProject;
         const project = PROJECTS[projectKey];
-        if (project) openModal(project, projectKey);
+        if (project) openModal(project, projectKey, trigger);
       });
     }
   });
@@ -1136,17 +1146,22 @@ function initAboutModal() {
   const scrollArea = $(".modal-scroll-area", modal);
   let previousFocus = null;
   let closeFallback = null;
+  let closeTransitionHandler = null;
 
   if (!content || !scrollArea) return;
 
   const finishClose = () => {
     window.clearTimeout(closeFallback);
+    if (closeTransitionHandler) {
+      content.removeEventListener("transitionend", closeTransitionHandler);
+      closeTransitionHandler = null;
+    }
     modal.classList.remove("is-closing");
     modal.setAttribute("aria-hidden", "true");
     scrollArea.innerHTML = "";
     document.body.classList.remove("modal-open");
+    previousFocus?.focus?.({ preventScroll: true });
     $(".navbar")?.classList.remove("nav-hidden", "nav-revealed-by-mouse");
-    previousFocus?.focus?.();
   };
 
   const closeModal = () => {
@@ -1159,21 +1174,25 @@ function initAboutModal() {
       return;
     }
 
-    const onTransitionEnd = (event) => {
+    if (closeTransitionHandler) content.removeEventListener("transitionend", closeTransitionHandler);
+    closeTransitionHandler = (event) => {
       if (event.target !== content) return;
-      content.removeEventListener("transitionend", onTransitionEnd);
       finishClose();
     };
 
-    content.addEventListener("transitionend", onTransitionEnd);
+    content.addEventListener("transitionend", closeTransitionHandler);
     closeFallback = window.setTimeout(() => {
-      content.removeEventListener("transitionend", onTransitionEnd);
       finishClose();
     }, 380);
   };
 
   const openModal = (detail) => {
     previousFocus = document.activeElement;
+    window.clearTimeout(closeFallback);
+    if (closeTransitionHandler) {
+      content.removeEventListener("transitionend", closeTransitionHandler);
+      closeTransitionHandler = null;
+    }
     scrollArea.innerHTML = createAboutModalMarkup(detail);
     wireModalActionRipples(scrollArea);
     wireModalScrollFade(modal);

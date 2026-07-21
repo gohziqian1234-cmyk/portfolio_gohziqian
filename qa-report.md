@@ -1,8 +1,8 @@
 # Portfolio QA Report
 
-Generated: 2026-07-08T02:51:10.534Z
-Total configurations: 85
-Passed: 85
+Generated: 2026-07-21T10:59:33.611Z
+Total configurations: 87
+Passed: 87
 Failed: 0
 Pass rate: 100.0%
 
@@ -12,7 +12,9 @@ Pass rate: 100.0%
 - Projects breadcrumb nav overlap: covered by all `projects.html` viewport/scroll splits.
 - Mid-page scroll-up nav reveal: covered by `scroll-down-then-up` splits and `mouse-top-reveal` interactions.
 - Previous/Next project cards and category labels: covered by `projects-sequence-navigation`.
+- Always-visible Previous/Next arrows, keyboard activation, wrapping, modal semantics, focus trapping, and focus return: covered by `projects-modern-regressions`.
 - Grid quick-action labels and click isolation: covered by `projects-quick-actions`.
+- Flexible project-video sizing, video posters, equal-height multi-image grids, and complete IoT evidence: covered by `projects-modern-regressions` on desktop and mobile.
 - Certificate lightbox open/close behavior: covered by `certificate-lightbox`.
 
 ## Matrix Results
@@ -97,6 +99,8 @@ Pass rate: 100.0%
 | PASS | interaction | projects.html | mobile | projects-tabs-modals |  |  |
 | PASS | interaction | projects.html | desktop | projects-sequence-navigation |  |  |
 | PASS | interaction | projects.html | desktop | projects-quick-actions |  |  |
+| PASS | interaction | projects.html | desktop | projects-modern-regressions |  |  |
+| PASS | interaction | projects.html | mobile | projects-modern-regressions |  |  |
 | PASS | interaction | about.html | desktop | certificate-lightbox |  |  |
 | PASS | interaction | index.html | tablet | index-to-about-journey |  |  |
 | PASS | interaction | about.html | desktop | continue-exploring |  |  |
