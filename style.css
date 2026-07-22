@@ -7171,18 +7171,20 @@ body[data-page="projects"] .project-next-teaser {
 
 body[data-page="projects"] .project-next-arrow {
   display: grid;
+  visibility: visible;
   width: 42px;
   height: 42px;
   margin-right: 22px;
   padding: 0;
   place-items: center;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(255, 176, 32, 0.5);
   border-radius: 50%;
-  background: var(--color-bg-raised);
+  background: rgba(255, 176, 32, 0.08);
+  box-shadow: 0 0 14px rgba(255, 176, 32, 0.08);
   color: var(--color-accent);
   font-size: 26px;
   line-height: 1;
-  opacity: 0.55;
+  opacity: 0.72;
   transition: opacity 180ms var(--ease-smooth), border-color 180ms var(--ease-smooth), background-color 180ms var(--ease-smooth), transform 180ms var(--ease-out-expo);
 }
 

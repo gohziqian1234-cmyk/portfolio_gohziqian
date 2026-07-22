@@ -648,8 +648,8 @@ async function checkProjectNavigationArrows(page, result, isMobile) {
     if (arrow.display === "none" || arrow.width < 40 || arrow.height < 40) {
       result.failures.push(`Bottom project arrow ${index + 1} is not visibly sized`);
     }
-    if (arrow.opacity < 0.5 || arrow.opacity > 0.6) {
-      result.failures.push(`Bottom project arrow ${index + 1} default opacity should be about 55%, saw ${arrow.opacity}`);
+    if (arrow.opacity < 0.68 || arrow.opacity > 0.76) {
+      result.failures.push(`Bottom project arrow ${index + 1} default opacity should be visibly present at about 72%, saw ${arrow.opacity}`);
     }
   });
 
