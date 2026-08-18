@@ -515,6 +515,7 @@ function setMobileMenu(open) {
   toggle.setAttribute("aria-expanded", String(open));
   toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
   menu.setAttribute("aria-hidden", String(!open));
+  menu.toggleAttribute("inert", !open);
 }
 
 function closeMobileMenu() {
