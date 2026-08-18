@@ -319,8 +319,9 @@ const ABOUT_DETAILS = {
   },
   "running-club": {
     eyebrow: "VOLUNTEER WORK",
-    title: "Running Club Volunteer",
+    title: "Running Club Volunteer — ChengSan Sunrise Sprint",
     meta: [
+      { label: "Organisation", value: "ChengSan Sunrise Sprint" },
       { label: "Role", value: "Volunteer" },
       { label: "Duration", value: "2026 – Present" }
     ],
@@ -367,7 +368,25 @@ const ABOUT_DETAILS = {
         title: "Event Support",
         paragraphs: [
           "I also helped during school events such as CCA exhibitions and school open house activities by supporting media-related tasks, taking photos or videos, and helping with event operations when needed. These experiences taught me how to be responsible behind the scenes and support school activities in a professional way."
-        ]
+        ],
+        gallery: [
+          {
+            file: "cca-infocomm-workshop-session", width: 1600, height: 1200,
+            alt: "Infocomm Media Club members seated with laptops during a design-thinking workshop, with facilitators presenting an Ideate slide at the front of the classroom",
+            caption: "Design-thinking workshop session run with external facilitators."
+          },
+          {
+            file: "cca-infocomm-group-certificates", width: 1600, height: 1200,
+            alt: "Infocomm Media Club members gathered for a group photo holding their completion certificates",
+            caption: "Members with completion certificates at the end of the programme."
+          },
+          {
+            file: "cca-infocomm-camera-gear", width: 899, height: 1600, modifier: "is-portrait",
+            alt: "Two Canon DSLR cameras with zoom lenses and neck straps laid out beside a laptop at a school event",
+            caption: "DSLR gear used for photo and video coverage at school events."
+          }
+        ],
+        galleryLabel: "Infocomm Media Club activity photos"
       },
       {
         title: "Competitions Through This CCA",
