@@ -1696,6 +1696,19 @@ function updateLevel() {
 }
 
 const CASE_STUDY_MEDIA_DIMENSIONS = Object.freeze({
+  "images/keychain-report/01_ruler_markings_and_engraving.jpg": [827, 340],
+  "images/keychain-report/02_keychain_full_profile.jpg": [1316, 555],
+  "images/keychain-report/03_sd_card_as_magnet_simulation.jpg": [1200, 1600],
+  "images/keychain-report/04_nametag_clipped_on_shirt.jpg": [1483, 855],
+  "images/keychain-report/05_bottle_opener_demo.jpg": [1200, 1600],
+  "images/keychain-report/06_seatbelt_cutter_paper_demo.jpg": [1200, 1600],
+  "images/keychain-report/07_window_breaker_point_demo.jpg": [1200, 1600],
+  "images/keychain-report/08_bookmark_feature_side_view.jpg": [1200, 1600],
+  "images/keychain-report/09_bookmark_paper_insert_demo.jpg": [1200, 1600],
+  "images/keychain-report/10_phone_stand_demo.jpg": [1600, 1200],
+  "images/keychain-report/11_cable_wrap_holder_demo.jpg": [1200, 1600],
+  "images/keychain-report/12_print_comparison_first_vs_second.jpg": [1600, 1200],
+  "images/keychain-report/13_print_comparison_closeup_detail.jpg": [1200, 1600],
   "assets/erebus-detection-alert.png": [1722, 908],
   "assets/erebus-difficulty-selection.png": [1628, 458],
   "assets/erebus-ending-detected.png": [1135, 702],
@@ -2855,14 +2868,38 @@ function createKeychainModalMarkup(project) {
       </section>
 
       <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Brief Explanation of Design: Three Unique Added Features</h3>
+        <p>My design is a compact, multi-functional keychain that integrates several everyday tools into a single flat, pocket-sized part. It keeps a slim profile so it can be carried in a pocket or clipped to a bag without adding bulk or discomfort, while still being rigid enough at 3&ndash;4 mm thickness to survive daily use.</p>
+        ${createCaseStudyMediaGrid([
+          { src: "images/keychain-report/01_ruler_markings_and_engraving.jpg", alt: "Front of the revised yellow keychain showing the engraved ruler scale and Ziqian PB name engraving", caption: "Revised front face showing the 0&ndash;30 mm ruler, enlarged scale numerals, keyring hole, and name engraving." },
+          { src: "images/keychain-report/02_keychain_full_profile.jpg", alt: "Back of the revised yellow keychain showing its full tool profile and rectangular magnet recess", caption: "Back profile showing the flat body, combined utility edge, keyring hole, and recessed rectangular magnet pocket." }
+        ], "Keychain front and back design evidence", "is-document-safe is-ultrawide-pair")}
+        <p><strong>Feature 1 &mdash; Engraved ruler scale.</strong> A 0&ndash;30 mm ruler is engraved along one edge, turning the keychain into an always-on-hand measuring tool for small objects or straight-line marking. This required balancing engraving depth and marking spacing against the printer's nozzle resolution &mdash; a constraint discussed further in the reflection.</p>
+        <p><strong>Feature 2 &mdash; Combined emergency and utility cutting profile.</strong> A single contoured edge does three jobs: a bottle-opener hook for prying off glass caps, a shielded seatbelt-cutter notch for slicing through webbing in an emergency, and a reinforced pointed tip that concentrates force into a small contact area for breaking a car window if the user is trapped. Housing all three in one profile keeps the part compact instead of needing separate tools.</p>
+        <p><strong>Feature 3 &mdash; Rear magnetic name-tag / bookmark slot.</strong> A recessed rectangular pocket on the back accepts a small magnet, letting the keychain clip onto clothing as a name tag without piercing the fabric. Beside it, a raised rectangular block with a hollow gap functions as a bookmark, gripping a page firmly by friction.</p>
+        <p>Every sharp transition on the part &mdash; the outer edges, the phone-stand corner, and the tool-profile corners &mdash; was filleted or chamfered so the finished print is safer to handle and less likely to scratch a phone screen or the user's hand.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">What I Built</h3>
         <p>I designed and 3D-printed a multifunctional keychain with several integrated features, including a keyring hole, mini ruler, bottle-opener-style cut-out, phone stand, cable holder, bookmark clip, magnet recess for name-tag use, rounded edges, and chamfered functional areas.</p>
         <p>The design was created to be flat and portable so it could be attached to a bag or carried in a pocket without taking up much space.</p>
         <div class="modal-photo-gallery">
           <img src="${escapeHtml(project.gallery[0])}" width="900" height="1200" alt="Finished 3D-printed keychain, full view showing ruler markings and keyring hole" loading="lazy" decoding="async">
           <!-- ACTION REQUIRED: add additional close-up photos here as they become available - e.g. bottle-opener cutout, phone stand in use, magnet recess. Currently only 1 photo is provided; gallery supports 1-4 images gracefully. -->
+          <!-- Additional close-up and function evidence appears in the report sections below. -->
         </div>
         <p class="modal-media-caption">The finished, 3D-printed keychain prototype.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Added Function: Rear Magnet Mount</h3>
+        <p>The centrepiece added function is the <strong>rear magnet mount</strong>, which converts the keychain into a clip-on name tag or badge holder. A small rectangular recess on the back face is sized to hold a thin magnet flush with the surface; when a magnet is inserted, the keychain can be pressed onto the outside of a shirt or jacket with a second magnet, or attached to a ferrous surface, without using a pin or clip that would damage the fabric.</p>
+        <p>In the test photos, a microSD card was used to simulate the magnet's thin, flat form factor and verify the recess fit before committing to the actual insert. The clipped-on demonstration shows how the keychain can sit against clothing without the insert protruding from the recess.</p>
+        ${createCaseStudyMediaGrid([
+          { src: "images/keychain-report/03_sd_card_as_magnet_simulation.jpg", alt: "MicroSD card placed inside the keychain's rear rectangular recess to simulate a thin magnet insert", caption: "Fit check using a microSD card to simulate the thin, flat form of the planned magnet insert." },
+          { src: "images/keychain-report/04_nametag_clipped_on_shirt.jpg", alt: "Green 3D-printed keychain held against a shirt as a name-tag placement demonstration", caption: "Name-tag placement demonstration showing how the keychain is intended to sit against clothing." }
+        ], "Rear magnet mount and name-tag demonstrations", "is-document-safe is-landscape-pair")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2881,6 +2918,34 @@ function createKeychainModalMarkup(project) {
       </section>
 
       <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Purpose and Mechanical Operation</h3>
+        <p>The purpose of this design is to consolidate several small, frequently needed tools into one compact object, so the user is not carrying or forgetting separate items for each task.</p>
+        <ul class="modal-feature-list">
+          <li><strong>Ruler.</strong> The engraved 0&ndash;30 mm scale lets the user measure a small object or draw a straight edge whenever a proper ruler is not at hand &mdash; useful for quick checks on packages, craft work, or stationery tasks.</li>
+          <li><strong>Bottle opener.</strong> A hook-shaped cut-out engages under a metal bottle cap; pressing down while lifting the keychain levers the cap off, using the same mechanical principle as a standard bottle opener.</li>
+          <li><strong>Seatbelt cutter / window breaker concept.</strong> In the design concept, the shielded notch is drawn across seatbelt webbing while the reinforced pointed tip concentrates force into a small contact area. These functions require appropriate materials and controlled safety testing before real use.</li>
+          <li><strong>Bookmark.</strong> A page is slid into the hollow gap beneath the raised block; the raised section increases local thickness just enough to grip the paper by friction, holding the user's place without folding or damaging the page.</li>
+          <li><strong>Phone stand.</strong> The same ring-hole end doubles as a stand, propping a phone in landscape orientation for watching a video hands-free.</li>
+          <li><strong>Cable wrap holder.</strong> At that same phone-stand location, a wired earphone cable or another short cable can be wound around the stand's neck so it stays untangled when not in use.</li>
+        </ul>
+        ${createCaseStudyMediaGrid([
+          { src: "images/keychain-report/05_bottle_opener_demo.jpg", alt: "Yellow keychain hook positioned beneath the lip of a bottle cap to demonstrate the opener geometry", caption: "Bottle-opener demonstration: the upper hook engages beneath the cap so the body can act as a lever.", modifier: "is-portrait" },
+          { src: "images/keychain-report/06_seatbelt_cutter_paper_demo.jpg", alt: "Green keychain utility notch demonstrated against a strip of paper", caption: "Shielded-notch concept demonstrated with paper to show where webbing would be guided; this is not a certified seatbelt-cutting test.", modifier: "is-portrait" }
+        ], "Bottle opener and shielded notch demonstrations", "is-portrait-pair")}
+        ${createCaseStudyMediaGrid([
+          { src: "images/keychain-report/07_window_breaker_point_demo.jpg", alt: "Pointed corner of the yellow keychain placed against a glass surface as a window-breaker concept demonstration", caption: "Pointed-tip placement demonstration showing the intended small contact area; no glass-breaking performance is claimed.", modifier: "is-portrait" },
+          { src: "images/keychain-report/08_bookmark_feature_side_view.jpg", alt: "Yellow keychain clipped over the edge of cardboard to show the bookmark position", caption: "Bookmark position from the front, showing the keychain held over a page-like edge by the raised rear feature.", modifier: "is-portrait" }
+        ], "Pointed tip and bookmark position demonstrations", "is-portrait-pair")}
+        ${createCaseStudyMediaGrid([
+          { src: "images/keychain-report/09_bookmark_paper_insert_demo.jpg", alt: "Side view of paper inserted into the narrow bookmark gap on the keychain", caption: "Side view of paper inserted beneath the raised bookmark block, showing the friction-fit gap." },
+          { src: "images/keychain-report/10_phone_stand_demo.jpg", alt: "Smartphone supported in landscape orientation by the yellow keychain stand feature", caption: "Phone-stand demonstration with a smartphone supported in landscape orientation." }
+        ], "Bookmark grip and phone stand demonstrations", "is-document-safe is-landscape-pair")}
+        ${createCaseStudyFigure("images/keychain-report/11_cable_wrap_holder_demo.jpg", "Cable wound around the yellow keychain's raised stand neck", "Cable-management demonstration showing a short cable wrapped around the stand neck to keep it together during storage.", "is-portrait")}
+        <p>Together, these functions turn the keychain from a single-purpose item into a compact daily-carry multi-tool, combining everyday convenience with emergency-tool-inspired design exploration.</p>
+        <p><strong>Safety note.</strong> The emergency-tool-inspired geometry is design exploration only. The photos document the intended contact points and mechanical ideas, not certified seatbelt-cutting or glass-breaking performance; real deployment would require suitable materials, controlled testing, and relevant safety standards.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Design & Manufacturing Process</h3>
         <p>The first print revealed several design problems. Some engraved details were unclear, the ruler markings were too close together, and the name engraving was too deep, affecting the back of the keychain.</p>
         <p>To improve the second version, I increased the spacing between ruler markings, adjusted the detail size, and reduced the depth of the name engraving. This made the final print cleaner and more readable.</p>
@@ -2890,6 +2955,21 @@ function createKeychainModalMarkup(project) {
         <h3 class="modal-section-heading">Testing & Refinement</h3>
         <p>The prototype was tested through physical use and visual inspection. The second print showed clearer ruler markings, better engraving quality, and improved overall appearance compared to the first version.</p>
         <p>This project helped me understand that a design may look correct on screen but still fail during manufacturing if feature size, spacing, depth, and tolerance are not considered properly.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Reflection: Print Results and Problems Faced</h3>
+        <p>The design went through two print iterations &mdash; the first shown in green, the second revised version in yellow.</p>
+        ${createCaseStudyMediaGrid([
+          { src: "images/keychain-report/12_print_comparison_first_vs_second.jpg", alt: "Green first-print and yellow second-print keychains placed together for comparison", caption: "First-versus-second print comparison: the green version has crowded ruler details, while the yellow revision uses clearer spacing and engraving." },
+          { src: "images/keychain-report/13_print_comparison_closeup_detail.jpg", alt: "Close-up back view comparing the green and yellow keychain print iterations", caption: "Close-up of the reverse faces, including the revised magnet recess and the effect of the first version's over-deep engraving." }
+        ], "First and second keychain print comparison", "is-document-safe is-landscape-pair")}
+        <ol class="modal-feature-list">
+          <li><strong>Illegible engraving.</strong> The ruler markings and numbers were spaced too tightly for the printer's nozzle diameter to resolve cleanly, so the scale printed crowded and difficult to read.</li>
+          <li><strong>Over-deep name engraving.</strong> The "Ziqian PB" text was engraved with too much depth, cutting through to the back face and weakening that section of the part as well as looking unfinished.</li>
+          <li><strong>SD card read failure.</strong> The 3D printer would not detect the print file from the SD card. With the teacher's help, the card was reformatted, after which the file was recognised and the print completed successfully.</li>
+        </ol>
+        <p>For the second iteration, I widened the spacing between ruler markings and enlarged the scale numerals so they would resolve more clearly at the printer's minimum feature size. I also reduced the engraving depth on the name text so it no longer broke through to the back face. Both changes are visible in the yellow print: the ruler is more legible and the engraving no longer shows through.</p>
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2916,6 +2996,10 @@ function createKeychainModalMarkup(project) {
         <p>This project taught me that designing for the screen is different from designing for manufacturing. Some features looked clear in Autodesk Inventor, but became too small or unclear after 3D printing because I had not fully considered printer resolution, minimum feature size, spacing, and material behaviour.</p>
         <p>The first print revealed several problems: the ruler markings were too close together, the engraved details were unclear, and the name engraving was too deep. For the second print, I increased the spacing between markings, adjusted the feature size, and reduced the engraving depth. These changes improved the readability and overall print quality.</p>
         <p>This strengthened my ability to use Autodesk Inventor tools such as extrude, cut, fillet, chamfer, and emboss with manufacturing intent, not just visual design intent. I learned that a good product is not only about how it looks on screen, but also whether it can be printed, used, and improved in real life.</p>
+        <p>Autodesk Inventor's core tools &mdash; extrude, cut, revolve, fillet, chamfer, and emboss &mdash; were taught in class, but this assignment was the first time I had to apply them together on a complete, self-directed design rather than a guided practice exercise. In class, I focused mainly on matching a shape to a given specification; I gave little thought to how a design would actually be manufactured.</p>
+        <p>Going through the 3D printing process changed that. I learned that a feature can look correct on screen and still fail in print &mdash; the ruler markings and the name engraving were both features that were geometrically valid in Inventor but too fine for the printer's actual resolution. This taught me that minimum feature size, wall thickness, and engraving depth all need to be checked against the manufacturing method, not just against the CAD model, before a design can be considered finished.</p>
+        <p>I also became noticeably faster and more accurate in Inventor over the course of the project &mdash; starting slowly and sometimes producing incorrect dimensions, and finishing able to model with better speed and precision &mdash; and more disciplined about checking tolerances and dimensions up front so the part would print correctly the first time rather than requiring another iteration.</p>
+        <p>Overall, this project shifted how I think about modelling: not just "does this shape match the design," but "will this shape actually manufacture correctly and function as intended." It strengthened my CAD skills, my problem-solving process when a print does not come out as expected, and my confidence going into future design-and-print projects.</p>
       </section>
 
       <section class="modal-section modal-case-section">

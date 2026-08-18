@@ -7150,6 +7150,23 @@ body[data-page="about"] .certificate-zoom:focus-visible .certificate-zoom-icon {
     width: 100%;
   }
 
+  body[data-page="projects"] .project-modal-body-long .modal-case-header {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  body[data-page="projects"] .project-modal-body-long .modal-title,
+  body[data-page="projects"] .project-modal-body-long .modal-case-header > p:not(.modal-eyebrow) {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  body[data-page="projects"] .project-modal-body-long .modal-title {
+    padding-right: 0;
+    font-size: 2rem;
+    overflow-wrap: anywhere;
+  }
+
   body[data-page="projects"] .project-next-card {
     grid-template-columns: minmax(0, 1fr) auto;
   }
