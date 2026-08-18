@@ -943,10 +943,6 @@ body.menu-open .brand-mark {
 /* Home about and timeline */
 .about,
 .projects,
-.testimonials {
-  padding: calc(var(--nav-height) + clamp(2rem, 4vw, 3rem)) 0 clamp(5rem, 10vw, 9rem);
-  scroll-margin-top: var(--nav-height);
-}
 
 .timeline-wrap {
   position: relative;
@@ -1320,10 +1316,7 @@ body.menu-open .brand-mark {
   justify-self: start;
 }
 
-/* Testimonials */
-.testimonials {
-  overflow: hidden;
-}
+/* Marquee (currently unused - retained after the Testimonials section was removed) */
 
 .marquee-wrap {
   display: grid;
@@ -1404,93 +1397,18 @@ body.menu-open .brand-mark {
   color: #fff;
 }
 
-.testimonial-group {
-  width: min(1160px, calc(100% - 2rem));
-  margin: 3rem auto 0;
-}
 
-.testimonial-current {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(18rem, 28rem);
-  align-items: center;
-  gap: clamp(1.5rem, 4vw, 4rem);
-  padding: clamp(1.5rem, 4vw, 3rem);
-  border: 1px solid rgba(61, 90, 254, 0.2);
-  border-radius: 8px;
-  background: rgba(61, 90, 254, 0.05);
-}
 
-.testimonial-group-heading {
-  width: min(1160px, calc(100% - 2rem));
-  margin: 3.5rem auto 1.5rem;
-}
 
-.testimonial-current .testimonial-group-heading {
-  width: auto;
-  margin: 0;
-}
 
-.testimonial-group-heading h3 {
-  margin: 0.35rem 0 0.7rem;
-  font-family: var(--font-display);
-  font-size: clamp(1.7rem, 3vw, 2.7rem);
-  line-height: 1.05;
-}
 
-.testimonial-group-heading p:last-child {
-  max-width: 52rem;
-  margin-bottom: 0;
-  color: var(--muted);
-}
 
-.testimonial-request-card {
-  width: 100%;
-  min-height: 16rem;
-  border-radius: 8px;
-}
 
-.testimonial-request-card .button {
-  justify-self: start;
-  margin-top: 1rem;
-  border-color: rgba(244, 241, 234, 0.65);
-  color: var(--paper);
-}
 
-.testimonial-grid {
-  width: min(1160px, calc(100% - 2rem));
-  margin-inline: auto;
-}
 
-.testimonial-grid .marquee-row {
-  overflow: visible;
-  mask-image: none;
-  -webkit-mask-image: none;
-}
 
-.testimonial-grid .marquee-track {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  width: auto;
-  gap: 1rem;
-  animation: none;
-}
 
-.testimonial-grid .quote-card {
-  width: 100%;
-  min-height: 14rem;
-  border-radius: 8px;
-}
 
-.testimonial-document {
-  margin-top: 3rem;
-}
-
-@media (max-width: 760px) {
-  .testimonial-current,
-  .testimonial-grid .marquee-track {
-    grid-template-columns: 1fr;
-  }
-}
 
 @keyframes marquee-left {
   to {
@@ -3478,7 +3396,6 @@ html {
 #hero,
 #about,
 #projects,
-#testimonials,
 #contact,
 .subpage-hero,
 .project-browser,
@@ -5097,9 +5014,6 @@ body[data-scene="projects"] {
 }
 
 body[data-scene="about"],
-body[data-scene="testimonials"] {
-  --ambient-rgb: 35, 129, 255;
-}
 
 body[data-scene="contact"] {
   --ambient-rgb: 123, 97, 255;
@@ -5319,7 +5233,6 @@ body[data-page="home"] .section-dark,
 body[data-page="home"] .section-light,
 body[data-page="home"] .about,
 body[data-page="home"] .projects,
-body[data-page="home"] .testimonials,
 body[data-page="home"] .contact {
   background:
     linear-gradient(rgba(42, 47, 51, 0.22) 1px, transparent 1px),

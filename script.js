@@ -215,13 +215,19 @@ const ABOUT_DETAILS = {
       {
         title: "My Role",
         paragraphs: [
-          "I tutor Year 1 students online, mostly over chat. When a student is stuck on a topic, I explain the concept directly and follow up with curated video resources — for example, when a student needed help with trigonometry, I sent a sequence of videos covering the basics, trigonometric identities, and double angle formulas, building up from wherever they were stuck."
+          "I’ve been tutoring students online since 2025, almost entirely through chat. When someone gets stuck on a topic, I explain the concept myself first, then follow up with a short sequence of curated video resources so they have something to revisit afterwards."
         ]
       },
       {
-        title: "How I Help",
+        title: "How a Session Works",
         paragraphs: [
-          "Rather than just answering the immediate question, I try to build the student's understanding step by step, pointing them to resources they can revisit on their own afterwards."
+          "When a student got stuck on trigonometry, I didn’t just send one video — I built a short learning path: a basic introduction to trigonometry, then trigonometric identities, then double angle identities and formulas, and finally worked examples on solving trigonometric equations using those identities. Each one builds on the last, so they could work through it at their own pace."
+        ]
+      },
+      {
+        title: "Why I Tutor This Way",
+        paragraphs: [
+          "Explaining something once often isn’t enough. Sending resources afterwards means they can re-learn a step they missed without having to ask again."
         ]
       }
     ]
@@ -319,17 +325,26 @@ const ABOUT_DETAILS = {
   },
   "running-club": {
     eyebrow: "VOLUNTEER WORK",
-    title: "Running Club Volunteer — ChengSan Sunrise Sprint",
+    title: "Running Club Volunteer — Cheng San Sunrise Sprint",
     meta: [
-      { label: "Organisation", value: "ChengSan Sunrise Sprint" },
+      { label: "Organisation", value: "Cheng San Sunrise Sprint" },
       { label: "Role", value: "Volunteer" },
       { label: "Duration", value: "2026 – Present" }
     ],
     sections: [
       {
-        title: "About the Club",
+        title: "My Role",
         paragraphs: [
-          "The running club is a start-up initiative aimed at encouraging more people to take up running. We meet every Saturday to run together."
+          "I volunteer with Cheng San CC’s running group — recently renamed Cheng San Sunrise Sprint — helping the Saturday sessions run safely and smoothly. My responsibilities include marshalling the route, monitoring participants’ safety during the run, and running alongside them to keep them company and support them through the session."
+        ]
+      },
+      {
+        title: "What This Involves",
+        bullets: [
+          "Marshalling the running route to guide participants",
+          "Monitoring participant safety throughout the session",
+          "Running alongside participants for support and encouragement",
+          "Supporting a weekly Saturday community running session"
         ],
         gallery: [
           {
@@ -799,8 +814,7 @@ function applyRevealStaggers() {
     ".info-grid",
     ".experience-list",
     ".skill-category-grid",
-    ".continue-links",
-    ".marquee-track"
+    ".continue-links"
   ];
 
   groups.forEach((selector) => {
@@ -1391,6 +1405,9 @@ function createAboutModalMarkup(detail) {
     .map((section) => {
       const paragraphs = (section.paragraphs || []).map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
       const heading = section.title ? `<h3 class="modal-section-heading">${escapeHtml(section.title)}</h3>` : "";
+      const bullets = section.bullets?.length
+        ? `<ul class="modal-feature-list">${section.bullets.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`
+        : "";
       const figure = section.figure ? createProjectCaseFigure(section.figure) : "";
       const gallery = section.gallery?.length
         ? `
@@ -1414,6 +1431,7 @@ function createAboutModalMarkup(detail) {
         <section class="modal-section modal-case-section">
           ${heading}
           ${paragraphs}
+          ${bullets}
           ${figure}
           ${gallery}
           ${video}
@@ -3836,7 +3854,6 @@ function initSceneDirector() {
       hero: "61, 90, 254",
       about: "35, 129, 255",
       projects: "123, 97, 255",
-      testimonials: "244, 183, 204",
       contact: "123, 97, 255"
     };
     document.body.dataset.scene = activeId;
@@ -4076,7 +4093,6 @@ function initCinematicCanvas() {
     { id: "hero", color: [61, 90, 254], camera: { x: -0.4, y: 0.18, z: 1.4 }, density: 1 },
     { id: "about", color: [35, 129, 255], camera: { x: 0.15, y: 0.1, z: 1.1 }, density: 0.78 },
     { id: "projects", color: [123, 97, 255], camera: { x: 0.45, y: -0.05, z: 0.82 }, density: 1.1 },
-    { id: "testimonials", color: [244, 183, 204], camera: { x: -0.18, y: 0.06, z: 1.02 }, density: 0.7 },
     { id: "contact", color: [61, 90, 254], camera: { x: 0.02, y: -0.15, z: 0.72 }, density: 1.2 }
   ];
 
@@ -4437,44 +4453,6 @@ function initMagneticButtons() {
   });
 }
 
-function initMarqueeDepth() {
-  if (prefersReducedMotion) return;
-
-  const cards = $$(".marquee-wrap .quote-card");
-  if (!cards.length) return;
-
-  let frame = null;
-  const update = () => {
-    const center = window.innerWidth / 2;
-    const falloff = Math.max(320, window.innerWidth * 0.46);
-
-    cards.forEach((card) => {
-      const rect = card.getBoundingClientRect();
-      const cardCenter = rect.left + rect.width / 2;
-      const distance = Math.min(1, Math.abs(cardCenter - center) / falloff);
-      const scale = 1 - distance * 0.08;
-      const opacity = 1 - distance * 0.4;
-      card.style.setProperty("--marquee-scale", scale.toFixed(3));
-      card.style.setProperty("--marquee-opacity", opacity.toFixed(3));
-    });
-
-    frame = requestAnimationFrame(update);
-  };
-
-  const start = () => {
-    if (!frame) frame = requestAnimationFrame(update);
-  };
-  const stop = () => {
-    window.cancelAnimationFrame(frame);
-    frame = null;
-  };
-
-  document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "hidden") stop();
-    else start();
-  });
-  start();
-}
 
 function initButtonRipples() {
   if (prefersReducedMotion) return;
@@ -4555,7 +4533,6 @@ document.addEventListener("DOMContentLoaded", () => {
   safeInit(initNeuralCanvas);
   safeInit(initCinematicInteractions);
   safeInit(initMagneticButtons);
-  safeInit(initMarqueeDepth);
   safeInit(initButtonRipples);
   requestAnimationFrame(() => safeInit(correctInitialHashOffset));
 });
