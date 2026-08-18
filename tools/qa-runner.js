@@ -4,7 +4,8 @@
   Runs a Playwright matrix against the static portfolio in outputs/fashion-portfolio.
 
   Usage:
-    node qa-runner.js
+    npm run qa
+    (or: node tools/qa-runner.js from the repo root)
 
   Outputs:
     - qa-report.md
@@ -17,12 +18,13 @@ const http = require("node:http");
 const path = require("node:path");
 const { chromium } = require("playwright");
 
-const ROOT = __dirname;
+const TOOLS_DIR = __dirname;
+const ROOT = path.join(TOOLS_DIR, "..");
 const OUTPUT_SITE_DIR = path.join(ROOT, "outputs", "fashion-portfolio");
 const SITE_DIR = fs.existsSync(path.join(OUTPUT_SITE_DIR, "index.html")) ? OUTPUT_SITE_DIR : ROOT;
-const SCREENSHOT_DIR = path.join(ROOT, "qa-screenshots");
-const REPORT_PATH = path.join(ROOT, "qa-report.md");
-const JSON_REPORT_PATH = path.join(ROOT, "qa-results.json");
+const SCREENSHOT_DIR = path.join(TOOLS_DIR, "qa-screenshots");
+const REPORT_PATH = path.join(TOOLS_DIR, "qa-report.md");
+const JSON_REPORT_PATH = path.join(TOOLS_DIR, "qa-results.json");
 const PORT = Number(process.env.QA_PORT || 4177);
 const BASE_URL = `http://127.0.0.1:${PORT}`;
 const QA_MATCH = (process.env.QA_MATCH || "").trim().toLowerCase();
