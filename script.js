@@ -215,13 +215,13 @@ const ABOUT_DETAILS = {
       {
         title: "My Role",
         paragraphs: [
-          "I’ve been tutoring students online since 2025, almost entirely through chat. When someone gets stuck on a topic, I explain the concept myself first, then follow up with a short sequence of curated video resources so they have something to revisit afterwards."
+          "I’ve been tutoring Year 1 students online since 2025, almost entirely through chat. When someone gets stuck on a topic, I explain the concept myself first, then follow up with a short sequence of curated video resources so they have something to revisit afterwards."
         ]
       },
       {
         title: "How a Session Works",
         paragraphs: [
-          "When a student got stuck on trigonometry, I didn’t just send one video — I built a short learning path: a basic introduction to trigonometry, then trigonometric identities, then double angle identities and formulas, and finally worked examples on solving trigonometric equations using those identities. Each one builds on the last, so they could work through it at their own pace."
+          "When a Year 1 student got stuck on trigonometry, I didn’t just send one video — I built a short learning path: a basic introduction to trigonometry, then trigonometric identities, then double angle identities and formulas, and finally worked examples on solving trigonometric equations using those identities. Each one builds on the last, so they could work through it at their own pace."
         ]
       },
       {
@@ -329,6 +329,7 @@ const ABOUT_DETAILS = {
     meta: [
       { label: "Organisation", value: "Cheng San Sunrise Sprint" },
       { label: "Role", value: "Volunteer" },
+      { label: "Meeting point", value: "Cheng San CC (Community Club)" },
       { label: "Duration", value: "2026 – Present" }
     ],
     sections: [
