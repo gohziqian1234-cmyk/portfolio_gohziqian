@@ -4397,56 +4397,64 @@ function createEnergyRipple(target, event) {
   window.setTimeout(() => ripple.remove(), 680);
 }
 
+function safeInit(fn) {
+  try {
+    fn();
+  } catch (error) {
+    console.error(`${fn.name || "init function"} failed to initialize:`, error);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  setNavHeightVar();
+  safeInit(setNavHeightVar);
   let navResizeTimer = null;
   window.addEventListener("resize", () => {
     window.clearTimeout(navResizeTimer);
-    navResizeTimer = window.setTimeout(() => requestAnimationFrame(() => setNavHeightVar(true)), 150);
+    navResizeTimer = window.setTimeout(() => requestAnimationFrame(() => safeInit(() => setNavHeightVar(true))), 150);
   });
   window.addEventListener("load", () => {
-    requestAnimationFrame(() => setNavHeightVar(true));
-    correctInitialHashOffset();
+    requestAnimationFrame(() => safeInit(() => setNavHeightVar(true)));
+    safeInit(correctInitialHashOffset);
   });
   if (document.fonts?.ready) {
     document.fonts.ready.then(() => {
-      setNavHeightVar(true);
-      correctInitialHashOffset();
+      safeInit(() => setNavHeightVar(true));
+      safeInit(correctInitialHashOffset);
     });
   }
 
-  initCinematicIntro();
-  initHeroEntrance();
+  safeInit(initCinematicIntro);
+  safeInit(initHeroEntrance);
   const startCinematicCanvas = () => {
-    initCinematicCanvas();
-    initAmbientParallax();
+    safeInit(initCinematicCanvas);
+    safeInit(initAmbientParallax);
   };
   if ("requestIdleCallback" in window) {
     window.requestIdleCallback(startCinematicCanvas, { timeout: 800 });
   } else {
     window.setTimeout(startCinematicCanvas, 120);
   }
-  initPageTransitions();
-  initSmoothAnchors();
-  initMobileMenu();
-  initAutoHideNav();
-  initActiveMenuLinks();
-  initHeadingWordReveals();
-  initRevealAnimations();
-  initSceneDirector();
-  initProjectTabs();
-  initProjectCardActions();
-  initProjectModal();
-  initAboutModal();
-  initCertificateLightbox();
-  initContactForm();
-  initStatCounters();
-  initPhotoTilt();
-  initCustomCursor();
-  initNeuralCanvas();
-  initCinematicInteractions();
-  initMagneticButtons();
-  initMarqueeDepth();
-  initButtonRipples();
-  requestAnimationFrame(correctInitialHashOffset);
+  safeInit(initPageTransitions);
+  safeInit(initSmoothAnchors);
+  safeInit(initMobileMenu);
+  safeInit(initAutoHideNav);
+  safeInit(initActiveMenuLinks);
+  safeInit(initHeadingWordReveals);
+  safeInit(initRevealAnimations);
+  safeInit(initSceneDirector);
+  safeInit(initProjectTabs);
+  safeInit(initProjectCardActions);
+  safeInit(initProjectModal);
+  safeInit(initAboutModal);
+  safeInit(initCertificateLightbox);
+  safeInit(initContactForm);
+  safeInit(initStatCounters);
+  safeInit(initPhotoTilt);
+  safeInit(initCustomCursor);
+  safeInit(initNeuralCanvas);
+  safeInit(initCinematicInteractions);
+  safeInit(initMagneticButtons);
+  safeInit(initMarqueeDepth);
+  safeInit(initButtonRipples);
+  requestAnimationFrame(() => safeInit(correctInitialHashOffset));
 });
