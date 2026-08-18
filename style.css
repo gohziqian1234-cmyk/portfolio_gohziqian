@@ -608,17 +608,24 @@ body.menu-open .brand-mark {
 
 .menu-socials a,
 .contact-socials a {
-  display: grid;
-  place-items: center;
-  width: 2.65rem;
-  aspect-ratio: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: 2.65rem;
+  padding: 0 0.9rem;
   border: 1px solid rgba(244, 241, 234, 0.24);
-  border-radius: 50%;
+  border-radius: 999px;
   color: var(--paper);
   font-size: 0.72rem;
   font-weight: 900;
   text-transform: uppercase;
   transition: background 220ms ease, color 220ms ease, transform 220ms ease, border-color 220ms ease;
+}
+
+.social-icon {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: 0 0 auto;
 }
 
 .menu-socials a:hover,
@@ -628,7 +635,7 @@ body.menu-open .brand-mark {
   border-color: var(--blue);
   background: var(--blue);
   color: #fff;
-  transform: rotate(-8deg) scale(1.06);
+  transform: scale(1.04);
 }
 
 /* Hero */
@@ -3032,6 +3039,44 @@ body.menu-open .nav-logo {
 .hero-pill-actions .status-dot {
   width: 8px;
   height: 8px;
+}
+
+.hero-kicker-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.hero-linkedin-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  border: 1px solid rgba(10, 102, 194, 0.55);
+  border-radius: 100px;
+  background: rgba(10, 102, 194, 0.14);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  transition: background 220ms ease, border-color 220ms ease, transform 220ms ease;
+}
+
+.hero-linkedin-link .social-icon {
+  color: #0a66c2;
+}
+
+.hero-linkedin-link:hover,
+.hero-linkedin-link:focus-visible {
+  background: #0a66c2;
+  border-color: #0a66c2;
+  transform: translateY(-1px) scale(1.02);
+}
+
+.hero-linkedin-link:hover .social-icon,
+.hero-linkedin-link:focus-visible .social-icon {
+  color: #fff;
 }
 
 @media (max-width: 720px) {
