@@ -165,7 +165,12 @@ const ABOUT_DETAILS = {
         title: "The Role",
         paragraphs: [
           "I work as a part-time Sales Advisor at Christofle in Takashimaya during holidays and non-exam periods. Christofle is a luxury silverware brand, so the role requires professionalism, product knowledge, attention to detail, and the ability to communicate clearly with different types of customers."
-        ]
+        ],
+        figure: {
+          file: "work-takashimaya", extension: "jpg", width: 663, height: 595,
+          alt: "Zi Qian working as a Sales Advisor at Takashimaya",
+          caption: "At work — Takashimaya"
+        }
       },
       {
         title: "A Typical Shift",
@@ -201,19 +206,22 @@ const ABOUT_DETAILS = {
   },
   "peer-tutor": {
     eyebrow: "WORK EXPERIENCE",
-    title: "Peer Tutor — Programming Support",
+    title: "Peer Tutor — Nanyang Polytechnic",
     meta: [
       { label: "Role", value: "Peer Tutor" },
-      { label: "Duration", value: "2024 – 2025" }
+      { label: "Duration", value: "2025 – Present" }
     ],
     sections: [
       {
+        title: "My Role",
         paragraphs: [
-          "I support a junior/student by helping him during exam and assessment periods, especially when he needs guidance with difficult topics. Before major tests or submissions, I would check in and ask whether he needed help, then guide him through the areas he was struggling with.",
-          "The support covered modules such as mathematics, mechanical-related topics, electrical concepts, and general study preparation. Instead of only giving answers, I tried to explain the steps clearly, break down the problem, and help him understand how to approach similar questions in the future.",
-          "There were also times when he needed urgent help late at night. On one occasion, he messaged me close to midnight before an assessment period, and I still guided him online for around two hours to help him understand the topic better. This showed me the importance of patience, responsibility, and being willing to support others outside normal study hours.",
-          "Beyond academic explanation, I also shared advice on how to prepare for assessments, how to focus on high-mark areas, how to avoid common mistakes, and how to study more effectively. This experience strengthened my communication skills because I had to explain technical concepts in a simple way and adjust my explanation based on his understanding.",
-          "Through peer support, I learned that helping others is not only about knowing the answer. It is also about being patient, listening carefully, encouraging the other person, and helping them build confidence in their own learning."
+          "I tutor Year 1 students online, mostly over chat. When a student is stuck on a topic, I explain the concept directly and follow up with curated video resources — for example, when a student needed help with trigonometry, I sent a sequence of videos covering the basics, trigonometric identities, and double angle formulas, building up from wherever they were stuck."
+        ]
+      },
+      {
+        title: "How I Help",
+        paragraphs: [
+          "Rather than just answering the immediate question, I try to build the student's understanding step by step, pointing them to resources they can revisit on their own afterwards."
         ]
       }
     ]
@@ -225,7 +233,12 @@ const ABOUT_DETAILS = {
         title: "The Event",
         paragraphs: [
           "I volunteered at the Singapore Citizenship Ceremony held at Cheng San Community Club. The event ran from around 9am to 5pm and consisted of two ceremony sessions attended by newly approved Singapore citizens and their families. The ceremony was an important occasion that celebrated their official integration into Singapore society and recognised their commitment to becoming part of the nation."
-        ]
+        ],
+        figure: {
+          file: "volunteer-citizenship", extension: "jpg", width: 1400, height: 788,
+          alt: "Volunteering at the Singapore Citizenship Ceremony, Cheng San Community Club, April 2026",
+          caption: "Citizenship Ceremony — Cheng San CC"
+        }
       },
       {
         title: "Before the Ceremony",
@@ -273,7 +286,12 @@ const ABOUT_DETAILS = {
           "During the activity, I worked together with my peer to organise the items, pack the bags properly, and make sure the food items were prepared neatly for distribution. The packing session lasted around two hours and required teamwork, patience, and attention to detail so that the items were packed efficiently.",
           "This volunteering experience also gave me the opportunity to contribute to a meaningful community activity. Although the task was simple, it reminded me that small acts of service can still support others, especially elderly beneficiaries during festive periods.",
           "Through this activity, I learned the importance of teamwork, responsibility, and contributing time to help the community."
-        ]
+        ],
+        figure: {
+          file: "volunteer-cny", extension: "jpg", width: 1400, height: 1050,
+          alt: "CNY goodie bag packing for AWWA Elderly Centre, 2022",
+          caption: "CNY volunteering — AWWA Elderly Centre"
+        }
       }
     ]
   },
@@ -290,7 +308,49 @@ const ABOUT_DETAILS = {
           "I participated in a Community@Heart volunteering activity where I helped make mosquito repellent for distribution to others in the community. This was my first time taking part in this type of activity, so I had to learn the process step by step and follow the instructions carefully.",
           "During the activity, I worked with others to prepare the mosquito repellent properly and make sure the items were ready to be given out. Although the task was new to me, I was willing to learn, ask questions when needed, and contribute to the group effort.",
           "This experience helped me understand that volunteering does not always need to be a large or complex task. Even simple work, such as preparing useful items for others, can still support the community. It also helped me build teamwork, patience, and a stronger willingness to try new things."
-        ]
+        ],
+        figure: {
+          file: "volunteer-community-heart", extension: "jpg", width: 1200, height: 1400, modifier: "is-portrait",
+          alt: "Community@Heart volunteering activity making mosquito repellent for the community, 2022",
+          caption: "Community@Heart volunteering"
+        }
+      }
+    ]
+  },
+  "running-club": {
+    eyebrow: "VOLUNTEER WORK",
+    title: "Running Club Volunteer",
+    meta: [
+      { label: "Role", value: "Volunteer" },
+      { label: "Duration", value: "2026 – Present" }
+    ],
+    sections: [
+      {
+        title: "About the Club",
+        paragraphs: [
+          "The running club is a start-up initiative aimed at encouraging more people to take up running. We meet every Saturday to run together."
+        ],
+        gallery: [
+          {
+            file: "running-club-event-gathering", width: 1600, height: 900,
+            alt: "Runners and walkers gathering at a void deck before a Saturday running club session",
+            caption: "Participants gathering before a Saturday session."
+          },
+          {
+            file: "running-club-group-selfie", width: 1600, height: 1200,
+            alt: "Group selfie with running club participants after a Saturday session",
+            caption: "With other participants after a session."
+          }
+        ],
+        galleryLabel: "Running club session photos"
+      },
+      {
+        title: "Route Check",
+        video: {
+          src: "videos/running-club.mp4",
+          poster: "images/running-club-video-poster.jpg",
+          caption: "Route check ahead of a weekly Saturday session, 27 June 2026."
+        }
       }
     ]
   },
@@ -1310,12 +1370,34 @@ function createAboutModalMarkup(detail) {
 
   const sections = detail.sections
     .map((section) => {
-      const paragraphs = section.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
+      const paragraphs = (section.paragraphs || []).map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
       const heading = section.title ? `<h3 class="modal-section-heading">${escapeHtml(section.title)}</h3>` : "";
+      const figure = section.figure ? createProjectCaseFigure(section.figure) : "";
+      const gallery = section.gallery?.length
+        ? `
+          <div class="modal-case-media-grid is-equal-media is-document-safe" role="group" aria-label="${escapeHtml(section.galleryLabel || "Supporting photos")}">
+            ${section.gallery.map((media) => createProjectCaseFigure(media)).join("")}
+          </div>
+        `
+        : "";
+      const video = section.video
+        ? `
+          <div class="modal-media modal-video-frame">
+            <video class="modal-video" controls playsinline poster="${escapeHtml(section.video.poster)}" preload="none" data-volume-boost="${MODAL_VIDEO_GAIN}">
+              <source src="${escapeHtml(section.video.src)}" type="video/mp4">
+              Your browser does not support video playback.
+            </video>
+          </div>
+          ${section.video.caption ? `<p class="modal-media-caption">${escapeHtml(section.video.caption)}</p>` : ""}
+        `
+        : "";
       return `
         <section class="modal-section modal-case-section">
           ${heading}
           ${paragraphs}
+          ${figure}
+          ${gallery}
+          ${video}
         </section>
       `;
     })
