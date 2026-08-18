@@ -28,8 +28,8 @@ const PROJECTS = {
     modalVariant: "pianoCaseStudy",
     video: "assets/videos/piano-tiles-gameplay.mp4",
     poster: "images/piano-tiles-poster.svg",
-    description: "Solo project - Designed and built the game logic, Canvas rendering, scoring system, keyboard controls, and difficulty progression.",
-    problem: "Build a fast-paced, timing-based reactive game to practice real-time input handling, collision detection, and game-state/score management in the browser.",
+    description: "Solo project – Designed and built the game logic, Canvas rendering, scoring system, keyboard controls, and difficulty progression.",
+    problem: "Build a fast-paced, timing-based reactive game to practise real-time input handling, collision detection, and game-state/score management in the browser.",
     approachHtml: "Designed a tile-spawning system with increasing difficulty, scoring logic based on accuracy and speed, and a game loop handling player input with JavaScript and HTML5 Canvas. An additional <span class=\"inline-status inline-status-progress\">IN PROGRESS</span> Alien Invasion arcade mode was started as a companion project within the same repo.",
     results: "Fully playable Alien Piano Tiles game with scoring and increasing difficulty; Alien Invasion mode in active development.",
     // CONFIRM: exact tech stack if different.
@@ -49,7 +49,7 @@ const PROJECTS = {
     modalVariant: "erebusCaseStudy",
     video: "assets/videos/erebus-7-gameplay.mp4",
     poster: "images/erebus-7-poster.svg",
-    description: "Solo project - Built the detection system, difficulty scaling, resource logic, story progression, and interactive gameplay flow.",
+    description: "Solo project – Built the detection system, difficulty scaling, resource logic, story progression, and interactive gameplay flow.",
     problem: "Design and build a narrative-driven stealth game exploring tension, suspicion mechanics, and atmosphere - combining storytelling with gameplay systems.",
     // CONFIRM/EXPAND: add specific mechanics, e.g. suspicion meter, dialogue choices, level design details once available.
     approach: "Built core stealth/suspicion mechanics, narrative pacing, and atmospheric presentation to create a tense single-player horror experience.",
@@ -515,6 +515,7 @@ function setMobileMenu(open) {
   toggle.setAttribute("aria-expanded", String(open));
   toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
   menu.setAttribute("aria-hidden", String(!open));
+  menu.toggleAttribute("inert", !open);
 }
 
 function closeMobileMenu() {
@@ -1508,7 +1509,7 @@ function updateLevel() {
           <li>Simple rhythm gameplay inspired by classic piano tile games</li>
           <li>Alien-themed visual style</li>
           <li>Keyboard controls using the DFJK keys</li>
-          <li>Randomized tile spawning across different lanes</li>
+          <li>Randomised tile spawning across different lanes</li>
           <li>Increasing speed over time</li>
           <li>Scoring system with streak multiplier rewards</li>
           <li>Three-lives system</li>
@@ -1555,7 +1556,7 @@ function updateLevel() {
         <h3 class="modal-section-heading">Outcome</h3>
         <p>The final result is a simple but engaging rhythm game with increasing difficulty, responsive controls, scoring feedback, and a nostalgic gameplay style. This project helped me understand how real-time interaction, game loops, and user feedback affect the overall player experience.</p>
         ${createCaseStudyMediaGrid([
-          { src: "assets/piano-game-over.png", alt: "Alien Piano Tiles Mission Failed screen with run statistics and Try Again button", caption: "Game-over screen shown when the player runs out of lives. Displays the run's final score alongside personal best, streak, level reached, and miss count, with an immediate Try Again button - closing the loop from Start Mission to Mission Failed.", modifier: "is-portrait" },
+          { src: "assets/piano-game-over.png", alt: "Alien Piano Tiles Mission Failed screen with run statistics and Try Again button", caption: "Game-over screen shown when the player runs out of lives. Displays the run’s final score alongside personal best, streak, level reached, and miss count, with an immediate Try Again button &ndash; closing the loop from Start Mission to Mission Failed.", modifier: "is-portrait" },
           { src: "assets/piano-mission-failed-summary.png", alt: "Alternate Alien Piano Tiles Mission Failed summary screen", caption: "Alternate Mission Failed summary capture confirming the same score, best-score, tile, streak, level, and miss reporting across the responsive game view.", modifier: "is-portrait" }
         ], "Alien Piano Tiles outcome screens", "is-portrait-pair")}
       </section>
@@ -1728,7 +1729,7 @@ if(k==="escape"||k==="p")openPause();`;
         </ul>
         ${createCaseStudyFigure("assets/erebus-tactical-map.png", "Erebus-7 tactical map showing Crew Quarters rooms and route information", "Tactical map showing Crew Quarters zone layout - rooms, routes, danger indicators, and mission objectives available for route planning.")}
         ${createCaseStudyMediaGrid([
-          { src: "assets/erebus-instinct-choice.png", alt: "Erebus-7 parasite instinct choice screen", caption: "Parasite-instinct choice screen showing how the player's opening decision changes the first gameplay advantage." },
+          { src: "assets/erebus-instinct-choice.png", alt: "Erebus-7 parasite instinct choice screen", caption: "Parasite-instinct choice screen showing how the player’s opening decision changes the first gameplay advantage." },
           { src: "assets/erebus-difficulty-selection.png", alt: "Erebus-7 Easy Medium and Hard difficulty selection", caption: "Difficulty selection showing the Easy, Medium, and Hard modes used to tune detection, resources, and campaign pressure.", modifier: "is-position-left" }
         ], "Erebus-7 player setup screens", "is-ultrawide-pair")}
         ${createCaseStudyFigure("assets/erebus-interaction-infection.png", "Erebus-7 gameplay showing an infection target and interaction controls", "Interaction screen showing how the player communicates with crew members, infects targets, or manages detection risk.")}
@@ -1749,7 +1750,7 @@ if(k==="escape"||k==="p")openPause();`;
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Challenges &amp; Solutions</h3>
         <p>One challenge was creating a genuinely scary atmosphere rather than simply making the screen dark. Early versions felt too simple because the player was mostly navigating a map. To improve this, I added detailed room art, horror effects, sound design, story scenes, and frightening events triggered by the player entering certain areas. Another challenge was balancing the detection system. If detection filled too slowly, the game became too easy. If it filled too quickly, the game felt unfair. To solve this, I introduced difficulty modes and adjusted detection range, speed, and cooldown according to the selected mode.</p>
-        ${createCaseStudyFigure("assets/erebus-detection-alert.png", "Erebus-7 detection report showing You Were Identified", "Detection and alert system showing \"You Were Identified\" tension moment - the game's response when guards, cameras, or scanners notice the player, with retreat/hide options presented.")}
+        ${createCaseStudyFigure("assets/erebus-detection-alert.png", "Erebus-7 detection report showing You Were Identified", "Detection and alert system showing \"You Were Identified\" tension moment &ndash; the game’s response when guards, cameras, or scanners notice the player, with retreat/hide options presented.")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -1888,7 +1889,7 @@ def build_receipt(cart, discount_name):
         <p>The project uses Python for the main application logic and Streamlit for the web interface. Menu items and prices are handled in the app so the system can calculate item subtotals, discounts, GST, and the final total.</p>
         <p>The cart logic keeps track of selected items and quantities before checkout. The checkout flow applies the selected discount first, then calculates GST, and finally generates the receipt.</p>
         <div class="modal-tech-tags">${tags}</div>
-        ${createCodeBlock("python", calculationCode, "Python logic showing how the cart's subtotal, discount, and 9% GST are calculated in sequence - discount applied first, then GST on the discounted amount - before the final receipt is generated line by line.")}
+        ${createCodeBlock("python", calculationCode, "Python logic showing how the cart’s subtotal, discount, and 9% GST are calculated in sequence &ndash; discount applied first, then GST on the discounted amount &ndash; before the final receipt is generated line by line.")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -1931,7 +1932,7 @@ def build_receipt(cart, discount_name):
           </a>
         </div>
         <p class="modal-link-helper modal-helper-text">Note: This app is hosted on a free tier and may take 30&ndash;60 seconds to load if it has been inactive. If you see a 'Zzzz' sleep screen, click to wake it up and wait briefly.</p>
-        <p class="modal-link-helper modal-helper-text">Opens in a new tab - this portfolio stays open here, so you can switch back anytime.</p>
+        <p class="modal-link-helper modal-helper-text">Opens in a new tab &mdash; this portfolio stays open here, so you can switch back anytime.</p>
       </section>
     </article>
   `;
@@ -2181,7 +2182,7 @@ function createPlantCaseStudyMarkup(project) {
           <a class="modal-action-button modal-play-button btn-primary" href="${escapeHtml(project.demoUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action><span aria-hidden="true">&#9654;</span>Watch Demo</a>
         </div>
         <p class="modal-coauthor-note">Co-authored with Li Heng as a joint project submission.</p>
-        <p class="modal-link-helper modal-helper-text">Opens in a new tab - this portfolio stays open here, so you can switch back anytime.</p>
+        <p class="modal-link-helper modal-helper-text">Opens in a new tab &mdash; this portfolio stays open here, so you can switch back anytime.</p>
       </section>
     </article>
   `;
@@ -2275,7 +2276,7 @@ function createPlantModalMarkup(project) {
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Technical Implementation</h3>
         <p>The system uses predefined thresholds to decide whether the environment is suitable for plant growth.</p>
-        <p>The temperature condition is suitable when the reading is between 20&deg;C and 35&deg;C. The light condition is evaluated using effective light, which combines ambient light and LED brightness - if the light level is too low, LED brightness increases automatically; if there's enough light, brightness decreases to save energy.</p>
+        <p>The temperature condition is suitable when the reading is between 20&deg;C and 35&deg;C. The light condition is evaluated using effective light, which combines ambient light and LED brightness - if the light level is too low, LED brightness increases automatically; if there’s enough light, brightness decreases to save energy.</p>
         <p>The ultrasonic sensor measures the distance between the sensor and the water surface. If the distance is too high, the system treats the water level as low and activates an alert. The rotary angle sensor allows the user to manually override the automatic LED control when needed.</p>
         <div class="modal-tech-tags">
           <span class="tech-tag">Arduino</span>
@@ -2349,7 +2350,7 @@ function createPlantModalMarkup(project) {
           </a>
         </div>
         <p class="modal-coauthor-note">Co-authored with Li Heng as a joint project submission.</p>
-        <p class="modal-link-helper modal-helper-text">Opens in a new tab - this portfolio stays open here, so you can switch back anytime.</p>
+        <p class="modal-link-helper modal-helper-text">Opens in a new tab &mdash; this portfolio stays open here, so you can switch back anytime.</p>
       </section>
     </article>
   `;
@@ -2562,7 +2563,7 @@ function createWheelchairModalMarkup(project) {
             View live circuit on Tinkercad &rarr;
           </a>
         </div>
-        <p class="modal-link-helper modal-helper-text">Opens in a new tab - this portfolio stays open here, so you can switch back anytime.</p>
+        <p class="modal-link-helper modal-helper-text">Opens in a new tab &mdash; this portfolio stays open here, so you can switch back anytime.</p>
         <p>The system uses a switch to turn the prototype on or off. When the system is active, the potentiometer allows the user to adjust the motor output, giving the user control over the level of assistance. The ultrasonic sensor measures the distance of objects in front of the wheelchair, and the buzzer provides an audio alert when an obstacle is detected.</p>
       </section>
 
@@ -2624,7 +2625,7 @@ function createWheelchairModalMarkup(project) {
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Outcome</h3>
         <p>The final prototype demonstrated a functional assistive concept that combines motor support, speed control, and obstacle alert feedback. The strongest part of this project was the refinement process: removing unnecessary LED feedback, adding manual switch control, and improving ultrasonic sensor placement based on testing.</p>
-        <p>Each decision directly improved the user experience - simpler feedback, safer control, and more reliable obstacle detection without adding unnecessary cost or complexity.</p>
+        <p>Each decision directly improved the user experience &ndash; simpler feedback, safer control, and more reliable obstacle detection without adding unnecessary cost or complexity.</p>
         ${createProjectCaseFigure(WHEELCHAIR_MEDIA.outcome)}
       </section>
 
@@ -2695,7 +2696,7 @@ function createWheelchairModalMarkup(project) {
             Watch Demo
           </a>
         </div>
-        <p class="modal-link-helper modal-helper-text">Opens in a new tab - this portfolio stays open here, so you can switch back anytime.</p>
+        <p class="modal-link-helper modal-helper-text">Opens in a new tab &mdash; this portfolio stays open here, so you can switch back anytime.</p>
       </section>
     </article>
   `;
@@ -2787,7 +2788,7 @@ function createKeychainModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Outcome</h3>
-        <p>The final keychain prototype showed improvement from the first print to the second print. The project strengthened my ability to design with manufacturing in mind, not just appearance. It also taught me to consider print quality, engraving depth, spacing, and usability before finalizing a physical product.</p>
+        <p>The final keychain prototype showed improvement from the first print to the second print. The project strengthened my ability to design with manufacturing in mind, not just appearance. It also taught me to consider print quality, engraving depth, spacing, and usability before finalising a physical product.</p>
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2962,7 +2963,7 @@ function createConstructionModalMarkup(project) {
             View Project Report
           </a>
         </div>
-        <p class="modal-link-helper modal-helper-text">Opens in a new tab - this portfolio stays open here, so you can switch back anytime.</p>
+        <p class="modal-link-helper modal-helper-text">Opens in a new tab &mdash; this portfolio stays open here, so you can switch back anytime.</p>
       </section>
     </article>
   `;
@@ -3126,7 +3127,7 @@ function createProjectBottomActions(project) {
 
   const helper = projectKey === "keychain"
     ? "Opens in a new tab &mdash; this portfolio stays open here, so you can switch back anytime."
-    : "Opens in a new tab - this portfolio stays open here, so you can switch back anytime.";
+    : "Opens in a new tab &mdash; this portfolio stays open here, so you can switch back anytime.";
 
   return `
     <section class="modal-action-block project-bottom-actions" aria-label="Project links">
@@ -3245,7 +3246,7 @@ function createModalActions(project) {
     <section class="modal-action-block" aria-label="Project links">
       ${repoName}
       <div class="modal-actions">${buttons.join("")}</div>
-      <p class="modal-link-helper">Opens in a new tab - this portfolio stays open here, so you can switch back anytime.</p>
+      <p class="modal-link-helper">Opens in a new tab &mdash; this portfolio stays open here, so you can switch back anytime.</p>
     </section>
   `;
 }
