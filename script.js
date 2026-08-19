@@ -78,6 +78,22 @@ const PROJECTS = {
     streamlitUrl: "https://gohziqian1234-cmyk-mcfast-app-app-hrwj7l.streamlit.app/",
     gallery: ["images/project-mcfast-ordering.svg"]
   },
+  ecowaste: {
+    category: "software",
+    title: "EcoWaste — Singapore Waste & Recycling Data Analysis",
+    image: "images/ecowaste/return-and-save-scheme-infographic.png",
+    imageWidth: 881,
+    imageHeight: 499,
+    imageAlt: "Return & Save Takeaway Scheme infographic showing the pay-deposit, use, return and refund cycle",
+    modalVariant: "ecowasteCaseStudy",
+    reportUrl: "assets/EcoWaste-Report-A4.pdf",
+    presentationUrl: "assets/EcoWaste-Presentation.pdf",
+    dashboardUrl: "assets/EcoWaste-PowerBI-Dashboard-ZiQian.pbix",
+    description: "Group data-analytics project investigating Singapore’s waste generation and recycling trends. Built the OECD international benchmarking dashboard and developed the Return & Save policy recommendation.",
+    tags: ["Python", "Power BI", "Data Cleaning", "Data Visualisation", "Forecasting", "Policy Benchmarking"],
+    github: "",
+    gallery: ["images/ecowaste/return-and-save-scheme-infographic.png"]
+  },
   wheelchair: {
     category: "hardware",
     title: "Motor-Assisted Wheelchair Support Prototype",
@@ -1517,6 +1533,7 @@ function createModalMarkup(project) {
   if (project.modalVariant === "pianoCaseStudy") return createPianoModalMarkup(project);
   if (project.modalVariant === "erebusCaseStudy") return createErebusModalMarkup(project);
   if (project.modalVariant === "mcfastCaseStudy") return createMcfastModalMarkup(project);
+  if (project.modalVariant === "ecowasteCaseStudy") return createEcowasteModalMarkup(project);
   if (project.modalVariant === "plantCaseStudy") return createPlantCaseStudyMarkup(project);
   if (project.modalVariant === "wheelchairCaseStudy") return createWheelchairModalMarkup(project);
   if (project.modalVariant === "keychainCaseStudy") return createKeychainModalMarkup(project);
@@ -2895,6 +2912,78 @@ function createWheelchairModalMarkup(project) {
   `;
 }
 
+function createEcowasteModalMarkup(project) {
+  const tags = project.tags.map((tag) => `<span class="tech-tag">${escapeHtml(tag)}</span>`).join("");
+  const dimensions = {
+    "oecd-benchmark-ranking-chart": [566, 335],
+    "policy-scenario-forecast-dashboard": [1303, 272],
+    "policy-timeline-japan": [516, 329],
+    "policy-timeline-spain": [519, 333],
+    "policy-timeline-uk": [519, 335],
+    "return-and-save-scheme-infographic": [881, 499]
+  };
+  const figure = (file, alt, caption, modifier = "") => {
+    const [width, height] = dimensions[file];
+    return createProjectCaseFigure({ file: `ecowaste/${file}`, extension: "png", width, height, alt, caption, modifier });
+  };
+
+  return `
+    <article class="project-modal-body project-modal-body-long">
+      <header class="modal-project-hero modal-case-header">
+        <p class="modal-eyebrow section-kicker dark">Project</p>
+        <h2 class="modal-title" id="modal-title">${escapeHtml(project.title)}</h2>
+        <p>${escapeHtml(project.description)}</p>
+      </header>
+
+      ${createRoleSection(
+        "Group Project — EG2A12 Data Preparation, Team A4 (5 members)",
+        "OECD Benchmarking Dashboard & Policy Recommendation",
+        "The project was divided by dashboard. My specific responsibility was the OECD waste-reduction benchmarking and policy-scenario dashboard, and I authored the project’s first policy recommendation, the Return & Save Takeaway Scheme."
+      )}
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Project Scope / Problem</h3>
+        <p>This was a 5-person group project for the EG2A12 Data Preparation module at Nanyang Polytechnic (Team A4: Lim Hong Jean, Zi Qian, Kwan Teng, Pierre, and Emmanuel). The brief was to investigate a real Singapore data problem end-to-end &mdash; sourcing data, cleaning it, analysing it, and turning the findings into policy recommendations.</p>
+        <p>The problem we investigated: Singapore relies on Pulau Semakau as its only landfill, and at the current disposal rate it is projected to run out of space by around 2035. Singapore’s Zero Waste Masterplan targets a 70% overall recycling rate and a 30% cut in daily per-capita waste sent to landfill, both by 2030. Our guiding question was: <strong>how can Singapore improve its waste management and recycling efficiency?</strong></p>
+        <p>We worked with three datasets: Singapore’s waste-management and recycling statistics (2000&ndash;2024) and annual population figures, both from data.gov.sg, plus OECD municipal waste statistics (1995&ndash;2020) for international comparison.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">My Role &amp; Solution</h3>
+        <p>The project was divided by dashboard. My specific responsibility was the <strong>OECD waste-reduction benchmarking and policy-scenario dashboard</strong>, and I authored the project’s first policy recommendation, the <strong>Return &amp; Save Takeaway Scheme</strong> (Sections 2.4&ndash;2.6.1 of the team report).</p>
+        <p>I ranked OECD countries by their percentage reduction in municipal waste generated per person between 2000 and 2020, using a formula I derived: (waste in 2000 &minus; waste in 2020) &divide; waste in 2000 &times; 100. Spain (28.82%), Japan (23.57%), and the United Kingdom (19.94%) came out as the three strongest performers, well ahead of the rest of the field.</p>
+        ${figure("oecd-benchmark-ranking-chart", "Horizontal bar chart ranking OECD countries by percentage reduction in municipal waste per person from 2000 to 2020, led by Spain at 28.82 percent, Japan at 23.57 percent and the United Kingdom at 19.94 percent", "OECD countries ranked by waste reduction per person, 2000–2020.")}
+        <p>I then researched what each of those three countries had actually done &mdash; Spain’s single-use shopping bag reduction measures (2008), Japan’s waste-collection charging policy (2005), and the UK’s Courtauld Commitment on food waste and packaging (2005) &mdash; and pulled out one transferable principle from each: waste prevention at source, financial incentives for behaviour change, and shared responsibility with businesses.</p>
+        <div class="modal-case-media-grid is-equal-media is-document-safe" role="group" aria-label="Benchmark country policy timelines">
+          ${figure("policy-timeline-spain", "Line chart of Spain's waste per person from 2000 to 2020 with a marker at 2008, the year its single-use shopping bag reduction measures took effect", "Spain — single-use bag measures, 2008.")}
+          ${figure("policy-timeline-japan", "Line chart of Japan's waste per person from 2000 to 2020 with a marker at 2005, the year its waste-collection charging policy took effect", "Japan — waste-collection charging, 2005.")}
+          ${figure("policy-timeline-uk", "Line chart of the United Kingdom's waste per person from 2000 to 2020 with a marker at 2005, the year the Courtauld Commitment took effect", "UK — Courtauld Commitment, 2005.")}
+        </div>
+        <p>I combined those three principles into an original recommendation for Singapore: the <strong>Return &amp; Save Takeaway Scheme</strong>, a S$2 refundable-deposit system for reusable takeaway containers. Customers pay a $2 deposit, use the reusable container, return it at a return point, and get the full deposit back. I designed the full operating model (Deposit &rarr; Use &rarr; Return &rarr; Refund &rarr; Clean &rarr; Reuse), worked through consumer participation, business participation, and the government’s role, and identified practical risks &mdash; container return rate, return-point convenience, hygiene, operating cost, business uptake &mdash; with a mitigation for each.</p>
+        ${figure("return-and-save-scheme-infographic", "Infographic for the Return and Save Takeaway Scheme showing the four-step cycle: pay a two dollar refundable deposit, use the reusable container, return it at a return machine, and receive the full deposit back", "The Return & Save Takeaway Scheme operating model.")}
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Work Process</h3>
+        <p>I followed the CRISP-DM data-preparation approach the team used throughout. For the OECD dataset specifically: I checked for missing years country-by-country and excluded countries with large gaps (e.g. Canada, Costa Rica) rather than interpolating two decades of missing data, since that would introduce more error than it removes. I standardised column names and units (the OECD file used machine-readable codes like <code>REF_AREA</code> and <code>TIME_PERIOD</code>, which I renamed to descriptive labels), then filtered to countries with sufficiently complete 2000&ndash;2020 coverage so the ranking was not distorted by uneven data quality.</p>
+        <p>After calculating and ranking the reduction percentages, I chose a horizontal bar chart specifically because several country names are long &mdash; horizontal labels stay readable where a vertical column chart would crowd them. For the three benchmark countries, I built individual trend-line charts marking the year each country’s key policy took effect, to connect the quantitative ranking to a real policy moment rather than just showing a number.</p>
+        <p>For the forecast, I applied the benchmark countries’ average annual reduction rate cumulatively to Singapore’s existing baseline projection in Power BI, producing two comparable trajectories through 2034 &mdash; with policy, and without.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Outcome &amp; Results Achieved</h3>
+        <p>The benchmarking identified Spain, Japan, and the UK as the three strongest OECD performers on waste reduction, and the policy analysis behind them directly shaped the Return &amp; Save Scheme’s design.</p>
+        <p>The forecast dashboard I built shows that if Singapore achieved a reduction rate comparable to those benchmark countries, per-capita waste in 2034 could fall from a baseline of <strong>653.05 kg/person to 571.03 kg/person</strong> &mdash; a reduction of <strong>82.02 kg per person, or 12.56%</strong> relative to the do-nothing baseline. I was careful in the report to frame this correctly: it is a scenario-based benchmark of potential improvement, not a guaranteed causal prediction, since real-world outcomes depend on implementation quality, participation, and business adoption.</p>
+        ${figure("policy-scenario-forecast-dashboard", "Power BI dashboard showing Singapore waste per capita from 2000 to 2034 with two forecast trajectories, alongside cards reading 571.03 forecast with policy, 653.05 forecast without policy, 12.56 percent policy reduction and 82.02 waste prevented", "Policy-scenario forecast to 2034: with policy vs. without.")}
+        <p>The team’s combined recommendations (my Return &amp; Save Scheme alongside a teammate’s separate recycling-side proposal) were presented as a “Reduce &rarr; Separate &rarr; Recycle” strategy in the final submission.</p>
+      </section>
+
+      <div class="modal-tech-tags">${tags}</div>
+
+    </article>
+  `;
+}
+
 function createKeychainModalMarkup(project) {
   return `
     <article class="project-modal-body project-modal-body-long">
@@ -3276,6 +3365,11 @@ function getProjectActionDefinitions(project) {
       { label: "View in Autodesk Inventor", url: project.inventorUrl, icon: "CAD", primary: false, download: "multifunctional-keychain-autodesk-inventor.ipt" },
       { label: "View Full Report", url: project.reportUrl, icon: "PDF", primary: true }
     ],
+    ecowaste: [
+      { label: "View Full Report", url: project.reportUrl, icon: "PDF", primary: true },
+      { label: "View Presentation", url: project.presentationUrl, icon: "PDF", primary: false },
+      { label: "Download Dashboard (.pbix)", url: project.dashboardUrl, icon: "PBI", primary: false, download: "EcoWaste-PowerBI-Dashboard-ZiQian.pbix" }
+    ],
     construction: []
   };
 
@@ -3387,6 +3481,9 @@ function createProjectBottomActions(project) {
   }
   if (projectKey === "greenhouse") {
     supportingCopy += `<p class="modal-coauthor-note">Co-authored with Li Heng as a joint project submission.</p>`;
+  }
+  if (projectKey === "ecowaste") {
+    supportingCopy += `<p class="modal-link-helper modal-helper-text">The report and presentation open in a new tab. The dashboard is a Power BI <code>.pbix</code> file, so it downloads and needs Power BI Desktop to open.</p>`;
   }
 
   const helper = projectKey === "keychain"
