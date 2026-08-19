@@ -72,6 +72,23 @@ body.modal-open {
   overflow: hidden;
 }
 
+/*
+  Actual background scroll lock for overlays. `overflow: hidden` above is not
+  enough on its own: the body's overflow only propagates to the viewport when
+  the root element's overflow is `visible`, and `html` sets `overflow-x: clip`,
+  so `html` stays the scroll container. Pinning the body works regardless of
+  which element scrolls, and is also the reliable approach on iOS Safari.
+  The inline `top` offset that preserves scroll position is set by scrollLock
+  in script.js.
+*/
+body.scroll-locked {
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
 ::selection {
   background: var(--blue);
   color: #fff;

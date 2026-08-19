@@ -441,6 +441,58 @@ const ABOUT_DETAILS = {
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
+/*
+  Background scroll lock for overlays (project modal, about modal, certificate
+  lightbox, mobile menu).
+
+  `body { overflow: hidden }` alone does not work on this site: the CSS
+  overflow spec only propagates the body's overflow to the viewport when the
+  root element's own overflow is `visible`, and `html` here sets
+  `overflow-x: clip` for horizontal-overflow protection. That makes `html` the
+  scroll container, so the page kept scrolling behind every overlay.
+
+  Pinning the body with `position: fixed` at a negative offset locks the
+  viewport regardless of which element scrolls, and also works on iOS Safari,
+  where `overflow: hidden` is unreliable.
+
+  Keyed by owner rather than counted, because some overlays re-run their open
+  path while already open (the project modal does this for prev/next
+  navigation). A plain counter would accumulate locks that never unwind and
+  leave the page permanently frozen.
+*/
+const scrollLock = (() => {
+  const owners = new Set();
+  let savedY = 0;
+  let savedPaddingRight = "";
+
+  return {
+    lock(owner) {
+      if (owners.has(owner)) return;
+      owners.add(owner);
+      if (owners.size > 1) return;
+      savedY = window.scrollY || document.documentElement.scrollTop || 0;
+      // Compensate for the scrollbar disappearing so the page does not shift.
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      savedPaddingRight = document.body.style.paddingRight;
+      if (scrollbarWidth > 0) document.body.style.paddingRight = `${scrollbarWidth}px`;
+      document.body.style.top = `-${savedY}px`;
+      document.body.classList.add("scroll-locked");
+    },
+    unlock(owner) {
+      if (!owners.delete(owner) || owners.size > 0) return;
+      const root = document.documentElement;
+      // html has scroll-behavior: smooth, which would animate the restore.
+      const previousBehavior = root.style.scrollBehavior;
+      root.style.scrollBehavior = "auto";
+      document.body.classList.remove("scroll-locked");
+      document.body.style.top = "";
+      document.body.style.paddingRight = savedPaddingRight;
+      window.scrollTo(0, savedY);
+      root.style.scrollBehavior = previousBehavior;
+    }
+  };
+})();
+
 let scrollTriggerRefreshTimer = null;
 let smoothScrollFrame = null;
 
@@ -606,6 +658,8 @@ function setMobileMenu(open) {
   toggle.classList.toggle("is-open", open);
   menu.classList.toggle("is-open", open);
   document.body.classList.toggle("menu-open", open);
+  if (open) scrollLock.lock("mobile-menu");
+  else scrollLock.unlock("mobile-menu");
   if (open) navbar?.classList.remove("nav-hidden", "nav-revealed-by-mouse");
   toggle.setAttribute("aria-expanded", String(open));
   toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
@@ -1111,6 +1165,7 @@ function initProjectModal() {
     modal.setAttribute("aria-hidden", "true");
     scrollArea.innerHTML = "";
     document.body.classList.remove("modal-open");
+    scrollLock.unlock("project-modal");
     previousFocus?.focus?.({ preventScroll: true });
     $(".navbar")?.classList.remove("nav-hidden", "nav-revealed-by-mouse");
   };
@@ -1163,6 +1218,7 @@ function initProjectModal() {
     modal.classList.remove("is-closing");
     modal.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
+    scrollLock.lock("project-modal");
     requestAnimationFrame(() => {
       modal.classList.add("active");
       $(".modal-close", modal)?.focus();
@@ -1269,6 +1325,7 @@ function initAboutModal() {
     modal.setAttribute("aria-hidden", "true");
     scrollArea.innerHTML = "";
     document.body.classList.remove("modal-open");
+    scrollLock.unlock("about-modal");
     previousFocus?.focus?.({ preventScroll: true });
     $(".navbar")?.classList.remove("nav-hidden", "nav-revealed-by-mouse");
   };
@@ -1308,6 +1365,7 @@ function initAboutModal() {
     modal.classList.remove("is-closing");
     modal.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
+    scrollLock.lock("about-modal");
     requestAnimationFrame(() => {
       modal.classList.add("active");
       $(".modal-close", modal)?.focus();
@@ -1358,7 +1416,8 @@ function initCertificateLightbox() {
     lightbox.classList.remove("active");
     lightbox.setAttribute("aria-hidden", "true");
     document.body.classList.remove("modal-open");
-    previousFocus?.focus?.();
+    scrollLock.unlock("certificate-lightbox");
+    previousFocus?.focus?.({ preventScroll: true });
   };
 
   certificateLinks.forEach((link) => {
@@ -1371,7 +1430,8 @@ function initCertificateLightbox() {
       lightbox.classList.add("active");
       lightbox.setAttribute("aria-hidden", "false");
       document.body.classList.add("modal-open");
-      closeButton?.focus();
+    scrollLock.lock("certificate-lightbox");
+      closeButton?.focus({ preventScroll: true });
     });
   });
 
