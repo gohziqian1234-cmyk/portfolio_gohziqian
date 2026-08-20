@@ -18,6 +18,59 @@ const http = require("node:http");
 const path = require("node:path");
 const { chromium } = require("playwright");
 
+/*
+  Playwright launches whatever browser build its own version pins. When the
+  installed browsers do not match that pin -- common in prebuilt CI images that
+  ship one Chromium and cannot re-download -- the default launch fails before a
+  single test runs. Rather than pin a Playwright version to the image, resolve a
+  usable Chromium at run time and only fall back to Playwright's own default
+  when nothing else is found.
+*/
+function resolveChromiumExecutable() {
+  const explicit = process.env.QA_CHROMIUM_PATH || process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH;
+  if (explicit) {
+    if (fs.existsSync(explicit)) return explicit;
+    throw new Error(`Chromium path from the environment does not exist: ${explicit}`);
+  }
+
+  const pinned = (() => {
+    try {
+      return chromium.executablePath();
+    } catch {
+      return null;
+    }
+  })();
+  if (pinned && fs.existsSync(pinned)) return null; // Playwright's default works.
+
+  const browsersRoot = process.env.PLAYWRIGHT_BROWSERS_PATH
+    || path.join(process.env.HOME || "", ".cache", "ms-playwright");
+  if (!fs.existsSync(browsersRoot)) return null;
+
+  // Newest build number first, so a matching install still wins if present.
+  const buildOrder = (name) => Number(name.split("-").pop()) || 0;
+  const installs = fs.readdirSync(browsersRoot)
+    .filter((name) => name.startsWith("chromium"))
+    .sort((a, b) => buildOrder(b) - buildOrder(a));
+
+  const relativeCandidates = [
+    path.join("chrome-linux", "chrome"),
+    path.join("chrome-linux64", "chrome"),
+    path.join("chrome-headless-shell-linux64", "chrome-headless-shell"),
+    path.join("chrome-linux", "headless_shell"),
+    path.join("chrome-mac", "Chromium.app", "Contents", "MacOS", "Chromium"),
+    path.join("chrome-win", "chrome.exe")
+  ];
+
+  for (const install of installs) {
+    for (const relative of relativeCandidates) {
+      const candidate = path.join(browsersRoot, install, relative);
+      if (fs.existsSync(candidate)) return candidate;
+    }
+  }
+
+  return null;
+}
+
 const TOOLS_DIR = __dirname;
 const ROOT = path.join(TOOLS_DIR, "..");
 const OUTPUT_SITE_DIR = path.join(ROOT, "outputs", "fashion-portfolio");
@@ -1205,7 +1258,9 @@ function buildMarkdownReport(results) {
 async function main() {
   emptyDir(SCREENSHOT_DIR);
   const server = await startStaticServer();
-  const browser = await chromium.launch({ headless: true });
+  const executablePath = resolveChromiumExecutable();
+  if (executablePath) console.log(`Using Chromium at ${executablePath}`);
+  const browser = await chromium.launch({ headless: true, ...(executablePath ? { executablePath } : {}) });
   const results = [];
 
   try {
