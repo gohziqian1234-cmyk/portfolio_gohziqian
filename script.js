@@ -1558,7 +1558,13 @@ function initImageLightbox() {
     }
     // Tapping the empty area around a fit-to-screen image closes, matching the
     // backdrop. While zoomed that area is pannable, so it must not close.
-    if (event.target === stage && scale <= 1.001 && !dragMoved) closeLightbox();
+    // The hit test is geometric on purpose: pointer capture retargets the
+    // click to the stage even when the image itself was pressed.
+    if (scale > 1.001 || dragMoved || !event.target.closest(".image-lightbox-stage")) return;
+    const bounds = image.getBoundingClientRect();
+    const insideImage = event.clientX >= bounds.left && event.clientX <= bounds.right
+      && event.clientY >= bounds.top && event.clientY <= bounds.bottom;
+    if (!insideImage) closeLightbox();
   });
 
   stage.addEventListener("wheel", (event) => {
@@ -1590,8 +1596,12 @@ function initImageLightbox() {
       dragPointerId = event.pointerId;
       dragStartX = event.clientX - translateX;
       dragStartY = event.clientY - translateY;
-      stage.setPointerCapture?.(event.pointerId);
-      if (scale > 1.001) lightbox.classList.add("is-dragging");
+      // Only capture while there is something to pan; capturing at fit scale
+      // would retarget the click and break the double-click-to-zoom path.
+      if (scale > 1.001) {
+        stage.setPointerCapture?.(event.pointerId);
+        lightbox.classList.add("is-dragging");
+      }
     }
   });
 
