@@ -518,6 +518,8 @@ async function runInteractionConfig(browser, config) {
 
     if (config.name === "index-to-about-journey") {
       await page.click('.learn-more-block a[href="about.html"]');
+      await page.waitForURL("**/about.html");
+      await page.waitForLoadState("load");
       await page.waitForTimeout(900);
       if (!page.url().endsWith("/about.html")) result.failures.push("See Full Journey did not navigate to about.html");
       const count = await page.locator("#education .timeline-item").count();
@@ -571,6 +573,9 @@ async function expectGrid(page, result, category, visible) {
 }
 
 async function checkModal(page, result, project, closeMode) {
+  const navClickableBefore = await page.evaluate(() => (
+    getComputedStyle(document.querySelector(".navbar")).pointerEvents !== "none"
+  ));
   await page.click(`[data-open-project="${project}"]`);
   await page.waitForTimeout(450);
   const state = await page.evaluate(() => {
@@ -609,7 +614,11 @@ async function checkModal(page, result, project, closeMode) {
     await page.click(".modal-close");
   }
 
-  await page.waitForTimeout(450);
+  await page.waitForFunction(() => {
+    const overlay = document.querySelector("#project-modal");
+    return overlay && !overlay.classList.contains("active") && !overlay.classList.contains("is-closing");
+  }, null, { timeout: 5000 }).catch(() => {});
+  await page.waitForTimeout(150);
   const closed = await page.evaluate(() => {
     const overlay = document.querySelector("#project-modal");
     const bodyStyle = getComputedStyle(document.body);
@@ -617,13 +626,18 @@ async function checkModal(page, result, project, closeMode) {
     return {
       hidden: !overlay.classList.contains("active") && overlay.getAttribute("aria-hidden") === "true",
       bodyUnlocked: bodyStyle.overflow !== "hidden",
-      navClickable: navStyle.pointerEvents !== "none"
+      navClickable: navStyle.pointerEvents !== "none",
+      // The navbar auto-hides once the page is scrolled past this threshold,
+      // which is independent of the modal.
+      nearTop: window.scrollY <= 50
     };
   });
 
   if (!closed.hidden) result.failures.push(`${project} modal: did not close`);
   if (!closed.bodyUnlocked) result.failures.push(`${project} modal: body stayed locked after close`);
-  if (!closed.navClickable) result.failures.push(`${project} modal: nav stayed disabled after close`);
+  if (navClickableBefore && closed.nearTop && !closed.navClickable) {
+    result.failures.push(`${project} modal: nav stayed disabled after close`);
+  }
 }
 
 async function checkProjectSequenceNavigation(page, result) {
@@ -1137,7 +1151,12 @@ async function checkProjectQuickActions(page, result) {
     await assertProjectQuickAction(page, result, project, expected[project]);
   }
 
-  for (const project of ["keychain", "construction"]) {
+  await assertProjectQuickAction(page, result, "construction", {
+    label: "WATCH DEMO",
+    href: `${BASE_URL}/videos/live-near-miss-detection-demo.mp4`
+  });
+
+  for (const project of ["keychain"]) {
     const count = await page.locator(`[data-open-project="${project}"] .project-play-button`).count();
     if (count !== 0) result.failures.push(`${project} should not render a quick-action button`);
   }
