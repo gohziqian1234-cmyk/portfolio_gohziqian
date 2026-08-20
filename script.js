@@ -156,10 +156,10 @@ const PROJECTS = {
   construction: {
     category: "hardware",
     title: "NESSO Safety Monitor — Construction Safety Fall-Risk Detection",
-    image: "images/project-construction-safety.svg",
-    imageWidth: 960,
-    imageHeight: 600,
-    imageAlt: "Construction Safety Fall-Risk Detection System construction site safety monitoring schematic",
+    image: "images/construction-safety/02-device-live-ziqian.webp",
+    imageWidth: 1422,
+    imageHeight: 756,
+    imageAlt: "NESSO N1 wearable screen showing worker Ziqian, BLE connected, and a SAFE status",
     modalVariant: "constructionCaseStudy",
     video: "videos/01-live-near-miss-detection.mp4",
     poster: "images/construction-safety/posters/01-live-near-miss-detection-poster.jpg",
@@ -168,7 +168,7 @@ const PROJECTS = {
     presentationUrl: "assets/reports/nesso-safety-monitor-presentation.pdf",
     description: "A wearable-sensor pipeline that detects falls and near-misses on construction sites in real time. Detected 7 of 7 labelled incidents with zero false negatives.",
     tags: ["Python", "BLE", "IMU Sensors", "SQLite", "Streamlit", "Data Pipeline", "Signal Processing"],
-    gallery: ["images/construction-safety/02-device-live-ziqian.png"]
+    gallery: ["images/construction-safety/02-device-live-ziqian.webp"]
   }
 };
 
@@ -3426,12 +3426,16 @@ function createConstructionModalMarkup(project) {
   const callout = (html) => `<div class="modal-case-callout"><p>${html}</p></div>`;
 
   return `
-    <article class="project-modal-body project-modal-body-long">
+    <article class="project-modal-body project-modal-body-long construction-case-study">
       <header class="modal-project-hero modal-case-header">
         <p class="modal-eyebrow section-kicker dark">Project</p>
         <h2 class="modal-title" id="modal-title">${escapeHtml(project.title)}</h2>
         <p>${escapeHtml(project.description)}</p>
       </header>
+
+      ${shot("02-device-live-ziqian", "png", 1422, 756,
+        "NESSO N1 wearable screen showing worker Ziqian, BLE connected, status SAFE",
+        "The NESSO N1 wearable, live over Bluetooth and reporting SAFE. The worker ID on screen is mine.")}
 
       ${createRoleSection(
         "Group Project — EG2A17, A4 | Group 5 (Pierre, Hong Jean, Zi Qian, Kwan Teng)",
@@ -3441,9 +3445,6 @@ function createConstructionModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">The Problem</h3>
-        ${shot("02-device-live-ziqian", "png", 1422, 756,
-          "NESSO N1 wearable screen showing worker Ziqian, BLE connected, status SAFE",
-          "The NESSO N1 wearable, live over Bluetooth and reporting SAFE. The worker ID on screen is mine.")}
         <p><strong>The problem.</strong> Singapore recorded 43 workplace fatalities in 2024. Construction accounted for 20 of them, plus 44 fall-from-height and 29 slip-trip-fall major injuries.</p>
         <p>Construction sites are loud, visually obstructed, and often worked alone. A fall takes a second — but being <em>found</em> after one can take far longer. That gap is what this project attacks.</p>
         ${callout("<strong>The question we set:</strong> how do you automatically detect a fall or near-miss and get it in front of a supervisor fast enough to matter?")}

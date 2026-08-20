@@ -7326,6 +7326,13 @@ body[data-page="about"] .certificate-zoom:focus-visible .certificate-zoom-icon {
     overflow-wrap: anywhere;
   }
 
+  body[data-page="projects"] .construction-case-study .modal-title {
+    font-family: var(--font-body);
+    font-size: 1.65rem;
+    font-weight: 800;
+    line-height: 1.16;
+  }
+
   body[data-page="projects"] .project-next-card {
     grid-template-columns: minmax(0, 1fr) auto;
   }
