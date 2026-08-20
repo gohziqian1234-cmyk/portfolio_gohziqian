@@ -1177,7 +1177,6 @@ function initProjectModal() {
       closeTransitionHandler = null;
     }
     modal.classList.remove("is-closing");
-    modal.classList.remove("show-project-prev", "show-project-next");
     modal.setAttribute("aria-hidden", "true");
     scrollArea.innerHTML = "";
     document.body.classList.remove("modal-open");
@@ -1281,15 +1280,6 @@ function initProjectModal() {
   $("[data-project-next]", modal)?.addEventListener("click", () => {
     const projectKey = getAdjacentProjectKey(currentProjectKey, 1);
     if (projectKey) openModal(PROJECTS[projectKey], projectKey);
-  });
-
-  modal.addEventListener("pointermove", (event) => {
-    const edgeThreshold = window.innerWidth * 0.1;
-    modal.classList.toggle("show-project-prev", event.clientX <= edgeThreshold);
-    modal.classList.toggle("show-project-next", event.clientX >= window.innerWidth - edgeThreshold);
-  });
-  modal.addEventListener("pointerleave", () => {
-    modal.classList.remove("show-project-prev", "show-project-next");
   });
 
   if (!finePointer && !prefersReducedMotion) {
@@ -1404,59 +1394,267 @@ function initAboutModal() {
   });
 }
 
-function initCertificateLightbox() {
-  const certificateLinks = $$('[data-certificate-lightbox]');
-  if (!certificateLinks.length) return;
+function initImageLightbox() {
+  // One lightbox powers every zoomable image on the site. Triggers are matched
+  // by delegation so images rendered later (inside project/about modals) work
+  // without rebinding.
+  const TRIGGER_SELECTOR = "[data-lightbox], [data-certificate-lightbox], .modal-case-image-link";
+  const MAX_SCALE = 6;
 
   const lightbox = document.createElement("div");
-  lightbox.className = "certificate-lightbox";
+  lightbox.className = "image-lightbox";
   lightbox.setAttribute("aria-hidden", "true");
   lightbox.setAttribute("role", "dialog");
   lightbox.setAttribute("aria-modal", "true");
-  lightbox.setAttribute("aria-label", "Certificate preview");
+  lightbox.setAttribute("aria-label", "Image preview");
   lightbox.innerHTML = `
-    <button class="certificate-lightbox-backdrop" type="button" data-close-certificate aria-label="Close certificate preview"></button>
-    <div class="certificate-lightbox-content">
-      <button class="certificate-lightbox-close" type="button" data-close-certificate aria-label="Close certificate preview">&times;</button>
-      <img src="" alt="" data-certificate-image>
+    <button class="image-lightbox-backdrop" type="button" data-close-lightbox aria-label="Close image preview"></button>
+    <div class="image-lightbox-stage" data-lightbox-stage>
+      <img class="image-lightbox-image" src="" alt="" data-lightbox-image draggable="false">
     </div>
+    <div class="image-lightbox-toolbar" role="group" aria-label="Image zoom controls">
+      <button class="image-lightbox-tool" type="button" data-lightbox-zoom="-1" aria-label="Zoom out">&minus;</button>
+      <button class="image-lightbox-tool image-lightbox-reset" type="button" data-lightbox-reset>Reset</button>
+      <button class="image-lightbox-tool" type="button" data-lightbox-zoom="1" aria-label="Zoom in">+</button>
+    </div>
+    <button class="image-lightbox-close" type="button" data-close-lightbox aria-label="Close image preview">&times;</button>
+    <p class="image-lightbox-hint" data-lightbox-hint></p>
   `;
   document.body.appendChild(lightbox);
 
-  const image = $("[data-certificate-image]", lightbox);
-  const closeButton = $(".certificate-lightbox-close", lightbox);
+  const stage = $("[data-lightbox-stage]", lightbox);
+  const image = $("[data-lightbox-image]", lightbox);
+  const hint = $("[data-lightbox-hint]", lightbox);
+  const closeButton = $(".image-lightbox-close", lightbox);
+  const coarsePointer = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+  hint.textContent = coarsePointer
+    ? "Pinch to zoom · drag to pan · double-tap to reset"
+    : "Scroll to zoom · drag to pan · double-click to reset";
+
   let previousFocus = null;
+  let scale = 1;
+  let translateX = 0;
+  let translateY = 0;
+  let frame = null;
+  const pointers = new Map();
+  let pinchStartDistance = 0;
+  let pinchStartScale = 1;
+  let dragPointerId = null;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let dragMoved = false;
+
+  const render = () => {
+    frame = null;
+    image.style.transform = `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`;
+    lightbox.classList.toggle("is-zoomed", scale > 1.001);
+  };
+
+  const scheduleRender = () => {
+    if (frame === null) frame = window.requestAnimationFrame(render);
+  };
+
+  // Keep at least part of the image on screen: panning is capped at the amount
+  // of the scaled image that actually overflows its fit-to-screen box.
+  const clampTranslation = () => {
+    const rect = image.getBoundingClientRect();
+    const baseWidth = rect.width / scale;
+    const baseHeight = rect.height / scale;
+    const maxX = Math.max(0, (baseWidth * scale - baseWidth) / 2);
+    const maxY = Math.max(0, (baseHeight * scale - baseHeight) / 2);
+    translateX = Math.min(maxX, Math.max(-maxX, translateX));
+    translateY = Math.min(maxY, Math.max(-maxY, translateY));
+  };
+
+  const resetView = () => {
+    scale = 1;
+    translateX = 0;
+    translateY = 0;
+    scheduleRender();
+  };
+
+  // Zoom around a viewport point so the pixel under the cursor stays put.
+  const zoomTo = (nextScale, originX, originY) => {
+    const clamped = Math.min(MAX_SCALE, Math.max(1, nextScale));
+    if (clamped === scale) return;
+    const rect = image.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const pointX = (originX - centerX) / scale;
+    const pointY = (originY - centerY) / scale;
+    translateX += pointX * (scale - clamped);
+    translateY += pointY * (scale - clamped);
+    scale = clamped;
+    clampTranslation();
+    scheduleRender();
+  };
 
   const closeLightbox = () => {
     if (!lightbox.classList.contains("active")) return;
-    lightbox.classList.remove("active");
+    lightbox.classList.remove("active", "is-zoomed", "is-dragging");
     lightbox.setAttribute("aria-hidden", "true");
     document.body.classList.remove("modal-open");
-    scrollLock.unlock("certificate-lightbox");
+    scrollLock.unlock("image-lightbox");
+    pointers.clear();
+    dragPointerId = null;
+    resetView();
+    image.removeAttribute("src");
     previousFocus?.focus?.({ preventScroll: true });
   };
 
-  certificateLinks.forEach((link) => {
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
-      const thumbnail = $("img", link);
-      previousFocus = link;
-      image.src = link.href;
-      image.alt = thumbnail?.alt || "Certificate";
-      lightbox.classList.add("active");
-      lightbox.setAttribute("aria-hidden", "false");
-      document.body.classList.add("modal-open");
-    scrollLock.lock("certificate-lightbox");
-      closeButton?.focus({ preventScroll: true });
-    });
+  const openLightbox = (source, alt, trigger) => {
+    previousFocus = trigger || null;
+    resetView();
+    render();
+    image.src = source;
+    image.alt = alt || "";
+    lightbox.classList.add("active");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+    scrollLock.lock("image-lightbox");
+    closeButton?.focus({ preventScroll: true });
+  };
+
+  // Full-size source for a trigger: an anchor points at it, a bare image uses
+  // whatever the browser actually picked (so <picture>/webp is respected).
+  const resolveTrigger = (trigger) => {
+    if (trigger.tagName === "A" && trigger.getAttribute("href")) {
+      const thumbnail = $("img", trigger);
+      return { source: trigger.href, alt: thumbnail?.alt || trigger.getAttribute("aria-label") || "" };
+    }
+    if (trigger.tagName === "IMG") {
+      return { source: trigger.currentSrc || trigger.src, alt: trigger.alt || "" };
+    }
+    const nested = $("img", trigger);
+    return nested ? { source: nested.currentSrc || nested.src, alt: nested.alt || "" } : null;
+  };
+
+  document.addEventListener("click", (event) => {
+    const trigger = event.target.closest(TRIGGER_SELECTOR);
+    if (!trigger || lightbox.contains(trigger)) return;
+    const media = resolveTrigger(trigger);
+    if (!media?.source) return;
+    event.preventDefault();
+    openLightbox(media.source, media.alt, trigger);
   });
+
 
   lightbox.addEventListener("click", (event) => {
-    if (event.target.closest("[data-close-certificate]")) closeLightbox();
+    if (event.target.closest("[data-close-lightbox]")) {
+      if (dragMoved) return;
+      closeLightbox();
+      return;
+    }
+    const zoomButton = event.target.closest("[data-lightbox-zoom]");
+    if (zoomButton) {
+      const direction = Number(zoomButton.dataset.lightboxZoom);
+      const rect = stage.getBoundingClientRect();
+      zoomTo(scale * (direction > 0 ? 1.4 : 1 / 1.4), rect.left + rect.width / 2, rect.top + rect.height / 2);
+      return;
+    }
+    if (event.target.closest("[data-lightbox-reset]")) {
+      resetView();
+      return;
+    }
+    // Tapping the empty area around a fit-to-screen image closes, matching the
+    // backdrop. While zoomed that area is pannable, so it must not close.
+    if (event.target === stage && scale <= 1.001 && !dragMoved) closeLightbox();
   });
 
+  stage.addEventListener("wheel", (event) => {
+    if (!lightbox.classList.contains("active")) return;
+    event.preventDefault();
+    zoomTo(scale * Math.exp(-event.deltaY * 0.002), event.clientX, event.clientY);
+  }, { passive: false });
+
+  stage.addEventListener("dblclick", (event) => {
+    event.preventDefault();
+    if (scale > 1.001) resetView();
+    else zoomTo(2.5, event.clientX, event.clientY);
+  });
+
+  stage.addEventListener("pointerdown", (event) => {
+    if (event.target.closest("[data-lightbox-zoom], [data-lightbox-reset], .image-lightbox-close")) return;
+    pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+
+    if (pointers.size === 2) {
+      const [a, b] = [...pointers.values()];
+      pinchStartDistance = Math.hypot(a.x - b.x, a.y - b.y) || 1;
+      pinchStartScale = scale;
+      dragPointerId = null;
+      return;
+    }
+
+    if (pointers.size === 1) {
+      dragMoved = false;
+      dragPointerId = event.pointerId;
+      dragStartX = event.clientX - translateX;
+      dragStartY = event.clientY - translateY;
+      stage.setPointerCapture?.(event.pointerId);
+      if (scale > 1.001) lightbox.classList.add("is-dragging");
+    }
+  });
+
+  stage.addEventListener("pointermove", (event) => {
+    if (!pointers.has(event.pointerId)) return;
+    pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+
+    if (pointers.size >= 2) {
+      const [a, b] = [...pointers.values()];
+      const distance = Math.hypot(a.x - b.x, a.y - b.y) || 1;
+      dragMoved = true;
+      zoomTo(pinchStartScale * (distance / pinchStartDistance), (a.x + b.x) / 2, (a.y + b.y) / 2);
+      return;
+    }
+
+    if (event.pointerId !== dragPointerId || scale <= 1.001) return;
+    event.preventDefault();
+    translateX = event.clientX - dragStartX;
+    translateY = event.clientY - dragStartY;
+    if (Math.abs(translateX) + Math.abs(translateY) > 4) dragMoved = true;
+    clampTranslation();
+    scheduleRender();
+  });
+
+  const endPointer = (event) => {
+    pointers.delete(event.pointerId);
+    if (event.pointerId === dragPointerId) {
+      dragPointerId = null;
+      stage.releasePointerCapture?.(event.pointerId);
+    }
+    if (pointers.size < 2) pinchStartDistance = 0;
+    lightbox.classList.remove("is-dragging");
+    // Let the click handler above see the drag, then clear it.
+    window.setTimeout(() => { dragMoved = false; }, 0);
+  };
+  stage.addEventListener("pointerup", endPointer);
+  stage.addEventListener("pointercancel", endPointer);
+
+  // Capture phase: while the lightbox is open its keys must win over the
+  // project/about modal handlers listening on the same node, so Escape closes
+  // only the lightbox and leaves the modal underneath open.
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeLightbox();
+    if (lightbox.classList.contains("active")) {
+      if (event.key === "Escape") {
+        event.stopImmediatePropagation();
+        closeLightbox();
+      }
+      if (event.key === "0") resetView();
+      return;
+    }
+    // Bare images are not focusable on their own, so give keyboard users the
+    // same entry point the pointer has.
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const trigger = event.target.closest?.("img[data-lightbox]");
+    if (!trigger) return;
+    const media = resolveTrigger(trigger);
+    if (!media?.source) return;
+    event.preventDefault();
+    openLightbox(media.source, media.alt, trigger);
+  }, true);
+
+  window.addEventListener("resize", () => {
+    if (lightbox.classList.contains("active")) resetView();
   });
 }
 
@@ -1571,7 +1769,7 @@ function createModalMarkup(project) {
 
       <section class="modal-gallery" aria-label="Project image gallery">
         <div class="modal-main-image">
-          <img src="${escapeHtml(images[0])}" width="960" height="600" alt="${escapeHtml(project.imageAlt || project.title)}" loading="lazy" data-modal-main-image />
+          <img src="${escapeHtml(images[0])}" width="960" height="600" alt="${escapeHtml(project.imageAlt || project.title)}" loading="lazy" data-lightbox data-modal-main-image />
         </div>
         <div class="modal-thumbs" aria-label="Project image thumbnails">${thumbs}</div>
       </section>
@@ -4767,7 +4965,7 @@ document.addEventListener("DOMContentLoaded", () => {
   safeInit(initProjectCardActions);
   safeInit(initProjectModal);
   safeInit(initAboutModal);
-  safeInit(initCertificateLightbox);
+  safeInit(initImageLightbox);
   safeInit(initContactForm);
   safeInit(initStatCounters);
   safeInit(initPhotoTilt);
