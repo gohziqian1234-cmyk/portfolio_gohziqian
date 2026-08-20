@@ -1151,12 +1151,9 @@ async function checkProjectQuickActions(page, result) {
     await assertProjectQuickAction(page, result, project, expected[project]);
   }
 
-  await assertProjectQuickAction(page, result, "construction", {
-    label: "WATCH DEMO",
-    href: `${BASE_URL}/videos/live-near-miss-detection-demo.mp4`
-  });
-
-  for (const project of ["keychain"]) {
+  // Construction's primary action is the report, so like keychain it renders no
+  // card quick-action chip.
+  for (const project of ["keychain", "construction"]) {
     const count = await page.locator(`[data-open-project="${project}"] .project-play-button`).count();
     if (count !== 0) result.failures.push(`${project} should not render a quick-action button`);
   }

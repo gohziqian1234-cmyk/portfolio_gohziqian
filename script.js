@@ -155,19 +155,20 @@ const PROJECTS = {
   },
   construction: {
     category: "hardware",
-    title: "NESSO Safety Monitor — Construction Safety Fall-Risk Detection System",
+    title: "NESSO Safety Monitor — Construction Safety Fall-Risk Detection",
     image: "images/project-construction-safety.svg",
     imageWidth: 960,
     imageHeight: 600,
     imageAlt: "Construction Safety Fall-Risk Detection System construction site safety monitoring schematic",
     modalVariant: "constructionCaseStudy",
-    video: "videos/live-near-miss-detection-demo.mp4",
-    poster: "images/construction-safety/nesso-device-hardware.jpg",
+    video: "videos/01-live-near-miss-detection.mp4",
+    poster: "images/construction-safety/posters/01-live-near-miss-detection-poster.jpg",
     github: "https://github.com/gohziqian1234-cmyk/group2_safety_pipeline",
     reportUrl: "assets/reports/nesso-safety-monitor-report.pdf",
-    description: "Group data engineering project (EG2A17). A local-first pipeline that detects fall-from-height, slip-trip-fall and near-miss events from wearable IMU sensors, and displays live worker status through a real-time dashboard.",
-    tags: ["IoT", "Data Engineering", "Python", "BLE", "SQLite", "Streamlit", "Sensor Fusion", "Workplace Safety"],
-    gallery: ["images/construction-safety/nesso-device-hardware.jpg"]
+    presentationUrl: "assets/reports/nesso-safety-monitor-presentation.pdf",
+    description: "A wearable-sensor pipeline that detects falls and near-misses on construction sites in real time. Detected 7 of 7 labelled incidents with zero false negatives.",
+    tags: ["Python", "BLE", "IMU Sensors", "SQLite", "Streamlit", "Data Pipeline", "Signal Processing"],
+    gallery: ["images/construction-safety/02-device-live-ziqian.png"]
   }
 };
 
@@ -3401,19 +3402,28 @@ function createKeychainModalMarkup(project) {
 
 function createConstructionModalMarkup(project) {
   const tags = project.tags.map((tag) => `<span class="tech-tag">${escapeHtml(tag)}</span>`).join("");
-  const figure = (file, alt, caption) =>
-    createProjectCaseFigure({ file: `construction-safety/${file}`, extension: "jpg", width: 1600, height: 900, alt, caption });
-  const clip = (file, caption) => `
+
+  const shot = (file, extension, width, height, alt, caption) =>
+    createProjectCaseFigure({ file: `construction-safety/${file}`, extension, width, height, alt, caption });
+
+  // Videos are captioned like the images and always carry a poster, so a player
+  // never renders as an empty black rectangle before playback.
+  const clip = (file, poster, width, height, alt, caption) => `
     <figure class="modal-case-figure">
       <div class="modal-media modal-video-frame">
-        <video class="modal-video" controls playsinline preload="none" data-volume-boost="${MODAL_VIDEO_GAIN}">
-          <source src="videos/${file}" type="video/mp4">
+        <video class="modal-video" controls playsinline preload="metadata"
+          width="${width}" height="${height}"
+          poster="images/construction-safety/posters/${escapeHtml(poster)}"
+          aria-label="${escapeHtml(alt)}" data-volume-boost="${MODAL_VIDEO_GAIN}">
+          <source src="videos/${escapeHtml(file)}" type="video/mp4">
           Your browser does not support video playback.
         </video>
       </div>
       <figcaption>${escapeHtml(caption)}</figcaption>
     </figure>
   `;
+
+  const callout = (html) => `<div class="modal-case-callout"><p>${html}</p></div>`;
 
   return `
     <article class="project-modal-body project-modal-body-long">
@@ -3424,60 +3434,88 @@ function createConstructionModalMarkup(project) {
       </header>
 
       ${createRoleSection(
-        "Group Project — EG2A17 Data Engineering Project, A4 | Group 5 (4 members)",
+        "Group Project — EG2A17, A4 | Group 5 (Pierre, Hong Jean, Zi Qian, Kwan Teng)",
         "Data Pipeline Integration & Detector Analysis",
-        "My credited responsibility on the team was data pipeline integration and detector analysis — the technical backbone that turns raw sensor data into a working safety-event detector."
+        "My responsibility was the path from raw sensor bytes to a stored, auditable safety event — the gateway, the feature engineering, and the detector's calibration and validation."
       )}
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Project Scope / Problem</h3>
-        <p>This is my EG2A17 Data Engineering Project, built with a team of four (Group 5: Pierre, Hong Jean, Kwan Teng, and me). Singapore’s Ministry of Manpower reported 43 workplace fatalities in 2024, with construction accounting for 20 of them and remaining the top contributor to combined fatal and major injuries at 166 cases. Within construction specifically, the team identified 44 fall-from-height fatal and major injuries and 29 slips, trips and falls in 2024 alone.</p>
-        <p>The core problem: construction sites are large, noisy, and visually obstructed, and work is often done alone or in small, dispersed teams — so a fallen worker can lie undiscovered. The incident itself is instantaneous, but awareness of it is not. Our guiding question: <strong>how can we automatically detect fall-from-height, slip-trip-fall and near-miss events, and alert authorised personnel for prompt intervention?</strong></p>
-        <p>We built the NESSO Safety Monitor — a local-first data pipeline that acquires six-axis inertial data from NESSO N1 wearables over Bluetooth Low Energy, processes it in near real time, stores structured safety events, and displays worker status through a Streamlit dashboard. Four team members wore the devices and performed normal-work, near-miss, and controlled fall-like movements to generate real test data — 12 recordings, 35,221 validated samples, about 23.5 minutes of six-axis motion data.</p>
-        <div class="modal-case-media-grid is-equal-media is-document-safe" role="group" aria-label="Hardware and data collection">
-          ${figure("nesso-device-hardware", "NESSO N1 wearable device showing live connection status for worker Ziqian", "The NESSO N1 wearable, connected over BLE and reporting SAFE.")}
-          ${figure("data-collection-procedure", "Data collection procedure diagram alongside a sample of raw six-axis sensor data", "Data collection protocol and a sample of the raw six-axis capture.")}
-        </div>
+        <h3 class="modal-section-heading">The Problem</h3>
+        ${shot("02-device-live-ziqian", "png", 1422, 756,
+          "NESSO N1 wearable screen showing worker Ziqian, BLE connected, status SAFE",
+          "The NESSO N1 wearable, live over Bluetooth and reporting SAFE. The worker ID on screen is mine.")}
+        <p><strong>The problem.</strong> Singapore recorded 43 workplace fatalities in 2024. Construction accounted for 20 of them, plus 44 fall-from-height and 29 slip-trip-fall major injuries.</p>
+        <p>Construction sites are loud, visually obstructed, and often worked alone. A fall takes a second — but being <em>found</em> after one can take far longer. That gap is what this project attacks.</p>
+        ${callout("<strong>The question we set:</strong> how do you automatically detect a fall or near-miss and get it in front of a supervisor fast enough to matter?")}
+        ${clip("01-live-near-miss-detection.mp4", "01-live-near-miss-detection-poster.jpg", 1024, 576,
+          "Filmed footage of a near-miss alert appearing on the live dashboard",
+          "A NEAR-MISS alert firing on the live dashboard, filmed end-to-end. Sensor to alert, no cloud, no internet.")}
+        <p>That clip is the whole system working: a NESSO N1 wearable streaming six-axis motion over Bluetooth, a Python gateway computing motion features and running the detector, SQLite storing the event, and a Streamlit dashboard raising the alert — all running locally on site hardware.</p>
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">My Role &amp; Solution</h3>
-        <p>My specific responsibility on the team was <strong>data pipeline integration and detector analysis</strong> — building the technical backbone that turns raw sensor data into a working safety-event detector.</p>
-        <p>On the pipeline side, I worked on the Python gateway that validates incoming BLE packets and worker/device identity, reduces the six raw sensor axes down to four orientation-tolerant features — acceleration magnitude, gyroscope magnitude, jerk, and rotation activity — and applies the detection rule to each incoming reading. I also worked on the SQLite data management design: six application tables (workers, device_status, events, detector_config, offline_queue, live_samples), with live sensor data held temporarily for the dashboard and permanent safety events stored durably with a unique event ID to prevent duplicate ingestion.</p>
-        <p>On the detector analysis side, I worked on calibrating the four feature thresholds — acceleration ≥ 3.281536g, gyroscope ≥ 641.286497 dps, jerk ≥ 67.407807 g/s, rotation activity ≥ 524.512582° — and the 2-of-4 voting rule that turns those four signals into a single SAFETY EVENT trigger. I also worked on the leave-one-worker-out cross-validation methodology used to test the rule, and the post-hoc analysis in the report comparing how the four features separated NEAR-MISS from FALL events in real stored data — finding that rotation activity gave the strongest separation (about 17% above the highest near-miss reading), while acceleration and jerk overlapped much more between the two categories.</p>
-        ${figure("final-threshold-configuration", "Final calibrated detection thresholds for all four motion features", "The frozen threshold configuration behind the 2-of-4 voting rule.")}
+        <h3 class="modal-section-heading">My Role</h3>
+        <p>This was a four-person project. My responsibility was <strong>data pipeline integration and detector analysis</strong> — the path from raw sensor bytes to a stored, auditable safety event.</p>
+        <p>Three parts: the Python gateway that ingests and validates BLE packets, the feature engineering that reduces six raw axes to four usable signals, and the threshold calibration and validation behind the detection rule itself.</p>
+        ${shot("04-raw-sensor-data-sample", "png", 714, 347,
+          "Table of raw sensor capture showing timestamp, elapsed seconds, sample interval and six motion axes",
+          "Raw capture from a NESSO N1 — timestamp, elapsed time, measured sample interval, and six motion axes at 25 Hz.")}
+        <p>Raw per-axis values depend heavily on how the device happens to sit on a body, so they are unusable as-is. I reduced the six axes to four orientation-tolerant features: <strong>acceleration magnitude, gyroscope magnitude, jerk, and rotation activity.</strong></p>
+        <p>One detail that mattered more than expected: the BLE payload carries no device timestamp, and packet arrival is bursty. Computing jerk from arrival timing would have registered network jitter as worker movement. The live gateway reconstructs elapsed time from the fixed 25 Hz cadence instead.</p>
+        ${shot("05-acceleration-signal-plot", "png", 757, 415,
+          "Line chart of real-time acceleration over roughly 120 seconds with pronounced movement spikes",
+          "Acceleration trace from a recording session — the spikes are deliberate near-miss and fall-like movements.")}
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Work Process</h3>
-        <p>The pipeline follows a clear stage order: acquisition &rarr; cleaning &rarr; feature engineering &rarr; detection &rarr; storage &rarr; visualisation.</p>
-        <p><strong>Cleaning:</strong> every recording goes through five idempotent steps — standardise column names onto a canonical six-axis schema, validate all six required columns exist (reject the file outright if not), coerce values to numeric and drop rows with missing data, remove duplicates and corrupted records, then sort, label, and concatenate. The pipeline emits a per-file audit (rows before, after, and removed by cause) so cleaning is evidenced, not just assumed. Across all twelve recordings, the pipeline removed zero rows — a result about the quality of the capture chain, not proof that cleaning was unnecessary.</p>
-        <p><strong>Feature engineering:</strong> raw per-axis values depend heavily on how the device happens to sit on the body, so I worked on reducing six axes to four orientation-tolerant scalar features instead. Jerk uses the measured inter-sample interval where available offline; live, since the BLE payload does not carry a device timestamp, the gateway reconstructs elapsed time from the fixed 25Hz sampling cadence instead of treating bursty BLE arrival timing as if it were worker movement.</p>
-        <p><strong>Threshold calibration and validation:</strong> I compared the four features across normal and abnormal recordings to fix the final thresholds, then validated using leave-one-worker-out cross-validation — holding out each worker in turn, deriving thresholds from the other three, then testing against the held-out worker’s incidents. After selecting the rule, thresholds were frozen and replayed end-to-end, and the startup grace period and cooldown were tuned with zero false negatives on the reliable incident set as the first priority.</p>
-        <div class="modal-case-media-grid is-equal-media is-document-safe" role="group" aria-label="Live dashboard views">
-          ${figure("dashboard-overview", "NESSO Safety Monitor dashboard Overview tab showing all four connected workers", "Dashboard Overview: live status for all four connected workers.")}
-          ${figure("dashboard-realtime-graph", "Live acceleration and gyroscope signal graphs with detector threshold lines", "Live signal view with the detector threshold lines overlaid.")}
-        </div>
+        <h3 class="modal-section-heading">Building the Detector</h3>
+        <p>Each of the four features gets a threshold. Any feature that exceeds its threshold casts one vote, and <strong>2 of 4 votes triggers a safety event.</strong> Final calibrated values: acceleration &ge; 3.281536 g, gyroscope &ge; 641.286497 dps, jerk &ge; 67.407807 g/s, rotation activity &ge; 524.512582&deg;.</p>
+        <p>A voting rule was chosen over a single-signal trigger deliberately: it is explainable. After an incident you can reconstruct exactly which signals fired and by how much — something a supervisor investigating an alert can actually interrogate.</p>
+        ${shot("06-sqlite-schema-events-table", "png", 1282, 814,
+          "DB Browser for SQLite showing the six-table schema with the events table columns expanded",
+          "The events table schema. Every event stores a unique UUID, the vote count, and all four peak feature values — so any alert can be traced back to what triggered it.")}
+        <p>Storage is split by purpose. Live sensor samples go to a rolling buffer for the dashboard and expire automatically; permanent safety events are stored durably across six tables, with a unique event UUID preventing duplicate ingestion.</p>
+        <p>Thresholds live in a versioned <code>detector_config</code> table rather than hardcoded in the detection logic — so retuning later does not make historical events uninterpretable.</p>
+        ${shot("03-two-devices-connected", "jpg", 1024, 576,
+          "Two NESSO N1 devices side by side, both showing connected status for different workers",
+          "Two workers’ devices connected simultaneously. Each has its own BLE session and detector state, so one worker’s event or dropout never affects another.")}
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Outcome &amp; Results Achieved</h3>
-        <p>Measured against the project’s own three objectives: <strong>O1 (monitor worker movement in real time)</strong> and <strong>O2 (detect abnormal movement and classify SAFE/NEAR-MISS/FALL by rule-based analysis)</strong> were both fulfilled at prototype scale. <strong>O3 (alert supervisors via a web dashboard)</strong> was fulfilled locally — external SMS/push alerting to a supervisor’s phone was scoped out and left as future work, not silently dropped.</p>
-        <p>The final frozen configuration detected <strong>all 7 of 7 reliable, labelled incidents with zero false negatives</strong> under leave-one-worker-out cross-validation. A separately flagged, uncertain fall-like recording (excluded from the main scored set because its ground truth was ambiguous) was not detected and is reported as a stress-test result rather than folded into the headline recall figure. Among four normal-work recordings, one produced a false alarm — a 25% recording-level false-alarm rate, or 0.46% at the individual scan-position level.</p>
-        ${figure("demo-two-devices-live", "Two NESSO N1 devices connected live, showing Ziqian and Pierre", "Two devices connected live during a multi-worker session.")}
-        <p>From the stored live-event data, I found that the four detector features do not contribute equally to classification: rotation activity gave the clearest separation between NEAR-MISS and FALL events in the dashboard’s severity display (about 17% above the highest near-miss value, roughly double the near-miss mean), while peak acceleration and gyroscope showed only small margins, and jerk actually overlapped — one near-miss recorded a higher jerk value than the one fall event in the sample. This is exploratory evidence from a small sample (11 live events), not a validated classifier, but it directly shaped the team’s recommendation that any future machine-learned classifier should weight features unequally rather than treating all four as equally informative — a concrete, evidence-based design recommendation, not just a stated limitation.</p>
-        <p>Every stored event also carries a unique event ID and the full peak feature values behind it, so any detection can be traced back to exactly which thresholds fired and by how much — an auditability property I built in deliberately, not an afterthought, because a safety system nobody can audit after the fact is not one supervisors can trust.</p>
-        <p>I am explicit about what this system is and is not: it is a working end-to-end prototype that proves the pipeline — acquisition, cleaning, detection, storage, and live visualisation — functions correctly. It is not production-ready. Four participants and seven scored incidents are not enough to generalise from, no real fall from height was tested (all fall-like data was controlled floor-level movement for safety), and the current operating point still produces occasional false alarms. Those are the honest next steps the team identified, not hidden gaps: re-validating the rule on more data, adding a post-impact stillness feature to target the specific false-positive pattern found, and only then moving to a learned classifier — with the rule-based detector kept running underneath as a fallback, so a model failure can never leave a worker unmonitored.</p>
+        <h3 class="modal-section-heading">The Dashboard</h3>
+        ${clip("02-dashboard-walkthrough.mp4", "02-dashboard-walkthrough-poster.jpg", 1920, 928,
+          "Screen recording of the dashboard Overview tab with worker cards and live signal graphs",
+          "The Overview tab — worker status, live signal traces, and the detector’s own threshold lines drawn over them.")}
+        <p>The dashboard shows what a supervisor needs: who is connected, who is SAFE, and what the live signals look like against the thresholds. A device that goes silent is shown as disconnected rather than quietly assumed safe — a design decision that matters for a safety tool.</p>
+        ${shot("09-dashboard-incident-log", "jpg", 1280, 600,
+          "Incident Log table listing stored events with peak acceleration, gyroscope, jerk and rotation columns",
+          "The Incident Log. Each row is a stored event with its peak acceleration, gyroscope, jerk, and rotation values retained for review.")}
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">System Demonstrations</h3>
-        ${clip("live-near-miss-detection-demo.mp4", "A NEAR-MISS alert triggering live on the dashboard, filmed end-to-end rather than screen-recorded.")}
-        <div class="modal-case-media-grid is-equal-media is-document-safe" role="group" aria-label="Additional dashboard recordings">
-          ${clip("dashboard-overview-walkthrough.mp4", "Walkthrough of the Overview tab and the live signal graphs.")}
-          ${clip("incident-log-demo.mp4", "The Incident Log, showing stored events with their peak feature values.")}
-        </div>
-        ${clip("incident-log-stage2-demo.mp4", "The Incident Log with the Stage 2 column visible — a separate, unvalidated experimental classifier shown for comparison only, not the validated detection result.")}
+        <h3 class="modal-section-heading">Results</h3>
+        <p>Validation used <strong>leave-one-worker-out cross-validation</strong> — hold out one worker, derive thresholds from the other three, test against the held-out worker’s data. This prevents the detector from being tuned to the same people it is scored on.</p>
+        ${callout("<strong>The frozen configuration detected 7 of 7 reliable labelled incidents, with zero false negatives.</strong>")}
+        <p>It also produced one false alarm across four normal-work recordings — 25% at recording level, 0.46% at scan-position level. I am reporting that alongside the recall figure rather than behind it. A separately flagged fall-like recording with ambiguous ground truth also went undetected, and is reported as a stress test rather than folded into the headline number.</p>
+        ${shot("08-dashboard-live-signal", "jpg", 1280, 624,
+          "Live signal view with dashed detector threshold lines drawn across the traces",
+          "Live signal view — the dashed lines are the detector’s active thresholds, read live from the database config.")}
+        ${callout("Analysing the stored events turned up something that shaped the team’s recommendations: <strong>the four features are not equally informative.</strong>")}
+        <p>Rotation activity separated near-miss from fall most clearly — about 17% above the highest near-miss value, roughly double the near-miss mean. Acceleration and gyroscope showed only small margins. Jerk actually overlapped: one near-miss recorded a <em>higher</em> jerk than the fall event did.</p>
+        <p>That is a direct argument against the equal-weight voting rule we shipped, and it is why the recommendation is to weight rotation more heavily before reaching for machine learning.</p>
+        ${clip("03-incident-log.mp4", "03-incident-log-poster.jpg", 1388, 650,
+          "Screen recording of the incident log showing stored events and their peak feature values",
+          "Stored events with their full feature peaks — the data behind that analysis.")}
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">What It Isn’t</h3>
+        <p>This is a working prototype, not a deployable product, and the distinction matters on a safety system.</p>
+        <p>Four participants and seven scored incidents is not enough to generalise from. No real fall from height was tested — every fall-like movement was controlled at floor level, for obvious reasons. The current operating point still produces occasional false alarms, and on a safety tool nuisance alerts are their own failure mode: supervisors stop trusting them.</p>
+        ${shot("10-indoor-location-concept", "png", 1224, 698,
+          "Concept mockup of indoor location tracking using BLE anchors, labelled future work and not yet built",
+          "Proposed next step: BLE trilateration for indoor location. The dashboard answers who and what — on a multi-storey site, where is the difference between knowing and reaching.")}
+        <p>The sequence we recommended: re-validate on more data, add a post-impact stillness feature to target the specific false-positive pattern found, weight the votes unequally, and only then train a classifier — keeping the rule-based detector running underneath as a fallback, so a model failure can never silently leave a worker unmonitored.</p>
       </section>
 
       <div class="modal-tech-tags">${tags}</div>
@@ -3485,7 +3523,6 @@ function createConstructionModalMarkup(project) {
     </article>
   `;
 }
-
 
 function getProjectKey(project) {
   return PROJECT_ORDER.find((key) => PROJECTS[key] === project) || null;
@@ -3536,9 +3573,9 @@ function getProjectActionDefinitions(project) {
       { label: "Download Dashboard (.pbix)", url: project.dashboardUrl, icon: "PBI", primary: false, download: "EcoWaste-PowerBI-Dashboard-ZiQian.pbix" }
     ],
     construction: [
-      { label: "View Full Report", url: project.reportUrl, icon: "PDF", primary: false },
-      { label: "View Code on GitHub", url: project.github, icon: "</>", primary: false },
-      { label: "Watch Demo", url: project.video, icon: "&#9654;", primary: true }
+      { label: "View Full Report", url: project.reportUrl, icon: "PDF", primary: true },
+      { label: "View Presentation", url: project.presentationUrl, icon: "PDF", primary: false },
+      { label: "View Code on GitHub", url: project.github, icon: "</>", primary: false }
     ]
   };
 

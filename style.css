@@ -3937,7 +3937,9 @@ button.button:hover,
 
 .modal-case-figure {
   width: 100%;
-  margin: 24px 0 0;
+  /* Bottom margin keeps the caption visually attached to its own media rather
+     than drifting toward the paragraph that follows it. */
+  margin: 24px 0 28px;
 }
 
 .modal-case-figure.is-portrait {
@@ -3987,6 +3989,35 @@ button.button:hover,
   font-size: 13px;
   font-style: italic;
   line-height: 1.55;
+}
+
+/* Pull-quote used to break up long case-study prose and to carry the one-line
+   claims (the guiding question, the headline result) that deserve emphasis. */
+.modal-case-callout {
+  margin: 22px 0;
+  padding: 16px 20px;
+  border-left: 3px solid var(--color-accent, #f5a623);
+  background: rgba(245, 166, 35, 0.07);
+  border-radius: 0 4px 4px 0;
+  font-size: 1.02em;
+  line-height: 1.6;
+}
+
+.modal-case-callout p {
+  margin: 0;
+}
+
+/* A video presented as a captioned case-study figure, matching the images. */
+.modal-case-figure .modal-video-frame {
+  margin: 0;
+}
+
+.modal-case-figure video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  background: #0d0d0d;
 }
 
 .modal-case-media-grid {
