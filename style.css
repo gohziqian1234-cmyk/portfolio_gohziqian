@@ -6842,21 +6842,25 @@ body[data-page="projects"] .project-quick-action {
   font-size: 11px;
 }
 
+/* Prev/next controls are a primary way to move between projects, so they are
+   visible by default rather than revealed on hover, and pinned to the viewport
+   so they stay reachable while scrolling a long modal. */
 body[data-page="projects"] .project-edge-nav {
   position: fixed;
-  top: 0;
-  bottom: 0;
+  top: 50%;
   z-index: 10003;
   display: grid;
   place-items: center;
-  width: 10vw;
-  min-width: 72px;
+  width: 56px;
+  height: 56px;
+  padding: 0;
   border: 0;
   background: transparent;
   color: var(--color-accent);
-  opacity: 0;
+  opacity: 0.85;
   cursor: pointer;
-  transition: opacity 180ms var(--ease-smooth);
+  transform: translateY(-50%);
+  transition: opacity 180ms var(--ease-smooth), transform 180ms var(--ease-smooth);
 }
 
 body[data-page="projects"] .project-edge-nav span {
@@ -6866,17 +6870,17 @@ body[data-page="projects"] .project-edge-nav span {
   height: 48px;
   border: 1px solid var(--color-accent);
   border-radius: 50%;
-  background: rgba(14, 17, 19, 0.9);
+  background: rgba(14, 17, 19, 0.92);
   box-shadow: 0 0 24px var(--color-accent-dim);
   font-size: 22px;
 }
 
 body[data-page="projects"] .project-edge-nav-prev {
-  left: 0;
+  left: 12px;
 }
 
 body[data-page="projects"] .project-edge-nav-next {
-  right: 0;
+  right: 12px;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -6884,11 +6888,19 @@ body[data-page="projects"] .project-edge-nav-next {
   body[data-page="projects"] .project-edge-nav:focus-visible {
     opacity: 1;
   }
+
+  body[data-page="projects"] .project-edge-nav-prev:hover {
+    transform: translate(-3px, -50%);
+  }
+
+  body[data-page="projects"] .project-edge-nav-next:hover {
+    transform: translate(3px, -50%);
+  }
 }
 
-body[data-page="projects"] .modal-overlay.show-project-prev .project-edge-nav-prev,
-body[data-page="projects"] .modal-overlay.show-project-next .project-edge-nav-next {
-  opacity: 1;
+body[data-page="projects"] .project-edge-nav:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
 }
 
 body[data-page="projects"] .project-next-section {
@@ -7077,20 +7089,23 @@ body[data-page="about"] .certificate-zoom:focus-visible .certificate-zoom-icon {
   transform: scale(1);
 }
 
-.certificate-lightbox {
+/* Sitewide image lightbox with pan/zoom.
+   Centring is done with flexbox on purpose: with `display: grid; place-items:
+   center` Chromium does not resolve the percentage `max-height` on the
+   replaced <img>, so the image was only width-capped and overflowed the
+   viewport vertically. */
+.image-lightbox {
   position: fixed;
   inset: 0;
   z-index: 12000;
   display: none;
-  place-items: center;
-  padding: 24px;
 }
 
-.certificate-lightbox.active {
-  display: grid;
+.image-lightbox.active {
+  display: block;
 }
 
-.certificate-lightbox-backdrop {
+.image-lightbox-backdrop {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -7101,16 +7116,19 @@ body[data-page="about"] .certificate-zoom:focus-visible .certificate-zoom-icon {
   cursor: zoom-out;
 }
 
-.certificate-lightbox-content {
-  position: relative;
+.image-lightbox-stage {
+  position: absolute;
+  inset: 0;
   z-index: 1;
-  display: grid;
-  place-items: center;
-  width: min(1100px, 94vw);
-  height: min(88vh, 920px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 72px 24px 96px;
+  overflow: hidden;
+  touch-action: none;
 }
 
-.certificate-lightbox-content img {
+.image-lightbox-image {
   width: auto;
   height: auto;
   max-width: 100%;
@@ -7118,13 +7136,65 @@ body[data-page="about"] .certificate-zoom:focus-visible .certificate-zoom-icon {
   border: 1px solid rgba(244, 241, 234, 0.2);
   box-shadow: 0 28px 90px rgba(0, 0, 0, 0.55);
   object-fit: contain;
+  transform-origin: center center;
+  will-change: transform;
+  cursor: zoom-in;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
-.certificate-lightbox-close {
+.image-lightbox.is-zoomed .image-lightbox-image {
+  cursor: grab;
+}
+
+.image-lightbox.is-dragging .image-lightbox-image {
+  cursor: grabbing;
+}
+
+.image-lightbox-toolbar {
   position: absolute;
-  top: -8px;
-  right: -8px;
-  z-index: 2;
+  bottom: 20px;
+  left: 50%;
+  z-index: 3;
+  display: flex;
+  gap: 8px;
+  transform: translateX(-50%);
+}
+
+.image-lightbox-tool {
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--color-accent);
+  border-radius: 999px;
+  background: rgba(14, 17, 19, 0.92);
+  color: var(--color-accent);
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.image-lightbox-reset {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.image-lightbox-tool:hover,
+.image-lightbox-tool:focus-visible {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.image-lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 4;
   display: grid;
   place-items: center;
   width: 44px;
@@ -7134,12 +7204,53 @@ body[data-page="about"] .certificate-zoom:focus-visible .certificate-zoom-icon {
   background: var(--color-bg);
   color: var(--color-accent);
   font-size: 28px;
+  line-height: 1;
   cursor: pointer;
 }
 
+.image-lightbox-hint {
+  position: absolute;
+  top: 22px;
+  left: 24px;
+  z-index: 3;
+  margin: 0;
+  max-width: calc(100% - 96px);
+  color: rgba(244, 241, 234, 0.62);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 600px) {
+  .image-lightbox-stage {
+    padding: 64px 12px 88px;
+  }
+
+  .image-lightbox-hint {
+    top: auto;
+    bottom: 72px;
+    left: 50%;
+    max-width: calc(100% - 32px);
+    text-align: center;
+    transform: translateX(-50%);
+  }
+}
+
 @media (max-width: 767px), (hover: none), (pointer: coarse) {
+  /* Narrow viewports: dock the arrows to the bottom corners so they never sit
+     on top of modal body text, and keep them clear of the close button. */
   body[data-page="projects"] .project-edge-nav {
-    display: none;
+    top: auto;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    width: 48px;
+    height: 48px;
+    opacity: 0.92;
+    transform: none;
+  }
+
+  body[data-page="projects"] .project-edge-nav span {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
   }
 
   body[data-page="projects"] .project-card:hover,
@@ -7497,9 +7608,3 @@ body[data-page="projects"] .modal-case-header > p:not(.modal-eyebrow) {
   color: var(--color-text-muted);
 }
 
-@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
-  body[data-page="projects"] .modal-overlay.show-project-prev .project-edge-nav-prev,
-  body[data-page="projects"] .modal-overlay.show-project-next .project-edge-nav-next {
-    opacity: 1 !important;
-  }
-}
