@@ -155,19 +155,19 @@ const PROJECTS = {
   },
   construction: {
     category: "hardware",
-    title: "Construction Safety Fall-Risk Detection System",
+    title: "NESSO Safety Monitor — Construction Safety Fall-Risk Detection System",
     image: "images/project-construction-safety.svg",
     imageWidth: 960,
     imageHeight: 600,
     imageAlt: "Construction Safety Fall-Risk Detection System construction site safety monitoring schematic",
     modalVariant: "constructionCaseStudy",
-    video: "videos/construction-safety-demo.mp4",
-    poster: "images/project-construction-safety.svg",
-    github: "https://github.com/gohziqian1234-cmyk/REPLACE-WITH-CONSTRUCTION-SAFETY-REPO",
-    reportUrl: "#",
-    description: "A work-in-progress safety monitoring system designed to detect fall-from-height, slip-trip-fall, and near-miss risks in construction environments. The project uses sensor-based data collection, microcontroller processing, data pipeline development, database storage, and dashboard visualisation to support faster safety intervention.",
-    tags: ["IoT", "Data Engineering", "Sensors", "Arduino Nesso N1", "Data Pipeline", "Database", "Dashboard", "Workplace Safety"],
-    gallery: ["images/project-construction-safety.svg"]
+    video: "videos/live-near-miss-detection-demo.mp4",
+    poster: "images/construction-safety/nesso-device-hardware.jpg",
+    github: "https://github.com/gohziqian1234-cmyk/group2_safety_pipeline",
+    reportUrl: "assets/reports/nesso-safety-monitor-report.pdf",
+    description: "Group data engineering project (EG2A17). A local-first pipeline that detects fall-from-height, slip-trip-fall and near-miss events from wearable IMU sensors, and displays live worker status through a real-time dashboard.",
+    tags: ["IoT", "Data Engineering", "Python", "BLE", "SQLite", "Streamlit", "Sensor Fusion", "Workplace Safety"],
+    gallery: ["images/construction-safety/nesso-device-hardware.jpg"]
   }
 };
 
@@ -3401,134 +3401,91 @@ function createKeychainModalMarkup(project) {
 
 function createConstructionModalMarkup(project) {
   const tags = project.tags.map((tag) => `<span class="tech-tag">${escapeHtml(tag)}</span>`).join("");
+  const figure = (file, alt, caption) =>
+    createProjectCaseFigure({ file: `construction-safety/${file}`, extension: "jpg", width: 1600, height: 900, alt, caption });
+  const clip = (file, caption) => `
+    <figure class="modal-case-figure">
+      <div class="modal-media modal-video-frame">
+        <video class="modal-video" controls playsinline preload="none" data-volume-boost="${MODAL_VIDEO_GAIN}">
+          <source src="videos/${file}" type="video/mp4">
+          Your browser does not support video playback.
+        </video>
+      </div>
+      <figcaption>${escapeHtml(caption)}</figcaption>
+    </figure>
+  `;
 
   return `
     <article class="project-modal-body project-modal-body-long">
       <header class="modal-project-hero modal-case-header">
         <p class="modal-eyebrow section-kicker dark">Project</p>
-        <h2 class="modal-title" id="modal-title">PROJECT: CONSTRUCTION SAFETY FALL-RISK DETECTION SYSTEM</h2>
+        <h2 class="modal-title" id="modal-title">${escapeHtml(project.title)}</h2>
+        <p>${escapeHtml(project.description)}</p>
       </header>
 
-      <div class="modal-status-callout" role="status">
-        &#9888; Work In Progress — This project is currently under active development. Sections marked [Planned] describe intended design and architecture that has not yet been fully built.
-      </div>
+      ${createRoleSection(
+        "Group Project — EG2A17 Data Engineering Project, A4 | Group 5 (4 members)",
+        "Data Pipeline Integration & Detector Analysis",
+        "My credited responsibility on the team was data pipeline integration and detector analysis — the technical backbone that turns raw sensor data into a working safety-event detector."
+      )}
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Overview</h3>
-        <p>The Construction Safety Fall-Risk Detection System is a work-in-progress IoT and data engineering project built to monitor construction environments and detect fall-from-height, slip-trip-fall, and near-miss incidents in real time.</p>
-        <p>The system collects sensor data from an Arduino Nesso N1 microcontroller, processes it through a data pipeline, stores readings in a database, and visualises alerts on a safety dashboard. The goal is to support faster intervention and improve on-site safety awareness.</p>
-        <p>This project demonstrates my ability to work across the full stack of an IoT data system — from physical sensor integration at the edge to structured data storage and operator-facing visualisation.</p>
-      </section>
-
-      <div class="modal-media modal-video-frame">
-        <!-- TODO: Replace src with actual Construction Safety demo video (place file at /videos/construction-safety-demo.mp4) -->
-        <video class="modal-video" controls playsinline poster="${escapeHtml(project.poster)}" preload="none" data-volume-boost="${MODAL_VIDEO_GAIN}">
-          <source src="${escapeHtml(project.video)}" type="video/mp4">
-          Your browser does not support video playback.
-        </video>
-      </div>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Problem / Brief</h3>
-        <p>Construction sites are one of the most hazardous working environments, with falls from height being a leading cause of serious injury and fatality. Traditional safety monitoring relies heavily on manual supervision, which cannot always detect near-miss events in time for intervention.</p>
-        <p>The brief for this project was to design and begin building a sensor-based system that can automatically monitor construction environments, detect fall-risk events, and surface alerts to a safety dashboard — reducing the reliance on manual observation and enabling faster response times.</p>
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">My Role</h3>
-        <p>I am developing this project independently. My responsibilities include designing the sensor integration, writing the microcontroller data collection code, building the data pipeline, setting up the database schema, and developing the dashboard for visualising safety alerts.</p>
-        <p>This is a solo project covering the full scope from edge hardware to data infrastructure to front-end visualisation.</p>
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">What I Am Building</h3>
-        <p>I am building a multi-layer IoT safety monitoring system with the following components:</p>
-        <p>An Arduino Nesso N1 microcontroller connected to sensors that measure motion, acceleration, and positional data relevant to fall-risk detection on construction sites.</p>
-        <p>A data pipeline that receives sensor readings, processes and validates the data, and routes it into structured storage.</p>
-        <p>A database that logs sensor events, timestamps, alert levels, and incident classifications for ongoing analysis.</p>
-        <p>A safety dashboard that visualises real-time readings, flags high-risk events, and provides a historical record of near-miss and alert incidents.</p>
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Key Features</h3>
-        <ul class="modal-feature-list">
-          <li>Sensor-based fall-from-height detection using Arduino Nesso N1</li>
-          <li>Slip-trip-fall and near-miss risk event classification</li>
-          <li>Real-time data collection from construction environment sensors</li>
-          <li>Data pipeline for processing and routing sensor readings</li>
-          <li>Database storage for events, alerts, and incident history</li>
-          <li>Safety dashboard for real-time monitoring and alert visualisation</li>
-          <li>Designed for construction site deployment</li>
-        </ul>
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Technical Implementation</h3>
-        <p>The Arduino Nesso N1 is used as the primary microcontroller for sensor data collection. It reads motion, acceleration, and environmental data from connected sensors and transmits the data through the pipeline layer.</p>
-        <p>The data pipeline receives raw sensor output, applies processing and validation logic, and stores structured records in the database. The pipeline is designed to handle continuous sensor readings and route alert-level events for priority display on the dashboard.</p>
-        <p>The database schema organises sensor readings by timestamp, location, alert type, and severity level, making it possible to query historical incident data as well as real-time events.</p>
-        <p>The dashboard layer reads from the database and renders readings, alert flags, and incident trends in a format suited for a construction site safety operator.</p>
-        <div class="modal-tech-tags">${tags}</div>
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Skills Demonstrated</h3>
-        <ul class="modal-feature-list modal-skills-list">
-          <li>IoT sensor integration</li>
-          <li>Microcontroller programming (Arduino Nesso N1)</li>
-          <li>Data pipeline design and development</li>
-          <li>Database schema design and management</li>
-          <li>Dashboard development and data visualisation</li>
-          <li>Construction safety domain understanding</li>
-          <li>End-to-end system architecture (edge to dashboard)</li>
-          <li>Iterative prototyping and testing</li>
-        </ul>
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Current Progress</h3>
-        <p>The project is currently in active development. The following progress has been made so far:</p>
-        <ul class="modal-feature-list">
-          <li>Sensor selection and hardware setup with Arduino Nesso N1 underway</li>
-          <li>Data pipeline architecture designed and partially implemented</li>
-          <li>Database schema defined</li>
-          <li>Dashboard design and structure planned</li>
-        </ul>
-        <p>Remaining work includes completing sensor integration, finalising the pipeline and database connection, and building out the full dashboard interface.</p>
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Outcome</h3>
-        <p>The intended outcome of this project is a working fall-risk detection system that demonstrates a complete IoT data pipeline — from physical sensor readings on a construction site through to a live safety dashboard.</p>
-        <p>This project represents my ability to connect hardware, data engineering, and visualisation into one unified system, applied to a real-world safety problem in the construction industry.</p>
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Future Improvements</h3>
-        <p>Once the core system is complete, future development could include integrating additional sensor types such as environmental monitors, pressure sensors, and wearable biometric devices for a more complete safety profile.</p>
-        <p>The alert system could be extended with SMS or push notification delivery so safety officers receive real-time incident alerts without needing to monitor the dashboard continuously.</p>
-        <p>Machine learning classification could be added to improve the accuracy of fall-risk event detection by learning from historical sensor patterns rather than relying on fixed threshold rules.</p>
-        <p>A mobile-responsive version of the safety dashboard could also be developed for use on tablets or smartphones on-site.</p>
-      </section>
-
-      <section class="modal-action-block" aria-label="Construction safety project links">
-        <div class="modal-actions modal-action-row">
-          <!-- TODO: Replace with actual GitHub repo URL for Construction Safety Fall-Risk Detection System -->
-          <a class="modal-action-button modal-play-button btn-primary" href="${escapeHtml(project.github)}" target="_blank" rel="noopener noreferrer" data-modal-action>
-            <span aria-hidden="true">&lt;/&gt;</span>
-            View Code on GitHub
-          </a>
-          <!-- TODO: Replace href with link to project report or documentation when available -->
-          <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.reportUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
-            <span aria-hidden="true">PDF</span>
-            View Project Report
-          </a>
+        <h3 class="modal-section-heading">Project Scope / Problem</h3>
+        <p>This is my EG2A17 Data Engineering Project, built with a team of four (Group 5: Pierre, Hong Jean, Kwan Teng, and me). Singapore’s Ministry of Manpower reported 43 workplace fatalities in 2024, with construction accounting for 20 of them and remaining the top contributor to combined fatal and major injuries at 166 cases. Within construction specifically, the team identified 44 fall-from-height fatal and major injuries and 29 slips, trips and falls in 2024 alone.</p>
+        <p>The core problem: construction sites are large, noisy, and visually obstructed, and work is often done alone or in small, dispersed teams — so a fallen worker can lie undiscovered. The incident itself is instantaneous, but awareness of it is not. Our guiding question: <strong>how can we automatically detect fall-from-height, slip-trip-fall and near-miss events, and alert authorised personnel for prompt intervention?</strong></p>
+        <p>We built the NESSO Safety Monitor — a local-first data pipeline that acquires six-axis inertial data from NESSO N1 wearables over Bluetooth Low Energy, processes it in near real time, stores structured safety events, and displays worker status through a Streamlit dashboard. Four team members wore the devices and performed normal-work, near-miss, and controlled fall-like movements to generate real test data — 12 recordings, 35,221 validated samples, about 23.5 minutes of six-axis motion data.</p>
+        <div class="modal-case-media-grid is-equal-media is-document-safe" role="group" aria-label="Hardware and data collection">
+          ${figure("nesso-device-hardware", "NESSO N1 wearable device showing live connection status for worker Ziqian", "The NESSO N1 wearable, connected over BLE and reporting SAFE.")}
+          ${figure("data-collection-procedure", "Data collection procedure diagram alongside a sample of raw six-axis sensor data", "Data collection protocol and a sample of the raw six-axis capture.")}
         </div>
-        <p class="modal-link-helper modal-helper-text">Opens in a new tab &mdash; this portfolio stays open here, so you can switch back anytime.</p>
       </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">My Role &amp; Solution</h3>
+        <p>My specific responsibility on the team was <strong>data pipeline integration and detector analysis</strong> — building the technical backbone that turns raw sensor data into a working safety-event detector.</p>
+        <p>On the pipeline side, I worked on the Python gateway that validates incoming BLE packets and worker/device identity, reduces the six raw sensor axes down to four orientation-tolerant features — acceleration magnitude, gyroscope magnitude, jerk, and rotation activity — and applies the detection rule to each incoming reading. I also worked on the SQLite data management design: six application tables (workers, device_status, events, detector_config, offline_queue, live_samples), with live sensor data held temporarily for the dashboard and permanent safety events stored durably with a unique event ID to prevent duplicate ingestion.</p>
+        <p>On the detector analysis side, I worked on calibrating the four feature thresholds — acceleration ≥ 3.281536g, gyroscope ≥ 641.286497 dps, jerk ≥ 67.407807 g/s, rotation activity ≥ 524.512582° — and the 2-of-4 voting rule that turns those four signals into a single SAFETY EVENT trigger. I also worked on the leave-one-worker-out cross-validation methodology used to test the rule, and the post-hoc analysis in the report comparing how the four features separated NEAR-MISS from FALL events in real stored data — finding that rotation activity gave the strongest separation (about 17% above the highest near-miss reading), while acceleration and jerk overlapped much more between the two categories.</p>
+        ${figure("final-threshold-configuration", "Final calibrated detection thresholds for all four motion features", "The frozen threshold configuration behind the 2-of-4 voting rule.")}
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Work Process</h3>
+        <p>The pipeline follows a clear stage order: acquisition &rarr; cleaning &rarr; feature engineering &rarr; detection &rarr; storage &rarr; visualisation.</p>
+        <p><strong>Cleaning:</strong> every recording goes through five idempotent steps — standardise column names onto a canonical six-axis schema, validate all six required columns exist (reject the file outright if not), coerce values to numeric and drop rows with missing data, remove duplicates and corrupted records, then sort, label, and concatenate. The pipeline emits a per-file audit (rows before, after, and removed by cause) so cleaning is evidenced, not just assumed. Across all twelve recordings, the pipeline removed zero rows — a result about the quality of the capture chain, not proof that cleaning was unnecessary.</p>
+        <p><strong>Feature engineering:</strong> raw per-axis values depend heavily on how the device happens to sit on the body, so I worked on reducing six axes to four orientation-tolerant scalar features instead. Jerk uses the measured inter-sample interval where available offline; live, since the BLE payload does not carry a device timestamp, the gateway reconstructs elapsed time from the fixed 25Hz sampling cadence instead of treating bursty BLE arrival timing as if it were worker movement.</p>
+        <p><strong>Threshold calibration and validation:</strong> I compared the four features across normal and abnormal recordings to fix the final thresholds, then validated using leave-one-worker-out cross-validation — holding out each worker in turn, deriving thresholds from the other three, then testing against the held-out worker’s incidents. After selecting the rule, thresholds were frozen and replayed end-to-end, and the startup grace period and cooldown were tuned with zero false negatives on the reliable incident set as the first priority.</p>
+        <div class="modal-case-media-grid is-equal-media is-document-safe" role="group" aria-label="Live dashboard views">
+          ${figure("dashboard-overview", "NESSO Safety Monitor dashboard Overview tab showing all four connected workers", "Dashboard Overview: live status for all four connected workers.")}
+          ${figure("dashboard-realtime-graph", "Live acceleration and gyroscope signal graphs with detector threshold lines", "Live signal view with the detector threshold lines overlaid.")}
+        </div>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Outcome &amp; Results Achieved</h3>
+        <p>Measured against the project’s own three objectives: <strong>O1 (monitor worker movement in real time)</strong> and <strong>O2 (detect abnormal movement and classify SAFE/NEAR-MISS/FALL by rule-based analysis)</strong> were both fulfilled at prototype scale. <strong>O3 (alert supervisors via a web dashboard)</strong> was fulfilled locally — external SMS/push alerting to a supervisor’s phone was scoped out and left as future work, not silently dropped.</p>
+        <p>The final frozen configuration detected <strong>all 7 of 7 reliable, labelled incidents with zero false negatives</strong> under leave-one-worker-out cross-validation. A separately flagged, uncertain fall-like recording (excluded from the main scored set because its ground truth was ambiguous) was not detected and is reported as a stress-test result rather than folded into the headline recall figure. Among four normal-work recordings, one produced a false alarm — a 25% recording-level false-alarm rate, or 0.46% at the individual scan-position level.</p>
+        ${figure("demo-two-devices-live", "Two NESSO N1 devices connected live, showing Ziqian and Pierre", "Two devices connected live during a multi-worker session.")}
+        <p>From the stored live-event data, I found that the four detector features do not contribute equally to classification: rotation activity gave the clearest separation between NEAR-MISS and FALL events in the dashboard’s severity display (about 17% above the highest near-miss value, roughly double the near-miss mean), while peak acceleration and gyroscope showed only small margins, and jerk actually overlapped — one near-miss recorded a higher jerk value than the one fall event in the sample. This is exploratory evidence from a small sample (11 live events), not a validated classifier, but it directly shaped the team’s recommendation that any future machine-learned classifier should weight features unequally rather than treating all four as equally informative — a concrete, evidence-based design recommendation, not just a stated limitation.</p>
+        <p>Every stored event also carries a unique event ID and the full peak feature values behind it, so any detection can be traced back to exactly which thresholds fired and by how much — an auditability property I built in deliberately, not an afterthought, because a safety system nobody can audit after the fact is not one supervisors can trust.</p>
+        <p>I am explicit about what this system is and is not: it is a working end-to-end prototype that proves the pipeline — acquisition, cleaning, detection, storage, and live visualisation — functions correctly. It is not production-ready. Four participants and seven scored incidents are not enough to generalise from, no real fall from height was tested (all fall-like data was controlled floor-level movement for safety), and the current operating point still produces occasional false alarms. Those are the honest next steps the team identified, not hidden gaps: re-validating the rule on more data, adding a post-impact stillness feature to target the specific false-positive pattern found, and only then moving to a learned classifier — with the rule-based detector kept running underneath as a fallback, so a model failure can never leave a worker unmonitored.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">System Demonstrations</h3>
+        ${clip("live-near-miss-detection-demo.mp4", "A NEAR-MISS alert triggering live on the dashboard, filmed end-to-end rather than screen-recorded.")}
+        <div class="modal-case-media-grid is-equal-media is-document-safe" role="group" aria-label="Additional dashboard recordings">
+          ${clip("dashboard-overview-walkthrough.mp4", "Walkthrough of the Overview tab and the live signal graphs.")}
+          ${clip("incident-log-demo.mp4", "The Incident Log, showing stored events with their peak feature values.")}
+        </div>
+        ${clip("incident-log-stage2-demo.mp4", "The Incident Log with the Stage 2 column visible — a separate, unvalidated experimental classifier shown for comparison only, not the validated detection result.")}
+      </section>
+
+      <div class="modal-tech-tags">${tags}</div>
+
     </article>
   `;
 }
+
 
 function getProjectKey(project) {
   return PROJECT_ORDER.find((key) => PROJECTS[key] === project) || null;
@@ -3578,7 +3535,11 @@ function getProjectActionDefinitions(project) {
       { label: "View Presentation", url: project.presentationUrl, icon: "PDF", primary: false },
       { label: "Download Dashboard (.pbix)", url: project.dashboardUrl, icon: "PBI", primary: false, download: "EcoWaste-PowerBI-Dashboard-ZiQian.pbix" }
     ],
-    construction: []
+    construction: [
+      { label: "View Full Report", url: project.reportUrl, icon: "PDF", primary: false },
+      { label: "View Code on GitHub", url: project.github, icon: "</>", primary: false },
+      { label: "Watch Demo", url: project.video, icon: "&#9654;", primary: true }
+    ]
   };
 
   return (definitions[projectKey] || []).filter((action) => {
@@ -3760,7 +3721,6 @@ function decorateProjectModal(root, project) {
   article.querySelectorAll(".modal-action-block").forEach((block) => block.remove());
 
   const projectKey = getProjectKey(project);
-  if (projectKey === "construction") article.querySelector(".modal-video-frame")?.remove();
 
   const topAnchor = article.querySelector(".modal-role-section")
     || article.querySelector(".modal-status-callout")
