@@ -5169,6 +5169,113 @@ body[data-page="home"] .timeline-item p {
   color: var(--color-text-muted);
 }
 
+body[data-page="home"] .featured-work {
+  padding: clamp(5rem, 9vw, 8rem) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+body[data-page="home"] .featured-work-shell {
+  width: min(100%, 88rem);
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 4rem);
+}
+
+body[data-page="home"] .featured-work-header {
+  display: grid;
+  gap: 1rem;
+  max-width: 52rem;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+body[data-page="home"] .featured-work-header h2 {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: clamp(2.7rem, 7vw, 6.5rem);
+  line-height: 0.94;
+  text-transform: uppercase;
+}
+
+body[data-page="home"] .featured-work-header > p:last-child {
+  max-width: 45rem;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+body[data-page="home"] .featured-work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+body[data-page="home"] .featured-work-card {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 1rem;
+  min-height: 25rem;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  background: rgba(21, 25, 28, 0.92);
+  color: var(--color-text);
+  text-decoration: none;
+  transition: border-color 240ms var(--ease-smooth), box-shadow 240ms var(--ease-smooth), transform 240ms var(--ease-out-expo);
+}
+
+body[data-page="home"] .featured-work-card:hover,
+body[data-page="home"] .featured-work-card:focus-visible {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 20px var(--color-accent-dim);
+  transform: translateY(-4px);
+}
+
+body[data-page="home"] .featured-work-type,
+body[data-page="home"] .featured-work-link {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+body[data-page="home"] .featured-work-card h3 {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.2vw, 2rem);
+  line-height: 1.08;
+}
+
+body[data-page="home"] .featured-work-metric {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: clamp(2.8rem, 5vw, 4.8rem);
+  line-height: 1;
+}
+
+body[data-page="home"] .featured-work-card p {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+body[data-page="home"] .featured-work-link {
+  align-self: end;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+@media (max-width: 900px) {
+  body[data-page="home"] .featured-work-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="home"] .featured-work-card {
+    min-height: 0;
+  }
+}
+
 body[data-page="home"] .section-kicker,
 body[data-page="home"] .timeline-date,
 body[data-page="home"] .count-badge,
@@ -7644,5 +7751,138 @@ body[data-page="projects"] .status-badge.status-progress::before {
 
 body[data-page="projects"] .modal-case-header > p:not(.modal-eyebrow) {
   color: var(--color-text-muted);
+}
+
+body[data-page="projects"] .project-card.is-featured {
+  border-color: rgba(255, 176, 32, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(255, 176, 32, 0.08);
+}
+
+body[data-page="projects"] .featured-badge {
+  position: absolute;
+  top: 0.95rem;
+  left: 0.95rem;
+  z-index: 5;
+  padding: 0.32rem 0.55rem;
+  border: 1px solid var(--color-accent);
+  border-radius: 2px;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+body[data-page="projects"] .project-card--contain-cover figure {
+  background: var(--color-bg);
+}
+
+body[data-page="projects"] .project-card--contain-cover img {
+  object-fit: contain;
+  padding: 0.75rem;
+  filter: none;
+  opacity: 1;
+}
+
+body[data-page="projects"] .modal-sources {
+  padding-left: 1rem;
+  border-left: 2px solid var(--color-accent);
+  color: var(--color-text-muted);
+  font-size: 0.84rem;
+}
+
+body[data-page="projects"] .modal-sources a {
+  color: var(--color-accent);
+  text-underline-offset: 3px;
+}
+
+body[data-page="projects"] .return-save-model {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+body[data-page="projects"] .return-save-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+body[data-page="projects"] .return-save-heading span {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+body[data-page="projects"] .return-save-heading strong {
+  color: var(--color-text);
+}
+
+body[data-page="projects"] .return-save-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  background: var(--color-border);
+  list-style: none;
+}
+
+body[data-page="projects"] .return-save-steps li {
+  display: grid;
+  align-content: start;
+  gap: 0.55rem;
+  min-width: 0;
+  padding: 1rem;
+  background: var(--color-bg-raised);
+}
+
+body[data-page="projects"] .return-save-steps li > span {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+body[data-page="projects"] .return-save-steps strong {
+  color: var(--color-text);
+}
+
+body[data-page="projects"] .return-save-steps p,
+body[data-page="projects"] .return-save-benefits p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+body[data-page="projects"] .return-save-benefits {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem 1rem;
+}
+
+body[data-page="projects"] .return-save-benefits strong {
+  color: var(--color-text);
+}
+
+@media (max-width: 700px) {
+  body[data-page="projects"] .return-save-steps,
+  body[data-page="projects"] .return-save-benefits {
+    grid-template-columns: 1fr;
+  }
 }
 
