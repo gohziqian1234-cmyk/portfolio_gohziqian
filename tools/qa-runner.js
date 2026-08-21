@@ -658,15 +658,15 @@ async function checkProjectSequenceNavigation(page, result) {
 
   if (sequenceState.cards.length !== 2) result.failures.push(`McFast sequence nav expected 2 cards, saw ${sequenceState.cards.length}`);
   if (!sequenceState.labels.includes("Software Project")) result.failures.push("McFast sequence nav missing Software Project label");
-  if (!sequenceState.labels.includes("Software Project")) result.failures.push("McFast sequence nav missing next project label");
+  if (!sequenceState.labels.includes("Hardware Project")) result.failures.push("McFast sequence nav missing Hardware Project label for the next project");
   if (!sequenceState.cards.some((card) => card.target === "erebus")) result.failures.push("McFast sequence nav missing previous Erebus card");
-  if (!sequenceState.cards.some((card) => card.target === "ecowaste")) result.failures.push("McFast sequence nav missing next EcoWaste card");
+  if (!sequenceState.cards.some((card) => card.target === "construction")) result.failures.push("McFast sequence nav missing next NESSO card");
 
-  await page.click('[data-project-nav="ecowaste"]');
+  await page.click('[data-project-nav="construction"]');
   await page.waitForTimeout(550);
   const titleAfterNext = await page.locator("#modal-title").innerText();
-  if (!titleAfterNext.includes("EcoWaste")) {
-    result.failures.push(`Sequence Next card did not open EcoWaste modal; saw "${titleAfterNext}"`);
+  if (!titleAfterNext.includes("NESSO Safety Monitor")) {
+    result.failures.push(`Sequence Next card did not open NESSO modal; saw "${titleAfterNext}"`);
   }
 
   await page.click('[data-project-nav="mcfast"]');
@@ -738,8 +738,8 @@ async function checkProjectNavigationArrows(page, result, isMobile) {
 
   const pairs = [
     { from: "piano", fromTitle: "Alien Piano", toTitle: "Erebus" },
-    { from: "mcfast", fromTitle: "McFast", toTitle: "EcoWaste" },
-    { from: "construction", fromTitle: "Construction", toTitle: "Alien Piano" }
+    { from: "mcfast", fromTitle: "McFast", toTitle: "NESSO Safety Monitor" },
+    { from: "construction", fromTitle: "Construction", toTitle: "Motor-Assisted Wheelchair" }
   ];
 
   for (const pair of pairs) {
@@ -1050,16 +1050,16 @@ async function checkIoTCaseStudy(page, result) {
   await openProjectForQa(page, "greenhouse");
   const requiredSections = [
     "Demo Video",
-    "Overview",
-    "The Problem",
-    "What I Built",
+    "Project Scope / Problem",
+    "My Role & Solution",
+    "What We Built",
     "Key Features",
     "System Architecture",
     "Technical Implementation",
     "Flask Web Interface",
     "MariaDB Database",
     "Testing & Results",
-    "Outcome",
+    "Outcome & Results Achieved",
     "Future Improvements",
     "Skills Demonstrated"
   ];
@@ -1103,22 +1103,26 @@ async function checkIoTCaseStudy(page, result) {
   });
 
   const modalText = await page.locator("#project-modal .project-modal-body").innerText();
-  if (!modalText.includes("does not contain one wide frame showing the Raspberry Pi")) {
-    result.failures.push("IoT overview does not disclose the verified Raspberry Pi wide-shot limitation");
+  if (modalText.includes("does not contain one wide frame showing the Raspberry Pi")) {
+    result.failures.push("IoT case study still exposes the removed internal Raspberry Pi media note");
   }
 
   const expectedTests = [
-    "Buzzer stayed off when all conditions suitable",
-    "Buzzer activated when temperature/light/water unsuitable",
+    "Buzzer stayed off when all conditions were suitable",
+    "Buzzer activated when temperature, light, or water conditions were unsuitable",
     "LED brightness increased in darker conditions",
     "LED brightness decreased in brighter conditions",
-    "Low water level detected correctly",
-    "Manual LED control overrode automatic brightness adjustment"
+    "Low water level was detected and activated the alert",
+    "Manual rotary input overrode automatic LED control",
+    "Rotary input adjusted LED brightness according to user preference"
   ];
   const testingRows = await page.locator("#project-modal .modal-data-table tbody tr td:first-child").allInnerTexts();
+  if (testingRows.length !== 7) result.failures.push(`IoT testing table should contain 7 verified functional tests, saw ${testingRows.length}`);
   expectedTests.forEach((test) => {
     if (!testingRows.includes(test)) result.failures.push(`IoT testing table is missing locked test label: ${test}`);
   });
+  const testResults = await page.locator("#project-modal .modal-data-table tbody tr td:last-child").allInnerTexts();
+  if (testResults.some((value) => value !== "Passed")) result.failures.push("IoT testing table contains a result other than Passed");
 }
 
 async function checkModernProjectRegressions(page, result, isMobile) {
