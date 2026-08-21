@@ -72,7 +72,7 @@ const PROJECTS = {
     modalVariant: "mcfastCaseStudy",
     video: "videos/mcfast-demo.mp4",
     poster: "images/project-mcfast-ordering.svg",
-    description: "A Streamlit-based fast-food ordering app that allows users to browse menu categories, add items to a cart, update or remove items, apply discounts, calculate 9% GST, and generate a final receipt. This project demonstrates Python application logic, cart management, calculation flow, and browser-based app deployment.",
+    description: "An NYP Programming project that turns a fast-food ordering workflow into a complete Streamlit application, from menu browsing and persistent cart management to discounts, 9% GST, and receipt generation. The deployed app handles the full order flow without manual reset bugs when switching menu categories.",
     tags: ["Python", "Streamlit", "Cart System", "Session State", "Discount Logic", "GST Calculation", "Receipt Generation", "Testing"],
     github: "https://github.com/gohziqian1234-cmyk/mcfast_app",
     streamlitUrl: "https://gohziqian1234-cmyk-mcfast-app-app-hrwj7l.streamlit.app/",
@@ -167,7 +167,7 @@ const PROJECTS = {
     reportUrl: "assets/reports/nesso-safety-monitor-report.pdf",
     presentationUrl: "assets/reports/nesso-safety-monitor-presentation.pdf",
     description: "A wearable-sensor pipeline that detects falls and near-misses on construction sites in real time. Detected 7 of 7 labelled incidents with zero false negatives.",
-    tags: ["Python", "BLE", "IMU Sensors", "SQLite", "Streamlit", "Data Pipeline", "Signal Processing"],
+    tags: ["EG2A17 · Data Engineering Project", "Python", "BLE", "IMU Sensors", "SQLite", "Streamlit", "Data Pipeline", "Signal Processing"],
     gallery: ["images/construction-safety/02-device-live-ziqian.webp"]
   }
 };
@@ -2211,9 +2211,9 @@ if(k==="escape"||k==="p")openPause();`;
 function createMcfastModalMarkup(project) {
   const tags = project.tags.map((tag) => `<span class="tech-tag">${escapeHtml(tag)}</span>`).join("");
   const roleSection = createRoleSection(
-    "Solo Supporting Software Project",
-    "Python / Streamlit App Developer",
-    "I developed the application logic and Streamlit interface, including menu data, cart management, discount rules, GST calculation, receipt generation, and end-to-end testing."
+    "NYP Programming Project",
+    "Solo Project — Python / Streamlit App Developer",
+    "I built the complete Streamlit ordering flow, including menu data, persistent cart management, discount rules, GST calculation, receipt generation, and end-to-end testing."
   );
   const calculationCode = `GST_RATE = 0.09
 
@@ -2265,26 +2265,26 @@ def build_receipt(cart, discount_name):
       </div>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Overview</h3>
-        <p>McFast Ordering System is a Python-based food ordering app built with Streamlit. The app simulates a fast-food ordering flow where users can browse menu categories, add items to a cart, update quantities, apply discounts, calculate GST, and generate a final receipt.</p>
-        <p>This project is a supporting software project that demonstrates my ability to build a functional Python application with a browser-based interface.</p>
+        <h3 class="modal-section-heading">Project Scope</h3>
+        <p>An NYP Programming project focused on building a complete, deployable application rather than an isolated script &mdash; a fast-food ordering system covering the full customer flow from browsing to receipt.</p>
         ${createCaseStudyFigure("assets/mcfast-menu-browsing.png", "McFast menu browsing interface with food items quantity controls and empty cart", "Menu browsing screen showing food items, item names, prices, quantity controls, Add buttons, discount selection, and empty cart state.")}
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Problem / Brief</h3>
-        <p>A food ordering system needs a clear flow from menu browsing to checkout. If the logic is not structured properly, users may enter invalid quantities, the cart may calculate wrongly, or the final receipt may become unclear.</p>
-        <p>The aim of this project was to build a simple ordering app that handles menu selection, cart management, discount application, GST calculation, and receipt generation in a clear and organised way.</p>
+        <h3 class="modal-section-heading">My Role &amp; Solution</h3>
+        <p>Solo project. I built a Streamlit app that lets a user browse menu categories, add items to a cart, update or remove quantities, apply discount logic, calculate 9% GST, and generate a final itemised receipt &mdash; the same core flow a real point-of-sale system needs to handle correctly.</p>
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">My Role</h3>
-        <p>I developed the application logic and Streamlit interface. My work included structuring the menu data, building the cart system, handling quantity updates, applying discount rules, calculating GST, generating the final receipt, and testing the app flow.</p>
+        <h3 class="modal-section-heading">Work Process</h3>
+        <p>I structured the app around Streamlit's session state to keep the cart persistent as a user navigates between menu categories without it resetting on every interaction &mdash; the main technical challenge in a multi-page Streamlit app. Discount and GST calculations were built as separate functions from the cart logic itself, so pricing rules could be changed without touching how items are added or removed.</p>
+        <div class="modal-tech-tags">${tags}</div>
+        ${createCodeBlock("python", calculationCode, "Python logic showing how the cart’s subtotal, discount, and 9% GST are calculated in sequence &ndash; discount applied first, then GST on the discounted amount &ndash; before the final receipt is generated line by line.")}
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">What I Built</h3>
-        <p>I built a Streamlit app where users can select food items, choose quantities, manage their cart, apply discount types, and complete checkout. The app calculates the subtotal, discount, GST, and final total before displaying the receipt.</p>
+        <h3 class="modal-section-heading">Outcome &amp; Results</h3>
+        <p>The deployed app handles the full order flow end-to-end: menu browsing &rarr; cart management &rarr; discount application &rarr; GST calculation &rarr; receipt generation, with no manual reset bugs when switching between menu categories.</p>
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2301,14 +2301,6 @@ def build_receipt(cart, discount_name):
         </ul>
         ${createCaseStudyFigure("assets/mcfast-cart-management.png", "McFast cart with itemised order controls and calculated totals", "Cart management screen showing itemised order details, quantity update buttons, remove options, subtotal, GST, discount, and final total.")}
         ${createCaseStudyFigure("assets/mcfast-discount-dropdown.png", "McFast discount dropdown showing None Student Staff and Loyalty Member", "Discount type dropdown expanded, showing all available options - None, Student, Staff, and Loyalty Member - selected here on Staff, which is applied before GST.")}
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Technical Implementation</h3>
-        <p>The project uses Python for the main application logic and Streamlit for the web interface. Menu items and prices are handled in the app so the system can calculate item subtotals, discounts, GST, and the final total.</p>
-        <p>The cart logic keeps track of selected items and quantities before checkout. The checkout flow applies the selected discount first, then calculates GST, and finally generates the receipt.</p>
-        <div class="modal-tech-tags">${tags}</div>
-        ${createCodeBlock("python", calculationCode, "Python logic showing how the cart’s subtotal, discount, and 9% GST are calculated in sequence &ndash; discount applied first, then GST on the discounted amount &ndash; before the final receipt is generated line by line.")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2334,8 +2326,7 @@ def build_receipt(cart, discount_name):
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Outcome and Future Improvements</h3>
-        <p>The final app demonstrates a working food ordering system with a clear user flow from menu selection to final receipt. It helped me practise Python application logic, Streamlit interface design, cart management, and calculation accuracy.</p>
+        <h3 class="modal-section-heading">Future Improvements</h3>
         <p>Future improvements: add a database to store menu items, prices, customer orders, and order history instead of keeping the data only inside the app code; add an admin panel so menu items, prices, and discounts can be updated without editing the source code directly; improve the receipt system by allowing users to download the final receipt as a PDF or text file; improve the app interface with food images, order numbers, a cleaner checkout page, and stronger visual styling.</p>
       </section>
 
@@ -3456,7 +3447,7 @@ function createConstructionModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">My Role</h3>
-        <p>This was a four-person project. My responsibility was <strong>data pipeline integration and detector analysis</strong> — the path from raw sensor bytes to a stored, auditable safety event.</p>
+        <p>This is my EG2A17 Data Engineering Project — a four-person team project. My responsibility was <strong>data pipeline integration and detector analysis</strong> — the path from raw sensor bytes to a stored, auditable safety event.</p>
         <p>Three parts: the Python gateway that ingests and validates BLE packets, the feature engineering that reduces six raw axes to four usable signals, and the threshold calibration and validation behind the detection rule itself.</p>
         ${shot("04-raw-sensor-data-sample", "png", 714, 347,
           "Table of raw sensor capture showing timestamp, elapsed seconds, sample interval and six motion axes",
