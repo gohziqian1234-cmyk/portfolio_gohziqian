@@ -390,6 +390,7 @@ async function runBaseConfig(browser, config) {
   };
 
   const page = await browser.newPage({ viewport: { width: config.viewport.width, height: config.viewport.height } });
+  await stubExternalFonts(page);
   wireErrorCollection(page, result);
 
   try {
@@ -423,6 +424,14 @@ function wireErrorCollection(page, result) {
     if (message.type() === "warning") result.consoleWarnings.push(text);
   });
   page.on("pageerror", (error) => result.exceptions.push(error.message));
+}
+
+async function stubExternalFonts(page) {
+  await page.route("https://fonts.googleapis.com/**", (route) => route.fulfill({
+    status: 200,
+    contentType: "text/css; charset=utf-8",
+    body: ""
+  }));
 }
 
 async function saveFailureScreenshot(page, id) {
@@ -464,6 +473,7 @@ async function runInteractionConfig(browser, config) {
   };
 
   const page = await browser.newPage({ viewport: { width: config.viewport.width, height: config.viewport.height } });
+  await stubExternalFonts(page);
   wireErrorCollection(page, result);
 
   try {
@@ -658,15 +668,15 @@ async function checkProjectSequenceNavigation(page, result) {
 
   if (sequenceState.cards.length !== 2) result.failures.push(`McFast sequence nav expected 2 cards, saw ${sequenceState.cards.length}`);
   if (!sequenceState.labels.includes("Software Project")) result.failures.push("McFast sequence nav missing Software Project label");
-  if (!sequenceState.labels.includes("Hardware Project")) result.failures.push("McFast sequence nav missing Hardware Project label for the next project");
+  if (sequenceState.labels.filter((label) => label === "Software Project").length !== 2) result.failures.push("McFast sequence nav should label both adjacent projects as Software Project");
   if (!sequenceState.cards.some((card) => card.target === "erebus")) result.failures.push("McFast sequence nav missing previous Erebus card");
-  if (!sequenceState.cards.some((card) => card.target === "construction")) result.failures.push("McFast sequence nav missing next NESSO card");
+  if (!sequenceState.cards.some((card) => card.target === "ecowaste")) result.failures.push("McFast sequence nav missing next EcoWaste card");
 
-  await page.click('[data-project-nav="construction"]');
+  await page.click('[data-project-nav="ecowaste"]');
   await page.waitForTimeout(550);
   const titleAfterNext = await page.locator("#modal-title").innerText();
-  if (!titleAfterNext.includes("NESSO Safety Monitor")) {
-    result.failures.push(`Sequence Next card did not open NESSO modal; saw "${titleAfterNext}"`);
+  if (!titleAfterNext.includes("EcoWaste")) {
+    result.failures.push(`Sequence Next card did not open EcoWaste modal; saw "${titleAfterNext}"`);
   }
 
   await page.click('[data-project-nav="mcfast"]');
@@ -723,8 +733,8 @@ async function checkProjectNavigationArrows(page, result, isMobile) {
     if (arrow.display === "none" || arrow.width < 40 || arrow.height < 40) {
       result.failures.push(`Bottom project arrow ${index + 1} is not visibly sized`);
     }
-    if (arrow.opacity < 0.68 || arrow.opacity > 0.76) {
-      result.failures.push(`Bottom project arrow ${index + 1} default opacity should be visibly present at about 72%, saw ${arrow.opacity}`);
+    if (arrow.opacity < 0.5 || arrow.opacity > 0.6) {
+      result.failures.push(`Bottom project arrow ${index + 1} default opacity should be visibly present at about 55%, saw ${arrow.opacity}`);
     }
   });
 
@@ -738,8 +748,8 @@ async function checkProjectNavigationArrows(page, result, isMobile) {
 
   const pairs = [
     { from: "piano", fromTitle: "Alien Piano", toTitle: "Erebus" },
-    { from: "mcfast", fromTitle: "McFast", toTitle: "NESSO Safety Monitor" },
-    { from: "construction", fromTitle: "Construction", toTitle: "Motor-Assisted Wheelchair" }
+    { from: "mcfast", fromTitle: "McFast", toTitle: "EcoWaste" },
+    { from: "construction", fromTitle: "Construction", toTitle: "Alien Piano" }
   ];
 
   for (const pair of pairs) {
@@ -1112,7 +1122,7 @@ async function checkIoTCaseStudy(page, result) {
     "Buzzer activated when temperature, light, or water conditions were unsuitable",
     "LED brightness increased in darker conditions",
     "LED brightness decreased in brighter conditions",
-    "Low water level was detected and activated the alert",
+    "The system detected a low water level and activated the alert",
     "Manual rotary input overrode automatic LED control",
     "Rotary input adjusted LED brightness according to user preference"
   ];

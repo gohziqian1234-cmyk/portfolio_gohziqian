@@ -3,7 +3,6 @@
   Structure: shared navigation/menu behavior, page transitions, scroll reveal,
   timeline progress, projects tabs/modals, contact form validation, cursor,
   and the lightweight hero neural canvas.
-  Replace project URLs/details in PROJECTS when final links are ready.
 */
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -29,15 +28,9 @@ const PROJECTS = {
     video: "assets/videos/piano-tiles-gameplay.mp4",
     poster: "images/piano-tiles-poster.svg",
     description: "Solo project – Designed and built the game logic, Canvas rendering, scoring system, keyboard controls, and difficulty progression.",
-    problem: "Build a fast-paced, timing-based reactive game to practise real-time input handling, collision detection, and game-state/score management in the browser.",
-    approachHtml: "Designed a tile-spawning system with increasing difficulty, scoring logic based on accuracy and speed, and a game loop handling player input with JavaScript and HTML5 Canvas. An additional <span class=\"inline-status inline-status-progress\">IN PROGRESS</span> Alien Invasion arcade mode was started as a companion project within the same repo.",
-    results: "Fully playable Alien Piano Tiles game with scoring and increasing difficulty; Alien Invasion mode in active development.",
-    // CONFIRM: exact tech stack if different.
     tags: ["HTML", "CSS", "JavaScript", "HTML5 Canvas"],
     github: "https://github.com/gohziqian1234-cmyk/piano-tiles-alien-",
-    // CONFIRM: GitHub Pages must be enabled in repo Settings > Pages, then update this URL if GitHub gives a different address.
-    playUrl: "https://gohziqian1234-cmyk.github.io/piano-tiles-alien-/",
-    gallery: ["images/project-piano-tiles.svg", "images/project-alien-invasion.svg"]
+    playUrl: "https://gohziqian1234-cmyk.github.io/piano-tiles-alien-/"
   },
   erebus: {
     category: "software",
@@ -50,17 +43,9 @@ const PROJECTS = {
     video: "assets/videos/erebus-7-gameplay.mp4",
     poster: "images/erebus-7-poster.svg",
     description: "Solo project – Built the detection system, difficulty scaling, resource logic, story progression, and interactive gameplay flow.",
-    problem: "Design and build a narrative-driven stealth game exploring tension, suspicion mechanics, and atmosphere - combining storytelling with gameplay systems.",
-    // CONFIRM/EXPAND: add specific mechanics, e.g. suspicion meter, dialogue choices, level design details once available.
-    approach: "Built core stealth/suspicion mechanics, narrative pacing, and atmospheric presentation to create a tense single-player horror experience.",
-    // CONFIRM: any additional results, e.g. number of levels/chapters.
-    results: "Completed playable single-player game with full narrative arc.",
-    // CONFIRM: actual stack.
     tags: ["HTML", "CSS", "JavaScript", "HTML5 Canvas"],
     github: "https://github.com/gohziqian1234-cmyk/erebus-7",
-    // CONFIRM: GitHub Pages must be enabled in repo Settings > Pages, then update this URL if GitHub gives a different address.
-    playUrl: "https://gohziqian1234-cmyk.github.io/erebus-7/",
-    gallery: ["images/project-erebus-7.webp"]
+    playUrl: "https://gohziqian1234-cmyk.github.io/erebus-7/"
   },
   mcfast: {
     category: "software",
@@ -72,7 +57,7 @@ const PROJECTS = {
     modalVariant: "mcfastCaseStudy",
     video: "videos/mcfast-demo.mp4",
     poster: "images/project-mcfast-ordering.svg",
-    description: "An NYP Programming project that turns a fast-food ordering workflow into a complete Streamlit application, from menu browsing and persistent cart management to discounts, 9% GST, and receipt generation. The deployed app handles the full order flow without manual reset bugs when switching menu categories.",
+    description: "An NYP Programming project that turns a fast-food ordering workflow into a complete Streamlit application, from menu browsing and persistent cart management to discounts, 9% GST, and receipt generation. During testing, the cart remained persistent when switching between menu categories.",
     tags: ["Python", "Streamlit", "Cart System", "Session State", "Discount Logic", "GST Calculation", "Receipt Generation", "Testing"],
     github: "https://github.com/gohziqian1234-cmyk/mcfast_app",
     streamlitUrl: "https://gohziqian1234-cmyk-mcfast-app-app-hrwj7l.streamlit.app/",
@@ -89,10 +74,9 @@ const PROJECTS = {
     reportUrl: "assets/EcoWaste-Report-A4.pdf",
     presentationUrl: "assets/EcoWaste-Presentation.pdf",
     dashboardUrl: "assets/EcoWaste-PowerBI-Dashboard-ZiQian.pbix",
-    description: "Group data-analytics project investigating Singapore’s waste generation and recycling trends. Built the OECD international benchmarking dashboard and developed the Return & Save policy recommendation.",
+    description: "Group data analytics project investigating Singapore’s waste generation and recycling trends. Built the OECD international benchmarking dashboard and developed the Return & Save policy recommendation.",
     tags: ["Python", "Power BI", "Data Cleaning", "Data Visualisation", "Forecasting", "Policy Benchmarking"],
-    github: "",
-    gallery: ["images/ecowaste/return-and-save-scheme-infographic.png"]
+    github: ""
   },
   wheelchair: {
     category: "hardware",
@@ -103,7 +87,7 @@ const PROJECTS = {
     imageAlt: "Completed motor-assisted wheelchair support hardware prototype",
     modalVariant: "wheelchairCaseStudy",
     slidesUrl: "assets/reports/wheelchair-prototype-slides.pdf",
-    tinkercadUrl: "https://www.tinkercad.com/things/3lyqhQ6I2kl-terrific-wolt-kup/editel?returnTo=https%3A%2F%2Fwww.tinkercad.com%2Fdashboard%2Fdesigns%2Fall&sharecode=3Qn25QWAI689o87zddpgFPoEakVv2-UABNXr-nJq8bE",
+    tinkercadUrl: "https://www.tinkercad.com/things/3lyqhQ6I2kl-terrific-wolt-kup?sharecode=3Qn25QWAI689o87zddpgFPoEakVv2-UABNXr-nJq8bE",
     demoUrl: "assets/videos/wheelchair-prototype-demo.mp4",
     demoPoster: "images/wheelchair-demo-poster.jpg",
     pitchUrl: "assets/videos/wheelchair-pitch.mp4",
@@ -125,17 +109,9 @@ const PROJECTS = {
     demoUrl: "assets/videos/iot-smart-plant-monitoring-demo.mp4",
     demoPoster: "images/iot-plant-monitoring-demo-poster.jpg",
     diagram: "images/iot-system-architecture.svg",
-    description: "Automated indoor farming system using Arduino, Raspberry Pi, sensors, MariaDB, and Flask to monitor plant conditions and alert users when the environment is unsuitable.",
-    // CONFIRM/EXPAND: specific goals, e.g. automated watering, temperature alerts.
-    problem: "Reduce manual indoor farming monitoring by using IoT technology to provide real-time feedback, automatic light adjustment, and alerts when plant conditions are unsuitable.",
-    // ADD: describe system - sensors used, how data is collected/displayed (e.g. LCD screen, app, serial monitor), any automated actuators (water pump, fan, etc.).
-    approach: "Arduino collects temperature, light, water level, and manual control readings, then sends processed data to Raspberry Pi for MariaDB storage and Flask web monitoring.",
-    // ADD: outcome - e.g. successfully monitors temp/humidity/soil moisture in real-time, automated irrigation triggers at threshold X.
-    results: "The system monitored temperature, light intensity, and water level in real time, adjusted LED brightness, triggered alerts, stored sensor data, and displayed readings through Flask.",
-    // CONFIRM: exact components/tech (e.g. soil moisture sensor, DHT22 temp/humidity sensor, relay for irrigation, ESP32 for WiFi connectivity).
-    tags: ["Arduino", "Raspberry Pi", "IoT", "Sensors", "MariaDB", "Flask", "Python", "Sustainability"],
-    github: "",
-    gallery: ["images/project-smart-greenhouse.svg", "images/project-smart-greenhouse-build.svg", "images/project-smart-greenhouse-testing.svg"]
+    description: "IoT plant monitoring and alert system using Arduino, Raspberry Pi, sensors, MariaDB and Flask, with automatic LED adjustment based on light conditions.",
+    tags: ["Arduino", "Raspberry Pi", "IoT", "Sensors", "MariaDB", "Flask", "Python"],
+    github: ""
   },
   keychain: {
     category: "hardware",
@@ -172,7 +148,7 @@ const PROJECTS = {
   }
 };
 
-const PROJECT_ORDER = ["ecowaste", "piano", "erebus", "mcfast", "construction", "wheelchair", "greenhouse", "keychain"];
+const PROJECT_ORDER = ["piano", "erebus", "mcfast", "ecowaste", "wheelchair", "greenhouse", "keychain", "construction"];
 
 const ABOUT_DETAILS = {
   takashimaya: {
@@ -192,7 +168,7 @@ const ABOUT_DETAILS = {
       {
         title: "A Typical Shift",
         paragraphs: [
-          "During morning shifts, I usually report at 9:30am and attend the Takashimaya morning briefing conducted by the management team. After the briefing, I prepare the counter for daily operations by cleaning the display area, opening the sales system, checking stock, arranging products, and making sure the counter is ready before customers arrive. This taught me the importance of preparation, consistency, and maintaining a professional retail environment."
+          "During morning shifts, I usually report at 9:30 a.m. and attend the Takashimaya morning briefing conducted by the management team. After the briefing, I prepare the counter for daily operations by cleaning the display area, opening the sales system, checking stock, arranging products, and making sure the counter is ready before customers arrive. This taught me the importance of preparation, consistency, and maintaining a professional retail environment."
         ]
       },
       {
@@ -255,7 +231,7 @@ const ABOUT_DETAILS = {
       {
         title: "The Event",
         paragraphs: [
-          "I volunteered at the Singapore Citizenship Ceremony held at Cheng San Community Club. The event ran from around 9am to 5pm and consisted of two ceremony sessions attended by newly approved Singapore citizens and their families. The ceremony was an important occasion that celebrated their official integration into Singapore society and recognised their commitment to becoming part of the nation."
+          "I volunteered at the Singapore Citizenship Ceremony held at Cheng San Community Club. The event ran from around 9 a.m. to 5 p.m. and consisted of two ceremony sessions attended by newly approved Singapore citizens and their families. The ceremony was an important occasion that celebrated their official integration into Singapore society and recognised their commitment to becoming part of the nation."
         ],
         figure: {
           file: "volunteer-citizenship", extension: "jpg", width: 1400, height: 788,
@@ -1127,11 +1103,9 @@ function reorderProjectCards() {
     const category = grid.dataset.projectGrid;
     const orderedKeys = PROJECT_ORDER.filter((key) => PROJECTS[key]?.category === category);
 
-    orderedKeys.forEach((key, index) => {
+    orderedKeys.forEach((key) => {
       const card = $(`[data-project-card][data-open-project="${key}"]`, grid);
       if (!card) return;
-      const number = $('.project-number', card);
-      if (number) number.textContent = String(index + 1).padStart(2, '0');
       grid.appendChild(card);
     });
   });
@@ -1317,12 +1291,13 @@ function initProjectModal() {
 
   document.addEventListener("keydown", (event) => {
     if (!modal.classList.contains("active")) return;
+    if ($("#image-lightbox")?.classList.contains("active")) return;
     if (event.key === "Escape") {
       closeModal();
       return;
     }
     trapFocus(event);
-  });
+  }, true);
 
   const requestedProjectKey = new URLSearchParams(window.location.search).get("project");
   if (requestedProjectKey && PROJECTS[requestedProjectKey]) {
@@ -1810,9 +1785,10 @@ function createModalMarkup(project) {
   `;
 }
 
-function createRoleSection(projectType, role, body) {
+function createRoleSection(projectType, role, body, heading = "") {
   return `
     <section class="modal-section modal-role-section">
+      ${heading ? `<h3 class="modal-section-heading">${escapeHtml(heading)}</h3>` : ""}
       <div class="modal-role-meta">
         <div class="role-meta-item">
           <span class="role-meta-label">Project Type</span>
@@ -1833,7 +1809,8 @@ function createPianoModalMarkup(project) {
   const roleSection = createRoleSection(
     "Solo Software Project",
     "Game Developer / Front-End Developer",
-    "I designed and developed the game logic, tile spawning system, keyboard input controls, scoring system, streak multiplier, lives system, and game state flow. I also worked on the visual feedback, difficulty progression, testing, and debugging to make the game feel responsive and playable."
+    "I designed and developed the game logic, tile spawning system, keyboard input controls, scoring system, streak multiplier, lives system, and game state flow. I also worked on the visual feedback, difficulty progression, testing, and debugging to make the game feel responsive and playable.",
+    "My Role & Solution"
   );
   const hitDetectionCode = `function tapLane(lane) {
   if (!game || game.mode !== "running") return;
@@ -1907,19 +1884,15 @@ function updateLevel() {
       ${roleSection}
 
       <div class="modal-media modal-video-frame">
-        <!-- ADD: path to gameplay video file, e.g. /assets/videos/piano-tiles-gameplay.mp4 -->
-        <!-- ADD: path to poster thumbnail image, e.g. /assets/images/piano-tiles-poster.jpg -->
-        <!-- RECOMMENDED VIDEO SPECS: keep the file under ~15-20MB and ideally under 60 seconds; compress with H.264 codec at 720p or 1080p so the portfolio stays fast. -->
         <video class="modal-video" controls playsinline poster="${escapeHtml(project.poster)}" preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
           <source src="${escapeHtml(project.video)}" type="video/mp4">
-          <!-- OPTIONAL: <track kind="captions" src="captions.vtt" srclang="en" label="English"> -->
           Your browser does not support video playback.
         </video>
       </div>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">The Problem</h3>
-        <p>Alien Piano Tiles began as a personal design challenge: create a browser rhythm game that feels immediately understandable while still rewarding timing and concentration. I wanted to combine the familiar four-lane piano-tiles format with an alien visual theme and short-session gameplay that players could enjoy during a break. The main challenge was balancing simplicity with enough speed, scoring, lives, streaks, and progression to keep each run engaging.</p>
+        <h3 class="modal-section-heading">Project Scope / Problem</h3>
+        <p>Alien Piano Tiles began as a personal design challenge: create a browser rhythm game that feels immediately understandable while still rewarding timing and concentration. I wanted to combine the familiar four-lane piano-tiles format with an alien visual theme and gameplay designed for short play sessions. The main challenge was balancing simplicity with enough speed, scoring, lives, streaks, and progression to keep each run engaging.</p>
         ${createCaseStudyFigure("assets/piano-start-screen.png", "Alien Piano Tiles start screen with DFJK controls and Start Mission button", "Start screen showing the purple alien theme, DFJK controls, and Start Mission button.", "is-portrait")}
       </section>
 
@@ -1954,12 +1927,11 @@ function updateLevel() {
           <span class="tech-tag">HTML5 Canvas</span>
         </div>
         ${createCodeBlock("javascript", hitDetectionCode, "JavaScript hit-detection logic showing how the game checks the selected lane, detects whether a tile is within the hit window, updates combo, calculates score, handles bonus tiles, and increases difficulty through level updates.")}
-        ${createEvidenceComingSoon("Bonus-tile miss screenshot coming soon. The supplied gameplay captures do not show the teal diamond bonus tile clearly enough to label as evidence.")}
         ${createCodeBlock("javascript", progressionCode, "Tile-spawning and difficulty-scaling logic - shows how tiles are randomly assigned to lanes, how bonus and hazard tiles are introduced, and how spawn speed increases as the player levels up.")}
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Challenges &amp; How I Overcame Them</h3>
+        <h3 class="modal-section-heading">My Work Process</h3>
         <p>One challenge was making the game feel fair as the tiles became faster. If the timing window was too strict, the game felt frustrating. If it was too loose, the game became too easy. To solve this, I adjusted the hit detection window and added clearer visual feedback so players could understand when they hit or missed a tile. Another challenge was managing different game states, such as ready, playing, paused, and game over. To avoid logic errors, I organised the game around a clear state system so that each action only happens when the game is in the correct state.</p>
         ${createCaseStudyFigure("assets/piano-pause-screen.png", "Alien Piano Tiles paused state with Resume and Restart controls", "Pause screen showing the game state system with resume and restart options.", "is-portrait")}
       </section>
@@ -1979,12 +1951,9 @@ function updateLevel() {
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Outcome</h3>
-        <p>The final result is a simple but engaging rhythm game with increasing difficulty, responsive controls, scoring feedback, and a nostalgic gameplay style. This project helped me understand how real-time interaction, game loops, and user feedback affect the overall player experience.</p>
-        ${createCaseStudyMediaGrid([
-          { src: "assets/piano-game-over.png", alt: "Alien Piano Tiles Mission Failed screen with run statistics and Try Again button", caption: "Game-over screen shown when the player runs out of lives. Displays the run’s final score alongside personal best, streak, level reached, and miss count, with an immediate Try Again button &ndash; closing the loop from Start Mission to Mission Failed.", modifier: "is-portrait" },
-          { src: "assets/piano-mission-failed-summary.png", alt: "Alternate Alien Piano Tiles Mission Failed summary screen", caption: "Alternate Mission Failed summary capture confirming the same score, best-score, tile, streak, level, and miss reporting across the responsive game view.", modifier: "is-portrait" }
-        ], "Alien Piano Tiles outcome screens", "is-portrait-pair")}
+        <h3 class="modal-section-heading">Outcome &amp; Results Achieved</h3>
+        <p>The completed browser game includes scoring, streak multipliers, three lives, increasing difficulty, pause and restart states, and a game-over summary showing score, best score, tiles, streak, level, and misses.</p>
+        ${createCaseStudyFigure("assets/piano-game-over.png", "Alien Piano Tiles Mission Failed screen with run statistics and Try Again button", "Game-over screen shown when the player runs out of lives. It displays the final score, personal best, streak, level reached and miss count, with a Try Again button that restarts the flow.", "is-portrait")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2031,7 +2000,6 @@ const CASE_STUDY_MEDIA_DIMENSIONS = Object.freeze({
   "assets/mcfast-menu-browsing.png": [1877, 815],
   "assets/piano-game-over.png": [522, 822],
   "assets/piano-main-gameplay.png": [535, 866],
-  "assets/piano-mission-failed-summary.png": [510, 870],
   "assets/piano-pause-screen.png": [516, 822],
   "assets/piano-signal-lost.png": [536, 822],
   "assets/piano-start-screen.png": [518, 750]
@@ -2058,10 +2026,6 @@ function createCaseStudyMediaGrid(items, label, variant = "is-landscape-pair") {
       ${items.map((item) => createCaseStudyFigure(item.src, item.alt, item.caption, item.modifier || "")).join("")}
     </div>
   `;
-}
-
-function createEvidenceComingSoon(message) {
-  return `<div class="modal-evidence-pending" role="status"><span aria-hidden="true">+</span>${escapeHtml(message)}</div>`;
 }
 
 function highlightCode(code, language) {
@@ -2102,7 +2066,8 @@ function createErebusModalMarkup(project) {
   const roleSection = createRoleSection(
     "Solo Software Project",
     "Game Developer / Narrative Systems Developer",
-    "I designed and developed the core gameplay systems, including player progression, detection logic, difficulty scaling, resource management, story flow, and game state control. I also worked on the narrative structure, interaction design, testing, and balancing so that the game felt tense but still fair for the player."
+    "I designed and developed the core gameplay systems, including player progression, detection logic, difficulty scaling, resource management, story flow, and game state control. I also worked on the narrative structure, interaction design, testing, and balancing so that the game felt tense but still fair for the player.",
+    "My Role & Solution"
   );
   const inputHandlingCode = `if(k==="v")talk();
 if(k==="e")tryInfect();
@@ -2130,18 +2095,14 @@ if(k==="escape"||k==="p")openPause();`;
       ${roleSection}
 
       <div class="modal-media modal-video-frame">
-        <!-- ADD: path to Erebus-7 gameplay video, e.g. /assets/videos/erebus-7-gameplay.mp4 -->
-        <!-- ADD: path to poster thumbnail, e.g. /assets/images/erebus-7-poster.jpg -->
-        <!-- RECOMMENDED VIDEO SPECS: keep under ~15-20MB, H.264, 720p/1080p, ideally under 60 seconds of representative gameplay. -->
         <video class="modal-video" controls playsinline poster="${escapeHtml(project.poster)}" preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
           <source src="${escapeHtml(project.video)}" type="video/mp4">
-          <!-- OPTIONAL: <track kind="captions" src="captions.vtt" srclang="en" label="English"> -->
           Your browser does not support video playback.
         </video>
       </div>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">The Problem</h3>
+        <h3 class="modal-section-heading">Project Scope / Problem</h3>
         <p>I treated Erebus-7 as a personal design challenge: reinterpret an Among Us-inspired space-station setting as a complete single-player horror-stealth experience. I explored how tasks, patrols, detection, infection mechanics, narrative choices, and survival pressure could keep solo play engaging without depending on other players. The main challenge was creating enough system interaction and pacing to replace the unpredictability that multiplayer participants normally provide.</p>
         ${createCaseStudyFigure("assets/erebus-intro-story.png", "Erebus-7 clear story brief introducing what happened on the station", "Intro screen showing the dark space-station horror atmosphere and narrative setup for Erebus-7: First Skin - \"Erebus-7 is a research station\" title card with Start Audio / Start Transmission options.")}
         ${createCaseStudyFigure("assets/erebus-story-scene.png", "Erebus-7 tutorial story step explaining the premise", "Narrative story-log scene (\"What Happened on Erebus-7\") showing how mission lore and blackbox logs are presented to the player between gameplay segments.")}
@@ -2187,7 +2148,7 @@ if(k==="escape"||k==="p")openPause();`;
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Challenges &amp; Solutions</h3>
+        <h3 class="modal-section-heading">My Work Process</h3>
         <p>One challenge was creating a genuinely scary atmosphere rather than simply making the screen dark. Early versions felt too simple because the player was mostly navigating a map. To improve this, I added detailed room art, horror effects, sound design, story scenes, and frightening events triggered by the player entering certain areas. Another challenge was balancing the detection system. If detection filled too slowly, the game became too easy. If it filled too quickly, the game felt unfair. To solve this, I introduced difficulty modes and adjusted detection range, speed, and cooldown according to the selected mode.</p>
         ${createCaseStudyFigure("assets/erebus-detection-alert.png", "Erebus-7 detection report showing You Were Identified", "Detection and alert system showing \"You Were Identified\" tension moment &ndash; the game’s response when guards, cameras, or scanners notice the player, with retreat/hide options presented.")}
       </section>
@@ -2212,8 +2173,8 @@ if(k==="escape"||k==="p")openPause();`;
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Outcome</h3>
-        <p>The outcome is a playable horror stealth game with a full story theme, several levels, enemies, objectives, sound, and a clear mission flow. This project helped me understand that gameplay is more than controls and rules &mdash; a good game also needs feedback, sound, pacing, story, balance, and clear instructions for the player. Overall, Erebus-7: First Skin became more than a simple prototype. It became a full browser game that is playable on the web and shareable with others.</p>
+        <h3 class="modal-section-heading">Outcome &amp; Results Achieved</h3>
+        <p>The result is a playable browser horror-stealth game with multiple station zones, enemy patrols, objectives, sound, detection mechanics, infection abilities, narrative scenes, tactical-map support, save/load functionality, and web deployment.</p>
         ${createCaseStudyFigure("assets/erebus-ending-detected.png", "Erebus-7 DETECTED failure state with checkpoint and restart options", "\"DETECTED\" failure-state screen showing the detection bar filled to maximum, last objective, current zone/alert level, a next-step tip, and Load Checkpoint / Restart Run options - closing the loop on the stealth-detection system described above.")}
       </section>
 
@@ -2277,7 +2238,6 @@ def build_receipt(cart, discount_name):
       ${roleSection}
 
       <div class="modal-media modal-video-frame">
-        <!-- Demo video file provided by Ziqian and placed at /videos/mcfast-demo.mp4. -->
         <video class="modal-video" controls playsinline poster="${escapeHtml(project.poster)}" preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
           <source src="${escapeHtml(project.video)}" type="video/mp4">
           Your browser does not support video playback.
@@ -2285,8 +2245,8 @@ def build_receipt(cart, discount_name):
       </div>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Project Scope</h3>
-        <p>An NYP Programming project focused on building a complete, deployable application rather than an isolated script &mdash; a fast-food ordering system covering the full customer flow from browsing to receipt.</p>
+        <h3 class="modal-section-heading">Project Scope / Problem</h3>
+        <p>An NYP Programming project focused on maintaining persistent cart state across Streamlit reruns and category navigation, applying discounts before 9% GST, and producing a clear itemised receipt for the complete ordering flow.</p>
         ${createCaseStudyFigure("assets/mcfast-menu-browsing.png", "McFast menu browsing interface with food items quantity controls and empty cart", "Menu browsing screen showing food items, item names, prices, quantity controls, Add buttons, discount selection, and empty cart state.")}
       </section>
 
@@ -2296,15 +2256,15 @@ def build_receipt(cart, discount_name):
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Work Process</h3>
+        <h3 class="modal-section-heading">My Work Process</h3>
         <p>I structured the app around Streamlit's session state to keep the cart persistent as a user navigates between menu categories without it resetting on every interaction &mdash; the main technical challenge in a multi-page Streamlit app. Discount and GST calculations were built as separate functions from the cart logic itself, so pricing rules could be changed without touching how items are added or removed.</p>
         <div class="modal-tech-tags">${tags}</div>
         ${createCodeBlock("python", calculationCode, "Python logic showing how the cart’s subtotal, discount, and 9% GST are calculated in sequence &ndash; discount applied first, then GST on the discounted amount &ndash; before the final receipt is generated line by line.")}
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Outcome &amp; Results</h3>
-        <p>The deployed app handles the full order flow end-to-end: menu browsing &rarr; cart management &rarr; discount application &rarr; GST calculation &rarr; receipt generation, with no manual reset bugs when switching between menu categories.</p>
+        <h3 class="modal-section-heading">Outcome &amp; Results Achieved</h3>
+        <p>The deployed app handles the full order flow end-to-end: menu browsing &rarr; cart management &rarr; discount application &rarr; GST calculation &rarr; receipt generation. During testing, the cart remained persistent when switching between menu categories.</p>
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2315,7 +2275,7 @@ def build_receipt(cart, discount_name):
           <li>Cart display with itemised order summary</li>
           <li>Update or remove cart items</li>
           <li>Discount options for Student, Staff, Loyalty Member, or None</li>
-          <li>9 percent GST calculation</li>
+          <li>9% GST calculation</li>
           <li>Final receipt generation</li>
           <li>Browser-based interface using Streamlit</li>
         </ul>
@@ -2340,14 +2300,19 @@ def build_receipt(cart, discount_name):
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Testing Evidence</h3>
-        <p>Tested adding different items and quantities into the cart. Tested updating and removing cart items. Tested checkout with different discount types. Tested 9 percent GST calculation after discount. Tested receipt generation after checkout.</p>
+        <p>Testing covered adding items and quantities, updating/removing cart items, multiple discount types, 9% GST after discount, cart reset behaviour and receipt generation.</p>
         ${createCaseStudyFigure("assets/mcfast-empty-cart.png", "McFast cleared cart empty state", "Cleared cart screen showing that the app can reset the order and return the user to an empty-cart state.", "is-compact")}
         ${createCaseStudyFigure("assets/mcfast-final-receipt.png", "McFast final receipt with subtotal discount GST and total", "Final receipt screen showing selected items, subtotal, discount type, GST calculation, final total, and receipt output.", "is-compact")}
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Future Improvements</h3>
-        <p>Future improvements: add a database to store menu items, prices, customer orders, and order history instead of keeping the data only inside the app code; add an admin panel so menu items, prices, and discounts can be updated without editing the source code directly; improve the receipt system by allowing users to download the final receipt as a PDF or text file; improve the app interface with food images, order numbers, a cleaner checkout page, and stronger visual styling.</p>
+        <ul class="modal-feature-list">
+          <li>Add a database for menu items, prices, customer orders, and order history.</li>
+          <li>Add an admin panel for updating menu items, prices, and discounts without editing source code.</li>
+          <li>Allow users to download the final receipt as a PDF or text file.</li>
+          <li>Add food images, order numbers, and a clearer checkout interface.</li>
+        </ul>
       </section>
 
       <section class="modal-action-block" aria-label="McFast project links">
@@ -2425,7 +2390,8 @@ function createPlantCaseStudyMarkup(project) {
   const roleSection = createRoleSection(
     "Team Project",
     "Co-developer / IoT System Developer",
-    "I contributed to the development of the IoT plant monitoring system, including sensor integration, Arduino logic, Raspberry Pi data handling, MariaDB database implementation, Flask web monitoring, testing, troubleshooting, and system documentation."
+    "The team built a plant monitoring and alert system that connects sensor readings, hardware responses, database storage, and a web interface. I contributed to sensor integration, Arduino logic, testing, troubleshooting, and documentation, and supported Raspberry Pi data handling, MariaDB, and Flask integration.",
+    "My Role & Solution"
   );
 
   return `
@@ -2451,17 +2417,15 @@ function createPlantCaseStudyMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Project Scope / Problem</h3>
-        <p>An automated indoor farming monitoring system designed to track plant-growing conditions in real time. The system monitors temperature, light intensity, and water level using sensors, then provides alerts, automatic LED control, database storage, and web-based monitoring.</p>
-        <p>This project connects hardware, software, database management, and web development into one complete IoT solution for sustainable indoor farming.</p>
+        <p>An IoT plant monitoring and alert system designed to track temperature, light intensity, and water level in real time, then provide alerts, automatic LED control, database storage, and web-based monitoring.</p>
+        <p>The team connected hardware sensing, Arduino control, Raspberry Pi data handling, database storage, and a Flask interface into one prototype workflow.</p>
         ${createProjectCaseFigure(IOT_MEDIA.hardwareSetup)}
-        <p>Singapore has limited land for agriculture and aims to strengthen food security by increasing local food production. Indoor farming and vertical farming can help, but they require stable growing conditions &mdash; suitable temperature, sufficient light, and enough water.</p>
-        <p>In many indoor farming setups, these conditions are still checked manually. This can lead to delayed responses, inconsistent plant care, inefficient resource use, and weaker plant growth. Vertical farming can also create uneven lighting, where upper plants block light from reaching lower plants.</p>
-        <p>This project was built to reduce manual monitoring by using IoT technology to provide real-time feedback, automatic light adjustment, and alerts when plant conditions are unsuitable.</p>
+        <p>The project brief required the team to monitor whether temperature, light, and water conditions stayed within defined ranges. The prototype was built to reduce repeated manual checking by displaying live readings, adjusting the LED automatically, and alerting the user when a tested condition was unsuitable.</p>
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">My Role &amp; Solution</h3>
-        <p>The team built an automated plant monitoring and alert system that connects sensor readings, hardware responses, database storage, and a web interface. I contributed to sensor integration, Arduino logic, Raspberry Pi data handling, MariaDB implementation, Flask monitoring, testing, troubleshooting, and documentation.</p>
+        <h3 class="modal-section-heading">My Work Process</h3>
+        <p>I worked from the required monitoring conditions to sensor and Arduino integration, then supported the Raspberry Pi data-handling path, MariaDB storage, and Flask display before testing and refining the combined prototype.</p>
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2529,7 +2493,6 @@ function createPlantCaseStudyMarkup(project) {
           <span class="tech-tag">MariaDB</span>
           <span class="tech-tag">Flask</span>
           <span class="tech-tag">Python</span>
-          <span class="tech-tag">Sustainability</span>
         </div>
         ${createProjectCaseFigure(IOT_MEDIA.pinMap)}
         <div class="modal-case-media-grid is-equal-media is-document-safe is-landscape-pair" role="group" aria-label="Arduino to Raspberry Pi data transfer evidence">
@@ -2556,7 +2519,7 @@ function createPlantCaseStudyMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Testing &amp; Results</h3>
-        <p>The system was tested under different environmental conditions to verify each function worked correctly. Test cases checked whether:</p>
+        <p>The system was tested under different environmental conditions to verify that each function worked correctly. Test cases checked whether:</p>
         <div class="modal-table-wrapper">
           <table class="modal-data-table">
             <thead><tr><th>Test</th><th>Checked</th><th>Result</th></tr></thead>
@@ -2565,25 +2528,23 @@ function createPlantCaseStudyMarkup(project) {
               <tr><td>Buzzer activated when temperature, light, or water conditions were unsuitable</td><td>&#10003;</td><td>Passed</td></tr>
               <tr><td>LED brightness increased in darker conditions</td><td>&#10003;</td><td>Passed</td></tr>
               <tr><td>LED brightness decreased in brighter conditions</td><td>&#10003;</td><td>Passed</td></tr>
-              <tr><td>Low water level was detected and activated the alert</td><td>&#10003;</td><td>Passed</td></tr>
+              <tr><td>The system detected a low water level and activated the alert</td><td>&#10003;</td><td>Passed</td></tr>
               <tr><td>Manual rotary input overrode automatic LED control</td><td>&#10003;</td><td>Passed</td></tr>
               <tr><td>Rotary input adjusted LED brightness according to user preference</td><td>&#10003;</td><td>Passed</td></tr>
             </tbody>
           </table>
         </div>
-        <p>The system successfully responded to these test conditions, showing that the hardware, software, database, and web interface could work together as one complete IoT system.</p>
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Outcome &amp; Results Achieved</h3>
         <p>The prototype passed all 7 defined functional test cases, covering alert behaviour under suitable and unsuitable conditions, automatic LED adjustment for darker and brighter conditions, low-water detection, manual override, and rotary-input brightness control.</p>
         <p>Passing these specific functional checks demonstrates that the prototype operated as designed under the tested conditions; it does not establish long-term reliability, measurement accuracy, scalability, or real-world farming effectiveness.</p>
-        <p>This project helped me understand how hardware, software, databases, and web technologies can be integrated into a practical IoT solution &mdash; and how technology can support more efficient and sustainable indoor farming.</p>
-        <div class="modal-case-media-grid is-equal-media is-document-safe is-landscape-pair" role="group" aria-label="Final IoT system evidence">
-          ${createProjectCaseFigure(IOT_MEDIA.hardwareSetup)}
-          ${createProjectCaseFigure(IOT_MEDIA.flaskInterface)}
-        </div>
-        <p class="modal-media-caption">Final system evidence showing the completed IoT workflow from sensor monitoring to web-based data display.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">What I Learned</h3>
+        <p>This project strengthened my understanding of how sensor hardware, Arduino logic, serial communication, database storage, and a web interface can be tested as one connected IoT workflow.</p>
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2598,184 +2559,14 @@ function createPlantCaseStudyMarkup(project) {
           <li>IoT system design</li><li>Sensor integration</li><li>Arduino programming</li>
           <li>Raspberry Pi data processing</li><li>Serial communication</li><li>Python scripting</li>
           <li>MariaDB database implementation</li><li>Flask web development</li><li>Real-time monitoring</li>
-          <li>Testing and troubleshooting</li><li>Sustainability-focused engineering</li>
+          <li>Testing and troubleshooting</li>
         </ul>
       </section>
 
       <section class="modal-action-block" aria-label="Project report and demo">
-        <!-- REPORT: converted from the co-authored DOCX project report to a web-friendly PDF. -->
-        <!-- DEMO: linked to the provided project demo MP4. -->
         <div class="modal-actions modal-action-row">
           <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.reportUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action><span aria-hidden="true">PDF</span>View Full Report</a>
           <a class="modal-action-button modal-play-button btn-primary" href="${escapeHtml(project.demoUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action><span aria-hidden="true">&#9654;</span>Watch Demo</a>
-        </div>
-        <p class="modal-coauthor-note">Co-authored with Li Heng as a joint project submission.</p>
-        <p class="modal-link-helper modal-helper-text">Opens in a new tab &mdash; this portfolio stays open here, so you can switch back anytime.</p>
-      </section>
-    </article>
-  `;
-}
-
-function createPlantModalMarkup(project) {
-  const roleSection = createRoleSection(
-    "Team Project",
-    "Co-developer / IoT System Developer",
-    "I contributed to the development of the IoT plant monitoring system, including sensor integration, Arduino logic, Raspberry Pi data handling, MariaDB database implementation, Flask web monitoring, testing, troubleshooting, and system documentation."
-  );
-
-  return `
-    <article class="project-modal-body project-modal-body-long">
-      <header class="modal-project-hero modal-case-header">
-        <p class="modal-eyebrow section-kicker dark">Project</p>
-        <h2 class="modal-title" id="modal-title">${escapeHtml(project.title)}</h2>
-        <p>${escapeHtml(project.description)}</p>
-      </header>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Overview</h3>
-        <p>An automated indoor farming monitoring system designed to track plant-growing conditions in real time. The system monitors temperature, light intensity, and water level using sensors, then provides alerts, automatic LED control, database storage, and web-based monitoring.</p>
-        <p>This project connects hardware, software, database management, and web development into one complete IoT solution for sustainable indoor farming.</p>
-      </section>
-
-      ${roleSection}
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Demo Video</h3>
-        <div class="modal-media modal-video-frame">
-          <video class="modal-video" controls playsinline poster="${escapeHtml(project.demoPoster)}" preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
-            <source src="${escapeHtml(project.demoUrl)}" type="video/mp4">
-            Your browser does not support video playback.
-          </video>
-        </div>
-        <p class="modal-media-caption">Project demo showing sensor readings, hardware responses, database storage, and the web monitoring workflow.</p>
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">The Problem</h3>
-        <p>Singapore has limited land for agriculture and aims to strengthen food security by increasing local food production. Indoor farming and vertical farming can help, but they require stable growing conditions - suitable temperature, sufficient light, and enough water.</p>
-        <p>In many indoor farming setups, these conditions are still checked manually. This can lead to delayed responses, inconsistent plant care, inefficient resource use, and weaker plant growth. Vertical farming can also create uneven lighting, where upper plants block light from reaching lower plants.</p>
-        <p>This project was built to reduce manual monitoring by using IoT technology to provide real-time feedback, automatic light adjustment, and alerts when plant conditions are unsuitable.</p>
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">What I Built</h3>
-        <p>We built an automated plant monitoring and alert system that uses sensors to check whether the plant environment is suitable for growth. The system uses:</p>
-        <ul class="modal-feature-list">
-          <li>A Grove temperature sensor to monitor whether the temperature is within the 20&deg;C-35&deg;C suitable range</li>
-          <li>A Grove light sensor to measure ambient light intensity</li>
-          <li>An ultrasonic sensor to estimate water level by measuring distance to the water surface</li>
-          <li>A rotary angle sensor to allow manual LED brightness control</li>
-          <li>An LED to simulate grow-light adjustment</li>
-          <li>A buzzer to alert users when conditions are not suitable</li>
-          <li>A 16&times;2 LCD display to show real-time readings and status</li>
-          <li>Arduino to collect sensor data and control outputs</li>
-          <li>Raspberry Pi to receive and process data</li>
-          <li>MariaDB to store sensor readings</li>
-          <li>Flask to display recorded data on a web interface</li>
-        </ul>
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Key Features</h3>
-        <ul class="modal-feature-list">
-          <li>Real-time temperature monitoring</li>
-          <li>Light intensity monitoring</li>
-          <li>Water level detection</li>
-          <li>Automatic LED brightness adjustment</li>
-          <li>Manual LED brightness override</li>
-          <li>LCD display for live plant condition feedback</li>
-          <li>Buzzer alert for unsuitable conditions</li>
-          <li>Serial communication between Arduino and Raspberry Pi</li>
-          <li>MariaDB database storage</li>
-          <li>Flask web interface for monitoring recorded data</li>
-        </ul>
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">System Architecture</h3>
-        <div class="modal-diagram">
-          <!-- DIAGRAM: extracted/replaced with the project architecture flowchart image. -->
-          <img src="${escapeHtml(project.diagram)}" alt="System architecture flowchart showing data flow from sensors through Arduino, Raspberry Pi, MariaDB, to the Flask web interface" loading="lazy" width="1200" height="520">
-        </div>
-        <p>The Arduino collects data from the temperature sensor, light sensor, ultrasonic sensor, and rotary angle sensor. It processes the readings, controls the LED and buzzer, and displays the status on the LCD screen.</p>
-        <p>The processed data is then sent to the Raspberry Pi through serial communication. The Raspberry Pi stores the readings in a MariaDB database and displays the data through a Flask web page, allowing users to view plant condition data more clearly and use it for future analysis.</p>
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Technical Implementation</h3>
-        <p>The system uses predefined thresholds to decide whether the environment is suitable for plant growth.</p>
-        <p>The temperature condition is suitable when the reading is between 20&deg;C and 35&deg;C. The light condition is evaluated using effective light, which combines ambient light and LED brightness - if the light level is too low, LED brightness increases automatically; if there’s enough light, brightness decreases to save energy.</p>
-        <p>The ultrasonic sensor measures the distance between the sensor and the water surface. If the distance is too high, the system treats the water level as low and activates an alert. The rotary angle sensor allows the user to manually override the automatic LED control when needed.</p>
-        <div class="modal-tech-tags">
-          <span class="tech-tag">Arduino</span>
-          <span class="tech-tag">Raspberry Pi</span>
-          <span class="tech-tag">IoT</span>
-          <span class="tech-tag">Sensors</span>
-          <span class="tech-tag">MariaDB</span>
-          <span class="tech-tag">Flask</span>
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">Sustainability</span>
-        </div>
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Testing & Results</h3>
-        <p>The system was tested under different environmental conditions to verify each function worked correctly. Test cases checked whether:</p>
-        <ul class="modal-feature-list">
-          <li>The buzzer stayed off when all conditions were suitable</li>
-          <li>The buzzer activated when temperature, light, or water level was unsuitable</li>
-          <li>LED brightness increased in darker conditions</li>
-          <li>LED brightness decreased in brighter conditions</li>
-          <li>Low water level was detected correctly</li>
-          <li>Manual LED control overrode automatic brightness adjustment</li>
-        </ul>
-        <p>The system successfully responded to these test conditions, showing that the hardware, software, database, and web interface could work together as one complete IoT system.</p>
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Skills Demonstrated</h3>
-        <ul class="modal-feature-list modal-skills-list">
-          <li>IoT system design</li>
-          <li>Sensor integration</li>
-          <li>Arduino programming</li>
-          <li>Raspberry Pi data processing</li>
-          <li>Serial communication</li>
-          <li>Python scripting</li>
-          <li>MariaDB database implementation</li>
-          <li>Flask web development</li>
-          <li>Real-time monitoring</li>
-          <li>Testing and troubleshooting</li>
-          <li>Sustainability-focused engineering</li>
-        </ul>
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Outcome</h3>
-        <p>The final system successfully monitored temperature, light intensity, and water level in real time. It could automatically adjust LED brightness, alert users when plant conditions were unsuitable, store sensor data in a database, and display the readings through a Flask web interface.</p>
-        <p>This project helped me understand how hardware, software, databases, and web technologies can be integrated into a practical IoT solution - and how technology can support more efficient and sustainable indoor farming.</p>
-      </section>
-
-      <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Future Improvements</h3>
-        <p>Although the system successfully monitors temperature, light intensity, and water level in real time, the current version mainly provides alerts when conditions are not suitable. A stronger future version could respond automatically instead of only notifying the user.</p>
-        <p>The first improvement would be an automatic watering system. At the moment, the ultrasonic sensor can detect when the water level is low and trigger an alert, but the user still needs to refill the water manually. A future version could include a water pump that automatically adds water when the level falls below the acceptable range.</p>
-        <p>The second improvement would be automatic temperature control. The current system can detect when the temperature is below 20&deg;C or above 35&deg;C and activate the buzzer, but it does not directly control the temperature. A future version could include a fan, heater, or cooling system to automatically adjust the temperature and keep the plant environment within the suitable range.</p>
-        <p>The third improvement would be a stronger web dashboard. The current Flask web interface displays recorded sensor data in a table format. A future version could improve this by adding charts, trend analysis, and warning history so users can understand how the plant environment changes over time.</p>
-        <p>Overall, the next version should move from a monitoring-and-alert system to a more complete automated control system. This would reduce manual work further, improve plant growth consistency, and make the system more useful for real indoor farming.</p>
-      </section>
-
-      <section class="modal-action-block" aria-label="Project report and demo">
-        <!-- REPORT: converted from the co-authored DOCX project report to a web-friendly PDF. -->
-        <!-- DEMO: linked to the provided project demo MP4. -->
-        <div class="modal-actions modal-action-row">
-          <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.reportUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
-            <span aria-hidden="true">PDF</span>
-            View Full Report
-          </a>
-          <a class="modal-action-button modal-play-button btn-primary" href="${escapeHtml(project.demoUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
-            <span aria-hidden="true">&#9654;</span>
-            Watch Demo
-          </a>
         </div>
         <p class="modal-coauthor-note">Co-authored with Li Heng as a joint project submission.</p>
         <p class="modal-link-helper modal-helper-text">Opens in a new tab &mdash; this portfolio stays open here, so you can switch back anytime.</p>
@@ -2902,8 +2693,9 @@ function createAnnotatedProjectCaseFigure(media, annotations) {
 function createWheelchairModalMarkup(project) {
   const roleSection = createRoleSection(
     "Team Project",
-    "Technical Lead / Prototype Developer",
-    "I led the main technical development and refinement of the prototype. My contribution included planning the solution, building and integrating the hardware components, developing the Arduino control logic, testing the system, identifying design weaknesses, and refining the final prototype."
+    "Prototype Developer / Hardware Integration",
+    "I contributed to solution planning, hardware assembly and integration, Arduino control logic, prototype testing, identification of design weaknesses, and refinement of the final prototype.",
+    "My Role & Solution"
   );
 
   return `
@@ -2929,14 +2721,14 @@ function createWheelchairModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Overview</h3>
-        <p>An assistive hardware prototype designed to support self-propelled wheelchair users when travelling on slopes. The system combines motor assistance, adjustable speed control, ultrasonic obstacle detection, buzzer feedback, and switch control to reduce user effort and improve safety awareness.</p>
+        <p>An assistive hardware prototype designed to support self-propelled wheelchair users when travelling on slopes. The system combines motor assistance, adjustable speed control, ultrasonic obstacle detection, buzzer feedback, and switch control, with motor assistance intended to reduce user effort.</p>
         ${createProjectCaseFigure(WHEELCHAIR_MEDIA.overviewAssembly)}
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Problem / Brief</h3>
-        <p>Self-propelled wheelchair users face greater difficulty when moving up slopes because more physical effort is required compared to flat ground. Moving down slopes can also be harder to control and may increase the risk of collision, tipping, or falling.</p>
-        <p>This project aimed to create a low-cost assistive prototype that demonstrates three core functions: motor assistance, user-adjustable speed control, and obstacle alert feedback.</p>
+        <h3 class="modal-section-heading">Project Scope / Problem</h3>
+        <p>The project brief identified slope travel as a design consideration for self-propelled wheelchair users: moving uphill requires additional effort, while downhill travel requires careful control. The team explored how a small prototype could demonstrate assisted movement and obstacle awareness.</p>
+        <p>This project aimed to create an assistive prototype demonstrating three core functions: motor assistance, user-adjustable speed control, and obstacle alert feedback.</p>
         <div class="modal-media modal-video-frame">
           <video class="modal-video" controls playsinline poster="${escapeHtml(project.pitchPoster)}" preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
             <source src="${escapeHtml(project.pitchUrl)}" type="video/mp4">
@@ -2974,7 +2766,7 @@ function createWheelchairModalMarkup(project) {
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Design Process</h3>
+        <h3 class="modal-section-heading">My Work Process</h3>
         <p>The project started with Crazy 8 brainstorming to generate multiple possible solutions. The team then used a value-effort map to compare ideas and selected the motor-assist wheelchair concept because it provided high user value while still being achievable within the project constraints.</p>
         <div class="modal-case-media-grid is-equal-media is-document-safe is-document-pair">
           ${createProjectCaseFigure(WHEELCHAIR_MEDIA.crazyEight)}
@@ -3051,9 +2843,9 @@ function createWheelchairModalMarkup(project) {
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Outcome</h3>
+        <h3 class="modal-section-heading">Outcome &amp; Results Achieved</h3>
         <p>The final prototype demonstrated a functional assistive concept that combines motor support, speed control, and obstacle alert feedback. The strongest part of this project was the refinement process: removing unnecessary LED feedback, adding manual switch control, and improving ultrasonic sensor placement based on testing.</p>
-        <p>Each decision directly improved the user experience &ndash; simpler feedback, safer control, and more reliable obstacle detection without adding unnecessary cost or complexity.</p>
+        <p>These refinements simplified the prototype controls and improved obstacle-detection behaviour during testing.</p>
         ${createProjectCaseFigure(WHEELCHAIR_MEDIA.outcome)}
       </section>
 
@@ -3107,9 +2899,6 @@ function createWheelchairModalMarkup(project) {
       </section>
 
       <section class="modal-action-block" aria-label="Project slides, circuit, and demo">
-        <!-- SLIDES: exported from PG_Group3_PROJ2.pptx to a web-friendly PDF. -->
-        <!-- TINKERCAD: public/shareable Tinkercad circuit URL provided by Ziqian. -->
-        <!-- DEMO: linked to the provided wheelchair prototype demo MP4. -->
         <div class="modal-action-row modal-action-row-triple">
           <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.slidesUrl)}" download data-modal-action>
             <span aria-hidden="true">PDF</span>
@@ -3138,7 +2927,6 @@ function createEcowasteModalMarkup(project) {
     "policy-timeline-japan": [516, 329],
     "policy-timeline-spain": [519, 333],
     "policy-timeline-uk": [519, 335],
-    "return-and-save-scheme-infographic": [881, 499]
   };
   const figure = (file, alt, caption, modifier = "") => {
     const [width, height] = dimensions[file];
@@ -3170,7 +2958,7 @@ function createEcowasteModalMarkup(project) {
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">My Role &amp; Solution</h3>
         <p>The project was divided by dashboard. My specific responsibility was the <strong>OECD waste-reduction benchmarking and policy-scenario dashboard</strong>, and I authored the project’s first policy recommendation, the <strong>Return &amp; Save Takeaway Scheme</strong> (Sections 2.4&ndash;2.6.1 of the team report).</p>
-        <p>I ranked OECD countries by their percentage reduction in municipal waste generated per person between 2000 and 2020, using the standard percentage-reduction calculation: (waste in 2000 &minus; waste in 2020) &divide; waste in 2000 &times; 100. Spain (28.82%), Japan (23.57%), and the United Kingdom (19.94%) came out as the three strongest performers, well ahead of the rest of the field.</p>
+        <p>I ranked OECD countries by their percentage reduction in municipal waste generated per person between 2000 and 2020, using the standard percentage-reduction calculation: (waste in 2000 &minus; waste in 2020) &divide; waste in 2000 &times; 100. Spain (28.82%), Japan (23.57%) and the United Kingdom (19.94%) were the three strongest performers among the countries retained after data-completeness filtering.</p>
         ${figure("oecd-benchmark-ranking-chart", "Horizontal bar chart ranking OECD countries by percentage reduction in municipal waste per person from 2000 to 2020, led by Spain at 28.82 percent, Japan at 23.57 percent and the United Kingdom at 19.94 percent", "OECD countries ranked by waste reduction per person, 2000–2020.")}
         <p>I then researched what each of those three countries had actually done &mdash; Spain’s single-use shopping bag reduction measures (2008), Japan’s waste-collection charging policy (2005), and the UK’s Courtauld Commitment on food waste and packaging (2005) &mdash; and pulled out one transferable principle from each: waste prevention at source, financial incentives for behaviour change, and shared responsibility with businesses.</p>
         <div class="modal-case-media-grid is-equal-media is-document-safe" role="group" aria-label="Benchmark country policy timelines">
@@ -3178,7 +2966,7 @@ function createEcowasteModalMarkup(project) {
           ${figure("policy-timeline-japan", "Line chart of Japan's waste per person from 2000 to 2020 with a marker at 2005, the year its waste-collection charging policy took effect", "Japan — waste-collection charging, 2005.")}
           ${figure("policy-timeline-uk", "Line chart of the United Kingdom's waste per person from 2000 to 2020 with a marker at 2005, the year the Courtauld Commitment took effect", "UK — Courtauld Commitment, 2005.")}
         </div>
-        <p>I combined those three principles into an original recommendation for Singapore: the <strong>Return &amp; Save Takeaway Scheme</strong>, a S$2 refundable-deposit system for reusable takeaway containers. Customers pay a S$2 deposit, use the reusable container, return it at a return point, and get the full deposit back. I designed the full operating model (Deposit &rarr; Use &rarr; Return &rarr; Refund &rarr; Clean &rarr; Reuse), worked through consumer participation, business participation, and the government’s role, and identified practical risks &mdash; container return rate, return-point convenience, hygiene, operating cost, business uptake &mdash; with a mitigation for each.</p>
+        <p>I combined those three principles into our proposed recommendation for Singapore: the <strong>Return &amp; Save Takeaway Scheme</strong>, a S$2 refundable-deposit system for reusable takeaway containers. Customers pay a S$2 deposit, use the reusable container, return it at a return point, and get the full deposit back. I designed the full operating model (Deposit &rarr; Use &rarr; Return &rarr; Refund &rarr; Clean &rarr; Reuse), worked through consumer participation, business participation, and the government’s role, and identified practical risks &mdash; container return rate, return-point convenience, hygiene, operating cost, business uptake &mdash; with a mitigation for each.</p>
         <div class="return-save-model" role="group" aria-label="Return and Save Takeaway Scheme operating model">
           <div class="return-save-heading">
             <span>Return &amp; Save</span>
@@ -3192,14 +2980,14 @@ function createEcowasteModalMarkup(project) {
           </ol>
           <div class="return-save-benefits">
             <p><strong>Reuse cycle:</strong> Returned containers are washed and prepared for reuse.</p>
-            <p><strong>More jobs:</strong> The scheme creates jobs to wash and clean returned containers.</p>
+            <p><strong>Potential operational roles:</strong> The scheme would require collection, washing and handling of returned containers.</p>
           </div>
         </div>
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Work Process</h3>
-        <p>I followed the CRISP-DM data-preparation approach the team used throughout. For the OECD dataset specifically, I checked for missing years country-by-country and excluded countries with large gaps (e.g., Canada and Costa Rica) rather than interpolating two decades of missing data, since that would introduce more error than it removes. I standardised column names and units (the OECD file used machine-readable codes like <code>REF_AREA</code> and <code>TIME_PERIOD</code>, which I renamed to descriptive labels), then filtered to countries with sufficiently complete 2000&ndash;2020 coverage so the ranking was not distorted by uneven data quality.</p>
+        <h3 class="modal-section-heading">My Work Process</h3>
+        <p>I followed the CRISP-DM data-preparation approach the team used throughout. For the OECD dataset specifically, I checked for missing years country-by-country and excluded countries with large gaps (e.g., Canada and Costa Rica) rather than interpolating two decades of missing data, since that could introduce substantial uncertainty into the comparison. I standardised column names and units (the OECD file used machine-readable codes like <code>REF_AREA</code> and <code>TIME_PERIOD</code>, which I renamed to descriptive labels), then filtered to countries with sufficiently complete 2000&ndash;2020 coverage so the ranking was not distorted by uneven data quality.</p>
         <p>After calculating and ranking the reduction percentages, I chose a horizontal bar chart specifically because several country names are long &mdash; horizontal labels stay readable where a vertical column chart would crowd them. For the three benchmark countries, I built individual trend-line charts marking the year each country’s key policy took effect, to connect the quantitative ranking to a real policy moment rather than just showing a number.</p>
         <p>For the forecast, I applied the benchmark countries’ average annual reduction rate cumulatively to Singapore’s existing baseline projection in Power BI, producing two comparable trajectories through 2034 &mdash; with policy, and without.</p>
       </section>
@@ -3207,7 +2995,7 @@ function createEcowasteModalMarkup(project) {
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Outcome &amp; Results Achieved</h3>
         <p>The benchmarking identified Spain, Japan, and the UK as the three strongest OECD performers on waste reduction, and the policy analysis behind them directly shaped the Return &amp; Save Scheme’s design.</p>
-        <p>The forecast dashboard I built shows that if Singapore achieved a reduction rate comparable to those benchmark countries, per-capita waste in 2034 could fall from a baseline of <strong>653.05 kg/person to 571.03 kg/person</strong> &mdash; a reduction of <strong>82.02 kg per person, or 12.56%</strong> relative to the do-nothing baseline. I was careful in the report to frame this correctly: it is a scenario-based benchmark of potential improvement, not a guaranteed causal prediction, since real-world outcomes depend on implementation quality, participation, and business adoption.</p>
+        <p>The forecast dashboard I built shows that if Singapore achieved a reduction rate comparable to those benchmark countries, per-capita waste in 2034 could fall from a baseline of <strong>653.05 kg/person to 571.03 kg/person</strong> &mdash; a reduction of <strong>82.02 kg per person, or 12.56%</strong> relative to the baseline without the proposed policy. I was careful in the report to frame this correctly: it is a scenario-based benchmark of potential improvement, not a guaranteed causal prediction, since real-world outcomes depend on implementation quality, participation, and business adoption.</p>
         ${figure("policy-scenario-forecast-dashboard", "Power BI dashboard showing Singapore waste per capita from 2000 to 2034 with two forecast trajectories, alongside cards reading 571.03 forecast with policy, 653.05 forecast without policy, 12.56 percent policy reduction and 82.02 waste prevented", "Policy-scenario forecast to 2034: with policy vs. without.")}
         <p>The team’s combined recommendations (my Return &amp; Save Scheme alongside a teammate’s separate recycling-side proposal) were presented as a “Reduce &rarr; Separate &rarr; Recycle” strategy in the final submission.</p>
       </section>
@@ -3228,6 +3016,7 @@ function createKeychainModalMarkup(project) {
       </header>
 
       <section class="modal-section modal-role-section">
+        <h3 class="modal-section-heading">My Role &amp; Solution</h3>
         <div class="modal-role-meta">
           <div class="role-meta-item">
             <span class="role-meta-label">Project Type</span>
@@ -3246,21 +3035,21 @@ function createKeychainModalMarkup(project) {
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Problem / Brief</h3>
+        <h3 class="modal-section-heading">Project Scope / Problem</h3>
         <p>Many small everyday tools are useful but inconvenient to carry separately. This project aimed to design a compact keychain that combines several practical functions while still being printable, lightweight, and comfortable for daily use.</p>
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Brief Explanation of Design: Three Unique Added Features</h3>
-        <p>My design is a compact, multi-functional keychain that integrates several everyday tools into a single flat, pocket-sized part. It keeps a slim profile so it can be carried in a pocket or clipped to a bag without adding bulk or discomfort, while still being rigid enough at 3&ndash;4 mm thickness to survive daily use.</p>
+        <p>My design is a compact, multi-functional keychain that integrates several everyday tools into a single flat, pocket-sized part. It keeps a slim profile so it can be carried in a pocket or clipped to a bag without adding bulk, and was designed with a 3&ndash;4 mm thickness to improve rigidity for everyday handling.</p>
         ${createCaseStudyMediaGrid([
           { src: "images/keychain-report/01_ruler_markings_and_engraving.jpg", alt: "Front of the revised yellow keychain showing the engraved ruler scale and Ziqian PB name engraving", caption: "Revised front face showing the 0&ndash;30 mm ruler, enlarged scale numerals, keyring hole, and name engraving." },
           { src: "images/keychain-report/02_keychain_full_profile.jpg", alt: "Back of the revised yellow keychain showing its full tool profile and rectangular magnet recess", caption: "Back profile showing the flat body, combined utility edge, keyring hole, and recessed rectangular magnet pocket." }
         ], "Keychain front and back design evidence", "is-document-safe is-ultrawide-pair")}
         <p><strong>Feature 1 &mdash; Engraved ruler scale.</strong> A 0&ndash;30 mm ruler is engraved along one edge, turning the keychain into an always-on-hand measuring tool for small objects or straight-line marking. This required balancing engraving depth and marking spacing against the printer's nozzle resolution &mdash; a constraint discussed further in the reflection.</p>
-        <p><strong>Feature 2 &mdash; Combined emergency and utility cutting profile.</strong> A single contoured edge does three jobs: a bottle-opener hook for prying off glass caps, a shielded seatbelt-cutter notch for slicing through webbing in an emergency, and a reinforced pointed tip that concentrates force into a small contact area for breaking a car window if the user is trapped. Housing all three in one profile keeps the part compact instead of needing separate tools.</p>
+        <p><strong>Feature 2 &mdash; Combined emergency and utility cutting profile.</strong> A single contoured edge includes a bottle-opener hook, a feature designed as a seatbelt-cutter notch, and a feature designed as a pointed emergency-contact feature. These emergency-inspired functions were not certified or validated for real emergency use.</p>
         <p><strong>Feature 3 &mdash; Rear magnetic name-tag / bookmark slot.</strong> A recessed rectangular pocket on the back accepts a small magnet, letting the keychain clip onto clothing as a name tag without piercing the fabric. Beside it, a raised rectangular block with a hollow gap functions as a bookmark, gripping a page firmly by friction.</p>
-        <p>Every sharp transition on the part &mdash; the outer edges, the phone-stand corner, and the tool-profile corners &mdash; was filleted or chamfered so the finished print is safer to handle and less likely to scratch a phone screen or the user's hand.</p>
+        <p>Every sharp transition on the part &mdash; the outer edges, the phone-stand corner, and the tool-profile corners &mdash; was filleted or chamfered to reduce sharp edges during handling.</p>
       </section>
 
       <section class="modal-section modal-case-section">
@@ -3269,8 +3058,6 @@ function createKeychainModalMarkup(project) {
         <p>The design was created to be flat and portable so it could be attached to a bag or carried in a pocket without taking up much space.</p>
         <div class="modal-photo-gallery">
           <img src="${escapeHtml(project.gallery[0])}" width="900" height="1200" alt="Finished 3D-printed keychain, full view showing ruler markings and keyring hole" loading="lazy" decoding="async">
-          <!-- ACTION REQUIRED: add additional close-up photos here as they become available - e.g. bottle-opener cutout, phone stand in use, magnet recess. Currently only 1 photo is provided; gallery supports 1-4 images gracefully. -->
-          <!-- Additional close-up and function evidence appears in the report sections below. -->
         </div>
         <p class="modal-media-caption">The finished, 3D-printed keychain prototype.</p>
       </section>
@@ -3329,7 +3116,7 @@ function createKeychainModalMarkup(project) {
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Design & Manufacturing Process</h3>
+        <h3 class="modal-section-heading">My Work Process</h3>
         <p>The first print revealed several design problems. Some engraved details were unclear, the ruler markings were too close together, and the name engraving was too deep, affecting the back of the keychain.</p>
         <p>To improve the second version, I increased the spacing between ruler markings, adjusted the detail size, and reduced the depth of the name engraving. This made the final print cleaner and more readable.</p>
       </section>
@@ -3370,7 +3157,7 @@ function createKeychainModalMarkup(project) {
       </section>
 
       <section class="modal-section modal-case-section">
-        <h3 class="modal-section-heading">Outcome</h3>
+        <h3 class="modal-section-heading">Outcome &amp; Results Achieved</h3>
         <p>The final keychain prototype showed improvement from the first print to the second print. The project strengthened my ability to design with manufacturing in mind, not just appearance. It also taught me to consider print quality, engraving depth, spacing, and usability before finalising a physical product.</p>
       </section>
 
@@ -3404,11 +3191,10 @@ function createKeychainModalMarkup(project) {
       </div>
 
       <section class="modal-action-block" aria-label="Keychain project links">
-        <!-- ACTION REQUIRED: replace View the Keychain with a 3D model viewer or multi-angle gallery when ready. -->
         <div class="modal-actions modal-action-row modal-action-row-triple">
           <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.keychainUrl)}" target="_blank" rel="noopener noreferrer" data-modal-action>
             <span aria-hidden="true">Key</span>
-            View the Keychain
+            View Final Keychain Photo
           </a>
           <a class="modal-action-button modal-github-button btn-secondary" href="${escapeHtml(project.inventorUrl)}" target="_blank" rel="noopener noreferrer" download="multifunctional-keychain-autodesk-inventor.ipt" data-modal-action>
             <span aria-hidden="true">CAD</span>
@@ -3472,18 +3258,18 @@ function createConstructionModalMarkup(project) {
         <h3 class="modal-section-heading">Project Scope / Problem</h3>
         <p><strong>The problem.</strong> Singapore recorded 43 workplace fatalities in 2024. Construction accounted for 20 of them, plus 44 fall-from-height and 29 slip-trip-fall major injuries.</p>
         <p class="modal-sources">Sources: <a href="https://www.mom.gov.sg/workplace-safety-and-health/wsh-reports-and-statistics" target="_blank" rel="noopener noreferrer">Ministry of Manpower workplace safety reports and statistics</a>; <a href="https://www.mom.gov.sg/maintenance/-/media/mom/documents/safety-health/reports-stats/wsh-national-statistics/wsh-national-stats-2024.pdf" target="_blank" rel="noopener noreferrer">Workplace Safety and Health Report 2024</a>.</p>
-        <p>Construction sites can be loud and visually obstructed, and workers may sometimes work alone. A fall takes a second — but being <em>found</em> after one can take far longer. That gap is what this project attacks.</p>
-        ${callout("<strong>The question we set:</strong> how do you automatically detect a safety event and get it in front of a supervisor fast enough to matter?")}
+        <p>Construction sites can be loud and visually obstructed, and workers may sometimes work alone. A fall takes a second — but being <em>found</em> after one can take far longer. This project addresses the delay between a safety event occurring and a supervisor becoming aware of it.</p>
+        ${callout("<strong>The question we set:</strong> How can a wearable sensor pipeline automatically detect a safety event and surface it to a supervisor for review?")}
         ${clip("01-live-near-miss-detection.mp4", "01-live-near-miss-detection-poster.jpg", 1024, 576,
           "Filmed footage of a near-miss alert appearing on the live dashboard",
-          "A NEAR-MISS alert firing on the live dashboard, filmed end-to-end. Sensor to alert, no cloud, no internet.")}
+          "Prototype dashboard displaying a NEAR-MISS severity label during an end-to-end demonstration. Sensor input, local processing and dashboard alert are shown without cloud or Internet dependency.")}
         <p>That clip is the whole system working: a NESSO N1 wearable streaming six-axis motion over Bluetooth, a Python gateway computing motion features and running the detector, SQLite storing the event, and a Streamlit dashboard raising the alert — all running locally on the prototype hardware, without cloud or Internet dependency.</p>
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">My Role &amp; Solution</h3>
         <p>This is my EG2A17 Data Engineering Project — a four-person team project. My responsibility was <strong>data pipeline integration and detector analysis</strong> — the path from raw sensor bytes to a stored, auditable safety event.</p>
-        <p>Three parts: the Python gateway that ingests and validates BLE packets, the feature engineering that reduces six raw axes to four usable signals, and the threshold calibration and validation behind the detection rule itself.</p>
+        <p>My work covered three parts: the Python gateway that ingests and validates BLE packets, feature engineering that reduces six raw axes to four usable signals, and the threshold calibration and validation behind the detection rule.</p>
         ${shot("04-raw-sensor-data-sample", "png", 714, 347,
           "Table of raw sensor capture showing timestamp, elapsed seconds, sample interval and six motion axes",
           "Raw capture from a NESSO N1 — timestamp, elapsed time, measured sample interval, and six motion axes at 25 Hz.")}
@@ -3497,6 +3283,7 @@ function createConstructionModalMarkup(project) {
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">My Work Process</h3>
         <p>BLE ingestion &amp; validation &rarr; feature engineering (six axes to four signals) &rarr; threshold calibration &amp; detection rule &rarr; cross-worker validation &amp; dashboard integration.</p>
+        <p>I first stabilised acquisition and timing, then derived orientation-tolerant movement features, calibrated the voting thresholds, and finally validated the frozen detector on held-out workers before integrating it into the dashboard.</p>
       </section>
 
       <section class="modal-section modal-case-section">
@@ -3597,7 +3384,7 @@ function getProjectActionDefinitions(project) {
       { label: "Watch Demo", url: project.demoUrl, icon: "&#9654;", primary: true }
     ],
     keychain: [
-      { label: "View the Keychain", url: project.keychainUrl, icon: "KEY", primary: false },
+      { label: "View Final Keychain Photo", url: project.keychainUrl, icon: "KEY", primary: false },
       { label: "Download Autodesk Inventor File (.ipt)", url: project.inventorUrl, icon: "CAD", primary: false, download: "multifunctional-keychain-autodesk-inventor.ipt" },
       { label: "View Full Report", url: project.reportUrl, icon: "PDF", primary: true }
     ],
