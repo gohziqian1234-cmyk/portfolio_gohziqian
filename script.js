@@ -1892,7 +1892,7 @@ function updateLevel() {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Project Scope / Problem</h3>
-        <p>Alien Piano Tiles began as a personal design challenge: create a browser rhythm game that feels immediately understandable while still rewarding timing and concentration. I wanted to combine the familiar four-lane piano-tiles format with an alien visual theme and gameplay designed for short play sessions. The main challenge was balancing simplicity with enough speed, scoring, lives, streaks, and progression to keep each run engaging.</p>
+        <p>Alien Piano Tiles began as a personal design challenge: create a browser rhythm game that feels immediately understandable while still rewarding timing and concentration. I wanted to combine the familiar four-lane piano-tiles format with an alien visual theme and gameplay designed for short play sessions. The main challenge was balancing simplicity with enough speed, scoring, lives, streaks, and progression to give each run enough progression and variation as the difficulty increases.</p>
         ${createCaseStudyFigure("assets/piano-start-screen.png", "Alien Piano Tiles start screen with DFJK controls and Start Mission button", "Start screen showing the purple alien theme, DFJK controls, and Start Mission button.", "is-portrait")}
       </section>
 
@@ -1960,8 +1960,6 @@ function updateLevel() {
         <h3 class="modal-section-heading">Future Improvements</h3>
         <p>Future versions of Alien Piano Tiles could include a music-synchronised mode, where tile spawning follows the beat of an actual soundtrack instead of relying only on timed falling tiles. This would make the rhythm gameplay feel more natural and challenging.</p>
         <p>A leaderboard system could also be added to store high scores, longest streaks, and best accuracy — giving players a reason to replay the game and improve their performance.</p>
-        <p>Another improvement would be difficulty customisation, such as adjustable tile speed, hit-window timing, and lane count, making the game more flexible for both beginner and advanced players.</p>
-        <p>The game could also be improved with better visual and audio feedback, such as hit effects, miss effects, combo animations, and distinct sound effects for different actions, making the gameplay feel more polished and responsive.</p>
         <p>For a stronger final version, the game could support mobile touch controls, allowing users to play on both desktop and mobile devices.</p>
       </section>
 
@@ -2741,7 +2739,7 @@ function createWheelchairModalMarkup(project) {
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">What I Built</h3>
         <p>The prototype uses a DC motor to support forward movement, a potentiometer to control motor speed, an ultrasonic sensor to detect nearby obstacles, a buzzer to alert the user, and a switch to turn the system on or off.</p>
-        <p>The goal was not to build a commercial wheelchair product, but to demonstrate a practical assistive concept that could reduce user effort and improve safety awareness.</p>
+        <p>The goal was not to build a commercial wheelchair product, but to demonstrate a motor-assist and obstacle-alert concept intended to support user effort and awareness.</p>
         ${createProjectCaseFigure(WHEELCHAIR_MEDIA.flowchart)}
       </section>
 
@@ -2868,7 +2866,7 @@ function createWheelchairModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Refinement Decisions</h3>
-        <p>During testing, the LED was removed because it added less practical value than the buzzer. The buzzer provided clearer feedback through sound, while the LED made the design more complex without improving the user experience.</p>
+        <p>During prototype testing, the buzzer provided more noticeable feedback than the LED, so the LED was removed to simplify the design.</p>
         <p>A switch was added because users needed direct control to turn the system on or off. The ultrasonic sensor placement was also adjusted after testing to improve front obstacle detection.</p>
       </section>
 
@@ -3036,7 +3034,7 @@ function createKeychainModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Project Scope / Problem</h3>
-        <p>Many small everyday tools are useful but inconvenient to carry separately. This project aimed to design a compact keychain that combines several practical functions while still being printable, lightweight, and comfortable for daily use.</p>
+        <p>I set myself a design brief to combine several everyday functions into one compact, printable keychain while keeping the product lightweight and practical to carry. This project aimed to design a compact keychain that combines several practical functions while still being printable, lightweight, and comfortable for daily use.</p>
       </section>
 
       <section class="modal-section modal-case-section">
@@ -3158,7 +3156,7 @@ function createKeychainModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Outcome &amp; Results Achieved</h3>
-        <p>The final keychain prototype showed improvement from the first print to the second print. The project strengthened my ability to design with manufacturing in mind, not just appearance. It also taught me to consider print quality, engraving depth, spacing, and usability before finalising a physical product.</p>
+        <p>The second print improved the main problems identified in the first iteration: ruler markings were spaced more clearly, scale numerals were enlarged, and the name engraving depth was reduced so it no longer broke through to the rear face. The final prototype therefore provided a cleaner and more manufacturable version of the original CAD design.</p>
       </section>
 
       <section class="modal-section modal-case-section">
@@ -3273,7 +3271,7 @@ function createConstructionModalMarkup(project) {
         ${shot("04-raw-sensor-data-sample", "png", 714, 347,
           "Table of raw sensor capture showing timestamp, elapsed seconds, sample interval and six motion axes",
           "Raw capture from a NESSO N1 — timestamp, elapsed time, measured sample interval, and six motion axes at 25 Hz.")}
-        <p>Raw per-axis values depend heavily on how the device happens to sit on a body, so they are unusable as-is. I reduced the six axes to four orientation-tolerant features: <strong>acceleration magnitude, gyroscope magnitude, jerk, and rotation activity.</strong></p>
+        <p>Raw per-axis values depend heavily on device orientation, making them less suitable for direct thresholding across different wearers. I therefore reduced the six axes to four orientation-tolerant features: acceleration magnitude, gyroscope magnitude, jerk and rotation activity.</p>
         <p>One detail that mattered more than expected: the BLE payload carries no device timestamp, and packet arrival is bursty. Computing jerk from arrival timing would have registered network jitter as worker movement. The live gateway reconstructs elapsed time from the fixed 25 Hz cadence instead.</p>
         ${shot("05-acceleration-signal-plot", "png", 757, 415,
           "Line chart of real-time acceleration over roughly 120 seconds with pronounced movement spikes",
@@ -3289,7 +3287,7 @@ function createConstructionModalMarkup(project) {
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Building the Detector</h3>
         <p>Each of the four features gets a threshold. Any feature that exceeds its threshold casts one vote. <strong>At least 2 of 4 votes trigger a safety event.</strong> Final calibrated values: acceleration &ge; 3.282 g, gyroscope &ge; 641.3 dps, jerk &ge; 67.41 g/s, rotation activity &ge; 524.5&deg;.</p>
-        <p class="modal-media-caption">(rounded for display; full precision retained in the report and database).</p>
+        <p class="modal-media-caption">Values are rounded for display; full precision is retained in the report and database.</p>
         <p>A voting rule was chosen over a single-signal trigger deliberately: it is explainable. After an incident you can reconstruct exactly which signals fired and by how much — something a supervisor investigating an alert can actually interrogate.</p>
         ${shot("06-sqlite-schema-events-table", "png", 1282, 814,
           "DB Browser for SQLite showing the six-table schema with the events table columns expanded",
