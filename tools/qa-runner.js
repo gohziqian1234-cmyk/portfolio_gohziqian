@@ -682,7 +682,7 @@ async function checkProjectSequenceNavigation(page, result) {
   await page.click('[data-project-nav="mcfast"]');
   await page.waitForTimeout(550);
   const titleAfterPrevious = await page.locator("#modal-title").innerText();
-  if (!titleAfterPrevious.includes("MCFAST ORDERING SYSTEM")) {
+  if (!titleAfterPrevious.includes("McFast Ordering System")) {
     result.failures.push(`Sequence Previous card did not return to McFast modal; saw "${titleAfterPrevious}"`);
   }
 
@@ -941,7 +941,20 @@ async function checkProjectMediaGrids(page, result, isMobile) {
       if (imageCount === 1) {
         const image = grid.locator("img").first();
         await image.scrollIntoViewIfNeeded();
-        await image.evaluate((element) => element.decode ? element.decode().catch(() => {}) : Promise.resolve());
+        // Same wait as the multi-image path: a lazy image needs to finish
+        // loading and settle before its geometry can be measured.
+        await image.evaluate(async (element) => {
+          element.loading = "eager";
+          if (!(element.complete && element.naturalWidth > 0)) {
+            await new Promise((resolve) => {
+              element.addEventListener("load", resolve, { once: true });
+              element.addEventListener("error", resolve, { once: true });
+              setTimeout(resolve, 5000);
+            });
+          }
+          if (element.decode) await element.decode().catch(() => {});
+          await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        });
         const singleState = await image.evaluate((element) => {
           const rect = element.getBoundingClientRect();
           const style = getComputedStyle(element);
