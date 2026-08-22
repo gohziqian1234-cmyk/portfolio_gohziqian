@@ -3146,7 +3146,7 @@ function createKeychainModalMarkup(project) {
         ], "First and second keychain print comparison", "is-document-safe is-landscape-pair")}
         <ol class="modal-feature-list">
           <li><strong>Illegible engraving.</strong> The ruler markings and numbers were spaced too tightly for the printer's nozzle diameter to resolve cleanly, so the printed scale appeared crowded and was difficult to read.</li>
-          <li><strong>Over-deep name engraving.</strong> The "Ziqian PB" text was engraved too deeply, causing it to cut through to the back face and weakening that section of the part as well as looking unfinished.</li>
+          <li><strong>Over-deep name engraving.</strong> The "Ziqian PB" text was engraved too deeply, causing it to cut through to the back face, weaken that section of the part and make the print look unfinished.</li>
           <li><strong>SD card read failure.</strong> The 3D printer would not detect the print file from the SD card. With the teacher's help, the card was reformatted, after which the file was recognised and the print completed successfully.</li>
         </ol>
         <p>For the second iteration, I widened the spacing between ruler markings and enlarged the scale numerals so they would resolve more clearly at the printer's minimum feature size. I also reduced the engraving depth on the name text so it no longer broke through to the back face. Both changes are visible in the yellow print: the ruler is more legible and the engraving no longer shows through.</p>
