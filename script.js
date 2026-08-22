@@ -57,7 +57,7 @@ const PROJECTS = {
     modalVariant: "mcfastCaseStudy",
     video: "videos/mcfast-demo.mp4",
     poster: "images/project-mcfast-ordering.svg",
-    description: "An NYP Programming project that turns a fast-food ordering workflow into a complete Streamlit application, from menu browsing and persistent cart management to discounts, 9% GST, and receipt generation. During testing, the cart remained persistent when switching between menu categories.",
+    description: "An NYP Programming project that turns a fast-food ordering workflow into a complete Streamlit application, from menu browsing and persistent cart management to discounts, 9% GST, and receipt generation. During testing, the cart contents remained persistent when switching between menu categories.",
     tags: ["Python", "Streamlit", "Cart System", "Session State", "Discount Logic", "GST Calculation", "Receipt Generation", "Testing"],
     github: "https://github.com/gohziqian1234-cmyk/mcfast_app",
     streamlitUrl: "https://gohziqian1234-cmyk-mcfast-app-app-hrwj7l.streamlit.app/",
@@ -74,7 +74,7 @@ const PROJECTS = {
     reportUrl: "assets/EcoWaste-Report-A4.pdf",
     presentationUrl: "assets/EcoWaste-Presentation.pdf",
     dashboardUrl: "assets/EcoWaste-PowerBI-Dashboard-ZiQian.pbix",
-    description: "Group data analytics project investigating Singapore’s waste generation and recycling trends. Built the OECD international benchmarking dashboard and developed the Return & Save policy recommendation.",
+    description: "Group data analytics project investigating Singapore’s waste generation and recycling trends. I built the OECD international benchmarking dashboard and developed the Return & Save policy recommendation.",
     tags: ["Python", "Power BI", "Data Cleaning", "Data Visualisation", "Forecasting", "Policy Benchmarking"],
     github: ""
   },
@@ -214,7 +214,7 @@ const ABOUT_DETAILS = {
       {
         title: "How a Session Works",
         paragraphs: [
-          "When a Year 1 student got stuck on trigonometry, I didn’t just send one video — I built a short learning path: a basic introduction to trigonometry, then trigonometric identities, then double angle identities and formulas, and finally worked examples on solving trigonometric equations using those identities. Each one builds on the last, so they could work through it at their own pace."
+          "When a Year 1 student got stuck on trigonometry, I didn’t just send one video — I built a short learning path: a basic introduction to trigonometry, then trigonometric identities, then double angle identities and formulas, and finally worked examples on solving trigonometric equations using those identities. Each resource built on the previous one, so the student could work through them at their own pace."
         ]
       },
       {
@@ -401,13 +401,13 @@ const ABOUT_DETAILS = {
         title: "Competitions Through This CCA",
         paragraphs: [
           "As part of my CCA experience, I also participated in technology-related competitions and activities, including the DJI RoboMaster Online Challenge (2022) and Infocomm Media Club Youth Award (2022). Although these were not major award-winning achievements, they gave me early exposure to robotics, media, teamwork, and technical problem-solving.",
-          "For the DJI RoboMaster Online Challenge specifically: I participated as part of my Infocomm Media Club experience. Although I do not have full details of the final outcome, the activity exposed me to robotics-related thinking, teamwork, and technology-based problem solving. This experience contributed to my early interest in engineering and technical projects, especially in areas involving systems, hardware, and problem-solving."
+          "For the DJI RoboMaster Online Challenge specifically, I participated as part of my Infocomm Media Club experience. Although I do not have full details of the final outcome, the activity exposed me to robotics-related thinking, teamwork, and technology-based problem solving. This experience contributed to my early interest in engineering and technical projects, especially in areas involving systems, hardware, and problem-solving."
         ]
       },
       {
         title: "What This Taught Me",
         paragraphs: [
-          "This CCA helped me build responsibility, attention to detail, confidence in handling technical equipment, and early interest in technology-related work."
+          "This CCA helped me develop a sense of responsibility, attention to detail, confidence in handling technical equipment, and an early interest in technology-related work."
         ]
       }
     ]
@@ -1892,7 +1892,7 @@ function updateLevel() {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Project Scope / Problem</h3>
-        <p>Alien Piano Tiles began as a personal design challenge: create a browser rhythm game that feels immediately understandable while still rewarding timing and concentration. I wanted to combine the familiar four-lane piano-tiles format with an alien visual theme and gameplay designed for short play sessions. The main challenge was balancing simplicity with enough speed, scoring, lives, streaks, and progression to give each run enough progression and variation as the difficulty increases.</p>
+        <p>Alien Piano Tiles began as a personal design challenge: create a browser rhythm game that feels immediately understandable while still rewarding timing and concentration. I wanted to combine the familiar four-lane piano-tiles format with an alien visual theme and gameplay designed for short play sessions. The main challenge was balancing simplicity with enough speed, scoring, lives, streaks and difficulty progression to give each run increasing challenge and variation.</p>
         ${createCaseStudyFigure("assets/piano-start-screen.png", "Alien Piano Tiles start screen with DFJK controls and Start Mission button", "Start screen showing the purple alien theme, DFJK controls, and Start Mission button.", "is-portrait")}
       </section>
 
@@ -1927,7 +1927,7 @@ function updateLevel() {
           <span class="tech-tag">HTML5 Canvas</span>
         </div>
         ${createCodeBlock("javascript", hitDetectionCode, "JavaScript hit-detection logic showing how the game checks the selected lane, detects whether a tile is within the hit window, updates combo, calculates score, handles bonus tiles, and increases difficulty through level updates.")}
-        ${createCodeBlock("javascript", progressionCode, "Tile-spawning and difficulty-scaling logic - shows how tiles are randomly assigned to lanes, how bonus and hazard tiles are introduced, and how spawn speed increases as the player levels up.")}
+        ${createCodeBlock("javascript", progressionCode, "Tile-spawning and difficulty-scaling logic — showing how tiles are randomly assigned to lanes, how bonus and hazard tiles are introduced, and how spawn speed increases as the player levels up.")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2102,7 +2102,7 @@ if(k==="escape"||k==="p")openPause();`;
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Project Scope / Problem</h3>
         <p>I treated Erebus-7 as a personal design challenge: reinterpret an Among Us-inspired space-station setting as a complete single-player horror-stealth experience. I explored how tasks, patrols, detection, infection mechanics, narrative choices, and survival pressure could keep solo play engaging without depending on other players. The main challenge was creating enough system interaction and pacing to replace the unpredictability that multiplayer participants normally provide.</p>
-        ${createCaseStudyFigure("assets/erebus-intro-story.png", "Erebus-7 clear story brief introducing what happened on the station", "Intro screen showing the dark space-station horror atmosphere and narrative setup for Erebus-7: First Skin - \"Erebus-7 is a research station\" title card with Start Audio / Start Transmission options.")}
+        ${createCaseStudyFigure("assets/erebus-intro-story.png", "Erebus-7 clear story brief introducing what happened on the station", "Intro screen showing the dark space-station horror atmosphere and narrative setup for Erebus-7: First Skin — \"Erebus-7 is a research station\" title card with Start Audio / Start Transmission options.")}
         ${createCaseStudyFigure("assets/erebus-story-scene.png", "Erebus-7 tutorial story step explaining the premise", "Narrative story-log scene (\"What Happened on Erebus-7\") showing how mission lore and blackbox logs are presented to the player between gameplay segments.")}
       </section>
 
@@ -2125,7 +2125,7 @@ if(k==="escape"||k==="p")openPause();`;
           <li>Sound design with alarms, footsteps, whispers, scanner sounds, and horror music</li>
           <li>Pause menu, settings, save/load, tutorial, and game-over screens</li>
         </ul>
-        ${createCaseStudyFigure("assets/erebus-tactical-map.png", "Erebus-7 tactical map showing Crew Quarters rooms and route information", "Tactical map showing Crew Quarters zone layout - rooms, routes, danger indicators, and mission objectives available for route planning.")}
+        ${createCaseStudyFigure("assets/erebus-tactical-map.png", "Erebus-7 tactical map showing Crew Quarters rooms and route information", "Tactical map showing Crew Quarters zone layout — rooms, routes, danger indicators and mission objectives available for route planning.")}
         ${createCaseStudyMediaGrid([
           { src: "assets/erebus-instinct-choice.png", alt: "Erebus-7 parasite instinct choice screen", caption: "Parasite-instinct choice screen showing how the player’s opening decision changes the first gameplay advantage." },
           { src: "assets/erebus-difficulty-selection.png", alt: "Erebus-7 Easy Medium and Hard difficulty selection", caption: "Difficulty selection showing the Easy, Medium, and Hard modes used to tune detection, resources, and campaign pressure.", modifier: "is-position-left" }
@@ -2142,13 +2142,13 @@ if(k==="escape"||k==="p")openPause();`;
           <span class="tech-tag">JavaScript</span>
           <span class="tech-tag">HTML5 Canvas</span>
         </div>
-        ${createCodeBlock("javascript", inputHandlingCode, "JavaScript input-handling logic showing how the player activates core gameplay actions - talking, infecting, hiding, using abilities, opening the tactical map, opening the codex, and pausing - all mapped to distinct keys in a single-player stealth-horror system.")}
+        ${createCodeBlock("javascript", inputHandlingCode, "JavaScript input-handling logic showing how the player activates core gameplay actions — talking, infecting, hiding, using abilities, opening the tactical map, opening the codex and pausing — all mapped to distinct keys in a single-player stealth-horror system.")}
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">My Work Process</h3>
         <p>One challenge was creating a genuinely scary atmosphere rather than simply making the screen dark. Early versions felt too simple because the player was mostly navigating a map. To improve this, I added detailed room art, horror effects, sound design, story scenes, and frightening events triggered by the player entering certain areas. Another challenge was balancing the detection system. If detection filled too slowly, the game became too easy. If it filled too quickly, the game felt unfair. To solve this, I introduced difficulty modes and adjusted detection range, speed, and cooldown according to the selected mode.</p>
-        ${createCaseStudyFigure("assets/erebus-detection-alert.png", "Erebus-7 detection report showing You Were Identified", "Detection and alert system showing \"You Were Identified\" tension moment &ndash; the game’s response when guards, cameras, or scanners notice the player, with retreat/hide options presented.")}
+        ${createCaseStudyFigure("assets/erebus-detection-alert.png", "Erebus-7 detection report showing You Were Identified", "Detection and alert system showing \"You Were Identified\" tension moment — the game’s response when guards, cameras, or scanners notice the player, with retreat/hide options presented.")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2173,7 +2173,7 @@ if(k==="escape"||k==="p")openPause();`;
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Outcome &amp; Results Achieved</h3>
         <p>The result is a playable browser horror-stealth game with multiple station zones, enemy patrols, objectives, sound, detection mechanics, infection abilities, narrative scenes, tactical-map support, save/load functionality, and web deployment.</p>
-        ${createCaseStudyFigure("assets/erebus-ending-detected.png", "Erebus-7 DETECTED failure state with checkpoint and restart options", "\"DETECTED\" failure-state screen showing the detection bar filled to maximum, last objective, current zone/alert level, a next-step tip, and Load Checkpoint / Restart Run options - closing the loop on the stealth-detection system described above.")}
+        ${createCaseStudyFigure("assets/erebus-ending-detected.png", "Erebus-7 DETECTED failure state with checkpoint and restart options", "\"DETECTED\" failure-state screen showing the detection bar filled to maximum, last objective, current zone/alert level, a next-step tip, and Load Checkpoint / Restart Run options — closing the loop on the stealth-detection system described above.")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2230,7 +2230,7 @@ def build_receipt(cart, discount_name):
     <article class="project-modal-body project-modal-body-long">
       <header class="modal-project-hero modal-case-header">
         <p class="modal-eyebrow section-kicker dark">Project</p>
-        <h2 class="modal-title" id="modal-title">PROJECT: MCFAST ORDERING SYSTEM</h2>
+        <h2 class="modal-title" id="modal-title">McFast Ordering System</h2>
       </header>
 
       ${roleSection}
@@ -2245,7 +2245,7 @@ def build_receipt(cart, discount_name):
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Project Scope / Problem</h3>
         <p>An NYP Programming project focused on maintaining persistent cart state across Streamlit reruns and category navigation, applying discounts before 9% GST, and producing a clear itemised receipt for the complete ordering flow.</p>
-        ${createCaseStudyFigure("assets/mcfast-menu-browsing.png", "McFast menu browsing interface with food items quantity controls and empty cart", "Menu browsing screen showing food items, item names, prices, quantity controls, Add buttons, discount selection, and empty cart state.")}
+        ${createCaseStudyFigure("assets/mcfast-menu-browsing.png", "McFast menu browsing interface with food-item quantity controls and an empty cart", "Menu browsing screen showing food items, item names, prices, quantity controls, Add buttons, discount selection, and empty cart state.")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2257,12 +2257,12 @@ def build_receipt(cart, discount_name):
         <h3 class="modal-section-heading">My Work Process</h3>
         <p>I structured the app around Streamlit's session state to keep the cart persistent as a user navigates between menu categories without it resetting on every interaction &mdash; the main technical challenge in a multi-page Streamlit app. Discount and GST calculations were built as separate functions from the cart logic itself, so pricing rules could be changed without touching how items are added or removed.</p>
         <div class="modal-tech-tags">${tags}</div>
-        ${createCodeBlock("python", calculationCode, "Python logic showing how the cart’s subtotal, discount, and 9% GST are calculated in sequence &ndash; discount applied first, then GST on the discounted amount &ndash; before the final receipt is generated line by line.")}
+        ${createCodeBlock("python", calculationCode, "Python logic showing how the cart’s subtotal, discount, and 9% GST are calculated in sequence — discount applied first, then GST on the discounted amount, before the final receipt is generated line by line.")}
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Outcome &amp; Results Achieved</h3>
-        <p>The deployed app handles the full order flow end-to-end: menu browsing &rarr; cart management &rarr; discount application &rarr; GST calculation &rarr; receipt generation. During testing, the cart remained persistent when switching between menu categories.</p>
+        <p>The deployed app handles the full order flow end-to-end: menu browsing &rarr; cart management &rarr; discount application &rarr; GST calculation &rarr; receipt generation. During testing, the cart contents remained persistent when switching between menu categories.</p>
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2278,7 +2278,7 @@ def build_receipt(cart, discount_name):
           <li>Browser-based interface using Streamlit</li>
         </ul>
         ${createCaseStudyFigure("assets/mcfast-cart-management.png", "McFast cart with itemised order controls and calculated totals", "Cart management screen showing itemised order details, quantity update buttons, remove options, subtotal, GST, discount, and final total.")}
-        ${createCaseStudyFigure("assets/mcfast-discount-dropdown.png", "McFast discount dropdown showing None Student Staff and Loyalty Member", "Discount type dropdown expanded, showing all available options - None, Student, Staff, and Loyalty Member - selected here on Staff, which is applied before GST.")}
+        ${createCaseStudyFigure("assets/mcfast-discount-dropdown.png", "McFast discount dropdown showing None Student Staff and Loyalty Member", "Expanded discount dropdown showing all available options — None, Student, Staff and Loyalty Member — with Staff selected. The discount is applied before GST.")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2388,7 +2388,7 @@ function createPlantCaseStudyMarkup(project) {
   const roleSection = createRoleSection(
     "Team Project",
     "Co-developer / IoT System Developer",
-    "The team built a plant monitoring and alert system that connects sensor readings, hardware responses, database storage, and a web interface. I contributed to sensor integration, Arduino logic, testing, troubleshooting, and documentation, and supported Raspberry Pi data handling, MariaDB, and Flask integration.",
+    "The team built a plant monitoring and alert system that connects sensor readings, hardware responses, database storage, and a web interface. I contributed to sensor integration, Arduino logic, testing, troubleshooting, and documentation, and supported Raspberry Pi data handling and the integration of MariaDB and Flask.",
     "My Role & Solution"
   );
 
@@ -2415,7 +2415,7 @@ function createPlantCaseStudyMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Project Scope / Problem</h3>
-        <p>An IoT plant monitoring and alert system designed to track temperature, light intensity, and water level in real time, then provide alerts, automatic LED control, database storage, and web-based monitoring.</p>
+        <p>The team developed an IoT plant monitoring and alert system designed to track temperature, light intensity and water level in real time, then provide alerts, automatic LED control, database storage and web-based monitoring.</p>
         <p>The team connected hardware sensing, Arduino control, Raspberry Pi data handling, database storage, and a Flask interface into one prototype workflow.</p>
         ${createProjectCaseFigure(IOT_MEDIA.hardwareSetup)}
         <p>The project brief required the team to monitor whether temperature, light, and water conditions stayed within defined ranges. The prototype was built to reduce repeated manual checking by displaying live readings, adjusting the LED automatically, and alerting the user when a tested condition was unsuitable.</p>
@@ -2430,7 +2430,7 @@ function createPlantCaseStudyMarkup(project) {
         <h3 class="modal-section-heading">What We Built</h3>
         <p>We built an automated plant monitoring and alert system that uses sensors to check whether the plant environment is suitable for growth. The system uses:</p>
         <ul class="modal-feature-list">
-          <li>A Grove temperature sensor to monitor whether the temperature is within the 20&deg;C&ndash;35&deg;C suitable range</li>
+          <li>A Grove temperature sensor to monitor whether the temperature is within the suitable range of 20&deg;C&ndash;35&deg;C</li>
           <li>A Grove light sensor to measure ambient light intensity</li>
           <li>An ultrasonic sensor to estimate water level by measuring distance to the water surface</li>
           <li>A rotary angle sensor to allow manual LED brightness control</li>
@@ -2719,7 +2719,7 @@ function createWheelchairModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Overview</h3>
-        <p>An assistive hardware prototype designed to support self-propelled wheelchair users when travelling on slopes. The system combines motor assistance, adjustable speed control, ultrasonic obstacle detection, buzzer feedback, and switch control, with motor assistance intended to reduce user effort.</p>
+        <p>This is an assistive hardware prototype designed to support self-propelled wheelchair users when travelling on slopes. The system combines motor assistance, adjustable speed control, ultrasonic obstacle detection, buzzer feedback, and switch control, with motor assistance intended to reduce user effort.</p>
         ${createProjectCaseFigure(WHEELCHAIR_MEDIA.overviewAssembly)}
       </section>
 
@@ -2782,7 +2782,7 @@ function createWheelchairModalMarkup(project) {
           </a>
         </div>
         <p class="modal-link-helper modal-helper-text">Opens in a new tab &mdash; this portfolio stays open here, so you can switch back anytime.</p>
-        <p>The system uses a switch to turn the prototype on or off. When the system is active, the potentiometer allows the user to adjust the motor output, giving the user control over the level of assistance. The ultrasonic sensor measures the distance of objects in front of the wheelchair, and the buzzer provides an audio alert when an obstacle is detected.</p>
+        <p>The system uses a switch to turn the prototype on or off. When the system is active, the potentiometer allows the user to adjust the motor output, giving the user control over the level of assistance. The ultrasonic sensor measures the distance to objects in front of the wheelchair, and the buzzer provides an audio alert when an obstacle is detected.</p>
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2794,7 +2794,7 @@ function createWheelchairModalMarkup(project) {
                 <th>Test</th>
                 <th>What Was Checked</th>
                 <th>Observation</th>
-                <th>What This Proved</th>
+                <th>What This Demonstrated</th>
               </tr>
             </thead>
             <tbody>
@@ -2857,7 +2857,7 @@ function createWheelchairModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Final Software Design</h3>
-        <p>The final software design was based on separating the prototype into clear input and output logic. The switch decides whether the system is active, the potentiometer controls the motor speed, and the ultrasonic sensor checks for obstacles. The Arduino then controls the motor and buzzer based on those readings, which made the system easier to test because each component had a clear role in the final control flow.</p>
+        <p>The final software design was based on separating the prototype into clear input and output logic. The switch decides whether the system is active, the potentiometer controls the motor speed, and the ultrasonic sensor checks for obstacles. The Arduino then controls the motor and buzzer based on those readings, which makes the system easier to test because each component has a clear role in the control flow.</p>
         <div class="modal-case-media-grid is-equal-media is-landscape-pair">
           ${createProjectCaseFigure(WHEELCHAIR_MEDIA.softwareComponents)}
           ${createProjectCaseFigure(WHEELCHAIR_MEDIA.softwareCircuit)}
@@ -2877,7 +2877,7 @@ function createWheelchairModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Future Improvements</h3>
-        <p>Future versions require a higher-torque motor for stronger slope support, a dedicated battery system for longer operation, a stronger mounting structure, and a slope detection sensor to adjust motor assistance more automatically.</p>
+        <p>Future versions would require a higher-torque motor for stronger slope support, a dedicated battery system for longer operation, a stronger mounting structure and a slope-detection sensor to adjust motor assistance more automatically.</p>
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2942,20 +2942,20 @@ function createEcowasteModalMarkup(project) {
       ${createRoleSection(
         "Group Project — EG2A12 Data Preparation, Team A4 (5 members)",
         "OECD Benchmarking Dashboard & Policy Recommendation",
-        "The project was divided by dashboard. My specific responsibility was the OECD waste-reduction benchmarking and policy-scenario dashboard, and I authored the project’s first policy recommendation, the Return & Save Takeaway Scheme."
+        "Each team member was responsible for a different dashboard. My specific responsibility was the OECD waste-reduction benchmarking and policy-scenario dashboard, and I authored the project’s first policy recommendation, the Return & Save Takeaway Scheme."
       )}
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Project Scope / Problem</h3>
         <p>This was a 5-person group project for the EG2A12 Data Preparation module at Nanyang Polytechnic (Team A4: Lim Hong Jean, Zi Qian, Kwan Teng, Pierre, and Emmanuel). The brief was to investigate a real Singapore data problem end-to-end &mdash; sourcing data, cleaning it, analysing it, and turning the findings into policy recommendations.</p>
-        <p>The problem we investigated: Singapore relies on Pulau Semakau as its only landfill, and at the current disposal rate it is projected to run out of space by around 2035. Singapore’s Zero Waste Masterplan targets a 70% overall recycling rate and a 30% cut in daily per-capita waste sent to landfill, both by 2030. Our guiding question was: <strong>how can Singapore improve its waste management and recycling efficiency?</strong></p>
+        <p>The problem we investigated was Singapore&rsquo;s reliance on Pulau Semakau as its only landfill; at the current disposal rate, it is projected to run out of space by around 2035. Singapore’s Zero Waste Masterplan targets a 70% overall recycling rate and a 30% cut in daily per-capita waste sent to landfill, both by 2030. Our guiding question was: <strong>how can Singapore improve its waste management and recycling efficiency?</strong></p>
         <p>We worked with three datasets: Singapore’s waste-management and recycling statistics (2000&ndash;2024) and annual population figures, both from data.gov.sg, plus OECD municipal waste statistics (1995&ndash;2020) for international comparison.</p>
         <p class="modal-sources">Sources: <a href="https://www.mse.gov.sg/policies/waste-management/" target="_blank" rel="noopener noreferrer">Ministry of Sustainability and the Environment — Waste Management</a>; <a href="https://www.nea.gov.sg/our-services/waste-management/waste-statistics-and-overall-recycling" target="_blank" rel="noopener noreferrer">National Environment Agency — Waste Statistics and Overall Recycling</a>; <a href="https://doi.org/10.1787/ac4b8b89-en" target="_blank" rel="noopener noreferrer">OECD municipal waste data</a>; <a href="https://data.gov.sg/datasets/d_3d227e5d9fdec73f3bcadce671c333a6/view" target="_blank" rel="noopener noreferrer">data.gov.sg population data</a>; <a href="https://data.gov.sg/datasets/d_daf568968ab40dc81e7b08887a83c8fa/view" target="_blank" rel="noopener noreferrer">data.gov.sg waste data</a>.</p>
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">My Role &amp; Solution</h3>
-        <p>The project was divided by dashboard. My specific responsibility was the <strong>OECD waste-reduction benchmarking and policy-scenario dashboard</strong>, and I authored the project’s first policy recommendation, the <strong>Return &amp; Save Takeaway Scheme</strong> (Sections 2.4&ndash;2.6.1 of the team report).</p>
+        <p>Each team member was responsible for a different dashboard. My specific responsibility was the <strong>OECD waste-reduction benchmarking and policy-scenario dashboard</strong>, and I authored the project’s first policy recommendation, the <strong>Return &amp; Save Takeaway Scheme</strong> (Sections 2.4&ndash;2.6.1 of the team report).</p>
         <p>I ranked OECD countries by their percentage reduction in municipal waste generated per person between 2000 and 2020, using the standard percentage-reduction calculation: (waste in 2000 &minus; waste in 2020) &divide; waste in 2000 &times; 100. Spain (28.82%), Japan (23.57%) and the United Kingdom (19.94%) were the three strongest performers among the countries retained after data-completeness filtering.</p>
         ${figure("oecd-benchmark-ranking-chart", "Horizontal bar chart ranking OECD countries by percentage reduction in municipal waste per person from 2000 to 2020, led by Spain at 28.82 percent, Japan at 23.57 percent and the United Kingdom at 19.94 percent", "OECD countries ranked by waste reduction per person, 2000–2020.")}
         <p>I then researched what each of those three countries had actually done &mdash; Spain’s single-use shopping bag reduction measures (2008), Japan’s waste-collection charging policy (2005), and the UK’s Courtauld Commitment on food waste and packaging (2005) &mdash; and pulled out one transferable principle from each: waste prevention at source, financial incentives for behaviour change, and shared responsibility with businesses.</p>
@@ -2987,14 +2987,14 @@ function createEcowasteModalMarkup(project) {
         <h3 class="modal-section-heading">My Work Process</h3>
         <p>I followed the CRISP-DM data-preparation approach the team used throughout. For the OECD dataset specifically, I checked for missing years country-by-country and excluded countries with large gaps (e.g., Canada and Costa Rica) rather than interpolating two decades of missing data, since that could introduce substantial uncertainty into the comparison. I standardised column names and units (the OECD file used machine-readable codes like <code>REF_AREA</code> and <code>TIME_PERIOD</code>, which I renamed to descriptive labels), then filtered to countries with sufficiently complete 2000&ndash;2020 coverage so the ranking was not distorted by uneven data quality.</p>
         <p>After calculating and ranking the reduction percentages, I chose a horizontal bar chart specifically because several country names are long &mdash; horizontal labels stay readable where a vertical column chart would crowd them. For the three benchmark countries, I built individual trend-line charts marking the year each country’s key policy took effect, to connect the quantitative ranking to a real policy moment rather than just showing a number.</p>
-        <p>For the forecast, I applied the benchmark countries’ average annual reduction rate cumulatively to Singapore’s existing baseline projection in Power BI, producing two comparable trajectories through 2034 &mdash; with policy, and without.</p>
+        <p>For the forecast, I applied the benchmark countries’ average annual reduction rate cumulatively to Singapore’s existing baseline projection in Power BI, producing two comparable trajectories through 2034 &mdash; with and without the proposed policy.</p>
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Outcome &amp; Results Achieved</h3>
         <p>The benchmarking identified Spain, Japan, and the UK as the three strongest OECD performers on waste reduction, and the policy analysis behind them directly shaped the Return &amp; Save Scheme’s design.</p>
         <p>The forecast dashboard I built shows that if Singapore achieved a reduction rate comparable to those benchmark countries, per-capita waste in 2034 could fall from a baseline of <strong>653.05 kg/person to 571.03 kg/person</strong> &mdash; a reduction of <strong>82.02 kg per person, or 12.56%</strong> relative to the baseline without the proposed policy. I was careful in the report to frame this correctly: it is a scenario-based benchmark of potential improvement, not a guaranteed causal prediction, since real-world outcomes depend on implementation quality, participation, and business adoption.</p>
-        ${figure("policy-scenario-forecast-dashboard", "Power BI dashboard showing Singapore waste per capita from 2000 to 2034 with two forecast trajectories, alongside cards reading 571.03 forecast with policy, 653.05 forecast without policy, 12.56 percent policy reduction and 82.02 waste prevented", "Policy-scenario forecast to 2034: with policy vs. without.")}
+        ${figure("policy-scenario-forecast-dashboard", "Power BI dashboard showing Singapore waste per capita from 2000 to 2034 with two forecast trajectories, alongside cards reading 571.03 forecast with policy, 653.05 forecast without policy, 12.56 percent policy reduction and 82.02 waste prevented", "Policy-scenario forecast to 2034, with and without the proposed policy.")}
         <p>The team’s combined recommendations (my Return &amp; Save Scheme alongside a teammate’s separate recycling-side proposal) were presented as a “Reduce &rarr; Separate &rarr; Recycle” strategy in the final submission.</p>
       </section>
 
@@ -3029,19 +3029,19 @@ function createKeychainModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Overview</h3>
-        <p>A compact 3D-printed keychain designed to combine multiple daily-use functions into one portable product. The design focuses on convenience, safety, and manufacturability while keeping the product slim, lightweight, and easy to carry.</p>
+        <p>I designed a compact 3D-printed keychain that combines multiple daily-use functions in one portable product. The design focuses on convenience, safety, and manufacturability while keeping the product slim, lightweight, and easy to carry.</p>
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Project Scope / Problem</h3>
-        <p>I set myself a design brief to combine several everyday functions into one compact, printable keychain while keeping the product lightweight and practical to carry. This project aimed to design a compact keychain that combines several practical functions while still being printable, lightweight, and comfortable for daily use.</p>
+        <p>I set myself a design brief to combine several everyday functions into one compact, printable keychain while keeping the product lightweight and practical to carry.</p>
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Brief Explanation of Design: Three Unique Added Features</h3>
-        <p>My design is a compact, multi-functional keychain that integrates several everyday tools into a single flat, pocket-sized part. It keeps a slim profile so it can be carried in a pocket or clipped to a bag without adding bulk, and was designed with a 3&ndash;4 mm thickness to improve rigidity for everyday handling.</p>
+        <p>My design is a compact, multifunctional keychain that integrates several everyday tools into a single flat, pocket-sized part. It keeps a slim profile so it can be carried in a pocket or clipped to a bag without adding bulk, and was designed with a 3&ndash;4 mm thickness to improve rigidity for everyday handling.</p>
         ${createCaseStudyMediaGrid([
-          { src: "images/keychain-report/01_ruler_markings_and_engraving.jpg", alt: "Front of the revised yellow keychain showing the engraved ruler scale and Ziqian PB name engraving", caption: "Revised front face showing the 0&ndash;30 mm ruler, enlarged scale numerals, keyring hole, and name engraving." },
+          { src: "images/keychain-report/01_ruler_markings_and_engraving.jpg", alt: "Front of the revised yellow keychain showing the engraved ruler scale and Ziqian PB name engraving", caption: "Revised front face showing the 0–30 mm ruler, enlarged scale numerals, keyring hole, and name engraving." },
           { src: "images/keychain-report/02_keychain_full_profile.jpg", alt: "Back of the revised yellow keychain showing its full tool profile and rectangular magnet recess", caption: "Back profile showing the flat body, combined utility edge, keyring hole, and recessed rectangular magnet pocket." }
         ], "Keychain front and back design evidence", "is-document-safe is-ultrawide-pair")}
         <p><strong>Feature 1 &mdash; Engraved ruler scale.</strong> A 0&ndash;30 mm ruler is engraved along one edge, turning the keychain into an always-on-hand measuring tool for small objects or straight-line marking. This required balancing engraving depth and marking spacing against the printer's nozzle resolution &mdash; a constraint discussed further in the reflection.</p>
@@ -3062,7 +3062,7 @@ function createKeychainModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Added Function: Rear Magnet Mount</h3>
-        <p>The centrepiece added function is the <strong>rear magnet mount</strong>, which converts the keychain into a clip-on name tag or badge holder. A small rectangular recess on the back face is sized to hold a thin magnet flush with the surface; when a magnet is inserted, the keychain can be pressed onto the outside of a shirt or jacket with a second magnet, or attached to a ferrous surface, without using a pin or clip that would damage the fabric.</p>
+        <p>The main added feature is the <strong>rear magnet mount</strong>, which converts the keychain into a clip-on name tag or badge holder. A small rectangular recess on the back face is sized to hold a thin magnet flush with the surface; when a magnet is inserted, the keychain can be pressed onto the outside of a shirt or jacket with a second magnet, or attached to a ferrous surface, without using a pin or clip that would damage the fabric.</p>
         <p>In the test photos, a microSD card was used to simulate the magnet's thin, flat form factor and verify the recess fit before committing to the actual insert. The clipped-on demonstration shows how the keychain can sit against clothing without the insert protruding from the recess.</p>
         ${createCaseStudyMediaGrid([
           { src: "images/keychain-report/03_sd_card_as_magnet_simulation.jpg", alt: "MicroSD card placed inside the keychain's rear rectangular recess to simulate a thin magnet insert", caption: "Fit check using a microSD card to simulate the thin, flat form of the planned magnet insert." },
@@ -3087,7 +3087,7 @@ function createKeychainModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Purpose and Mechanical Operation</h3>
-        <p>The purpose of this design is to consolidate several small, frequently needed tools into one compact object, so the user is not carrying or forgetting separate items for each task.</p>
+        <p>The purpose of this design is to consolidate several small, frequently needed tools into one compact object, so the user does not need to carry or remember separate items for each task.</p>
         <ul class="modal-feature-list">
           <li><strong>Ruler.</strong> The engraved 0&ndash;30 mm scale lets the user measure a small object or draw a straight edge whenever a proper ruler is not at hand &mdash; useful for quick checks on packages, craft work, or stationery tasks.</li>
           <li><strong>Bottle opener.</strong> A hook-shaped cut-out engages under a metal bottle cap; pressing down while lifting the keychain levers the cap off, using the same mechanical principle as a standard bottle opener.</li>
@@ -3115,7 +3115,7 @@ function createKeychainModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">My Work Process</h3>
-        <p>The first print revealed several design problems. Some engraved details were unclear, the ruler markings were too close together, and the name engraving was too deep, affecting the back of the keychain.</p>
+        <p>The first print revealed several design problems. Some engraved details were unclear, the ruler markings were too close together, and the name engraving was too deep, which caused it to cut through to the back face, weaken that section of the part and make the print look unfinished.</p>
         <p>To improve the second version, I increased the spacing between ruler markings, adjusted the detail size, and reduced the depth of the name engraving. This made the final print cleaner and more readable.</p>
       </section>
 
@@ -3133,7 +3133,7 @@ function createKeychainModalMarkup(project) {
           { src: "images/keychain-report/13_print_comparison_closeup_detail.jpg", alt: "Close-up back view comparing the green and yellow keychain print iterations", caption: "Close-up of the reverse faces, including the revised magnet recess and the effect of the first version's over-deep engraving." }
         ], "First and second keychain print comparison", "is-document-safe is-landscape-pair")}
         <ol class="modal-feature-list">
-          <li><strong>Illegible engraving.</strong> The ruler markings and numbers were spaced too tightly for the printer's nozzle diameter to resolve cleanly, so the scale printed crowded and difficult to read.</li>
+          <li><strong>Illegible engraving.</strong> The ruler markings and numbers were spaced too tightly for the printer's nozzle diameter to resolve cleanly, so the printed scale appeared crowded and was difficult to read.</li>
           <li><strong>Over-deep name engraving.</strong> The "Ziqian PB" text was engraved with too much depth, cutting through to the back face and weakening that section of the part as well as looking unfinished.</li>
           <li><strong>SD card read failure.</strong> The 3D printer would not detect the print file from the SD card. With the teacher's help, the card was reformatted, after which the file was recognised and the print completed successfully.</li>
         </ol>
@@ -3166,8 +3166,8 @@ function createKeychainModalMarkup(project) {
         <p>This strengthened my ability to use Autodesk Inventor tools such as extrude, cut, fillet, chamfer, and emboss with manufacturing intent, not just visual design intent. I learned that a good product is not only about how it looks on screen, but also whether it can be printed, used, and improved in real life.</p>
         <p>Autodesk Inventor's core tools &mdash; extrude, cut, revolve, fillet, chamfer, and emboss &mdash; were taught in class, but this assignment was the first time I had to apply them together on a complete, self-directed design rather than a guided practice exercise. In class, I focused mainly on matching a shape to a given specification; I gave little thought to how a design would actually be manufactured.</p>
         <p>Going through the 3D printing process changed that. I learned that a feature can look correct on screen and still fail in print &mdash; the ruler markings and the name engraving were both features that were geometrically valid in Inventor but too fine for the printer's actual resolution. This taught me that minimum feature size, wall thickness, and engraving depth all need to be checked against the manufacturing method, not just against the CAD model, before a design can be considered finished.</p>
-        <p>I also became noticeably faster and more accurate in Inventor over the course of the project &mdash; starting slowly and sometimes producing incorrect dimensions, and finishing able to model with better speed and precision &mdash; and more disciplined about checking tolerances and dimensions up front so the part would print correctly the first time rather than requiring another iteration.</p>
-        <p>Overall, this project shifted how I think about modelling: not just "does this shape match the design," but "will this shape actually manufacture correctly and function as intended." It strengthened my CAD skills, my problem-solving process when a print does not come out as expected, and my confidence going into future design-and-print projects.</p>
+        <p>I also became faster and more accurate in Inventor over the course of the project. I started slowly and sometimes produced incorrect dimensions, but by the end I could model more quickly and precisely. I also became more disciplined about checking tolerances and dimensions up front, so the part would print correctly the first time rather than requiring another iteration.</p>
+        <p>Overall, this project shifted how I think about modelling: not just "does this shape match the design," but "can this shape actually be manufactured correctly and function as intended." It strengthened my CAD skills, my problem-solving process when a print does not come out as expected, and my confidence going into future design-and-print projects.</p>
       </section>
 
       <section class="modal-section modal-case-section">
@@ -3244,7 +3244,7 @@ function createConstructionModalMarkup(project) {
 
       ${shot("02-device-live-ziqian", "png", 1422, 756,
         "NESSO N1 wearable screen showing worker Ziqian, BLE connected, status SAFE",
-        "The NESSO N1 wearable, live over Bluetooth and reporting SAFE. The worker ID on screen is mine.")}
+        "The NESSO N1 wearable is live over Bluetooth and reporting SAFE. The worker ID on screen is mine.")}
 
       ${createRoleSection(
         "Group Project — EG2A17, A4 | Group 5 (Pierre, Hong Jean, Zi Qian, Kwan Teng)",
@@ -3254,7 +3254,7 @@ function createConstructionModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Project Scope / Problem</h3>
-        <p><strong>The problem.</strong> Singapore recorded 43 workplace fatalities in 2024. Construction accounted for 20 of them, plus 44 fall-from-height and 29 slip-trip-fall major injuries.</p>
+        <p><strong>The problem.</strong> Singapore recorded 43 workplace fatalities in 2024. Construction accounted for 20 of those fatalities. There were also 44 fall-from-height and 29 slip-trip-fall major injuries.</p>
         <p class="modal-sources">Sources: <a href="https://www.mom.gov.sg/workplace-safety-and-health/wsh-reports-and-statistics" target="_blank" rel="noopener noreferrer">Ministry of Manpower workplace safety reports and statistics</a>; <a href="https://www.mom.gov.sg/maintenance/-/media/mom/documents/safety-health/reports-stats/wsh-national-statistics/wsh-national-stats-2024.pdf" target="_blank" rel="noopener noreferrer">Workplace Safety and Health Report 2024</a>.</p>
         <p>Construction sites can be loud and visually obstructed, and workers may sometimes work alone. A fall takes a second — but being <em>found</em> after one can take far longer. This project addresses the delay between a safety event occurring and a supervisor becoming aware of it.</p>
         ${callout("<strong>The question we set:</strong> How can a wearable sensor pipeline automatically detect a safety event and surface it to a supervisor for review?")}
@@ -3270,7 +3270,7 @@ function createConstructionModalMarkup(project) {
         <p>My work covered three parts: the Python gateway that ingests and validates BLE packets, feature engineering that reduces six raw axes to four usable signals, and the threshold calibration and validation behind the detection rule.</p>
         ${shot("04-raw-sensor-data-sample", "png", 714, 347,
           "Table of raw sensor capture showing timestamp, elapsed seconds, sample interval and six motion axes",
-          "Raw capture from a NESSO N1 — timestamp, elapsed time, measured sample interval, and six motion axes at 25 Hz.")}
+          "This raw capture from a NESSO N1 shows the timestamp, elapsed time, measured sample interval and six motion axes at 25 Hz.")}
         <p>Raw per-axis values depend heavily on device orientation, making them less suitable for direct thresholding across different wearers. I therefore reduced the six axes to four orientation-tolerant features: acceleration magnitude, gyroscope magnitude, jerk and rotation activity.</p>
         <p>One detail that mattered more than expected: the BLE payload carries no device timestamp, and packet arrival is bursty. Computing jerk from arrival timing would have registered network jitter as worker movement. The live gateway reconstructs elapsed time from the fixed 25 Hz cadence instead.</p>
         ${shot("05-acceleration-signal-plot", "png", 757, 415,
@@ -3288,7 +3288,7 @@ function createConstructionModalMarkup(project) {
         <h3 class="modal-section-heading">Building the Detector</h3>
         <p>Each of the four features gets a threshold. Any feature that exceeds its threshold casts one vote. <strong>At least 2 of 4 votes trigger a safety event.</strong> Final calibrated values: acceleration &ge; 3.282 g, gyroscope &ge; 641.3 dps, jerk &ge; 67.41 g/s, rotation activity &ge; 524.5&deg;.</p>
         <p class="modal-media-caption">Values are rounded for display; full precision is retained in the report and database.</p>
-        <p>A voting rule was chosen over a single-signal trigger deliberately: it is explainable. After an incident you can reconstruct exactly which signals fired and by how much — something a supervisor investigating an alert can actually interrogate.</p>
+        <p>A voting rule was deliberately chosen over a single-signal trigger because it is explainable. After an incident, you can reconstruct exactly which signals fired and by how much — something a supervisor investigating an alert can actually interrogate.</p>
         ${shot("06-sqlite-schema-events-table", "png", 1282, 814,
           "DB Browser for SQLite showing the six-table schema with the events table columns expanded",
           "The events table schema. Every event stores a unique UUID, the vote count, and all four peak feature values — so any alert can be traced back to what triggered it.")}
@@ -3296,7 +3296,7 @@ function createConstructionModalMarkup(project) {
         <p>Thresholds live in a versioned <code>detector_config</code> table rather than hardcoded in the detection logic — so retuning later does not make historical events uninterpretable.</p>
         ${shot("03-two-devices-connected", "jpg", 1024, 576,
           "Two NESSO N1 devices side by side, both showing connected status for different workers",
-          "Two workers’ devices connected simultaneously. Each has its own BLE session and detector state, so one worker’s event or dropout never affects another.")}
+          "Two workers’ devices are connected simultaneously. Each has its own BLE session and detector state, so one worker’s event or dropout never affects another.")}
       </section>
 
       <section class="modal-section modal-case-section">
@@ -3312,29 +3312,29 @@ function createConstructionModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Outcome &amp; Results Achieved</h3>
-        <p>Validation used <strong>leave-one-worker-out cross-validation</strong> — hold out one worker, derive thresholds from the other three, test against the held-out worker’s data. This prevents the detector from being tuned to the same people it is scored on.</p>
+        <p>Validation used <strong>leave-one-worker-out cross-validation</strong>: one worker was held out, thresholds were derived from the other three workers, and the detector was tested against the held-out worker’s data. This prevents the detector from being tuned to the same people it is scored on.</p>
         ${callout("<strong>The frozen configuration detected 7 of 7 reliable labelled incidents, with zero false negatives.</strong>")}
         <p><strong>For the prototype interface, vote counts are displayed as SAFE, NEAR-MISS or FALL; this severity mapping is indicative and was not separately validated as a fall-versus-near-miss classifier.</strong></p>
-        <p>It also produced one false alarm across four normal-work recordings — 25% at recording level, 0.46% at scan-position level. I am reporting that alongside the recall figure rather than behind it. A separately flagged fall-like recording with ambiguous ground truth also went undetected, and is reported as a stress test rather than folded into the headline number.</p>
+        <p>It also produced one false alarm across four normal-work recordings — 25% at recording level, 0.46% at scan-position level. I am reporting that alongside the recall figure rather than behind it. A separately flagged fall-like recording with ambiguous ground truth also went undetected and is reported as a stress test rather than folded into the headline number.</p>
         ${shot("08-dashboard-live-signal", "jpg", 1280, 624,
           "Live signal view with dashed detector threshold lines drawn across the traces",
           "Live signal view — the dashed lines are the detector’s active thresholds, read live from the database config.")}
         ${callout("Analysing the stored events turned up something that shaped the team’s recommendations: <strong>the four features are not equally informative.</strong>")}
         <p>In the collected prototype data, rotation activity showed the clearest separation between the labelled groups — about 17% above the highest near-miss value, roughly double the near-miss mean. Acceleration and gyroscope showed only small margins. Jerk actually overlapped: one near-miss recorded a <em>higher</em> jerk than the fall event did.</p>
-        <p>That is a direct argument against the equal-weight voting rule we shipped, and it is why the recommendation is to weight rotation more heavily before reaching for machine learning.</p>
+        <p>That is a direct argument against the equal-weight voting rule used in the prototype, and it is why the recommendation is to weight rotation more heavily before reaching for machine learning.</p>
         ${clip("03-incident-log.mp4", "03-incident-log-poster.jpg", 1388, 650,
           "Screen recording of the incident log showing stored events and their peak feature values",
-          "Stored events with their full feature peaks — the data behind that analysis.")}
+          "Stored events retain their full feature peaks, providing the data used for this analysis.")}
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">What It Isn’t</h3>
         <p>This is a working prototype, not a deployable product, and the distinction matters on a safety system.</p>
-        <p>Four participants and seven scored incidents is not enough to generalise from. No real fall from height was tested — every fall-like movement was controlled at floor level, for obvious reasons. The current operating point still produces occasional false alarms, and on a safety tool nuisance alerts are their own failure mode: supervisors stop trusting them.</p>
+        <p>Four participants and seven scored incidents are not enough to generalise from. No real fall from height was tested — every fall-like movement was controlled at floor level, for obvious reasons. The current operating point still produces occasional false alarms, and on a safety tool, nuisance alerts are their own failure mode: supervisors stop trusting them.</p>
         ${shot("10-indoor-location-concept", "png", 1224, 698,
           "Concept mockup of indoor location tracking using BLE anchors, labelled future work and not yet built",
-          "Proposed next step: BLE trilateration for indoor location. The dashboard answers who and what — on a multi-storey site, where is the difference between knowing and reaching.")}
-        <p>The sequence we recommended: re-validate on more data, add a post-impact stillness feature to target the specific false-positive pattern found, weight the votes unequally, and only then train a classifier — keeping the rule-based detector running underneath as a fallback, so a model failure can never silently leave a worker unmonitored.</p>
+          "Proposed next step: BLE trilateration for indoor location. The dashboard already answers who and what; on a multi-storey site, location information could help a supervisor determine where an affected worker is.")}
+        <p>The sequence we recommended was to revalidate on more data, add a post-impact stillness feature to target the specific false-positive pattern, weight the votes unequally, and only then train a classifier. The rule-based detector would keep running underneath as a fallback, so a model failure can never silently leave a worker unmonitored.</p>
       </section>
 
       <div class="modal-tech-tags">${tags}</div>
