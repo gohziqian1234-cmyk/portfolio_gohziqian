@@ -73,6 +73,7 @@ const PROJECTS = {
     modalVariant: "ecowasteCaseStudy",
     reportUrl: "assets/EcoWaste-Report-A4.pdf",
     presentationUrl: "assets/EcoWaste-Presentation.pdf",
+    presentationVideoUrl: "assets/videos/ecowaste-presentation.mp4",
     dashboardUrl: "assets/EcoWaste-PowerBI-Dashboard-ZiQian.pbix",
     description: "Group data analytics project investigating Singapore’s waste generation and recycling trends. I built the OECD international benchmarking dashboard and developed the Return & Save policy recommendation.",
     tags: ["Python", "Power BI", "Data Cleaning", "Data Visualisation", "Forecasting", "Policy Benchmarking"],
@@ -2244,13 +2245,13 @@ def build_receipt(cart, discount_name):
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Project Scope / Problem</h3>
-        <p>An NYP Programming project focused on maintaining persistent cart state across Streamlit reruns and category navigation, applying discounts before 9% GST, and producing a clear itemised receipt for the complete ordering flow.</p>
+        <p>This NYP Programming project focused on maintaining persistent cart state across Streamlit reruns and category navigation, applying discounts before 9% GST, and producing a clear itemised receipt for the complete ordering flow.</p>
         ${createCaseStudyFigure("assets/mcfast-menu-browsing.png", "McFast menu browsing interface with food-item quantity controls and an empty cart", "Menu browsing screen showing food items, item names, prices, quantity controls, Add buttons, discount selection, and empty cart state.")}
       </section>
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">My Role &amp; Solution</h3>
-        <p>Solo project. I built a Streamlit app that lets a user browse menu categories, add items to a cart, update or remove quantities, apply discount logic, calculate 9% GST, and generate a final itemised receipt &mdash; the same core flow a real point-of-sale system needs to handle correctly.</p>
+        <p>This was a solo project. I built a Streamlit app that lets a user browse menu categories, add items to a cart, update or remove quantities, apply discount logic, calculate 9% GST, and generate a final itemised receipt &mdash; the same core flow a real point-of-sale system needs to handle correctly.</p>
       </section>
 
       <section class="modal-section modal-case-section">
@@ -2946,6 +2947,17 @@ function createEcowasteModalMarkup(project) {
       )}
 
       <section class="modal-section modal-case-section">
+        <h3 class="modal-section-heading">Presentation Video</h3>
+        <div class="modal-media modal-video-frame">
+          <video class="modal-video" controls playsinline poster="images/ecowaste/policy-scenario-forecast-dashboard.webp" preload="metadata" data-volume-boost="${MODAL_VIDEO_GAIN}">
+            <source src="${escapeHtml(project.presentationVideoUrl)}" type="video/mp4">
+            Your browser does not support video playback.
+          </video>
+        </div>
+        <p class="modal-media-caption">Final EcoWaste group presentation covering the data analysis, dashboard findings and proposed policy recommendations.</p>
+      </section>
+
+      <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Project Scope / Problem</h3>
         <p>This was a 5-person group project for the EG2A12 Data Preparation module at Nanyang Polytechnic (Team A4: Lim Hong Jean, Zi Qian, Kwan Teng, Pierre, and Emmanuel). The brief was to investigate a real Singapore data problem end-to-end &mdash; sourcing data, cleaning it, analysing it, and turning the findings into policy recommendations.</p>
         <p>The problem we investigated was Singapore&rsquo;s reliance on Pulau Semakau as its only landfill; at the current disposal rate, it is projected to run out of space by around 2035. Singapore’s Zero Waste Masterplan targets a 70% overall recycling rate and a 30% cut in daily per-capita waste sent to landfill, both by 2030. Our guiding question was: <strong>how can Singapore improve its waste management and recycling efficiency?</strong></p>
@@ -3134,7 +3146,7 @@ function createKeychainModalMarkup(project) {
         ], "First and second keychain print comparison", "is-document-safe is-landscape-pair")}
         <ol class="modal-feature-list">
           <li><strong>Illegible engraving.</strong> The ruler markings and numbers were spaced too tightly for the printer's nozzle diameter to resolve cleanly, so the printed scale appeared crowded and was difficult to read.</li>
-          <li><strong>Over-deep name engraving.</strong> The "Ziqian PB" text was engraved with too much depth, cutting through to the back face and weakening that section of the part as well as looking unfinished.</li>
+          <li><strong>Over-deep name engraving.</strong> The "Ziqian PB" text was engraved too deeply, causing it to cut through to the back face and weakening that section of the part as well as looking unfinished.</li>
           <li><strong>SD card read failure.</strong> The 3D printer would not detect the print file from the SD card. With the teacher's help, the card was reformatted, after which the file was recognised and the print completed successfully.</li>
         </ol>
         <p>For the second iteration, I widened the spacing between ruler markings and enlarged the scale numerals so they would resolve more clearly at the printer's minimum feature size. I also reduced the engraving depth on the name text so it no longer broke through to the back face. Both changes are visible in the yellow print: the ruler is more legible and the engraving no longer shows through.</p>
@@ -3156,7 +3168,7 @@ function createKeychainModalMarkup(project) {
 
       <section class="modal-section modal-case-section">
         <h3 class="modal-section-heading">Outcome &amp; Results Achieved</h3>
-        <p>The second print improved the main problems identified in the first iteration: ruler markings were spaced more clearly, scale numerals were enlarged, and the name engraving depth was reduced so it no longer broke through to the rear face. The final prototype therefore provided a cleaner and more manufacturable version of the original CAD design.</p>
+        <p>The second print addressed the main problems identified in the first iteration: ruler markings were spaced more clearly, scale numerals were enlarged, and the name engraving depth was reduced so it no longer broke through to the rear face. The final prototype therefore provided a cleaner and more manufacturable version of the original CAD design.</p>
       </section>
 
       <section class="modal-section modal-case-section">
@@ -3389,7 +3401,8 @@ function getProjectActionDefinitions(project) {
     ecowaste: [
       { label: "View Full Report", url: project.reportUrl, icon: "PDF", primary: true },
       { label: "View Presentation", url: project.presentationUrl, icon: "PDF", primary: false },
-      { label: "Download Dashboard (.pbix)", url: project.dashboardUrl, icon: "PBI", primary: false, download: "EcoWaste-PowerBI-Dashboard-ZiQian.pbix" }
+      { label: "Download Dashboard (.pbix)", url: project.dashboardUrl, icon: "PBI", primary: false, download: "EcoWaste-PowerBI-Dashboard-ZiQian.pbix" },
+      { label: "Watch Presentation Video", url: project.presentationVideoUrl, icon: "VIDEO", primary: false }
     ],
     construction: [
       { label: "View Full Report", url: project.reportUrl, icon: "PDF", primary: true },
